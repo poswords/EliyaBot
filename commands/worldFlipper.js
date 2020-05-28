@@ -33,7 +33,7 @@ const rotation = {
   aliases: ['rot', 'rotations', 'r'],
   description: 'Shows the daily material dungeon schedule.',
   execute(message) {
-    const attachment = new Attachment('./assets/charts/rotations.png', 'rotations.png');
+    const attachment = new Discord.Attachment('./assets/charts/rotations.png', 'rotations.png');
     return message.channel.send('', attachment);
   },
 };
