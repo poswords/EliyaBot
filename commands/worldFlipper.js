@@ -73,6 +73,9 @@ const character = {
 		if (item.ENName.toLowerCase().indexOf(chara) !== -1 ){
 			res = true;			
 		}
+		if (item.JPName.toLowerCase().indexOf(chara) !== -1 ){
+			res = true;			
+		}		
 		if (typeof item.OtherCommonNames!== 'undefined'){
 			if(item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1){
 				res = true;	
