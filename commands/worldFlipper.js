@@ -27,17 +27,6 @@ const sendMessage = async (unit, message) => {
 	await message.channel.send(getInfoEmbed(unit))
 };
 
-const rotation = {
-  name: 'rotation',
-  group,
-  aliases: ['rot', 'rotations', 'r'],
-  description: 'Shows the daily material dungeon schedule.',
-  execute(message) {
-    /*const attachment = new Discord.Attachment('./assets/charts/rotations.png', 'rotations.png');*/
-    return message.channel.send('', { files: ['./assets/charts/rotations.png'] });
-  },
-};
-
 const guide = {
   name: 'guide',
   group,
