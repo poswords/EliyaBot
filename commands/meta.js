@@ -1,5 +1,5 @@
 const path = require('path');
-const { RichEmbed } = require('discord.js');
+const Discord = require('discord.js');
 const moment = require('moment-timezone');
 
 const group = path.parse(__filename).name;
@@ -28,7 +28,7 @@ const help = {
         .filter(c => !c.hidden);
     });
 
-    const embed = new RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(`${user.username} commands list`)
       .setThumbnail(user.avatarURL)
       .setDescription('All commands can be abbreviated')
