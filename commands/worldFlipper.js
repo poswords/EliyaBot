@@ -82,4 +82,4 @@ const character = {
   },
 };
 
-module.exports = [rotation, guide, tls, character];
+module.exports = [ guide, tls, character];
