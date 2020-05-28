@@ -8,6 +8,8 @@
     "discord.io": "^2.5.3",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "googleapis": "^39.2.0",
+    "moment-timezone": "^0.5.31",
     "winston": "^3.2.1"
   }
 }
