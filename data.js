@@ -23,6 +23,7 @@ var range_rarity = [
 
 module.exports = {
   getData: function () {
+	  console.log('Getting data..')
     var results = [];
     sheets.spreadsheets.get({
       spreadsheetId: SPREADSHEET_ID
@@ -89,6 +90,7 @@ module.exports = {
         }
       );
     });
+	console.log('Complete')
     return results
   }
 }

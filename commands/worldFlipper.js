@@ -1,6 +1,7 @@
 const path = require('path');
 const Discord = require('discord.js');
-const data = require('../data').getData();
+const DB = require('../data')
+var data = DB.getData();
 
 const group = path.parse(__filename).name;
 
@@ -61,7 +62,6 @@ const character = {
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-	console.log(data);
 	var arrFound = data.filter(function(item) {
 		var res; 
 		if (typeof item.DevNicknames!== 'undefined'){
@@ -131,6 +131,17 @@ const race = {
 
   },
 };
+
+const update = {
+  name: 'update',
+  group,
+  usage: '<update>',
+  description: 'Sync spreadsheet data',
+  execute(message, args) {
+	  data = DB.getData();
+	  return message.channel.send('Database updated!');
+  },
+}
 /*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
-module.exports = [ guide, tls, character, race];
+module.exports = [ guide, tls, character, race, update];
