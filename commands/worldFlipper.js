@@ -61,18 +61,33 @@ const character = {
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-	
+	console.log(data);
 	var arrFound = data.filter(function(item) {
-		return item.DevNicknames.toLowerCase() == chara || item.ENName.toLowerCase().indexOf(chara) !== -1;	
+		var res; 
+		if (typeof item.DevNicknames!== 'undefined'){
+			if (item.DevNicknames.toLowerCase() == chara ){
+				return true;
+			}
+		}
+		
+		if (item.ENName.toLowerCase().indexOf(chara) !== -1 ){
+			res = true;			
+		}
+		if (typeof item.OtherCommonNames!== 'undefined'){
+			if(item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1){
+				res = true;	
+			}
+		}
+
+		return res
 	});					
 
     if (arrFound.length === 0) {
       return message.channel.send('No character found!');
     }
-	  
-	if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
+	if (arrFound.length > 30) {
+      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+    }	  
 	if (arrFound.length === 1) {	 
 	  sendMessage(arrFound[0], message);
 	}else{
@@ -82,4 +97,37 @@ const character = {
   },
 };
 
-module.exports = [ guide, tls, character];
+const race = {
+  name: 'race',
+  group,
+  args: true,
+  usage: '<chara race>',
+  aliases: ['r', 'race'],
+  description: 'Lists characters with the given race.',
+  async execute(message, args) {
+    const race = args.length ? args.join(' ').toLowerCase() : null;
+    if (race.length < 2) {
+      return message.channel.send('Search too short please have a minimum of 2 letters!');
+    }
+	
+	var arrFound = data.filter(function(item) {
+		return item.Race.toLowerCase().indexOf(race) !== -1;	
+	});					
+
+	if (arrFound.length === 0) {
+      return message.channel.send('No character found!');
+    }
+	if (arrFound.length > 40) {
+      return message.channel.send(arrFound.length + ' found! Please narrow your search');
+    }	  
+	if (arrFound.length === 1) {	 
+	  sendMessage(arrFound[0], message);
+	}else{
+		message.channel.send('Found matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
+	}
+
+  },
+};
+/*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
+
+module.exports = [ guide, tls, character, race];

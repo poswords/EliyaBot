@@ -9,10 +9,10 @@ const sheets = google.sheets({
   auth: APIKey
 });
 var range_names = [
-  "'5* Characters'!A1:M300",
-  "'4* Characters'!A1:M300",
-  "'3* Characters'!A1:M300",
-  "'1*/2* Characters'!A1:N30"
+  "'5* Characters'!A1:O300",
+  "'4* Characters'!A1:O300",
+  "'3* Characters'!A1:O300",
+  "'1*/2* Characters'!A1:P30"
 ];
 var range_rarity = [
   5,
@@ -51,36 +51,37 @@ module.exports = {
               })
               return temp;
             });
-            rows.forEach(function (item, index, object) {
-              if (item.Picture == '2*') {
-                object.splice(index, 1);
-              }
-              if (item.Picture == '1*') {
-                object.splice(index, 1);
-                rarity--;
-              }
-              item.Rarity = rarity;
-              switch (item.Attribute) {
-                case "火":
-                  item.Attribute = "Fire";
-                  break;
-                case "水":
-                  item.Attribute = "Water";
-                  break;
-                case "風":
-                  item.Attribute = "Wind";
-                  break;
-                case "雷":
-                  item.Attribute = "Thunder";
-                  break;
-                case "光":
-                  item.Attribute = "Light";
-                  break;
-                case "闇":
-                  item.Attribute = "Dark";
-                  break;
-              }
-            });
+			for (i = 0; i<rows.length; i++){
+				  if (rows[i].Picture == '2*') {
+					rows.splice(i, 1);
+					i--;
+				  }else if (rows[i].Picture == '1*') {
+					rows.splice(i, 1);
+					i--;
+					rarity--;
+				  }else {rows[i].Rarity = rarity;
+					  switch (rows[i].Attribute) {
+						case "火":
+						  rows[i].Attribute = "Fire";
+						  break;
+						case "水":
+						  rows[i].Attribute = "Water";
+						  break;
+						case "風":
+						  rows[i].Attribute = "Wind";
+						  break;
+						case "雷":
+						  rows[i].Attribute = "Thunder";
+						  break;
+						case "光":
+						  rows[i].Attribute = "Light";
+						  break;
+						case "闇":
+						  rows[i].Attribute = "Dark";
+						  break;
+					}
+				 }				
+			}
             Array.prototype.push.apply(results, rows)
 
           })
