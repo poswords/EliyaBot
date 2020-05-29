@@ -54,7 +54,7 @@ const getArtEmbed = unit => {
   const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
-      .setThumbnail('attachment://full_shot_0.png');
+      .setImage('attachment://full_shot_0.png');
   }else{
 	msg.setDescription('No full art yet')
   }
