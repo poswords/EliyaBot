@@ -50,13 +50,58 @@ const getThumbnailEmbed = unit => {
 const getArtEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter(unit.DevNicknames);
+    .setFooter('!alt '+ unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
   const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://full_shot_0.png');
   }else{
 	msg.setDescription('No full art yet')
+  }
+  return msg;
+
+};
+
+const getAltEmbed = unit => {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.ENName + ' ' + unit.JPName)
+    .setFooter('!art '+ unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
+  const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_1.png'
+  if (fs.existsSync(imagePath)) {
+    msg.attachFiles([imagePath])
+      .setImage('attachment://full_shot_1.png');
+  }else{
+	msg.setDescription('No awakened art yet')
+  }
+  return msg;
+
+};
+
+const getAnimationEmbed = unit => {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.ENName + ' ' + unit.JPName)
+    .setFooter(unit.DevNicknames);
+  const imagePath = './assets/chars/' + unit.DevNicknames + '/front.gif'
+  if (fs.existsSync(imagePath)) {
+    msg.attachFiles([imagePath])
+      .setImage('attachment://front.gif');
+  }else{
+	msg.setDescription('No idle animation yet')
+  }
+  return msg;
+
+};
+
+const getSpecialEmbed = unit => {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.ENName + ' ' + unit.JPName)
+    .setFooter(unit.DevNicknames);
+  const imagePath = './assets/chars/' + unit.DevNicknames + '/special.gif'
+  if (fs.existsSync(imagePath)) {
+    msg.attachFiles([imagePath])
+      .setImage('attachment://special.gif');
+  }else{
+	msg.setDescription('No special animation yet')
   }
   return msg;
 
@@ -72,6 +117,10 @@ const sendThumbnail = async (unit, message) => {
 
 const sendArt = async (unit, message) => {
   await message.channel.send(getArtEmbed(unit))
+};
+
+const sendAlt = async (unit, message) => {
+  await message.channel.send(getAltEmbed(unit))
 };
 
 const searchByName = chara => {
@@ -233,7 +282,34 @@ const art = {
     if (arrFound.length === 1) {
       sendArt(arrFound[0], message);
     } else {
-      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!a ${char.DevNicknames}`)).join('\n') + '```');
+      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!art ${char.DevNicknames}`)).join('\n') + '```');
+    }
+  },
+};
+const alt = {
+  name: 'alt',
+  group,
+  args: true,
+  usage: '<chara alt>',
+  aliases: ['al'],
+  description: 'Show alternate art of the character',
+  async execute(message, args) {
+    const chara = args.length ? args.join(' ').toLowerCase() : null;
+    if (chara.length < 2) {
+      return message.channel.send('Search too short please have a minimum of 2 letters!');
+    }
+    var arrFound = searchByName(chara);
+
+    if (arrFound.length === 0) {
+      return message.channel.send('No character found!');
+    }
+    if (arrFound.length > 30) {
+      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+    }
+    if (arrFound.length === 1) {
+      sendAlt(arrFound[0], message);
+    } else {
+      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!alt ${char.DevNicknames}`)).join('\n') + '```');
     }
   },
 };
@@ -250,4 +326,4 @@ const update = {
 }
 /*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
-module.exports = [guide, tls, character, race, whois, art, update];
+module.exports = [guide, tls, character, race, whois, art, alt, update];
