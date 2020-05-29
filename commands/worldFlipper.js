@@ -16,9 +16,9 @@ const getInfoEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
+      + '\n**Rarity: **' + rarity					
       + '\n**Leader Skill: **' + unit.LeaderBuff
-      + '\n**Active Skill: **' + unit.Skill
-      + '\n**Rarity: **' + rarity)
+      + '\n**Active Skill: **' + unit.Skill)
     .addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
