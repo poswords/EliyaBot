@@ -16,7 +16,7 @@ const getInfoEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
-      + '\n**Rarity: **' + rarity					
+      + '\n**Rarity: **' + rarity
       + '\n**Leader Skill: **' + unit.LeaderBuff
       + '\n**Active Skill: **' + unit.Skill)
     .addField('Ability 1', unit.Ability1, true)
@@ -28,7 +28,7 @@ const getInfoEmbed = unit => {
     msg.attachFiles([imagePath])
       .setThumbnail('attachment://square_0.png');
   }
-  return msg;	
+  return msg;
 };
 
 
@@ -50,13 +50,13 @@ const getThumbnailEmbed = unit => {
 const getArtEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter('!alt '+ unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
+    .setFooter('!alt ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
   const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://full_shot_0.png');
-  }else{
-	msg.setDescription('No full art yet')
+  } else {
+    msg.setDescription('No full art yet')
   }
   return msg;
 
@@ -65,13 +65,13 @@ const getArtEmbed = unit => {
 const getAltEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter('!art '+ unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
+    .setFooter('!art ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
   const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_1.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://full_shot_1.png');
-  }else{
-	msg.setDescription('No awakened art yet')
+  } else {
+    msg.setDescription('No awakened art yet')
   }
   return msg;
 
@@ -85,8 +85,8 @@ const getAnimationEmbed = unit => {
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://front.gif');
-  }else{
-	msg.setDescription('No idle animation yet')
+  } else {
+    msg.setDescription('No idle animation yet')
   }
   return msg;
 
@@ -100,8 +100,8 @@ const getSpecialEmbed = unit => {
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://special.gif');
-  }else{
-	msg.setDescription('No special animation yet')
+  } else {
+    msg.setDescription('No special animation yet')
   }
   return msg;
 
@@ -124,28 +124,34 @@ const sendAlt = async (unit, message) => {
 };
 
 const searchByName = chara => {
-  return data.filter(function (item) {
-    var res;
+  var result = data.filter(function (item) {
     if (typeof item.DevNicknames !== 'undefined') {
-      if (item.DevNicknames.toLowerCase() == chara) {
+      if (item.DevNicknames.toLowerCase() === chara) {
         return true;
       }
     }
-
-    if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
-      res = true;
-    }
-    if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
-      res = true;
-    }
-    if (typeof item.OtherCommonNames !== 'undefined') {
-      if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
-        res = true;
-      }
-    }
-
-    return res
   });
+  if (result.length <= 0) {
+
+    result = data.filter(function (item) {
+      var res;
+      if (res != true) {
+        if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
+        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
+        if (typeof item.OtherCommonNames !== 'undefined') {
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
+            res = true;
+          }
+        }
+      }
+      return res
+    });
+  }
+  return result;
 };
 
 const guide = {
