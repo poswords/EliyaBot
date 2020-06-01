@@ -31,6 +31,21 @@ const getInfoEmbed = unit => {
   return msg;
 };
 
+const getWeaponEmbed = unit => {
+  const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');	
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.ENName + ' ' + unit.JPName)
+    .setDescription('\n**Rarity: **' + rarity
+      + '\n**Weapon Skill: **' + unit.WeaponSkill)
+    .addField('Obtain', unit.Obtain, true)
+    .setFooter(unit.Notes);
+  const imagePath = './assets/chars/' + unit.DevNicknames + '/square_0.png'
+  if (fs.existsSync(imagePath)) {
+    msg.attachFiles([imagePath])
+      .setThumbnail('attachment://square_0.png');
+  }
+  return msg;
+}; 
 
 const getThumbnailEmbed = unit => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -108,6 +123,7 @@ const getSpecialEmbed = unit => {
 };
 
 const sendMessage = async (unit, message) => {
+	console.log(unit);	
   await message.channel.send(getInfoEmbed(unit))
 };
 
@@ -122,6 +138,20 @@ const sendArt = async (unit, message) => {
 const sendAlt = async (unit, message) => {
   await message.channel.send(getAltEmbed(unit))
 };
+
+const sendMalte = async (message)=>{
+  const unit = {
+	  ENName:'Malte',
+	  JPName:'マルテ',
+	  Rarity: 5,
+	  WeaponSkill:'When entire party has penetration effect, self attack +280%',
+	  Obtain:"This is not a unit. It's a weapon you get from Heart Scroll Trade-in. You can get heart scroll by maxing mana boards",
+	  Notes:"This is the only weapon in the bot database due to high number of people wanting to know wtf is Malte",
+	  DevNicknames:'malte'
+  }
+  console.log(unit);
+  await message.channel.send(getWeaponEmbed(unit))	
+}
 
 const searchByName = chara => {
   var result = data.filter(function (item) {
@@ -188,20 +218,24 @@ const character = {
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-    var arrFound = searchByName(chara);
+	if (chara == 'malte'){
+	  sendMalte(message);
+	}else{
+		
+		var arrFound = searchByName(chara);
 
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendMessage(arrFound[0], message);
-    } else {
-      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
-    }
-
+		if (arrFound.length === 0) {
+		  return message.channel.send('No character found!');
+		}
+		if (arrFound.length > 30) {
+		  return message.channel.send(arrFound.length + 'found! Please narrow your search');
+		}
+		if (arrFound.length === 1) {
+		  sendMessage(arrFound[0], message);
+		} else {
+		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
+		}
+	}
   },
 };
 
@@ -246,22 +280,27 @@ const whois = {
   description: 'Show thumbnail of the character',
   async execute(message, args) {
     const chara = args.length ? args.join(' ').toLowerCase() : null;
+	  
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-    var arrFound = searchByName(chara);
+	if (chara == 'malte'){
+	  sendMalte(message);
+	}else{
+		var arrFound = searchByName(chara);
 
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendThumbnail(arrFound[0], message);
-    } else {
-      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!w ${char.DevNicknames}`)).join('\n') + '```');
-    }
+		if (arrFound.length === 0) {
+		  return message.channel.send('No character found!');
+		}
+		if (arrFound.length > 30) {
+		  return message.channel.send(arrFound.length + 'found! Please narrow your search');
+		}
+		if (arrFound.length === 1) {
+		  sendThumbnail(arrFound[0], message);
+		} else {
+		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!w ${char.DevNicknames}`)).join('\n') + '```');
+		}
+	}
   },
 };
 
