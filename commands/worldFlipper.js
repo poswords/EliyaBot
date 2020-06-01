@@ -123,7 +123,6 @@ const getSpecialEmbed = unit => {
 };
 
 const sendMessage = async (unit, message) => {
-	console.log(unit);	
   await message.channel.send(getInfoEmbed(unit))
 };
 
@@ -149,7 +148,6 @@ const sendMalte = async (message)=>{
 	  Notes:"This is the only weapon in the bot database due to high number of people wanting to know wtf is Malte",
 	  DevNicknames:'malte'
   }
-  console.log(unit);
   await message.channel.send(getWeaponEmbed(unit))	
 }
 
