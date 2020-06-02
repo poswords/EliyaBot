@@ -117,7 +117,7 @@
 						.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png">'));
 					elem.appendTo($("#charRarity"+unit.Rarity));
 					elem.data("DevNicknames", unit.DevNicknames);
-					elem.on(inputDown,function(){
+					elem.on("click",function(){
 						$(this).toggleClass("checked");
 					});
 					elem.on("mouseover",function(e){
@@ -147,14 +147,14 @@
 				document.body.removeChild(el);
 			}
 
-			$("#btnExpand").on(inputDown, function(){
+			$("#btnExpand").on("click", function(){
 				$("#info").addClass("expanded");
 			});
-			$("#btnClose").on(inputDown, function(){
+			$("#btnClose").on("click", function(){
 				$("#info").removeClass("expanded");
 			});			
 			
-			$("#btnGetShareURL").on(inputDown, function(){
+			$("#btnGetShareURL").on("click", function(){
 				$(this).removeClass("on");
 				var units = [];
 				$(".checked").each(function(){
