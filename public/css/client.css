@@ -180,6 +180,7 @@ body
 	text-align: left;
 	font-weight: bold;
 	overflow-y: auto;
+	max-height: 240px;
 }
 #info .details span{
 	font-weight: normal;
