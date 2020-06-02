@@ -66,3 +66,8 @@
 	border: none;
 	background: none;
 }
+#chars{
+}
+#chars li{
+	float: left;
+}

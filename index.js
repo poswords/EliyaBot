@@ -31,9 +31,7 @@ const DB = require('./data')
 var data = DB.getData();
 
 io.on('connection', function(socket){
-	console.log("someone connected");
-	socket.emit('connected', {});
-  
+	socket.emit('data', data);
 });
 
 server.listen(listenport, function(){

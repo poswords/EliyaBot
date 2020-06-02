@@ -16,6 +16,7 @@
 
 <body class="body">
 	<div class="wrapper">
+		<ul id="chars"></ul>
 	</div>
 	
 	<script src="/socket.io/socket.io.js"></script>
@@ -29,6 +30,7 @@
 			var inputUp = isIOS ? "touchend" : "touchend mouseup";
 			var w_width = $(window).width();
 			var w_height = $(window).height();
+			const assetPath = './img/assets/'
 			var socket = io();
 
 			function clearUI() {
@@ -43,19 +45,22 @@
 			function resizeCheck() {
 				w_width = $(window).width();
 				w_height = $(window).height();
-				itemZoom($(".item"));
 			}
 			$(window).resize(function () {
 				resizeCheck();
 			});
 			resizeCheck();
 
-			socket.on('connected', function () {
-				socket.emit('device', 'client');
+			socket.on('data', function (data) {
+				data.forEach(function(unit){
+					var elem = $('<li id="char-'+unit.DevNicknames+'"></li>')
+						.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png">'));
+					elem.appendTo($("#chars"));
+				});
 			});
 		});
 	</script>
-
+	
 	</body>
 	
 </html>
