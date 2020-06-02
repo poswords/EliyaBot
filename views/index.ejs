@@ -17,6 +17,25 @@
 <body class="body">
 	<div class="wrapper">
 		<ul id="chars"></ul>
+		<div id="info">
+
+			
+		</div>
+	</div>
+	<div id="charInfoTemplate">
+		<h1 class="ENName"><span></span></h1>
+		<h2 class="JPName"><span></span></h2>
+		<div class="Art"></div>
+		<div class="Attribute">Attribute: <span></span></div>
+        <div class="Rarity">Rarity: <span></span></div>
+		<div class="LeaderBuff">Leader Skill: <span></span></div>
+		<div class="Skill">Active Skill: <span></span></div>		
+		<div class="Ability1">Ability 1: <span></span></div>		
+		<div class="Ability2">Ability 2: <span></span></div>		
+		<div class="Ability3">Ability 3: <span></span></div>
+		<div class="Role"><span></span></div>
+		<div class="Gender"><span></span></div>
+		<div class="Race"><span></span></div>
 	</div>
 	
 	<script src="/socket.io/socket.io.js"></script>
@@ -40,7 +59,6 @@
 			if(window.location.hash) {
 				
 			}				
-						
 
 			function resizeCheck() {
 				w_width = $(window).width();
@@ -56,8 +74,19 @@
 					var elem = $('<li id="char-'+unit.DevNicknames+'"></li>')
 						.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png">'));
 					elem.appendTo($("#chars"));
+					
+					elem.on(inputDown,function(){
+						var info = $("#charInfoTemplate").clone();
+						Object.keys(unit).forEach(function(key) {
+						   info.find('.'+key+' span').text(unit[key]);
+						});
+						info.find('.Art').html('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/full_shot_0.png">');
+						$("#info").html("").append(info);
+					});
 				});
+				
 			});
+			
 		});
 	</script>
 	
