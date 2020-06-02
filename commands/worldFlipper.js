@@ -3,9 +3,9 @@ const path = require('path');
 const Discord = require('discord.js');
 const DB = require('../data')
 var data = DB.getData();
-
+const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
-
+const url = 
 const getInfoEmbed = unit => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -22,12 +22,13 @@ const getInfoEmbed = unit => {
     .addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
+    .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
     .setFooter(footer);
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/square_0.png'
+/*  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/square_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setThumbnail('attachment://square_0.png');
-  }
+  }*/
   return msg;
 };
 
@@ -38,12 +39,13 @@ const getWeaponEmbed = unit => {
     .setDescription('\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
+    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
     .setFooter(unit.Notes);
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/square_0.png'
+/*  const imagePath = assetPath + 'equips/' + unit.DevNicknames + '/square_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setThumbnail('attachment://square_0.png');
-  }
+  }*/
   return msg;
 }; 
 
@@ -54,7 +56,7 @@ const getThumbnailEmbed = unit => {
     .setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
     .setFooter(unit.DevNicknames);
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/square_0.png'
+  const imagePath = assetPath + '/chars/' + unit.DevNicknames + '/square_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setThumbnail('attachment://square_0.png');
@@ -66,7 +68,7 @@ const getArtEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter('!alt ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_0.png'
+  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://full_shot_0.png');
@@ -81,7 +83,7 @@ const getAltEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter('!art ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/full_shot_1.png'
+  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://full_shot_1.png');
@@ -96,7 +98,7 @@ const getAnimationEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter(unit.DevNicknames);
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/front.gif'
+  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/front.gif'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://front.gif');
@@ -111,7 +113,7 @@ const getSpecialEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter(unit.DevNicknames);
-  const imagePath = './assets/chars/' + unit.DevNicknames + '/special.gif'
+  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/special.gif'
   if (fs.existsSync(imagePath)) {
     msg.attachFiles([imagePath])
       .setImage('attachment://special.gif');
@@ -146,7 +148,7 @@ const sendMalte = async (message)=>{
 	  WeaponSkill:'When entire party has penetration effect, self attack +280%',
 	  Obtain:"This is not a unit. It's a weapon you get from Heart Scroll Trade-in. You can get heart scroll by maxing mana boards",
 	  Notes:"This is the only weapon in the bot database due to high number of people wanting to know wtf is Malte",
-	  DevNicknames:'malte'
+	  DevNicknames:'general/spear_0005'
   }
   await message.channel.send(getWeaponEmbed(unit))	
 }
