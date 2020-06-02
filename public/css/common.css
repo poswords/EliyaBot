@@ -13,7 +13,8 @@ body
 img
 {
     display: block;
-
+	max-width: 100%;
+	height: auto;
     -webkit-user-drag: none;
      -khtml-user-drag: none;
        -moz-user-drag: none;
@@ -31,4 +32,7 @@ input:after
             user-select: initial;
 
      -khtml-user-select: initial;
+}
+.hidden{
+	display: none;
 }

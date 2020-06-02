@@ -22,6 +22,11 @@ app.get('/', function(req, res){
 	});	
 });
 
+var mysql = require('mysql');
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+
+connection.connect();
+
 function Client(id, name, device) {
   this.id = id;
   this.name = name;
@@ -31,7 +36,33 @@ const DB = require('./data')
 var data = DB.getData();
 
 io.on('connection', function(socket){
-	socket.emit('data', data);
+
+	io.to(socket.id).emit('data',data);	
+
+	socket.on('add url', function(list){
+		connection.query('INSERT INTO short_urls SET url="'+list+'"',function(err, rows, fields) {
+				//if(err) throw err
+				if (err) {
+					console.log(err);
+				} else {
+					io.to(socket.id).emit('url added', {id:rows.insertId, url:list});
+				}
+			  });	 
+		});
+	socket.on('get url', function(id){
+		connection.query('SELECT * FROM short_urls WHERE id='+id,function(err, rows, fields) {			
+				//if(err) throw err
+				if (err) {
+					console.log(err);
+				} else {
+					rows.forEach(function(row){
+						delete row.created_date;
+					});					
+					io.to(socket.id).emit('url', rows[0]);
+				}
+			  });	 
+		});	
+	
 });
 
 server.listen(listenport, function(){

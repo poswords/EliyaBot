@@ -1,14 +1,12 @@
-.body
+body
 {
     z-index: 1;
+	padding:60px 0;
 }
 
 .body,
 .wrapper
 {
-    position: absolute;
-    top: 0;
-
     width: 100%;
     margin: 0;
 }
@@ -27,9 +25,11 @@
 
     transition: .1s all;
     text-align: center;
-
+	box-shadow: 0 0 1px 1px #aaa;
     border-radius: 50px;
-    background: #ccc;
+    background: #fff;
+	cursor: pointer;
+
 }
 .button svg{
 	vertical-align: top;	
@@ -61,8 +61,136 @@
 	border: none;
 	background: none;
 }
-#chars{
+.toolbar{
+	position: fixed;
+	top:0;
+	left:0;
+	width:100%;
 }
-#chars li{
-	float: left;
+.title{
+	font-size: 40px;
+	padding:10px;text-align: center;
+	margin-bottom:30px;
+}
+#btnGetShareURL{
+	position: absolute;
+	right:10px;
+	top:10px;
+}
+#chars{
+	max-width:920px;
+	margin: 0 auto;
+	
+}
+
+#chars ul{
+	display: flex;
+	flex-wrap: wrap;
+	align-content:flex-start;
+}
+#chars li{ 
+	width: 64px;
+	height: 64px;
+	border:3px solid #fff;
+	background: #fff;
+	margin: 2px;
+	box-sizing: border-box;
+	border-radius: 3px;
+	opacity: 0.35;
+	box-shadow: 0 0 1px 1px #aaa;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+#chars h2{
+	clear:both;
+	margin:20px 0 10px;
+}
+#chars li.checked{
+	border:3px solid #fff;
+	padding: 0;
+	background: #dde;
+	opacity: 1;	
+}
+#chars li img{
+	max-width: 100%;
+	height: auto;
+}
+#info{
+	position:fixed;
+	background:#fff;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 1px #aaa;	
+	width:100%;
+	bottom: 0px;
+	left:0px;
+	height: 30px;
+	text-align: center;
+	transition: 0.5s all;
+}
+#info.expanded{
+	height: 300px;		
+}
+#info .expandBlock{
+	opacity: 0;
+	height:0;
+	transition: 0.5s all;	
+}
+#info.expanded .expandBlock{
+	opacity: 1;
+
+}
+#info h1, #info h2{
+	display: inline-block;
+	font-size:14px;
+	font-weight: bold;
+	line-height: 30px;
+}
+#btnExpand{
+	position: absolute;
+	top: -30px;
+	right:10px;
+}
+#btnClose{
+	position: absolute;
+	top: -30px;
+	right:10px;
+	pointer-events: none;
+	opacity: 0;
+	transition: 0.5s all;
+}
+#info.expanded #btnExpand{
+	pointer-events: none;
+	opacity: 0;
+}
+#info.expanded #btnClose{
+	pointer-events: auto;
+	opacity: 1;
+}
+.infoWrapper{
+	max-width:920px;
+	margin: 0 auto;
+	line-height: 1.5em;
+}
+#info .Art{
+	float:left;
+	width: 240px;
+	height: 240px;
+}
+#info .details{
+	text-align: left;
+	font-weight: bold;
+	overflow-y: auto;
+}
+#info .details span{
+	font-weight: normal;
+	
+}
+#info .footer{
+	font-size: normal;
+	color:#666;
+	margin-top:20px;
+}
+#info .footer div{
+	display: inline-block;
+	margin-right:10px;
 }
