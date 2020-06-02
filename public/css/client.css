@@ -76,6 +76,7 @@ body
 	position: absolute;
 	right:10px;
 	top:10px;
+	background:#fff;
 }
 #chars{
 	max-width:920px;
