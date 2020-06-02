@@ -1,0 +1,34 @@
+xa
+{
+    cursor: pointer;
+}
+
+body
+{
+    font: 13px Helvetica, Arial;
+
+    position: relative;
+}
+
+img
+{
+    display: block;
+
+    -webkit-user-drag: none;
+     -khtml-user-drag: none;
+       -moz-user-drag: none;
+         -o-user-drag: none;
+            user-drag: none;
+    touch-action: manipulation;
+}
+input,
+input:before,
+input:after
+{
+    -webkit-user-select: initial;
+       -moz-user-select: initial;
+        -ms-user-select: initial;
+            user-select: initial;
+
+     -khtml-user-select: initial;
+}

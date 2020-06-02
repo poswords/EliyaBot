@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  
+<title>Eliya Stuffs</title>
+<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+<link rel="stylesheet" href="/css/reset.css" type="text/css">	
+<link rel="stylesheet" href="/css/common.css" type="text/css">	
+<link rel="stylesheet" href="/css/client.css" type="text/css">	
+<link rel="stylesheet" href="/css/iconfont/material-icons.css">	
+<style>
+
+		</style>
+	</head>
+
+<body class="body">
+	<div class="wrapper">
+	</div>
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	
+	<script>
+		$(document).ready(function () {
+			var clientid;
+			var isIOS = ((/iphone|ipad/gi).test(navigator.appVersion));
+			var inputDown = isIOS ? "touchstart" : "touchstart mousedown";
+			var inputUp = isIOS ? "touchend" : "touchend mouseup";
+			var w_width = $(window).width();
+			var w_height = $(window).height();
+			var socket = io();
+
+			function clearUI() {
+				
+			}
+			
+			if(window.location.hash) {
+				
+			}				
+						
+
+			function resizeCheck() {
+				w_width = $(window).width();
+				w_height = $(window).height();
+				itemZoom($(".item"));
+			}
+			$(window).resize(function () {
+				resizeCheck();
+			});
+			resizeCheck();
+
+			socket.on('connected', function () {
+				socket.emit('device', 'client');
+			});
+		});
+	</script>
+
+	</body>
+	
+</html>
