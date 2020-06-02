@@ -23,7 +23,7 @@ body
     margin: 10px;
     padding: 10px;
 
-    transition: .1s all;
+    transition: 0.5s all;
     text-align: center;
 	box-shadow: 0 0 1px 1px #aaa;
     border-radius: 50px;
@@ -38,7 +38,7 @@ body
 .button.on
 {
     color: #fff;
-    background: #36e;
+    background:#63B74B;
 }
 .button.pressed svg,
 .button.on svg

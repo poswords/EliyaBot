@@ -155,6 +155,7 @@
 			});			
 			
 			$("#btnGetShareURL").on(inputDown, function(){
+				$(this).removeClass("on");
 				var units = [];
 				$(".checked").each(function(){
 					var DevNicknames = $(this).data("DevNicknames");
