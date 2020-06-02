@@ -34,7 +34,7 @@ const getWeaponEmbed = unit => {
     .setDescription('\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
-    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
+    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')  
     .setFooter(unit.Notes);
   return msg;
 }; 
