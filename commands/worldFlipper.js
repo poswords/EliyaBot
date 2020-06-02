@@ -24,11 +24,6 @@ const getInfoEmbed = unit => {
     .addField('Ability 3', unit.Ability3, true)
     .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
     .setFooter(footer);
-/*  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/square_0.png'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setThumbnail('attachment://square_0.png');
-  }*/
   return msg;
 };
 
@@ -39,12 +34,8 @@ const getWeaponEmbed = unit => {
     .setDescription('\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
+    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
     .setFooter(unit.Notes);
-/*  const imagePath = assetPath + 'equips/' + unit.DevNicknames + '/square_0.png'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setThumbnail('attachment://square_0.png');
-  }*/
   return msg;
 }; 
 
@@ -54,26 +45,16 @@ const getThumbnailEmbed = unit => {
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
+    .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')  
     .setFooter(unit.DevNicknames);
-  const imagePath = assetPath + '/chars/' + unit.DevNicknames + '/square_0.png'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setThumbnail('attachment://square_0.png');
-  }
   return msg;
 };
 
 const getArtEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
+    .setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png')
     .setFooter('!alt ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
-  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setImage('attachment://full_shot_0.png');
-  } else {
-    msg.setDescription('No full art yet')
-  }
   return msg;
 
 };
@@ -81,14 +62,8 @@ const getArtEmbed = unit => {
 const getAltEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
+.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png')  
     .setFooter('!art ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
-  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setImage('attachment://full_shot_1.png');
-  } else {
-    msg.setDescription('No awakened art yet')
-  }
   return msg;
 
 };
@@ -96,14 +71,8 @@ const getAltEmbed = unit => {
 const getAnimationEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
+  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/front.gif')  
     .setFooter(unit.DevNicknames);
-  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/front.gif'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setImage('attachment://front.gif');
-  } else {
-    msg.setDescription('No idle animation yet')
-  }
   return msg;
 
 };
@@ -111,16 +80,9 @@ const getAnimationEmbed = unit => {
 const getSpecialEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
+  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/special.gif')    
     .setFooter(unit.DevNicknames);
-  const imagePath = assetPath + 'chars/' + unit.DevNicknames + '/special.gif'
-  if (fs.existsSync(imagePath)) {
-    msg.attachFiles([imagePath])
-      .setImage('attachment://special.gif');
-  } else {
-    msg.setDescription('No special animation yet')
-  }
   return msg;
-
 };
 
 const sendMessage = async (unit, message) => {
