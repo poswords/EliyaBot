@@ -5,7 +5,7 @@ const DB = require('../data')
 var data = DB.getData();
 const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
-const url = 
+
 const getInfoEmbed = unit => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -39,7 +39,6 @@ const getWeaponEmbed = unit => {
     .setDescription('\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
-    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
     .setFooter(unit.Notes);
 /*  const imagePath = assetPath + 'equips/' + unit.DevNicknames + '/square_0.png'
   if (fs.existsSync(imagePath)) {
