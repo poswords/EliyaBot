@@ -112,6 +112,7 @@
 	
 			socket.on('data', function (data) {
 				if(!loaded){
+					$('.charList').html("");
 					data.forEach(function(unit){
 						var elem = $('<li id="char-'+unit.DevNicknames+'" class="'+unit.Attribute+'"></li>')
 							.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png">'));
