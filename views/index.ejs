@@ -17,10 +17,11 @@
 <body class="body">
 	<div class="wrapper">
 	<div class="toolbar">
+	<ul class="btnList">
+		<li id="btnSave" class="button">Save</li>
+		<li id="btnGetShareURL" class="button">Generate Share URL</li>		
+		</ul>
 
-		
-		<div id="btnGetShareURL" class="button">Generate Share URL</div>
-		<div id="shareUrl" class="hidden"><span></span> URL Copied!</div>
 	</div>		
 		<h1 class="title">World Flipper Collection Tracker</h1>		
 		<article id="chars">
@@ -71,6 +72,7 @@
 	
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>	
 	
 	<script>
 		$(document).ready(function () {
@@ -87,8 +89,6 @@
 				
 			}
 			
-			
-
 			function resizeCheck() {
 				w_width = $(window).width();
 				w_height = $(window).height();
@@ -97,20 +97,17 @@
 				resizeCheck();
 			});
 			resizeCheck();
+			
 			socket.on('url added',function(url){
 				const shareUrl = "http://eliya-bot.herokuapp.com/#list="+url.id
 				copyToClipboard(shareUrl);
-				$("#btnGetShareURL").text("URL Copied").addClass("on");
+				$("#btnGetShareURL").text("Share URL Copied").addClass("on");
 				
 			});
-			
 			socket.on('url',function(url){
-				var units = url.url.split(",");
-				$(".checked").removeClass(".checked");
-				units.forEach(function(unit){
-					$("#char-"+unit).addClass("checked");
-				});
+				setUnitList(url.url);
 			});		
+	
 			socket.on('data', function (data) {
 				data.forEach(function(unit){
 					var elem = $('<li id="char-'+unit.DevNicknames+'" class="'+unit.Attribute+'"></li>')
@@ -119,6 +116,7 @@
 					elem.data("DevNicknames", unit.DevNicknames);
 					elem.on("click",function(){
 						$(this).toggleClass("checked");
+						$("#btnSave").removeClass("on");
 					});
 					elem.on("mouseover",function(e){
 						var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id","");
@@ -129,10 +127,20 @@
 						$("#info .infoWrapper").html("").append(info);						
 					});
 				});
+				var elem = ''
+				for (i=0; i<13; i++){
+					elem+='<li class="spookyStuff">';
+				}
+				$('.charList').append($(elem));
 				if(window.location.hash) {
 					var id= window.location.hash.replace("#list=","");
 					socket.emit('get url', id);
-				}	
+				}else{
+					var unitList = Cookies.get('unitList');
+					if(unitList!==''){
+						setUnitList(unitList);
+					}
+				}
 			});
 
 			function copyToClipboard(str){
@@ -152,7 +160,14 @@
 			});
 			$("#btnClose").on("click", function(){
 				$("#info").removeClass("expanded");
-			});			
+			});		
+			$("#btnSave").on("click", function(){
+				Cookies.set('unitList', getUnitList());
+				$(this).removeClass("on");	
+				setTimeout(function(){
+					$("#btnSave").addClass("on")
+				},100);
+			});
 			
 			$("#btnGetShareURL").on("click", function(){
 				$(this).removeClass("on");
@@ -161,12 +176,24 @@
 					var DevNicknames = $(this).data("DevNicknames");
 					units.push(DevNicknames);
 				})
-				var unitList = units.join();
-				socket.emit('add url', unitList);
+				socket.emit('add url', getUnitList());
 			});
-
 			
-			
+			function setUnitList(unitList){
+				var units = unitList.split(",")
+				$(".checked").removeClass(".checked");
+				units.forEach(function(unit){
+					$("#char-"+unit).addClass("checked");
+				});
+			}
+			function getUnitList(){
+				var units = [];
+				$(".checked").each(function(){
+					var DevNicknames = $(this).data("DevNicknames");
+					units.push(DevNicknames);
+				});
+				return units.join();
+			}
 			
 		});
 	</script>

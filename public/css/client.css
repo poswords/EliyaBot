@@ -23,7 +23,7 @@ body
     margin: 10px;
     padding: 10px;
 
-    transition: 0.5s all;
+
     text-align: center;
 	box-shadow: 0 0 1px 1px #aaa;
     border-radius: 50px;
@@ -37,6 +37,7 @@ body
 .button.pressed,
 .button.on
 {
+	transition: 0.3s all;
     color: #fff;
     background:#63B74B;
 }
@@ -66,22 +67,26 @@ body
 	top:0;
 	left:0;
 	width:100%;
+	z-index: 20;
 }
 .title{
 	font-size: 40px;
 	padding:10px;text-align: center;
 	margin-bottom:30px;
 }
-#btnGetShareURL{
+
+.toolbar .btnList{
 	position: absolute;
 	right:10px;
 	top:10px;
-	background:#fff;
+}
+
+#btnGetShareURL{
+	width:140px;
 }
 #chars{
-	max-width:920px;
+	max-width:960px;
 	margin: 0 auto;
-	
 }
 
 #chars ul{
@@ -90,8 +95,6 @@ body
 	align-content:flex-start;
 }
 #chars li{ 
-	width: 64px;
-	height: 64px;
 	border:3px solid #fff;
 	background: #fff;
 	margin: 2px;
@@ -101,16 +104,23 @@ body
 	box-shadow: 0 0 1px 1px #aaa;
 	transition: all 0.5s;
 	cursor: pointer;
+	flex: 1 1 60px;
 }
 #chars h2{
 	clear:both;
-	margin:20px 0 10px;
+	margin:20px 0 10px 5px;
 }
 #chars li.checked{
 	border:3px solid #fff;
 	padding: 0;
 	background: #dde;
 	opacity: 1;	
+}
+#chars li.spookyStuff{
+	border-top: none;
+	border-bottom: none;
+	opacity: 0;
+	cursor: auto;
 }
 #chars li img{
 	max-width: 100%;
@@ -195,4 +205,12 @@ body
 #info .footer div{
 	display: inline-block;
 	margin-right:10px;
+}
+@media all and (max-width: 920px) {
+	.wrapper{
+		width: 92%;
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+	
 }
