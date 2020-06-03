@@ -94,7 +94,7 @@ $(document).ready(function () {
 		$("#info").removeClass("expanded");
 	});		
 	$("#btnSave").on("click", function(){
-		Cookies.set('unitList', getUnitList());
+		Cookies.set('unitList', getUnitList(), { expires: 60 });
 		$(this).removeClass("on");	
 		setTimeout(function(){
 			$("#btnSave").addClass("on")

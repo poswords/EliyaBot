@@ -48,8 +48,6 @@ app.get('/comp/:w', function(req, res){
 		
 	}
 
-/*http://eliya-bot.herokuapp.com/comp/ruin_girl_halfanv-ruin_girl-illusionist-starbreak_hunter-priest-prince_zero.png*/
-
 });
 
 var mysql = require('mysql');
