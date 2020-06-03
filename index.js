@@ -31,7 +31,6 @@ app.get('/comp/:w', function(req, res){
 
 	var count=0;
 	for (i=0;i<units.length;i++){
-		console.log(units[i]);
 		loadImage('./public/img/assets/chars/'+units[i]+'/square_0.png').then((image) => {
 			ctx.drawImage(image, 10+(count%3)*92, 10+Math.floor(count/3)*92, 82, 82);
 			count++;

@@ -138,6 +138,28 @@ body.expanded{
 .planner .char{
 	opacity: 1;		
 }
+#planner .charList .char:after{
+	font-size: 10px;
+	color:#333;
+}
+#planner .charList:first-child .char:nth-child(1):after{
+	content:"Leader";
+}
+#planner .charList:first-child .char:nth-child(2):after{
+	content:"Main";
+}
+#planner .charList:first-child .char:nth-child(3):after{
+	content:"Main";
+}
+#planner .charList .char:nth-child(1):after{
+	content:"Sub";
+}
+#planner .charList .char:nth-child(2):after{
+	content:"Sub";
+}
+#planner .charList .char:nth-child(3):after{
+	content:"Sub";
+}
 #info{
 	position:fixed;
 	background:#fff;
@@ -154,7 +176,7 @@ body.expanded{
 	height: 300px;		
 }
 #info.planner{
-	height: 240px;		
+	height: 260px;		
 }
 #info .expandBlock{
 	opacity: 0;
@@ -203,7 +225,7 @@ body.expanded{
 }
 .plannerWrapper{
 	max-width:240px;
-	margin: 20px auto;	
+	margin: 10px auto;	
 }
 #info .Art{
 	float:left;
