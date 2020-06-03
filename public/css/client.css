@@ -156,15 +156,23 @@ body
 	font-weight: bold;
 	line-height: 30px;
 }
+#info .btnList{
+    height: 20px;
+    width: 50px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%,-20px);
+}
 #info .button{
 	position: absolute;	
 	top: 0px;
     left: 50%;
-    transform: translate(-50%,-125%);
-    z-index: -1;
-    padding: 5px;
-    margin: 0;
-	transition: 0.5s all;
+    transform: translate(-50%,0);
+	padding: 0 5px 10px;
+    margin: 1px 0 0;
+    transition: 0.5s all;
 }
 #btnExpand{
 }
@@ -215,5 +223,15 @@ body
 		padding-left: 4%;
 		padding-right: 4%;
 	}
+	#info .Art{
+		width: 30vw;
+		height: 30vw;
+	}
+}	
 	
+@media all and (max-width: 480px) {
+	#info .Art{
+		width: 40vw;
+		height: 40vw;
+	}	
 }

@@ -40,12 +40,14 @@
 		<div id="info">
 			<div class="infoWrapper">
 			</div>
-			<div id="btnExpand" class="button">
-				<i class="material-icons">keyboard_arrow_up</i>
+			<div class="btnList">
+				<div id="btnExpand" class="button">
+					<i class="material-icons">keyboard_arrow_up</i>
+				</div>
+				<div id="btnClose" class="button">
+					<i class="material-icons">keyboard_arrow_down</i>
+				</div>				
 			</div>
-			<div id="btnClose" class="button">
-				<i class="material-icons">keyboard_arrow_down</i>
-			</div>				
 		</div>
 	</div>
 	<div id="charInfoTemplate" class="hidden" >
@@ -86,7 +88,7 @@
 			const assetPath = './img/assets/'
 			var socket = io();
 			var loaded = false;
-
+			var waitingForUrl = false;
 			function clearUI() {
 				
 			}
@@ -107,7 +109,10 @@
 				
 			});
 			socket.on('url',function(url){
-				setUnitList(url.url);
+				if(waitingForUrl){
+					setUnitList(url.url);	
+					waitingForUrl = false;
+				}
 			});		
 	
 			socket.on('data', function (data) {
@@ -138,6 +143,7 @@
 					$('.charList').append($(elem));
 					if(window.location.hash) {
 						var id= window.location.hash.replace("#list=","");
+						waitingForUrl = true;
 						socket.emit('get url', id);
 					}else{
 						var unitList = Cookies.get('unitList');
