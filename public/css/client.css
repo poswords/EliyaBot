@@ -156,18 +156,21 @@ body
 	font-weight: bold;
 	line-height: 30px;
 }
+#info .button{
+	position: absolute;	
+	top: 0px;
+    left: 50%;
+    transform: translate(-50%,-125%);
+    z-index: -1;
+    padding: 5px;
+    margin: 0;
+	transition: 0.5s all;
+}
 #btnExpand{
-	position: absolute;
-	top: -30px;
-	right:10px;
 }
 #btnClose{
-	position: absolute;
-	top: -30px;
-	right:10px;
 	pointer-events: none;
 	opacity: 0;
-	transition: 0.5s all;
 }
 #info.expanded #btnExpand{
 	pointer-events: none;
