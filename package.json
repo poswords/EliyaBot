@@ -5,6 +5,7 @@
   "main": "bot.js",
   "author": "Araetha",
   "dependencies": {
+    "canvas": "^2.6.1",
     "discord.io": "^2.5.3",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
