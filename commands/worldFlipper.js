@@ -167,7 +167,7 @@ const tls = {
   },
 };
 
-const tls = {
+const tracker = {
   name: 'tracker',
   group,
   aliases: ['tk', 'track'],
@@ -343,4 +343,4 @@ const update = {
 }
 /*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
-module.exports = [guide, tls, character, race, whois, art, alt, update];
+module.exports = [guide, tls, tracker,character, race, whois, art, alt, update];
