@@ -167,6 +167,17 @@ const tls = {
   },
 };
 
+const tls = {
+  name: 'tracker',
+  group,
+  aliases: ['tk', 'track'],
+  description: 'Links Collection Tracker.',
+  execute(message) {
+    const tlDocLink = 'http://eliya-bot.herokuapp.com/';
+    return message.channel.send(`The collection tracker can be found here: \n${tlDocLink}`);
+  },
+};
+
 const character = {
   name: 'character',
   group,
