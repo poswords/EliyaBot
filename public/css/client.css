@@ -2,6 +2,10 @@ body
 {
     z-index: 1;
 	padding:60px 0;
+	transition: padding 0.5s;
+}
+body.expanded{
+	padding-bottom: 360px;
 }
 
 .body,
@@ -88,13 +92,16 @@ body
 	max-width:960px;
 	margin: 0 auto;
 }
-
-#chars ul{
+#chars h2{
+	clear:both;
+	margin:20px 0 10px 5px;
+}
+.charList{
 	display: flex;
 	flex-wrap: wrap;
 	align-content:flex-start;
 }
-#chars li{ 
+.char{ 
 	border:3px solid #fff;
 	background: #fff;
 	margin: 2px;
@@ -106,25 +113,30 @@ body
 	cursor: pointer;
 	flex: 1 1 60px;
 }
-#chars h2{
-	clear:both;
-	margin:20px 0 10px 5px;
-}
-#chars li.checked{
+
+.char.checked{
 	border:3px solid #fff;
 	padding: 0;
 	background: #dde;
 	opacity: 1;	
 }
-#chars li.spookyStuff{
+.char.selected{
+	background:#63B74B;
+	border:3px solid #63B74B;
+	opacity: 1;	
+}
+.char.spookyStuff{
 	border-top: none;
 	border-bottom: none;
 	opacity: 0;
 	cursor: auto;
 }
-#chars li img{
+.char img{
 	max-width: 100%;
 	height: auto;
+}
+.planner .char{
+	opacity: 1;		
 }
 #info{
 	position:fixed;
@@ -134,21 +146,27 @@ body
 	width:100%;
 	bottom: 0px;
 	left:0px;
-	height: 30px;
+	height: 0;
 	text-align: center;
 	transition: 0.5s all;
 }
-#info.expanded{
+#info.charinfo{
 	height: 300px;		
+}
+#info.planner{
+	height: 240px;		
 }
 #info .expandBlock{
 	opacity: 0;
 	height:0;
 	transition: 0.5s all;	
 }
-#info.expanded .expandBlock{
+#info.charinfo .expandBlock{
 	opacity: 1;
 
+}
+#info h1{
+	margin-top:5px;
 }
 #info h1, #info h2{
 	display: inline-block;
@@ -156,42 +174,36 @@ body
 	font-weight: bold;
 	line-height: 30px;
 }
+#info.charinfo .plannerWrapper{
+	opacity: 0;
+	pointer-events: none;
+}
+#info.planner .infoWrapper{
+	opacity: 0;
+	pointer-events: none;
+}
+#info.planner h1, #info.planner h2{
+	display: none;
+}
 #info .btnList{
-    height: 20px;
-    width: 50px;
-    overflow: hidden;
+	width:100%;
     position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translate(-50%,-20px);
+	margin-top: -60px;
+	height: 0;
 }
-#info .button{
-	position: absolute;	
-	top: 0px;
-    left: 50%;
-    transform: translate(-50%,0);
-	padding: 0 5px 10px;
-    margin: 1px 0 0;
-    transition: 0.5s all;
+#btnCharInfo{
 }
-#btnExpand{
+#btnPlanner{
 }
-#btnClose{
-	pointer-events: none;
-	opacity: 0;
-}
-#info.expanded #btnExpand{
-	pointer-events: none;
-	opacity: 0;
-}
-#info.expanded #btnClose{
-	pointer-events: auto;
-	opacity: 1;
-}
+
 .infoWrapper{
 	max-width:920px;
 	margin: 0 auto;
 	line-height: 1.5em;
+}
+.plannerWrapper{
+	max-width:240px;
+	margin: 20px auto;	
 }
 #info .Art{
 	float:left;
@@ -216,6 +228,25 @@ body
 #info .footer div{
 	display: inline-block;
 	margin-right:10px;
+}
+#charNamePlate{
+	position: absolute;
+	background:rgba(255,255,255,0.8);
+	border-radius: 5px;
+	padding: 5px;
+	text-align: center;
+	box-shadow: 0 0 1px 1px #aaa;
+	margin-top: -5px;
+	transform: translate(-50%,-100%);
+	pointer-events: none;
+}
+#charNamePlate .ENName{
+	font-size:10px;
+	line-height: 15px;
+}
+#charNamePlate .JPName{
+	font-size:10px;
+	line-height: 15px;
 }
 @media all and (max-width: 920px) {
 	.wrapper{
