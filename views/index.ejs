@@ -147,7 +147,7 @@
 						socket.emit('get url', id);
 					}else{
 						var unitList = Cookies.get('unitList');
-						if(unitList!==''){
+						if(unitList){
 							setUnitList(unitList);
 						}
 					}
