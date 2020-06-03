@@ -7,6 +7,7 @@ const listenport = process.env.PORT || 8888;
 const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);
+const { createCanvas, loadImage } = require('canvas')
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 const path = require('path');
@@ -19,7 +20,36 @@ app.get('/', function(req, res){
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {}
-	});	
+	});
+});
+app.get('/comp/:w', function(req, res){
+	const canvas = createCanvas(286, 194);
+	const ctx = canvas.getContext('2d');
+	ctx.fillStyle = "white";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	const units = req.params.w.replace('.png','').split("-");
+
+	var count=0;
+	for (i=0;i<units.length;i++){
+		loadImage('./public/img/assets/chars/'+units[i]+'/square_0.png').then((image) => {
+			ctx.drawImage(image, 10+(count%3)*92, 10+Math.floor(count/3)*92, 82, 82);
+			count++;
+			if (count >= units.length){
+				var data = canvas.toDataURL();
+				data = data.replace(/^data:image\/png;base64,/, '');
+				var img = new Buffer.from(data, 'base64');
+			   res.writeHead(200, {
+				 'Content-Type': 'image/png',
+				 'Content-Length': img.length
+			   });
+			 res.end(img); 	
+			}
+		})			
+		
+	}
+
+/*http://eliya-bot.herokuapp.com/comp/ruin_girl_halfanv-ruin_girl-illusionist-starbreak_hunter-priest-prince_zero.png*/
+
 });
 
 var mysql = require('mysql');
