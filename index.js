@@ -15,6 +15,8 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); 
 const viewFolder = path.join(__dirname, './views/');
+const DB = require('./data')
+var data = DB.getData();
 
 app.get('/', function(req, res){
 	res.render(viewFolder+'index.ejs', {
@@ -54,6 +56,10 @@ app.get('/comp/:w', function(req, res){
 	}
 
 });
+app.post('/update', async (req, res) => {
+	data = DB.getData();
+	res.send("update called!");
+});
 
 var mysql = require('mysql');
 var connection = mysql.createConnection(process.env.JAWSDB_URL);
@@ -65,8 +71,6 @@ function Client(id, name, device) {
   this.name = name;
   this.device = device;
 }
-const DB = require('./data')
-var data = DB.getData();
 
 io.on('connection', function(socket){
 

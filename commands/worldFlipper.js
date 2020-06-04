@@ -338,6 +338,17 @@ const update = {
   description: 'Sync spreadsheet data',
   execute(message, args) {
     data = DB.getData();
+	const axios = require('axios');	  
+	/*axios.post('http://eliya-bot.herokuapp.com/update', {*/
+	 axios.post('http://eliya-bot.herokuapp.com/update', {
+	})
+	.then((res) => {
+	  console.log(`statusCode: ${res.statusCode}`)
+	  console.log(res)
+	})
+	.catch((error) => {
+	  console.error(error)
+	})
     return message.channel.send('Database updated!');
   },
 }
