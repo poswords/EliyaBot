@@ -93,7 +93,6 @@ $(document).ready(function () {
 				}
 			}
 			loaded=true;
-			updateScore();
 		}					
 	});
 
@@ -188,6 +187,7 @@ $(document).ready(function () {
 		units.forEach(function(unit){
 			$("#char-"+unit).addClass("checked");
 		});
+		updateScore();
 	}
 	function getUnitList(){
 		var units = [];
