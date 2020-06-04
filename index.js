@@ -22,6 +22,12 @@ app.get('/', function(req, res){
 		data: {}
 	});
 });
+app.get('/:id(\\d+)/', function(req, res){
+	res.render(viewFolder+'index.ejs', {
+		title: 'Eliya',
+		data: {listid: req.params.id }
+	});
+});
 app.get('/comp/:w', function(req, res){
 	const canvas = createCanvas(286, 194);
 	const ctx = canvas.getContext('2d');

@@ -23,7 +23,7 @@ $(document).ready(function () {
 	resizeCheck();
 
 	socket.on('url added',function(url){
-		const shareUrl = "http://eliya-bot.herokuapp.com/#list="+url.id
+		const shareUrl = "http://eliya-bot.herokuapp.com/"+url.id
 		copyToClipboard(shareUrl);
 		$("#btnGetShareURL").text("Share URL Copied").addClass("on");
 
@@ -82,7 +82,10 @@ $(document).ready(function () {
 			}
 
 			$('#chars .charList').append($(elem));
-			if(window.location.hash) {
+			if(listid){
+				waitingForUrl = true;
+				socket.emit('get url', listid);
+			}else if(window.location.hash) {
 				var id= window.location.hash.replace("#list=","");
 				waitingForUrl = true;
 				socket.emit('get url', id);
