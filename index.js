@@ -58,7 +58,7 @@ app.get('/comp/:w', function(req, res){
 });
 app.post('/update', async (req, res) => {
 	data = DB.getData();
-	res.send("update called!");
+	res.send("webapp updated!");
 });
 
 var mysql = require('mysql');
