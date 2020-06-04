@@ -44,8 +44,7 @@ app.get('/comp/:w', function(req, res){
 			   });
 			 res.end(img); 	
 			}
-		})			
-		
+		})
 	}
 
 });

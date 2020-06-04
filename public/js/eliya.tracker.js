@@ -93,6 +93,7 @@ $(document).ready(function () {
 				}
 			}
 			loaded=true;
+			updateScore();
 		}					
 	});
 
@@ -200,7 +201,7 @@ $(document).ready(function () {
 	function updateScore(){
 		var gTotal=0;
 		var gCount =0;
-		$('.charList').each(function(){
+		$('#chars .charList').each(function(){
 			const total = $(this).find(".char:not(.spookyStuff)").length;
 			const count = $(this).find(".char.checked").length;
 			$(this).siblings('.score').text(count+'/'+total);
