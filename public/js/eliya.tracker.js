@@ -51,6 +51,7 @@ $(document).ready(function () {
 						if($(".planner .char.selected").length>0){
 							$(".planner .char.selected").html(elem.html());
 							$(".planner .char.selected").data("DevNicknames", elem.data("DevNicknames"));
+							$(".planner .char.selected").addClass(elem.attr("class"));
 							$(".selected").removeClass("selected");
 							$("#btnGetCompURL").text("Generate Image URL").removeClass("on");
 						}else{
@@ -60,6 +61,7 @@ $(document).ready(function () {
 					}else{
 						$(this).toggleClass("checked");
 						$("#btnSave").removeClass("on");						
+						updateScore();
 					}
 					var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id","");
 					Object.keys(unit).forEach(function(key) {
@@ -91,6 +93,7 @@ $(document).ready(function () {
 				}
 			}
 			loaded=true;
+			updateScore();
 		}					
 	});
 
@@ -113,6 +116,7 @@ $(document).ready(function () {
 		if($("#chars .char.selected").length > 0){
 			$(this).html($("#chars .char.selected").html());
 			$(this).data("DevNicknames", $("#chars .char.selected").data("DevNicknames"));
+			$(this).addClass($("#chars .char.selected").attr("class"));
 			$(".selected").removeClass("selected");
 			$("#btnGetCompURL").text("Generate Image URL").removeClass("on");
 		}else{
@@ -192,6 +196,19 @@ $(document).ready(function () {
 			units.push(DevNicknames);
 		});
 		return units.join();
+	}
+	function updateScore(){
+		var gTotal=0;
+		var gCount =0;
+		$('.charList').each(function(){
+			const total = $(this).find(".char:not(.spookyStuff)").length;
+			const count = $(this).find(".char.checked").length;
+			$(this).siblings('.score').text(count+'/'+total);
+			gTotal+=total;
+			gCount+=count;
+		});
+		$("#grandTotal .score").text(gCount+'/'+gTotal);
+		$("#grandTotal .percentage").text((100*gCount/gTotal).toFixed(0)+'%');
 	}
 
 });
