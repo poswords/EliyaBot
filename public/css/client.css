@@ -253,13 +253,15 @@ body.expanded{
 	font-weight: bold;
 	line-height: 30px;
 }
-#info.charinfo .plannerWrapper{
-	opacity: 0;
-	pointer-events: none;
+#info .plannerWrapper,
+#info .infoWrapper{
+	display: none;
 }
-#info.planner .infoWrapper{
-	opacity: 0;
-	pointer-events: none;
+#info.charinfo .infoWrapper{
+	display: block;
+}
+#info.planner .plannerWrapper{
+	display: block;
 }
 #info.charinfo h1, #info.charinfo h2{
 	display: inline-block;
