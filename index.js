@@ -31,30 +31,32 @@ app.get('/:id(\\d+)/', function(req, res){
 	});
 });
 app.get('/comp/:w', function(req, res){
-	const canvas = createCanvas(286, 194);
+	const canvas = createCanvas(298, 236);
 	const ctx = canvas.getContext('2d');
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	const units = req.params.w.replace('.png','').split("-");
 
 	var count=0;
-	for (i=0;i<units.length;i++){
-		loadImage('./public/img/assets/chars/'+units[i]+'/square_0.png').then((image) => {
-			ctx.drawImage(image, 10+(count%3)*92, 10+Math.floor(count/3)*92, 82, 82);
-			count++;
-			if (count >= units.length){
-				var data = canvas.toDataURL();
-				data = data.replace(/^data:image\/png;base64,/, '');
-				var img = new Buffer.from(data, 'base64');
-			   res.writeHead(200, {
-				 'Content-Type': 'image/png',
-				 'Content-Length': img.length
-			   });
-			 res.end(img); 	
-			}
-		})
-	}
-
+	loadImage('./public/img/party.png').then((bg) => {
+		ctx.drawImage(bg, 0,0, 298, 236);
+		for (i=0;i<units.length;i++){
+			loadImage('./public/img/assets/chars/'+units[i]+'/square_0.png').then((image) => {
+				ctx.drawImage(image, 16+(count%3)*92, 16+Math.floor(count/3)*107, 82, 82);
+				count++;
+				if (count >= units.length){
+					var data = canvas.toDataURL();
+					data = data.replace(/^data:image\/png;base64,/, '');
+					var img = new Buffer.from(data, 'base64');
+				   res.writeHead(200, {
+					 'Content-Type': 'image/png',
+					 'Content-Length': img.length
+				   });
+				 res.end(img); 	
+				}
+			})
+		}
+	});
 });
 app.post('/update', async (req, res) => {
 	data = DB.getData();
