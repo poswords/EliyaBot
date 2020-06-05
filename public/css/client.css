@@ -14,19 +14,17 @@ body.expanded{
     width: 100%;
     margin: 0;
 }
-
 .button i
 {
     vertical-align: top;
 }
-
 .button
 {
     display: inline-block;
 
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
-
+	font-size: 12px;
 
     text-align: center;
 	box-shadow: 0 0 1px 1px #aaa;
@@ -329,6 +327,15 @@ body.expanded{
 #charNamePlate .JPName{
 	font-size:10px;
 	line-height: 15px;
+}
+.alt{
+	display: none;
+}
+.viewAlt .main{
+	display: none;
+}
+.viewAlt .alt{
+	display: block
 }
 @media all and (max-width: 920px) {
 	.wrapper{

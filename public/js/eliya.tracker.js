@@ -40,7 +40,8 @@ $(document).ready(function () {
 			$('#chars .charList').html("");
 			data.forEach(function(unit){
 				var elem = $('<li id="char-'+unit.DevNicknames+'" class="'+unit.Attribute+' char"></li>')
-					.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png">'));
+					.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_0.png" class="main">'))
+					.append($('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/square_1.png" class="alt">'));
 				elem.appendTo($("#charRarity"+unit.Rarity));
 				elem.data("DevNicknames", unit.DevNicknames);
 				elem.on("click",function(){
@@ -67,7 +68,7 @@ $(document).ready(function () {
 					Object.keys(unit).forEach(function(key) {
 					   info.find('.'+key+' span').text(unit[key]);
 					});
-					info.find('.Art').html('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/full_shot_0.png">');
+					info.find('.Art').html('<img src="'+assetPath+'chars/'+unit.DevNicknames+'/full_shot_0.png" class="main"><img src="'+assetPath+'chars/'+unit.DevNicknames+'/full_shot_1.png" class="alt">');
 					$("#info .infoWrapper").html("").append(info);							
 				});
 				elem.on("mouseover",function(e){
@@ -135,7 +136,7 @@ $(document).ready(function () {
 			$("#info").addClass("charinfo");
 			$("body").addClass("expanded");
 		}
-		if($("#info .btnList .on").length<=0){
+		if($("#info .btnList .on").not("#btnAltArt").length<=0){
 			$("#info").removeClass("charinfo");
 			$("#info").removeClass("planner");
 			$('.selected').removeClass('selected');
@@ -150,7 +151,7 @@ $(document).ready(function () {
 			$("#info").addClass("planner");
 			$("body").addClass("expanded");
 		}
-		if($("#info .btnList .on").length<=0){
+		if($("#info .btnList .on").not("#btnAltArt").length<=0){
 			$("#info").removeClass("charinfo");
 			$("#info").removeClass("planner");
 			$('.selected').removeClass('selected');
@@ -184,6 +185,11 @@ $(document).ready(function () {
 			$("#btnGetCompURL").text("Image URL Copied").addClass("on");
 		},100);		
 	});	
+	
+	$("#btnAltArt").on("click", function(){
+		$("body").toggleClass("viewAlt");
+		$(this).toggleClass("on");
+	});
 
 	function setUnitList(unitList){
 		var units = unitList.split(",")
