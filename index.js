@@ -75,8 +75,8 @@ function Client(id, name, device) {
 }
 
 io.on('connection', function(socket){
-
-	io.to(socket.id).emit('data',data);	
+	io.to(socket.id).emit('equips',data.equips);	
+	io.to(socket.id).emit('chars',data.chars);	
 
 	socket.on('add url', function(list){
 		connection.query('INSERT INTO short_urls SET url="'+list+'"',function(err, rows, fields) {

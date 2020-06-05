@@ -35,7 +35,7 @@ $(document).ready(function () {
 		}
 	});		
 
-	socket.on('data', function (data) {
+	socket.on('chars', function (data) {
 		if(!loaded){
 			$('#chars .charList').html("");
 			data.forEach(function(unit){

@@ -27,15 +27,16 @@ const getInfoEmbed = unit => {
   return msg;
 };
 
-const getWeaponEmbed = unit => {
+const getEquipEmbed = unit => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');	
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setDescription('\n**Rarity: **' + rarity
+    .setDescription('**Attribute: **' + unit.Attribute
+      + '\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
     .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')  
-    .setFooter(unit.Notes);
+    .setFooter(unit.DevNicknames);
   return msg;
 }; 
 
@@ -89,6 +90,10 @@ const sendMessage = async (unit, message) => {
   await message.channel.send(getInfoEmbed(unit))
 };
 
+const sendEquip= async (unit, message) => {
+  await message.channel.send(getEquipEmbed(unit))
+};
+
 const sendThumbnail = async (unit, message) => {
   await message.channel.send(getThumbnailEmbed(unit))
 };
@@ -101,21 +106,8 @@ const sendAlt = async (unit, message) => {
   await message.channel.send(getAltEmbed(unit))
 };
 
-const sendMalte = async (message)=>{
-  const unit = {
-	  ENName:'Malte',
-	  JPName:'マルテ',
-	  Rarity: 5,
-	  WeaponSkill:'When entire party has penetration effect, self attack +280%',
-	  Obtain:"This is not a unit. It's a weapon you get from Heart Scroll Trade-in. You can get heart scroll by maxing mana boards",
-	  Notes:"This is the only weapon in the bot database due to high number of people wanting to know wtf is Malte",
-	  DevNicknames:'general/spear_0005'
-  }
-  await message.channel.send(getWeaponEmbed(unit))	
-}
-
-const searchByName = chara => {
-  var result = data.filter(function (item) {
+const searchCharByName = chara => {
+  var result = data.chars.filter(function (item) {
     if (typeof item.DevNicknames !== 'undefined') {
       if (item.DevNicknames.toLowerCase() === chara) {
         return true;
@@ -124,7 +116,38 @@ const searchByName = chara => {
   });
   if (result.length <= 0) {
 
-    result = data.filter(function (item) {
+    result = data.chars.filter(function (item) {
+      var res;
+      if (res != true) {
+        if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
+        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
+        if (typeof item.OtherCommonNames !== 'undefined') {
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
+            res = true;
+          }
+        }
+      }
+      return res
+    });
+  }
+  return result;
+};
+
+const searchEquipByName = chara => {
+  var result = data.equips.filter(function (item) {
+    if (typeof item.DevNicknames !== 'undefined') {
+      if (item.DevNicknames.toLowerCase() === chara) {
+        return true;
+      }
+    }
+  });
+  if (result.length <= 0) {
+
+    result = data.equips.filter(function (item) {
       var res;
       if (res != true) {
         if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
@@ -189,12 +212,11 @@ const character = {
     const chara = args.length ? args.join(' ').toLowerCase() : null;
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-	if (chara == 'malte'){
-	  sendMalte(message);
+    }else if (chara == 'malte'){
+	  sendEquip(searchEquipByName(chara)[0], message);
 	}else{
 		
-		var arrFound = searchByName(chara);
+		var arrFound = searchCharByName(chara);
 
 		if (arrFound.length === 0) {
 		  return message.channel.send('No character found!');
@@ -206,6 +228,35 @@ const character = {
 		  sendMessage(arrFound[0], message);
 		} else {
 		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
+		}
+	}
+  },
+};
+
+const equipment = {
+  name: 'equipment',
+  group,
+  args: true,
+  usage: '<equipment name>',
+  aliases: ['e', 'equip'],
+  description: 'Lists information about the given equipment.',
+  async execute(message, args) {
+    const chara = args.length ? args.join(' ').toLowerCase() : null;
+    if (chara.length < 2) {
+      return message.channel.send('Search too short please have a minimum of 2 letters!');
+    }else{
+		var arrFound = searchEquipByName(chara);
+
+		if (arrFound.length === 0) {
+		  return message.channel.send('No equipment found!');
+		}
+		if (arrFound.length > 30) {
+		  return message.channel.send(arrFound.length + 'found! Please narrow your search');
+		}
+		if (arrFound.length === 1) {
+		  sendEquip(arrFound[0], message);
+		} else {
+		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!e ${char.DevNicknames}`)).join('\n') + '```');
 		}
 	}
   },
@@ -224,7 +275,7 @@ const race = {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
 
-    var arrFound = data.filter(function (item) {
+    var arrFound = data.chars.filter(function (item) {
       return item.Race.toLowerCase().indexOf(race) !== -1;
     });
 
@@ -255,11 +306,10 @@ const whois = {
 	  
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-	if (chara == 'malte'){
-	  sendMalte(message);
+    }else if (chara == 'malte'){
+	  sendEquip(searchEquipByName(chara)[0], message);
 	}else{
-		var arrFound = searchByName(chara);
+		var arrFound = searchCharByName(chara);
 
 		if (arrFound.length === 0) {
 		  return message.channel.send('No character found!');
@@ -352,4 +402,4 @@ const update = {
 }
 /*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
-module.exports = [guide, tls, tracker,character, race, whois, art, alt, update];
+module.exports = [guide, tls, tracker,character, equipment, race, whois, art, alt, update];
