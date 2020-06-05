@@ -154,7 +154,7 @@ body.expanded{
 	border-bottom: none;
 	opacity: 0;
 	cursor: auto;
-	height: 0;
+	min-height:inherit;
 }
 .char img{
 	max-width: 100%;
