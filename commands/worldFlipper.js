@@ -193,7 +193,7 @@ const tls = {
 const tracker = {
   name: 'tracker',
   group,
-  aliases: ['tk', 'track'],
+  aliases: ['tr', 'track'],
   description: 'Links Collection Tracker.',
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/';
