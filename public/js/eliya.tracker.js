@@ -153,6 +153,7 @@ $(document).ready(function () {
             info.find('.' + key + ' span').text(unit[key]);
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">');
+		  info.find('.Attribute').removeClass().addClass("Attribute "+unit.Attribute);
           $("#info .infoWrapper").html("").append(info);
         });
         elem.on("mouseover", function (e) {
