@@ -99,10 +99,19 @@ body.expanded{
 }
 #chars section .score{
 	position: absolute;
-	right: 5px;
+	right: 85px;
 	top: 5px;
 	font-size: 11px;
 	color: #999;
+}
+.btnSelectAll {
+    padding: 5px;
+    font-size: 10px;
+    position: absolute;
+    top: -5px;
+    right: 0;
+	width:60px;
+	transition: 0.3s all;
 }
 #grandTotal{
 	margin-top: 10px;

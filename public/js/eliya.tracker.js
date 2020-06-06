@@ -61,6 +61,7 @@ $(document).ready(function () {
 						}
 					}else{
 						$(this).toggleClass("checked");
+						var parent = $(this).parent();
 						$("#btnSave").removeClass("on");						
 						updateScore();
 					}
@@ -166,7 +167,17 @@ $(document).ready(function () {
 			$("#btnSave").addClass("on")
 		},100);
 	});
-
+	$(".btnSelectAll").on("click", function(){
+		if (!$(this).is('.on')){
+			$(this).siblings('.charList').find('.char').not('.spookyStuff').addClass('checked');
+		}else{
+			$(this).siblings('.charList').find('.char').not('.spookyStuff').removeClass('checked');
+		}
+		$("#btnSave").removeClass("on");						
+		updateScore();
+	});
+	
+	
 	$("#btnGetShareURL").on("click", function(){
 		$(this).removeClass("on");
 		socket.emit('add url', getUnitList());
@@ -216,6 +227,11 @@ $(document).ready(function () {
 			$(this).siblings('.score').text(count+'/'+total);
 			gTotal+=total;
 			gCount+=count;
+			if (count == total){
+				$(this).siblings('.btnSelectAll').addClass('on').html("Deselect All");			
+			}else{
+				$(this).siblings('.btnSelectAll').removeClass('on').html("Select All");			
+			}
 		});
 		$("#grandTotal .score").text(gCount+'/'+gTotal);
 		$("#grandTotal .percentage").text((100*gCount/gTotal).toFixed(0)+'%');
