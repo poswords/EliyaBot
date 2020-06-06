@@ -108,6 +108,9 @@ $(document).ready(function () {
         socket.emit('get url', id);
       } else {
         var unitList = Cookies.get('charList');
+		if (!unitList){
+			unitList = Cookies.get('unitList');
+		}
         if (unitList) {
           setUnitList(unitList, 'char');
         }
