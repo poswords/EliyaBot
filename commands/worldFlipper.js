@@ -212,7 +212,8 @@ const character = {
     const chara = args.length ? args.join(' ').toLowerCase() : null;
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }else if (chara == 'malte'){
+    }
+	if (chara == 'malte'){
 	  sendEquip(searchEquipByName(chara)[0], message);
 	}else{
 		
@@ -306,7 +307,8 @@ const whois = {
 	  
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }else if (chara == 'malte'){
+    }
+	if (chara == 'malte'){
 	  sendEquip(searchEquipByName(chara)[0], message);
 	}else{
 		var arrFound = searchCharByName(chara);
@@ -338,7 +340,7 @@ const art = {
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-    var arrFound = searchByName(chara);
+    var arrFound = searchCharByName(chara);
 
     if (arrFound.length === 0) {
       return message.channel.send('No character found!');
@@ -365,7 +367,7 @@ const alt = {
     if (chara.length < 2) {
       return message.channel.send('Search too short please have a minimum of 2 letters!');
     }
-    var arrFound = searchByName(chara);
+    var arrFound = searchCharByName(chara);
 
     if (arrFound.length === 0) {
       return message.channel.send('No character found!');
