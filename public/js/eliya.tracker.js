@@ -75,7 +75,7 @@ $(document).ready(function () {
 				elem.on("mouseover",function(e){
 					$("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
 					$("#charNamePlate").find('.JPName').html(unit.JPName);
-					$("#charNamePlate").css({"left":elem.offset().left+elem.outerWidth()/2, "top":elem.offset().top});
+					$("#charNamePlate").css({"left":elem.offset().left+elem.outerWidth()/2, "top":elem.offset().top+elem.height()});
 				});
 			});
 			var elem = ''
