@@ -86,18 +86,22 @@ body.expanded{
 #btnGetShareURL{
 	width:140px;
 }
-#chars{
+#chars,
+#equips{
 	max-width:960px;
 	margin: 0 auto;
 }
-#chars h2{
+#chars h2,
+#equips h2{
 	clear:both;
 	margin:20px 0 10px 5px;
 }
-#chars section{
+#chars section,
+#equips section{
 	position: relative;
 }
-#chars section .score{
+#chars section .score,
+#equips section .score{
 	position: absolute;
 	right: 85px;
 	top: 5px;
@@ -113,25 +117,27 @@ body.expanded{
 	width:60px;
 	transition: 0.3s all;
 }
-#grandTotal{
+#charGrandTotal,
+#equipGrandTotal{
 	margin-top: 10px;
 	text-align: center;
 	font-size: 11px;
 	color: #999;
 	margin-bottom: 20px;
 }
-#grandTotal .percentage{
+#charGrandTotal .percentage,
+#equipGrandTotal .percentage{
 	font-size: 24px;
 	line-height: 36px;
 	font-weight: bold;
 	color: #000;
 }
-.charList{
+.unitList{
 	display: flex;
 	flex-wrap: wrap;
 	align-content:flex-start;
 }
-.char{ 
+.unit{ 
 	min-width: 60px;
 	min-height: 60px;
 	border:3px solid #fff;
@@ -147,25 +153,25 @@ body.expanded{
 	position: relative;
 }
 
-.char.checked{
+.unit.checked{
 	border:3px solid #fff;
 	padding: 0;
 	background: #dde;
 	opacity: 1;	
 }
-.char.selected{
+.unit.selected{
 	background:#63B74B;
 	border:3px solid #63B74B;
 	opacity: 1;	
 }
-.char.spookyStuff{
+.unit.spookyStuff{
 	border-top: none;
 	border-bottom: none;
 	opacity: 0;
 	cursor: auto;
 	min-height:inherit;
 }
-.char img{
+.unit img{
 	max-width: 100%;
 	height: auto;
 }
@@ -238,6 +244,7 @@ body.expanded{
 	height: 0;
 	text-align: center;
 	transition: 0.5s all;
+	z-index: 3;
 }
 #info.charinfo{
 	height: 300px;		
@@ -302,12 +309,72 @@ body.expanded{
 	width: 240px;
 	height: 240px;
 }
+#info .equipInfoBlock .Art{
+	width: 82px;
+	height: 82px;
+	padding: 0 10px;
+	
+}
 #info .details{
 	text-align: left;
 	font-weight: bold;
 	overflow-y: auto;
 	max-height: 240px;
 }
+#info .Attribute span:before,
+#info .Role span:before{
+	content:"";
+	width: 12px;
+	height: 12px;
+	margin: 0 4px -1px 0;
+	background-color: #fff;
+	background-size: 12px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: inline-block;
+}
+#info .Role span:before{
+	background-color: #000;
+	filter: invert();
+	opacity: 0.8;
+}
+#info .Attribute.Fire span:before{
+	background-image:url("../img/assets/sprites/elements/element_red.png");
+}
+#info .Attribute.Water span:before{
+	background-image:url("../img/assets/sprites/elements/element_blue.png");
+}
+#info .Attribute.Wind span:before{
+	background-image:url("../img/assets/sprites/elements/element_green.png");
+}
+#info .Attribute.Thunder span:before{
+	background-image:url("../img/assets/sprites/elements/element_yellow.png");
+}
+#info .Attribute.Light span:before{
+	background-image:url("../img/assets/sprites/elements/element_white.png");
+}
+#info .Attribute.Dark span:before{
+	background-image:url("../img/assets/sprites/elements/element_black.png");
+}
+#info .Attribute.All span:before{
+	display: none;
+}
+#info .Role.Sword span:before{
+	background-image:url("../img/assets/sprites/types/type_knight.png");
+}
+#info .Role.Fist span:before{
+	background-image:url("../img/assets/sprites/types/type_fighter.png");
+}
+#info .Role.Bow span:before{
+	background-image:url("../img/assets/sprites/types/type_ranged.png");
+}
+#info .Role.Support span:before{
+	background-image:url("../img/assets/sprites/types/type_supporter.png");
+}
+#info .Role.Special span:before{
+	background-image:url("../img/assets/sprites/types/type_special.png");
+}
+
 #info .details span{
 	font-weight: normal;
 	
@@ -321,6 +388,8 @@ body.expanded{
 	display: inline-block;
 	margin-right:10px;
 }
+
+
 #charNamePlate{
 	position: absolute;
 	background:rgba(255,255,255,0.8);
@@ -338,6 +407,10 @@ body.expanded{
 }
 #charNamePlate .JPName{
 	font-size:10px;
+	line-height: 15px;
+}
+#charNamePlate .Obtain{
+	font-size:9px;
 	line-height: 15px;
 }
 .alt{
@@ -359,6 +432,12 @@ body.expanded{
 		width: 30vw;
 		height: 30vw;
 	}
+	#info .equipInfoBlock .Art{
+		width: 12vw;
+		height: 12vw;
+		padding: 0 2vw;
+
+	}	
 }	
 	
 @media all and (max-width: 480px) {
@@ -366,4 +445,10 @@ body.expanded{
 		width: 40vw;
 		height: 40vw;
 	}	
+	#info .equipInfoBlock .Art{
+		width: 18vw;
+		height: 18vw;
+		padding: 0 2vw;
+
+	}		
 }

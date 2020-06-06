@@ -29,49 +29,78 @@
       </div>		
           <h1 class="title">World Flipper Collection Tracker</h1>		
           <article id="chars">
-              <section id=rarity5>
+              <section id="charRarity5">
 				<h2>★★★★★</h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
-				<ul id="charRarity5" class="rarity5 charList"></ul>
+				<ul class="rarity5 charList unitList"></ul>
               </section>
-              <section id=rarity4>
+              <section id="charRarity4">
 				<h2>★★★★</h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
-				<ul id="charRarity4" class="rarity4 charList"></ul>
+				<ul class="rarity4 charList unitList"></ul>
               </section>
-              <section id=rarity4>
+              <section id="charRarity3">
 				<h2>★★★</h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
-				<ul id="charRarity3" class="rarity3 charList"></ul>
+				<ul class="rarity3 charList unitList"></ul>
               </section>
-              <section id=rarity4>
+              <section id="charRarity2">
 				<h2>★★</h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
-				<ul id="charRarity2" class="rarity2 charList"></ul>
+				<ul class="rarity2 charList unitList"></ul>
               </section>
-              <section id=rarity4>
+              <section id=charRarity1>
 				<h2>★</h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
-				<ul id="charRarity1" class="rarity1 charList"></ul>
+				<ul class="rarity1 charList unitList"></ul>
   			  </section>
-              <div id="charNamePlate">
-                  <div class="ENName"><span></span></div>
-                  <div class="JPName"><span></span></div>
-              </div>
-			  <div id="grandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
+			  <div id="charGrandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
           </article>
+		  <article id="equips">
+              <section id="equipRarity5">
+				<h2>★★★★★</h2>
+				<span class="score"></span>
+				<div class="btnSelectAll button">Select All</div>
+				<ul class="rarity5 equipList unitList"></ul>
+              </section>	
+              <section id="equipRarity4">
+				<h2>★★★★</h2>
+				<span class="score"></span>
+				<div class="btnSelectAll button">Select All</div>
+				<ul class="rarity5 equipList unitList"></ul>
+              </section>	
+              <section id="equipRarity3">
+				<h2>★★★</h2>
+				<span class="score"></span>
+				<div class="btnSelectAll button">Select All</div>
+				<ul class="rarity5 equipList unitList"></ul>
+              </section>	
+              <section id="equipRarity2">
+				<h2>★★</h2>
+				<span class="score"></span>
+				<div class="btnSelectAll button">Select All</div>
+				<ul class="rarity5 equipList unitList"></ul>
+              </section>	
+              <section id="equipRarity1">
+				<h2>★</h2>
+				<span class="score"></span>
+				<div class="btnSelectAll button">Select All</div>
+				<ul class="rarity5 equipList unitList"></ul>
+              </section>	
+			   <div id="equipGrandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
+		  </article>		  
           <div id="info">
               <div class="btnList">
 				  <div id="btnAltArt" class="button">
                       Awaken
                   </div>
                   <div id="btnCharInfo" class="button">
-                      Character Info
+                      Unit Info
                   </div>
                   <div id="btnPlanner" class="button">
                       Party Planner
@@ -89,8 +118,12 @@
           </div>
 
       </div>
-
-      <div id="charInfoTemplate" class="hidden" >
+	  <div id="charNamePlate">
+		  <div class="ENName"><span></span></div>
+		  <div class="JPName"><span></span></div>
+		  <div class="Obtain"><span></span></div>
+	  </div>
+      <div id="charInfoTemplate" class="hidden charInfoBlock" >
           <h1 class="ENName"><span></span></h1>
           <h2 class="JPName"><span></span></h2>
           <div class="expandBlock">
@@ -112,6 +145,20 @@
           </div>
 
       </div>
+      <div id="equipInfoTemplate" class="hidden equipInfoBlock" >
+          <h1 class="ENName"><span></span></h1>
+          <h2 class="JPName"><span></span></h2>
+          <div class="expandBlock">
+              <div class="Art"></div>
+              <div class="details">
+                  <div class="Attribute">Attribute: <span></span></div>
+                  <div class="Rarity">Rarity: <span></span></div>
+                  <div class="WeaponSkill">Weapon Skill: <span></span></div>		
+                  <div class="Obtain">Obtain: <span></span></div>		
+              </div>				
+          </div>
+
+      </div>	  
 	  <script>
 		  var listid;
 	  		<% if (data.listid) { %> listid = <%= data.listid %>; <% } %>

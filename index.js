@@ -79,7 +79,7 @@ io.on('connection', function(socket){
 	io.to(socket.id).emit('chars',data.chars);	
 
 	socket.on('add url', function(list){
-		connection.query('INSERT INTO short_urls SET url="'+list+'"',function(err, rows, fields) {
+		connection.query('INSERT INTO short_urls SET url="'+list.chars+'", equips="'+list.equips+'"',function(err, rows, fields) {
 				//if(err) throw err
 				if (err) {
 					console.log(err);
@@ -96,7 +96,7 @@ io.on('connection', function(socket){
 				} else {
 					rows.forEach(function(row){
 						delete row.created_date;
-					});					
+					});
 					io.to(socket.id).emit('url', rows[0]);
 				}
 			  });	 
