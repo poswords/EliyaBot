@@ -198,7 +198,7 @@ $(document).ready(function () {
     document.body.removeChild(el);
   }
   for (i = 0; i < 3; i++) {
-    var html = '<li class="char"><img src="img/assets/chars/blank/square_0.png"></li>';
+    var html = '<li class="char unit"><img src="img/assets/chars/blank/square_0.png"></li>';
     $('#planner .charList').append($(html).data("DevNicknames", "blank"));
   }
   $("#planner .char").on("click", function () {
