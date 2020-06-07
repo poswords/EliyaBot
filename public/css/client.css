@@ -48,22 +48,7 @@ body.expanded{
 {
     fill: #fff;
 }
-.button.select{
-	position: absolute;	
-	list-style:none;
-	margin: 10px;
-	width: 40px;
-	height: 40px;
-	padding: 2px;
-}
-.button.undo{
-	position:absolute;
-}
-.button.select .brush,
-.button.select .paletteColor{
-	border: none;
-	background: none;
-}
+
 .toolbar{
 	position: fixed;
 	top:0;
@@ -74,7 +59,7 @@ body.expanded{
 .title{
 	font-size: 40px;
 	padding:10px;text-align: center;
-	margin-bottom:30px;
+	margin-bottom:40px;
 }
 
 .toolbar .btnList{
@@ -122,6 +107,10 @@ body.expanded{
     right: 0;
 	width:60px;
 	transition: 0.3s all;
+}
+.btnSelectAll.on{
+	color: #000;
+	background-color: #dde;
 }
 #charGrandTotal,
 #equipGrandTotal{
