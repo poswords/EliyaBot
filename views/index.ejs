@@ -29,32 +29,58 @@
       </div>		
           <h1 class="title">World Flipper Collection Tracker</h1>		
           <article id="chars">
+			  <ul id="filterCharAttribute" class="filterList">
+				  <li class="btnFilter charFilter" data-filter="AttributeFire"><img src="img/assets/sprites/elements/element_red.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="AttributeWater"><img src="img/assets/sprites/elements/element_blue.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="AttributeWind"><img src="img/assets/sprites/elements/element_green.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="AttributeThunder"><img src="img/assets/sprites/elements/element_yellow.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="AttributeLight"><img src="img/assets/sprites/elements/element_white.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="AttributeDark"><img src="img/assets/sprites/elements/element_black.png">
+				  </li>
+				  </ul>
+			  <ul id="filterCharRarity" class="filterList">
+				  <li class="btnFilter charFilter" data-filter="Rarity5"><img src="img/assets/sprites/rarity/star5.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="Rarity4"><img src="img/assets/sprites/rarity/star4.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="Rarity3"><img src="img/assets/sprites/rarity/star3.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="Rarity2"><img src="img/assets/sprites/rarity/star2.png">
+				  </li>
+				  <li class="btnFilter charFilter" data-filter="Rarity1"><img src="img/assets/sprites/rarity/star1.png">
+				  </li>
+				  </ul>			  
               <section id="charRarity5">
-				<h2>★★★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 charList unitList"></ul>
               </section>
               <section id="charRarity4">
-				<h2>★★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star4.png"></h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
 				<ul class="rarity4 charList unitList"></ul>
               </section>
               <section id="charRarity3">
-				<h2>★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star3.png"></h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
 				<ul class="rarity3 charList unitList"></ul>
               </section>
               <section id="charRarity2">
-				<h2>★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star2.png"></h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
 				<ul class="rarity2 charList unitList"></ul>
               </section>
               <section id=charRarity1>
-				<h2>★</h2>
+				<h2><img src="img/assets/sprites/rarity/star1.png"></h2>
 				  <span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>				  
 				<ul class="rarity1 charList unitList"></ul>
@@ -62,32 +88,64 @@
 			  <div id="charGrandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
           </article>
 		  <article id="equips">
+			  <ul id="filterEquipAttribute" class="filterList">
+				  <li class="btnFilter" data-filter="AttributeFire"><img src="img/assets/sprites/elements/element_red.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeWater"><img src="img/assets/sprites/elements/element_blue.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeWind"><img src="img/assets/sprites/elements/element_green.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeThunder"><img src="img/assets/sprites/elements/element_yellow.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeLight"><img src="img/assets/sprites/elements/element_white.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeDark"><img src="img/assets/sprites/elements/element_black.png">
+				  </li>
+				  <li class="btnFilter" data-filter="AttributeAll">All
+				  </li>				  
+				  </ul>
+			  <ul id="filterEquipRarity" class="filterList">
+				  <li class="btnFilter" data-filter="Rarity5"><img src="img/assets/sprites/rarity/star5.png">
+				  </li>
+				  <li class="btnFilter" data-filter="Rarity4"><img src="img/assets/sprites/rarity/star4.png">
+				  </li>
+				  <li class="btnFilter" data-filter="Rarity3"><img src="img/assets/sprites/rarity/star3.png">
+				  </li>
+				  <li class="btnFilter" data-filter="Rarity2"><img src="img/assets/sprites/rarity/star2.png">
+				  </li>
+				  <li class="btnFilter" data-filter="Rarity1"><img src="img/assets/sprites/rarity/star1.png">
+				  </li>
+				  </ul>		
+			  <ul id="filterEquipObtain" class="filterList">
+				  <li class="btnFilter" data-filter="NoGacha">No Gacha
+				  </li>
+				  </ul>				  
               <section id="equipRarity5">
-				<h2>★★★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 equipList unitList"></ul>
               </section>	
               <section id="equipRarity4">
-				<h2>★★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star4.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 equipList unitList"></ul>
               </section>	
               <section id="equipRarity3">
-				<h2>★★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star3.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 equipList unitList"></ul>
               </section>	
               <section id="equipRarity2">
-				<h2>★★</h2>
+				<h2><img src="img/assets/sprites/rarity/star2.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 equipList unitList"></ul>
               </section>	
               <section id="equipRarity1">
-				<h2>★</h2>
+				<h2><img src="img/assets/sprites/rarity/star1.png"></h2>
 				<span class="score"></span>
 				<div class="btnSelectAll button">Select All</div>
 				<ul class="rarity5 equipList unitList"></ul>

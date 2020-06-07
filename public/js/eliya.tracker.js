@@ -48,7 +48,7 @@ $(document).ready(function () {
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
-        var elem = $('<li id="char-' + unit.DevNicknames + '" class="' + unit.Attribute + ' char unit"></li>')
+        var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity'+unit.Rarity +'  char unit"></li>')
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="main">'))
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="alt">'));
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
@@ -80,6 +80,7 @@ $(document).ready(function () {
           });
           info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="main"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="alt">');
 		  info.find('.Attribute').removeClass().addClass("Attribute "+unit.Attribute);
+		  info.find('.Rarity').removeClass().addClass("Rarity Rarity"+unit.Rarity);
 		  info.find('.Role').removeClass().addClass("Role "+unit.Role);
           $("#info .infoWrapper").html("").append(info);
         });
@@ -123,8 +124,9 @@ $(document).ready(function () {
     if (!equipLoaded) {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
-        var elem = $('<li id="equip-' + unit.DevNicknames + '" class="' + unit.Attribute + ' equip unit"></li>')
-          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">'))
+        var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity'+unit.Rarity +' equip unit"></li>')
+          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">'));
+		if (unit.Obtain !="Weapon Gacha"){elem.addClass('NoGacha')}
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
         elem.on("click", function () {
@@ -154,6 +156,7 @@ $(document).ready(function () {
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">');
 		  info.find('.Attribute').removeClass().addClass("Attribute "+unit.Attribute);
+		  info.find('.Rarity').removeClass().addClass("Rarity Rarity"+unit.Rarity);
           $("#info .infoWrapper").html("").append(info);
         });
         elem.on("mouseover", function (e) {
@@ -205,6 +208,14 @@ $(document).ready(function () {
     var html = '<li class="char unit"><img src="img/assets/chars/blank/square_0.png"></li>';
     $('#planner .charList').append($(html).data("DevNicknames", "blank"));
   }
+  $("#chars .btnFilter").on("click", function () {
+	 $(this).toggleClass('on');
+	  updateCharFilter();
+  });
+  $("#equips .btnFilter").on("click", function () {
+	 $(this).toggleClass('on');
+	  updateEquipFilter();
+  });	
   $("#planner .char").on("click", function () {
     if ($("#chars .char.selected").length > 0) {
       $(this).html($("#chars .char.selected").html());
@@ -321,8 +332,8 @@ $(document).ready(function () {
     var gTotal = 0;
     var gCount = 0;
     $('#chars .unitList').each(function () {
-      const total = $(this).find(".char").length;
-      const count = $(this).find(".char.checked").length;
+      const total = $(this).find(".char").not('.filtered').length;
+      const count = $(this).find(".char.checked").not('.filtered').length;
       $(this).siblings('.score').text(count + '/' + total);
       gTotal += total;
       gCount += count;
@@ -340,8 +351,8 @@ $(document).ready(function () {
     var gTotal = 0;
     var gCount = 0;
     $('#equips .unitList').each(function () {
-      const total = $(this).find(".equip").length;
-      const count = $(this).find(".equip.checked").length;
+      const total = $(this).find(".equip").not('.filtered').length;
+      const count = $(this).find(".equip.checked").not('.filtered').length;
       $(this).siblings('.score').text(count + '/' + total);
       gTotal += total;
       gCount += count;
@@ -353,6 +364,92 @@ $(document).ready(function () {
     });
     $("#equipGrandTotal .score").text(gCount + '/' + gTotal);
     $("#equipGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');
+  }	
+	
+  function updateCharFilter(){
+	  if ($('.btnFilter.on').length <= 0){
+		  $("#chars .char").removeClass('filtered');
+		  $("#chars section").removeClass('hidden');
+	  }else{
+		  $("#chars .char").addClass('filtered');		  
+		  if ($('#filterCharAttribute .btnFilter.on').length>0){		  
+			  $('#filterCharAttribute .btnFilter.on').each(function(){
+				 var filter = $(this).data('filter');
+				 $("#chars ."+filter).removeClass('filtered');			  
+			  });
+		  }else{
+			  $("#chars .char").removeClass('filtered');
+		  }
+		  $("#chars .char").not('.filtered').addClass('tempFilter');		  
+		  
+		  if ($('#filterCharRarity .btnFilter.on').length>0){
+		  	$('.tempFilter').addClass('filtered'); 
+			$('#filterCharRarity .btnFilter.on').each(function(){
+				 var filter = $(this).data('filter');
+				 $('.tempFilter.'+filter).removeClass('filtered');
+			 });	  
+		  }
+		  $('.tempFilter').removeClass('tempFilter');		  
+		  
+		  $(".charList").each(function(){
+			  if($(this).find('.char').not('.filtered').length==0){
+				  $(this).parent().addClass('hidden')
+			  }else{
+				  $(this).parent().removeClass('hidden');
+			  }
+		  });
+ 
+		  
+	  }
+	  $(".charList").addClass('flash');			  
+	  setTimeout(function(){
+		  $(".charList").removeClass('flash');
+	  },100);		  
+	  updateCharScore();
+  }
+function updateEquipFilter(){
+	  if ($('.btnFilter.on').length <= 0){
+		  $("#equips .equip").removeClass('filtered');
+		  $("#equips section").removeClass('hidden');
+	  }else{
+		  $("#equips .equip").addClass('filtered');		  
+		  if ($('#filterEquipAttribute .btnFilter.on').length>0){		  
+			  $('#filterEquipAttribute .btnFilter.on').each(function(){
+				 var filter = $(this).data('filter');
+				 $("#equips ."+filter).removeClass('filtered');			  
+			  });
+		  }else{
+			  $("#equips .equip").removeClass('filtered');
+		  }
+		  $("#equips .equip").not('.filtered').addClass('tempFilter');		  
+		  
+		  if ($('#filterEquipRarity .btnFilter.on').length>0){
+		  	$('.tempFilter').addClass('filtered'); 
+			$('#filterEquipRarity .btnFilter.on').each(function(){
+				 var filter = $(this).data('filter');
+				 $('.tempFilter.'+filter).removeClass('filtered');
+			 });	  
+		  }
+		  $('.tempFilter').removeClass('tempFilter');
+
+		  if ($('#filterEquipObtain .btnFilter.on').length>0){
+			  $("#equips .equip").not('.NoGacha').addClass('filtered');
+		  }
+		  $(".equipList").each(function(){
+			  if($(this).find('.equip').not('.filtered').length==0){
+				  $(this).parent().addClass('hidden')
+			  }else{
+				  $(this).parent().removeClass('hidden');
+			  }
+		  });
+ 
+		  
+	  }
+	  $(".equipList").addClass('flash');			  
+	  setTimeout(function(){
+		  $(".equipList").removeClass('flash');
+	  },100);		  
+	  updateEquipScore();
   }	
 
 });

@@ -28,7 +28,7 @@ body.expanded{
 
     text-align: center;
 	box-shadow: 0 0 1px 1px #aaa;
-    border-radius: 50px;
+    border-radius: 5px;
     background: #fff;
 	cursor: pointer;
 
@@ -88,13 +88,19 @@ body.expanded{
 }
 #chars,
 #equips{
+	text-align: center;
 	max-width:960px;
 	margin: 0 auto;
 }
 #chars h2,
 #equips h2{
 	clear:both;
+	width: 100%;
 	margin:20px 0 10px 5px;
+	text-align: center;
+}
+#chars h2 img,#equips h2 img{
+	width: 60px;
 }
 #chars section,
 #equips section{
@@ -136,6 +142,12 @@ body.expanded{
 	display: flex;
 	flex-wrap: wrap;
 	align-content:flex-start;
+	transition: 0.5s all;
+	opacity: 1;
+}
+.flash{
+	transition: 0s all;
+	opacity: 0;
 }
 .unit{ 
 	min-width: 60px;
@@ -190,24 +202,66 @@ body.expanded{
 	max-width: 100%;
 	border-radius: 3px;
 }
-.char.Fire:before{
+.char.AttributeFire:before{
 	background-image:url("../img/assets/sprites/elements/element_red.png");
 }
-.char.Water:before{
+.char.AttributeWater:before{
 	background-image:url("../img/assets/sprites/elements/element_blue.png");
 }
-.char.Wind:before{
+.char.AttributeWind:before{
 	background-image:url("../img/assets/sprites/elements/element_green.png");
 }
-.char.Thunder:before{
+.char.AttributeThunder:before{
 	background-image:url("../img/assets/sprites/elements/element_yellow.png");
 }
-.char.Light:before{
+.char.AttributeLight:before{
 	background-image:url("../img/assets/sprites/elements/element_white.png");
 }
-.char.Dark:before{
+.char.AttributeDark:before{
 	background-image:url("../img/assets/sprites/elements/element_black.png");
 }
+.filterList{
+	border-radius: 5px;
+	background: #fff;
+	overflow: hidden;
+	box-shadow: 0 0 1px 1px #aaa;
+	display: inline-flex;
+	width: 200px;
+	margin: 0 4px 10px;
+	vertical-align: bottom;
+}
+.filterList li{
+	width:  12px;
+	height: 12px;
+	padding: 8px;
+	border-left:1px solid #aaa;
+	cursor: pointer;
+	transition: 0.3s all;
+	flex: 1 1 20px;
+	font-size:  11px;
+	line-height: 12px;
+}
+.filterList li img{
+	max-height: 12px;
+	margin: 0 auto;
+}
+.filterList li.on{
+	background: #dde;
+}
+.filterList li:first-child{
+	border: none;
+}
+#filterCharRarity,
+#filterEquipRarity{
+	width:  300px
+}
+#filterEquipObtain{
+	width:  100px;
+}
+.unit.filtered{
+	display: none;
+}
+
 .planner .char{
 	opacity: 1;		
 }
@@ -359,11 +413,42 @@ body.expanded{
 #info .Attribute.All span:before{
 	display: none;
 }
+#info .Rarity span{
+	font-size: 0;
+}
+#info .Rarity span:before{
+	content:"";
+	width: 60px;
+	height: 12px;
+	margin: 0 4px -1px 0;
+	background-color: #fff;
+	background-size: 60px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: inline-block;
+}
+#info .Rarity.Rarity5 span:before{
+	background-image:url("../img/assets/sprites/rarity/star5.png");
+}
+#info .Rarity.Rarity4 span:before{
+	background-position: -6px;
+	background-image:url("../img/assets/sprites/rarity/star4.png");
+}#info .Rarity.Rarity3 span:before{
+	background-position: -11px;
+	background-image:url("../img/assets/sprites/rarity/star3.png");
+}#info .Rarity.Rarity2 span:before{
+	background-position: -16px;
+	background-image:url("../img/assets/sprites/rarity/star2.png");
+}#info .Rarity.Rarity1 span:before{
+	background-position: -21px;
+	background-image:url("../img/assets/sprites/rarity/star1.png");
+}
 #info .Role.Sword span:before{
 	background-image:url("../img/assets/sprites/types/type_knight.png");
 }
 #info .Role.Fist span:before{
 	background-image:url("../img/assets/sprites/types/type_fighter.png");
+
 }
 #info .Role.Bow span:before{
 	background-image:url("../img/assets/sprites/types/type_ranged.png");
@@ -451,4 +536,9 @@ body.expanded{
 		padding: 0 2vw;
 
 	}		
+	.filterList{
+		width: 92% !important;
+		margin-left: 4%;
+		margin-right: 4%;
+	}
 }
