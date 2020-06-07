@@ -308,6 +308,10 @@ $(document).ready(function () {
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
     $(this).toggleClass("on");
+	  $(".charList").addClass('flash');			  
+	  setTimeout(function(){
+		  $(".charList").removeClass('flash');
+	  },100);		  
   });
 
   function setUnitList(unitList, type) {

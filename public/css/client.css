@@ -138,6 +138,7 @@ body.expanded{
 	font-weight: bold;
 	color: #000;
 }
+
 .unitList{
 	display: flex;
 	flex-wrap: wrap;
@@ -255,7 +256,8 @@ body.expanded{
 #filterEquipRarity{
 	width:  300px
 }
-#filterEquipObtain{
+#filterEquipObtain,
+#filterAltArt{
 	width:  100px;
 }
 .unit.filtered{
