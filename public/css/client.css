@@ -130,11 +130,13 @@ body.expanded{
 }
 #switchUnits li{
 	font-size: 13px;
+	transition: 0.1s all;
 }
 #switchUnits li.on{
 	color:#fff;
 	background:#6a6aea;
 	font-weight: bold;
+	transition: none;
 }
 #charGrandTotal,
 #equipGrandTotal{
