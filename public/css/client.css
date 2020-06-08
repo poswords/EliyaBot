@@ -149,6 +149,7 @@ body.expanded{
 	border-radius: 3px;
 	opacity: 0.35;
 	box-shadow: 0 0 1px 1px #aaa;
+	transition: opacity 0.3s;
 	cursor: pointer;
 	flex: 1 1 60px;
 	position: relative;
