@@ -406,7 +406,12 @@ $(document).ready(function () {
       }
     });
     $("#charGrandTotal .score").text(gCount + '/' + gTotal);
-    $("#charGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');
+	if (gTotal>0){
+		$("#charGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');	
+	}else{
+		$("#charGrandTotal .percentage").text('');
+	}
+    
   }
 
   function updateEquipScore() {
@@ -425,7 +430,11 @@ $(document).ready(function () {
       }
     });
     $("#equipGrandTotal .score").text(gCount + '/' + gTotal);
-    $("#equipGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');
+	if (gTotal>0){	  
+    	$("#equipGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');
+	}else{
+		$("#equipGrandTotal .percentage").text('');
+	}		
   }
 
   function updateCharFilter() {
