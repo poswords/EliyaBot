@@ -238,6 +238,18 @@ $(document).ready(function () {
     var html = '<li class="char unit"><img src="img/assets/chars/blank/square_0.png"></li>';
     $('#planner .charList').append($(html).data("DevNicknames", "blank"));
   }
+  $("#switchUnits li").on("click", function () {
+	  $("#switchUnits li").removeClass('on');
+	  $(this).addClass('on');
+	  $('body').removeClass('viewchar viewequip');
+	  var target =$(this).data('type');
+	  $('body').addClass('view'+target);
+	  $('#'+target+'s').addClass('flash');
+	  setTimeout(function () {
+		 $("article").removeClass('flash');
+	  }, 100);
+	  updateEquipScore();
+  });
   $("#chars .btnFilter").on("click", function () {
     $(this).toggleClass('on');
     updateCharFilter();

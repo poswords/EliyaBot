@@ -18,7 +18,7 @@
           </style>
       </head>
 
-  <body class="body <% if (data.listview) { %>listView<% } %>">
+  <body class="body viewchar <% if (data.listview) { %>listView<% } %>">
       <div class="wrapper">
       <div class="toolbar">
       <ul class="btnList">
@@ -28,7 +28,11 @@
           </ul>
 
       </div>		
-          <h1 class="title">World Flipper Collection Tracker</h1>		
+          <h1 class="title">World Flipper Collection Tracker</h1>
+		  <ul id="switchUnits" class="filterList">
+				  <li id="btnShowChar" class="on" data-type="char">Characters  </li>
+				  <li id="btnShowEquip" data-type="equip">Equipments  </li>
+				  </ul>
           <article id="chars">
 			  <ul id="filterCharAttribute" class="filterList">
 				  <li class="btnFilter charFilter" data-filter="AttributeFire"><img src="/img/assets/sprites/elements/element_red.png">

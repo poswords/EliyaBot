@@ -2,7 +2,7 @@ body
 {
     z-index: 1;
 	padding:60px 0;
-	transition: padding 0.5s;
+	/*transition: padding 0.5s;*/
 }
 body.expanded{
 	padding-bottom: 360px;
@@ -41,7 +41,7 @@ body.expanded{
 {
 	transition: 0.3s all;
     color: #fff;
-    background:#63B74B;
+    background:#6a6aea;
 }
 .button.pressed svg,
 .button.on svg
@@ -60,6 +60,7 @@ body.expanded{
 	font-size: 40px;
 	padding:10px;text-align: center;
 	margin-bottom:40px;
+	letter-spacing: 2px;
 }
 
 .toolbar .btnList{
@@ -76,7 +77,16 @@ body.expanded{
 	text-align: center;
 	max-width:960px;
 	margin: 0 auto;
+	display: none;
+	transition: opacity 0.3s;
 }
+.viewchar #chars{
+	display: block;
+}
+.viewequip #equips{
+	display: block;
+}
+
 #chars h2,
 #equips h2{
 	clear:both;
@@ -111,6 +121,20 @@ body.expanded{
 .btnSelectAll.on{
 	color: #000;
 	background-color: #dde;
+}
+#switchUnits{
+	text-align: center;
+    margin: 0 auto 40px;
+    display: flex;
+	width: 300px;
+}
+#switchUnits li{
+	font-size: 13px;
+}
+#switchUnits li.on{
+	color:#fff;
+	background:#6a6aea;
+	font-weight: bold;
 }
 #charGrandTotal,
 #equipGrandTotal{
@@ -162,8 +186,8 @@ body.expanded{
 	opacity: 1;	
 }
 .unit.selected{
-	background:#63B74B;
-	border:3px solid #63B74B;
+	background:#6a6aea;
+	border:3px solid #6a6aea;
 	opacity: 1;	
 }
 .unit.spookyStuff{
