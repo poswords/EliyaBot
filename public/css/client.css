@@ -604,7 +604,7 @@ body.expanded{
 	left: 3px;
 }
 .listView .unit {
-	opacity: 0.6;	
+	opacity: 1;	
 }
 
 .listView .unit.checked,
@@ -619,6 +619,11 @@ body.expanded{
 	background:#fff;
 	border-radius: 5px;
 	box-shadow: 0 0 1px 1px #aaa;	
+	opacity: 0.5;
+}
+.listView .unitList .unit.checked img{
+	background:#dde;
+	opacity: 1;
 }
 .listView #charNamePlate{
 	display: none !important;
