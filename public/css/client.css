@@ -307,14 +307,15 @@ body.expanded{
 	opacity: 1;
 
 }
-#info h1{
+#info .ENName{
 	margin-top:5px;
 }
-#info h1, #info h2{
-	display: none;
+#info .ENName,
+#info .JPName{
 	font-size:14px;
 	font-weight: bold;
 	line-height: 30px;
+		display: inline-block;
 }
 #info .plannerWrapper,
 #info .infoWrapper{
@@ -326,19 +327,24 @@ body.expanded{
 #info.planner .plannerWrapper{
 	display: block;
 }
-#info.charinfo h1, #info.charinfo h2{
-	display: inline-block;
-}
 #info .btnList{
 	width:100%;
     position: absolute;
-	margin-top: -60px;
+	margin-top: -41px;
 	height: 0;
 }
-#btnCharInfo{
-	
+#info .btnList .button{
+	box-shadow: none;
+	border-radius: 5px 5px 0 0;
+    z-index: 1;
+    border: 1px solid #aaa;	
+	background: #dde;	
+	z-index: -1;
 }
-#btnPlanner{
+#info .btnList .button.on{
+	border-bottom: 1px solid #fff;
+	background: #fff;
+	color: #000;
 }
 
 .infoWrapper{
