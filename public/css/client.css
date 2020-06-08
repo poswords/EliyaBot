@@ -535,13 +535,14 @@ body.expanded{
 }
 .unitList .details{
 	display: flex;
+	margin: 5px 0;
 }
 .unitList .details div{
 	flex: 1 1 17%;
 	padding: 0 1%;
 	font-weight: bold;
 	text-align: center;
-	line-height: 1.35em;
+	line-height: 16px;
 }
 .equipList .details div.WeaponSkill{
 	flex: 1 1 60%;
@@ -552,7 +553,7 @@ body.expanded{
 	text-align: left
 }
 .unitList .details div.Rarity{
-	margin-top:  14px;
+	margin-top:  16px;
 	flex: 1 1 3%;
 }
 .unitList .details div.Rarity span:before{
@@ -573,7 +574,7 @@ body.expanded{
 }
 .equipList .details div.Attribute{
 	display: block;
-	margin-top:  14px;
+	margin-top:  16px;
 	font-weight: bold;
 	flex: 1 1 3%;
 }
