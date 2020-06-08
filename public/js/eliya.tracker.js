@@ -149,7 +149,9 @@ $(document).ready(function () {
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);
         });
-        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span></span>');
+		  var attr = '';
+		  if (unit.Attribute=='All') attr='All';
+        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>'+attr+'</span>');
         info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
         elem.append(info);
         elem.on("click", function () {

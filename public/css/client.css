@@ -568,6 +568,19 @@ body.expanded{
 	line-height: 14px;
 	font-weight: bold;
 }
+.equipList .ENName{
+	left: 5px;
+}
+.equipList .details div.Attribute{
+	display: block;
+	margin-top:  14px;
+	font-weight: bold;
+	flex: 1 1 3%;
+}
+.equipList .details div.Attribute span{
+	text-align: center;
+}
+
 .unitList .JPName{
 	position: absolute;
 	left: 5px;
