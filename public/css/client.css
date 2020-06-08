@@ -149,7 +149,6 @@ body.expanded{
 	border-radius: 3px;
 	opacity: 0.35;
 	box-shadow: 0 0 1px 1px #aaa;
-	transition: all 0.5s;
 	cursor: pointer;
 	flex: 1 1 60px;
 	position: relative;
@@ -169,9 +168,10 @@ body.expanded{
 .unit.spookyStuff{
 	border-top: none;
 	border-bottom: none;
-	opacity: 0;
+	opacity: 0 !important;
 	cursor: auto;
 	min-height:inherit;
+	padding: 0!important;
 }
 .unit img{
 	max-width: 100%;
@@ -349,6 +349,13 @@ body.expanded{
 	max-width:240px;
 	margin: 10px auto;	
 }
+.partyList {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    transition: 0.5s all;
+    opacity: 1;
+}
 #info .Art{
 	float:left;
 	width: 240px;
@@ -366,8 +373,8 @@ body.expanded{
 	overflow-y: auto;
 	max-height: 240px;
 }
-#info .Attribute span:before,
-#info .Role span:before{
+.Attribute span:before,
+.Role span:before{
 	content:"";
 	width: 12px;
 	height: 12px;
@@ -378,36 +385,36 @@ body.expanded{
 	background-position: center center;
 	display: inline-block;
 }
-#info .Role span:before{
+.Role span:before{
 	background-color: #000;
 	filter: invert();
 	opacity: 0.8;
 }
-#info .Attribute.Fire span:before{
+.Attribute.Fire span:before{
 	background-image:url("../img/assets/sprites/elements/element_red.png");
 }
-#info .Attribute.Water span:before{
+.Attribute.Water span:before{
 	background-image:url("../img/assets/sprites/elements/element_blue.png");
 }
-#info .Attribute.Wind span:before{
+.Attribute.Wind span:before{
 	background-image:url("../img/assets/sprites/elements/element_green.png");
 }
-#info .Attribute.Thunder span:before{
+.Attribute.Thunder span:before{
 	background-image:url("../img/assets/sprites/elements/element_yellow.png");
 }
-#info .Attribute.Light span:before{
+.Attribute.Light span:before{
 	background-image:url("../img/assets/sprites/elements/element_white.png");
 }
-#info .Attribute.Dark span:before{
+.Attribute.Dark span:before{
 	background-image:url("../img/assets/sprites/elements/element_black.png");
 }
-#info .Attribute.All span:before{
+.Attribute.All span:before{
 	display: none;
 }
 #info .Rarity span{
 	font-size: 0;
 }
-#info .Rarity span:before{
+.Rarity span:before{
 	content:"";
 	width: 60px;
 	height: 12px;
@@ -418,36 +425,39 @@ body.expanded{
 	background-position: center center;
 	display: inline-block;
 }
-#info .Rarity.Rarity5 span:before{
+.Rarity.Rarity5 span:before{
 	background-image:url("../img/assets/sprites/rarity/star5.png");
 }
-#info .Rarity.Rarity4 span:before{
+.Rarity.Rarity4 span:before{
 	background-position: -6px;
 	background-image:url("../img/assets/sprites/rarity/star4.png");
-}#info .Rarity.Rarity3 span:before{
+}
+.Rarity.Rarity3 span:before{
 	background-position: -11px;
 	background-image:url("../img/assets/sprites/rarity/star3.png");
-}#info .Rarity.Rarity2 span:before{
+}
+.Rarity.Rarity2 span:before{
 	background-position: -16px;
 	background-image:url("../img/assets/sprites/rarity/star2.png");
-}#info .Rarity.Rarity1 span:before{
+}
+.Rarity.Rarity1 span:before{
 	background-position: -21px;
 	background-image:url("../img/assets/sprites/rarity/star1.png");
 }
-#info .Role.Sword span:before{
+.Role.Sword span:before{
 	background-image:url("../img/assets/sprites/types/type_knight.png");
 }
-#info .Role.Fist span:before{
+.Role.Fist span:before{
 	background-image:url("../img/assets/sprites/types/type_fighter.png");
 
 }
-#info .Role.Bow span:before{
+.Role.Bow span:before{
 	background-image:url("../img/assets/sprites/types/type_ranged.png");
 }
-#info .Role.Support span:before{
+.Role.Support span:before{
 	background-image:url("../img/assets/sprites/types/type_supporter.png");
 }
-#info .Role.Special span:before{
+.Role.Special span:before{
 	background-image:url("../img/assets/sprites/types/type_special.png");
 }
 
@@ -455,12 +465,12 @@ body.expanded{
 	font-weight: normal;
 	
 }
-#info .footer{
+.footer{
 	font-size: normal;
 	color:#666;
 	margin-top:20px;
 }
-#info .footer div{
+.footer div{
 	display: inline-block;
 	margin-right:10px;
 }
@@ -504,6 +514,104 @@ body.expanded{
 .viewOwned .unit.spookyStuff{
 	display: block;
 }
+.unit .charInfoBlock,
+.unit .equipInfoBlock{
+	display: none;
+	opacity: 0;
+	transition: 0.5s all;
+	text-align: left;
+	padding-left:60px;
+	font-size: 11px;		
+}
+.listView .unitList .unit{
+	width: 100%;
+	flex: 0 0 100%;
+	background:#fff;
+}
+.listView .unitList .charInfoBlock,
+.listView .unitList .equipInfoBlock{
+	display: block;
+	opacity: 1;
+}
+.unitList .details{
+	display: flex;
+}
+.unitList .details div{
+	flex: 1 1 17%;
+	padding: 0 1%;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.35em;
+}
+.equipList .details div.WeaponSkill{
+	flex: 1 1 60%;
+}
+.unitList .details div span{
+	font-weight: normal;
+	display: block;
+	text-align: left
+}
+.unitList .details div.Rarity{
+	margin-top:  14px;
+	flex: 1 1 3%;
+}
+.unitList .details div.Rarity span:before{
+	background-position: center center;
+}
+.unitList .Attribute{
+	display: none;
+}
+.unitList .ENName{
+	position: absolute;
+	left: 20px;
+    top: 62px;
+	line-height: 14px;
+	font-weight: bold;
+}
+.unitList .JPName{
+	position: absolute;
+	left: 5px;
+    top: 78px;
+	font-size: 9px;
+}
+
+.unitList .details .footer{
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	padding: 0;	
+	display: none;
+}
+.unitList .details .footer div {
+	padding: 0;
+}
+.listView .unitList .char:before{
+	top: 60px;
+	left: 3px;
+}
+.listView .unit {
+	opacity: 0.6;	
+}
+
+.listView .unit.checked,
+.listView .unit.selected{
+	opacity: 1;
+}
+.listView .unitList .unit img{
+	width: 52px;
+	height: 52px;
+	float: left;
+	margin: 5px 5px 40px;
+	background:#fff;
+	border-radius: 5px;
+	box-shadow: 0 0 1px 1px #aaa;	
+}
+.listView #charNamePlate{
+	display: none !important;
+}
+.listView .unit.spookyStuff{
+	margin: 0;
+}
 @media all and (max-width: 920px) {
 	.wrapper{
 		width: 92%;
@@ -522,7 +630,7 @@ body.expanded{
 	}	
 }	
 	
-@media all and (max-width: 480px) {
+@media all and (max-width: 599px) {
 	#info .Art{
 		width: 40vw;
 		height: 40vw;
@@ -532,7 +640,25 @@ body.expanded{
 		height: 18vw;
 		padding: 0 2vw;
 
-	}		
+	}	
+	.unitList .details div{
+		flex: 1 1 100%;
+		margin-bottom: 10px;
+	}
+	.unitList .details {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.unitList .ENName{
+		max-width: 42px;
+    	overflow: hidden;
+	}
+	.unitList .details div.Rarity{
+		margin-top: 0;
+		position: absolute;
+		left: -2px;
+		top: 90px;
+	}
 	.filterList{
 		width: 92% !important;
 		margin-left: 4%;

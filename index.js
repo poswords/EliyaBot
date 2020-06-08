@@ -30,6 +30,12 @@ app.get('/:id(\\d+)/', function(req, res){
 		data: {listid: req.params.id }
 	});
 });
+app.get('/list', function(req, res){
+	res.render(viewFolder+'index.ejs', {
+		title: 'Eliya',
+		data: {listview: true}
+	});
+});
 app.get('/comp/:w', function(req, res){
 	const canvas = createCanvas(298, 236);
 	const ctx = canvas.getContext('2d');

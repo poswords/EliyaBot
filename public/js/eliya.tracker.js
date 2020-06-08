@@ -5,7 +5,7 @@ $(document).ready(function () {
   var inputUp = isIOS ? "touchend" : "touchend mouseup";
   var w_width = $(window).width();
   var w_height = $(window).height();
-  const assetPath = './img/assets/'
+  const assetPath = '/img/assets/'
   var socket = io();
   var charLoaded = false;
   var equipLoaded = false;
@@ -53,6 +53,15 @@ $(document).ready(function () {
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="alt">'));
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
+          var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
+          Object.keys(unit).forEach(function (key) {
+            info.find('.' + key + ' span').text(unit[key]);
+          });
+          info.find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, '').replace(/\((.+?)\)/g, ''));	  
+          info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span></span>');
+          info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
+          info.find('.Role').removeClass().addClass("Role " + unit.Role);
+          elem.append(info);		  
         elem.on("click", function () {
           if ($("#info").is(".charinfo")) {
             $('.selected').removeClass('selected');
@@ -60,6 +69,7 @@ $(document).ready(function () {
           } else if ($("#info").is(".planner")) {
             if ($(".planner .char.selected").length > 0) {
               $(".planner .char.selected").html(elem.html());
+			  $(".planner .char.selected").find('.charInfoBlock').remove();
               $(".planner .char.selected").data("DevNicknames", elem.data("DevNicknames"));
               $(".planner .char.selected").addClass(elem.attr("class"));
               $(".selected").removeClass("selected");
@@ -85,7 +95,7 @@ $(document).ready(function () {
           $("#info .infoWrapper").html("").append(info);
         });
         elem.on("mouseover", function (e) {
- 		$("#charNamePlate").show();			
+          $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
           $("#charNamePlate").find('.Obtain').html('').addClass('hidden');
@@ -96,7 +106,7 @@ $(document).ready(function () {
         });
         elem.on("mouseleave", function (e) {
           $("#charNamePlate").hide();
-        });			  
+        });
       });
       var elem = ''
       for (i = 0; i < 14; i++) {
@@ -135,6 +145,13 @@ $(document).ready(function () {
         }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
+        var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
+        Object.keys(unit).forEach(function (key) {
+          info.find('.' + key + ' span').text(unit[key]);
+        });
+        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span></span>');
+        info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
+        elem.append(info);
         elem.on("click", function () {
           if ($("#info").is(".charinfo")) {
             $('.selected').removeClass('selected');
@@ -165,8 +182,9 @@ $(document).ready(function () {
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           $("#info .infoWrapper").html("").append(info);
         });
+
         elem.on("mouseover", function (e) {
-	      $("#charNamePlate").show();
+          $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
           $("#charNamePlate").find('.Obtain').html(unit.Obtain).removeClass('hidden');
@@ -177,7 +195,7 @@ $(document).ready(function () {
         });
         elem.on("mouseleave", function (e) {
           $("#charNamePlate").hide();
-        });		  
+        });
       });
       var elem = ''
       for (i = 0; i < 14; i++) {
@@ -269,6 +287,11 @@ $(document).ready(function () {
     }
   });
 
+  $("#btnListView").on("click", function () {
+    $(this).toggleClass('on');
+    $('body').toggleClass('listView');
+
+  });
   $("#btnSave").on("click", function () {
     Cookies.set('charList', getUnitList('char'), {
       expires: 60
@@ -325,12 +348,12 @@ $(document).ready(function () {
   });
 
   $(".btnShowOwned").on("click", function () {
-	var type= $(this).data("type");
-    $("#"+type+"s").toggleClass("viewOwned");
+    var type = $(this).data("type");
+    $("#" + type + "s").toggleClass("viewOwned");
     $(this).toggleClass("on");
-    $("."+type+"List").addClass('flash');
+    $("." + type + "List").addClass('flash');
     setTimeout(function () {
-      $("."+type+"List").removeClass('flash');
+      $("." + type + "List").removeClass('flash');
     }, 100);
   });
 
