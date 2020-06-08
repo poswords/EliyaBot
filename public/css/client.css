@@ -247,7 +247,7 @@ body.expanded{
 }
 #filterEquipObtain,
 #filterAltArt{
-	width:  100px;
+	width:  200px;
 }
 .unit.filtered{
 	display: none;
@@ -497,6 +497,12 @@ body.expanded{
 }
 .viewAlt .alt{
 	display: block
+}
+.viewOwned .unit:not(.spookyStuff){
+	display: none;
+}
+.viewOwned .unit.checked{
+	display: block;
 }
 @media all and (max-width: 920px) {
 	.wrapper{

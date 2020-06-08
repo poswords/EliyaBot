@@ -8,7 +8,7 @@ $(document).ready(function () {
   const assetPath = './img/assets/'
   var socket = io();
   var charLoaded = false;
-	var equipLoaded = false;
+  var equipLoaded = false;
   var waitingForUrl = false;
 
   function clearUI() {
@@ -32,14 +32,14 @@ $(document).ready(function () {
   });
   socket.on('url', function (url) {
     if (waitingForUrl) {
-	  if(url.url){
-      	setUnitList(url.url,'char');		  
-		  console.log("chars");
-	  }
-      if(url.equips){
-		  console.log("equips");
-	  	setUnitList(url.equips, 'equip');		  
-	  }
+      if (url.url) {
+        setUnitList(url.url, 'char');
+        console.log("chars");
+      }
+      if (url.equips) {
+        console.log("equips");
+        setUnitList(url.equips, 'equip');
+      }
       waitingForUrl = false;
     }
   });
@@ -48,7 +48,7 @@ $(document).ready(function () {
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
-        var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity'+unit.Rarity +'  char unit"></li>')
+        var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + '  char unit"></li>')
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="main">'))
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="alt">'));
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
@@ -79,20 +79,24 @@ $(document).ready(function () {
             info.find('.' + key + ' span').text(unit[key]);
           });
           info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="main"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="alt">');
-		  info.find('.Attribute').removeClass().addClass("Attribute "+unit.Attribute);
-		  info.find('.Rarity').removeClass().addClass("Rarity Rarity"+unit.Rarity);
-		  info.find('.Role').removeClass().addClass("Role "+unit.Role);
+          info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
+          info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
+          info.find('.Role').removeClass().addClass("Role " + unit.Role);
           $("#info .infoWrapper").html("").append(info);
         });
         elem.on("mouseover", function (e) {
+ 		$("#charNamePlate").show();			
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
-		  $("#charNamePlate").find('.Obtain').html('').addClass('hidden');			
+          $("#charNamePlate").find('.Obtain').html('').addClass('hidden');
           $("#charNamePlate").css({
             "left": elem.offset().left + elem.outerWidth() / 2,
             "top": elem.offset().top + elem.height()
           });
         });
+        elem.on("mouseleave", function (e) {
+          $("#charNamePlate").hide();
+        });			  
       });
       var elem = ''
       for (i = 0; i < 14; i++) {
@@ -109,9 +113,9 @@ $(document).ready(function () {
         socket.emit('get url', id);
       } else {
         var unitList = Cookies.get('charList');
-		if (!unitList){
-			unitList = Cookies.get('unitList');
-		}
+        if (!unitList) {
+          unitList = Cookies.get('unitList');
+        }
         if (unitList) {
           setUnitList(unitList, 'char');
         }
@@ -124,9 +128,11 @@ $(document).ready(function () {
     if (!equipLoaded) {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
-        var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity'+unit.Rarity +' equip unit"></li>')
+        var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' equip unit"></li>')
           .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">'));
-		if (unit.Obtain !="Weapon Gacha"){elem.addClass('NoGacha')}
+        if (unit.Obtain != "Weapon Gacha") {
+          elem.addClass('NoGacha')
+        }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
         elem.on("click", function () {
@@ -155,19 +161,23 @@ $(document).ready(function () {
             info.find('.' + key + ' span').text(unit[key]);
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">');
-		  info.find('.Attribute').removeClass().addClass("Attribute "+unit.Attribute);
-		  info.find('.Rarity').removeClass().addClass("Rarity Rarity"+unit.Rarity);
+          info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
+          info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           $("#info .infoWrapper").html("").append(info);
         });
         elem.on("mouseover", function (e) {
+	      $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
-		  $("#charNamePlate").find('.Obtain').html(unit.Obtain).removeClass('hidden');
+          $("#charNamePlate").find('.Obtain').html(unit.Obtain).removeClass('hidden');
           $("#charNamePlate").css({
             "left": elem.offset().left + elem.outerWidth() / 2,
             "top": elem.offset().top + elem.height()
           });
         });
+        elem.on("mouseleave", function (e) {
+          $("#charNamePlate").hide();
+        });		  
       });
       var elem = ''
       for (i = 0; i < 14; i++) {
@@ -185,7 +195,7 @@ $(document).ready(function () {
       } else {
         var unitList = Cookies.get('equipList');
         if (unitList) {
-          setUnitList(unitList,'equip');
+          setUnitList(unitList, 'equip');
         }
       }
       equipLoaded = true;
@@ -209,13 +219,13 @@ $(document).ready(function () {
     $('#planner .charList').append($(html).data("DevNicknames", "blank"));
   }
   $("#chars .btnFilter").on("click", function () {
-	 $(this).toggleClass('on');
-	  updateCharFilter();
+    $(this).toggleClass('on');
+    updateCharFilter();
   });
   $("#equips .btnFilter").on("click", function () {
-	 $(this).toggleClass('on');
-	  updateEquipFilter();
-  });	
+    $(this).toggleClass('on');
+    updateEquipFilter();
+  });
   $("#planner .char").on("click", function () {
     if ($("#chars .char.selected").length > 0) {
       $(this).html($("#chars .char.selected").html());
@@ -265,7 +275,7 @@ $(document).ready(function () {
     });
     Cookies.set('equipList', getUnitList('equip'), {
       expires: 60
-    });	
+    });
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
@@ -279,16 +289,16 @@ $(document).ready(function () {
     }
     $("#btnSave").removeClass("on");
     updateCharScore();
-	updateEquipScore();
+    updateEquipScore();
   });
 
 
   $("#btnGetShareURL").on("click", function () {
     $(this).removeClass("on");
     socket.emit('add url', {
-		chars: getUnitList('char'),
-		equips: getUnitList('equip')
-	});
+      chars: getUnitList('char'),
+      equips: getUnitList('equip')
+    });
   });
   $("#btnGetCompURL").on("click", function () {
     $(this).removeClass("on");
@@ -308,24 +318,35 @@ $(document).ready(function () {
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
     $(this).toggleClass("on");
-	  $(".charList").addClass('flash');			  
-	  setTimeout(function(){
-		  $(".charList").removeClass('flash');
-	  },100);		  
+    $(".charList").addClass('flash');
+    setTimeout(function () {
+      $(".charList").removeClass('flash');
+    }, 100);
   });
+
+  $(".btnShowOwned").on("click", function () {
+	var type= $(this).data("type");
+    $("#"+type+"s").toggleClass("viewOwned");
+    $(this).toggleClass("on");
+    $("."+type+"List").addClass('flash');
+    setTimeout(function () {
+      $("."+type+"List").removeClass('flash');
+    }, 100);
+  });
+
 
   function setUnitList(unitList, type) {
     var units = unitList.split(",")
     $(".checked").removeClass(".checked");
     units.forEach(function (unit) {
-      $("#"+type+"-" + unit).addClass("checked");
+      $("#" + type + "-" + unit).addClass("checked");
     });
     updateCharScore();
   }
 
   function getUnitList(type) {
     var units = [];
-    $("#"+type+"s .checked").each(function () {
+    $("#" + type + "s .checked").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
       units.push(DevNicknames);
     });
@@ -368,92 +389,93 @@ $(document).ready(function () {
     });
     $("#equipGrandTotal .score").text(gCount + '/' + gTotal);
     $("#equipGrandTotal .percentage").text((100 * gCount / gTotal).toFixed(0) + '%');
-  }	
-	
-  function updateCharFilter(){
-	  if ($('.btnFilter.on').length <= 0){
-		  $("#chars .char").removeClass('filtered');
-		  $("#chars section").removeClass('hidden');
-	  }else{
-		  $("#chars .char").addClass('filtered');		  
-		  if ($('#filterCharAttribute .btnFilter.on').length>0){		  
-			  $('#filterCharAttribute .btnFilter.on').each(function(){
-				 var filter = $(this).data('filter');
-				 $("#chars ."+filter).removeClass('filtered');			  
-			  });
-		  }else{
-			  $("#chars .char").removeClass('filtered');
-		  }
-		  $("#chars .char").not('.filtered').addClass('tempFilter');		  
-		  
-		  if ($('#filterCharRarity .btnFilter.on').length>0){
-		  	$('.tempFilter').addClass('filtered'); 
-			$('#filterCharRarity .btnFilter.on').each(function(){
-				 var filter = $(this).data('filter');
-				 $('.tempFilter.'+filter).removeClass('filtered');
-			 });	  
-		  }
-		  $('.tempFilter').removeClass('tempFilter');		  
-		  
-		  $(".charList").each(function(){
-			  if($(this).find('.char').not('.filtered').length==0){
-				  $(this).parent().addClass('hidden')
-			  }else{
-				  $(this).parent().removeClass('hidden');
-			  }
-		  });
- 
-		  
-	  }
-	  $(".charList").addClass('flash');			  
-	  setTimeout(function(){
-		  $(".charList").removeClass('flash');
-	  },100);		  
-	  updateCharScore();
   }
-function updateEquipFilter(){
-	  if ($('.btnFilter.on').length <= 0){
-		  $("#equips .equip").removeClass('filtered');
-		  $("#equips section").removeClass('hidden');
-	  }else{
-		  $("#equips .equip").addClass('filtered');		  
-		  if ($('#filterEquipAttribute .btnFilter.on').length>0){		  
-			  $('#filterEquipAttribute .btnFilter.on').each(function(){
-				 var filter = $(this).data('filter');
-				 $("#equips ."+filter).removeClass('filtered');			  
-			  });
-		  }else{
-			  $("#equips .equip").removeClass('filtered');
-		  }
-		  $("#equips .equip").not('.filtered').addClass('tempFilter');		  
-		  
-		  if ($('#filterEquipRarity .btnFilter.on').length>0){
-		  	$('.tempFilter').addClass('filtered'); 
-			$('#filterEquipRarity .btnFilter.on').each(function(){
-				 var filter = $(this).data('filter');
-				 $('.tempFilter.'+filter).removeClass('filtered');
-			 });	  
-		  }
-		  $('.tempFilter').removeClass('tempFilter');
 
-		  if ($('#filterEquipObtain .btnFilter.on').length>0){
-			  $("#equips .equip").not('.NoGacha').addClass('filtered');
-		  }
-		  $(".equipList").each(function(){
-			  if($(this).find('.equip').not('.filtered').length==0){
-				  $(this).parent().addClass('hidden')
-			  }else{
-				  $(this).parent().removeClass('hidden');
-			  }
-		  });
- 
-		  
-	  }
-	  $(".equipList").addClass('flash');			  
-	  setTimeout(function(){
-		  $(".equipList").removeClass('flash');
-	  },100);		  
-	  updateEquipScore();
-  }	
+  function updateCharFilter() {
+    if ($('.btnFilter.on').length <= 0) {
+      $("#chars .char").removeClass('filtered');
+      $("#chars section").removeClass('hidden');
+    } else {
+      $("#chars .char").addClass('filtered');
+      if ($('#filterCharAttribute .btnFilter.on').length > 0) {
+        $('#filterCharAttribute .btnFilter.on').each(function () {
+          var filter = $(this).data('filter');
+          $("#chars ." + filter).removeClass('filtered');
+        });
+      } else {
+        $("#chars .char").removeClass('filtered');
+      }
+      $("#chars .char").not('.filtered').addClass('tempFilter');
+
+      if ($('#filterCharRarity .btnFilter.on').length > 0) {
+        $('.tempFilter').addClass('filtered');
+        $('#filterCharRarity .btnFilter.on').each(function () {
+          var filter = $(this).data('filter');
+          $('.tempFilter.' + filter).removeClass('filtered');
+        });
+      }
+      $('.tempFilter').removeClass('tempFilter');
+
+      $(".charList").each(function () {
+        if ($(this).find('.char').not('.filtered').length == 0) {
+          $(this).parent().addClass('hidden')
+        } else {
+          $(this).parent().removeClass('hidden');
+        }
+      });
+
+
+    }
+    $(".charList").addClass('flash');
+    setTimeout(function () {
+      $(".charList").removeClass('flash');
+    }, 100);
+    updateCharScore();
+  }
+
+  function updateEquipFilter() {
+    if ($('.btnFilter.on').length <= 0) {
+      $("#equips .equip").removeClass('filtered');
+      $("#equips section").removeClass('hidden');
+    } else {
+      $("#equips .equip").addClass('filtered');
+      if ($('#filterEquipAttribute .btnFilter.on').length > 0) {
+        $('#filterEquipAttribute .btnFilter.on').each(function () {
+          var filter = $(this).data('filter');
+          $("#equips ." + filter).removeClass('filtered');
+        });
+      } else {
+        $("#equips .equip").removeClass('filtered');
+      }
+      $("#equips .equip").not('.filtered').addClass('tempFilter');
+
+      if ($('#filterEquipRarity .btnFilter.on').length > 0) {
+        $('.tempFilter').addClass('filtered');
+        $('#filterEquipRarity .btnFilter.on').each(function () {
+          var filter = $(this).data('filter');
+          $('.tempFilter.' + filter).removeClass('filtered');
+        });
+      }
+      $('.tempFilter').removeClass('tempFilter');
+
+      if ($('#filterEquipObtain .btnFilter.on').length > 0) {
+        $("#equips .equip").not('.NoGacha').addClass('filtered');
+      }
+      $(".equipList").each(function () {
+        if ($(this).find('.equip').not('.filtered').length == 0) {
+          $(this).parent().addClass('hidden')
+        } else {
+          $(this).parent().removeClass('hidden');
+        }
+      });
+
+
+    }
+    $(".equipList").addClass('flash');
+    setTimeout(function () {
+      $(".equipList").removeClass('flash');
+    }, 100);
+    updateEquipScore();
+  }
 
 });
