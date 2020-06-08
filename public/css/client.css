@@ -673,12 +673,25 @@ body.expanded{
 	.unitList .ENName{
 		max-width: 42px;
     	overflow: hidden;
+		white-space: nowrap;
 	}
+	.equipList .ENName{
+		max-width: 120px;
+		overflow: hidden;
+	}
+	.equipList .details div.Obtain{
+		flex: 1 1 60%;
+		justify-content: flex-end;
+		padding-left: 19%;
+	}	
 	.unitList .details div.Rarity{
 		margin-top: 0;
 		position: absolute;
 		left: -2px;
 		top: 92px;
+	}
+	.listView .unitList .unit img{
+		margin-bottom: 54px;
 	}
 	.filterList{
 		width: 92% !important;
