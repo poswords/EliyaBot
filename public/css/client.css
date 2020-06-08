@@ -498,10 +498,10 @@ body.expanded{
 .viewAlt .alt{
 	display: block
 }
-.viewOwned .unit:not(.spookyStuff){
+.viewOwned .unit:not(.checked){
 	display: none;
 }
-.viewOwned .unit.checked{
+.viewOwned .unit.spookyStuff{
 	display: block;
 }
 @media all and (max-width: 920px) {
