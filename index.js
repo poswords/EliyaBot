@@ -60,25 +60,25 @@ app.get('/comp/:w', function(req, res){
 					case 0:
 					case 2:
 					case 4:
-						x = 10+Math.floor(count/2)*160;
+						x = 10+(count/2)*160;
 						y = 10;
 						break;
 					case 1:
 					case 3:
 					case 5:
-						x = 81+Math.floor(count/2)*160;
+						x = 81+((count-1)/2)*160;
 						y = 110;
 						width= 69;
 						break;
 					case 6:
 					case 8:
 					case 10:						
-						x = 96+Math.floor(count/2)*160;
+						x = 96+((count-6)/2)*160;
 						y = 26;
 						width= 54;						
 						break;
 					default:
-						x = 8+Math.floor(count/2)*160;
+						x = 8+((count-7)/2)*160;
 						y = 123;
 						width= 54;						
 						break;						
