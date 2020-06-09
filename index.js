@@ -9,8 +9,7 @@ const server = http.Server(app);
 const io = require('socket.io')(server);
 const { createCanvas, loadImage } = require('canvas')
 const path = require('path');
-/*app.use(express.static('public', {maxAge: "30d"}));*/
-app.use(express.static('public'));
+app.use(express.static('public', {maxAge: "30d"}));
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
