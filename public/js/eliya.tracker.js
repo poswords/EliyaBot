@@ -49,8 +49,8 @@ $(document).ready(function () {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' Role' + unit.Role + ' char unit"></li>')
-          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="main">'))
-          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="alt">'));
+          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="mainArt">'))
+          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="altArt">'));
 		var races = unit.Race.split(' / ');
 		for (i=0;i<races.length;i++){
 			elem.addClass('Race'+races[i]);
@@ -93,7 +93,7 @@ $(document).ready(function () {
           Object.keys(unit).forEach(function (key) {
             info.find('.' + key + ' span').text(unit[key]);
           });
-          info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="main"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="alt">');
+          info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt">');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           info.find('.Role').removeClass().addClass("Role " + unit.Role);
@@ -239,10 +239,15 @@ $(document).ready(function () {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
-  for (i = 0; i < 3; i++) {
-    var html = '<li class="char unit"><img src="img/assets/chars/blank/square_0.png"></li>';
-    $('#planner .charList').append($(html).data("DevNicknames", "blank"));
+  for (i = 1; i < 4; i++) {
+    var html = '<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>';
+    $('#unison'+i).append($(html).addClass('char main').data("DevNicknames", "blank"));
+	$('#unison'+i).append($(html).addClass('equip weapon').data("DevNicknames", "blank"));	  
+	$('#unison'+i).append($(html).addClass('char sub').data("DevNicknames", "blank"));
+	$('#unison'+i).append($(html).addClass('equip soul').data("DevNicknames", "blank"));
   }
+	
+	
   $("#switchUnits li").on("click", function () {
 	  $("#switchUnits li").removeClass('on');
 	  $(this).addClass('on');
@@ -269,6 +274,9 @@ $(document).ready(function () {
     updateEquipFilter();
   });
   $("#planner .char").on("click", function () {
+	if (!$("#btnShowChar").is('.on')){
+		$("#btnShowChar").trigger("click");		
+	}	  
     if ($("#chars .char.selected").length > 0) {
       $(this).html($("#chars .char.selected").html());
       $(this).data("DevNicknames", $("#chars .char.selected").data("DevNicknames"));
@@ -280,6 +288,21 @@ $(document).ready(function () {
       $(this).toggleClass("selected");
     }
   });
+  $("#planner .equip").on("click", function () {
+	if (!$("#btnShowEquip").is('.on')){
+		$("#btnShowEquip").trigger("click");		
+	}
+    if ($("#equips .equip.selected").length > 0) {
+      $(this).html($("#equips .equip.selected").html());
+      $(this).data("DevNicknames", $("#equips .equip.selected").data("DevNicknames"));
+      $(this).addClass($("#equips .equip.selected").attr("class"));
+      $(".selected").removeClass("selected");
+      $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+    } else {
+      $(".selected").not(this).removeClass("selected");
+      $(this).toggleClass("selected");
+    }
+  });	
   $("#btnCharInfo").on("click", function () {
     $("#btnCharInfo").toggleClass("on");
     $("#btnPlanner").removeClass("on");
@@ -354,6 +377,10 @@ $(document).ready(function () {
       var DevNicknames = $(this).data("DevNicknames");
       units.push(DevNicknames);
     })
+    $(".planner .equip").each(function () {
+      var DevNicknames = $(this).data("DevNicknames");
+      units.push(DevNicknames);
+    })	  
     const imageUrl = "http://eliya-bot.herokuapp.com/comp/" + units.join('-') + ".png";
     copyToClipboard(imageUrl);
 

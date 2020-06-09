@@ -9,7 +9,8 @@ const server = http.Server(app);
 const io = require('socket.io')(server);
 const { createCanvas, loadImage } = require('canvas')
 const path = require('path');
-app.use(express.static('public', {maxAge: "30d"}));
+/*app.use(express.static('public', {maxAge: "30d"}));*/
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -37,18 +38,47 @@ app.get('/list', function(req, res){
 	});
 });
 app.get('/comp/:w', function(req, res){
-	const canvas = createCanvas(298, 236);
+	const canvas = createCanvas(480, 205);
 	const ctx = canvas.getContext('2d');
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	const units = req.params.w.replace('.png','').split("-");
 
 	var count=0;
-	loadImage('./public/img/party.png').then((bg) => {
-		ctx.drawImage(bg, 0,0, 298, 236);
+	loadImage('./public/img/party_full.png').then((bg) => {
+		ctx.drawImage(bg, 0,0, 480, 205);
 		for (i=0;i<units.length;i++){
-			loadImage('./public/img/assets/chars/'+units[i]+'/square_0.png').then((image) => {
-				ctx.drawImage(image, 16+(count%3)*92, 16+Math.floor(count/3)*107, 82, 82);
+			var imageUrl = '';
+			if (i<6){
+				imageUrl = './public/img/assets/chars/'+units[i]+'/square_0.png'
+			}else{ 
+				imageUrl = './public/img/assets/item/equipment/'+units[i]+'.png'
+			}
+			loadImage(imageUrl).then((image) => {
+				var width = 82;
+				var x,y;
+				switch(true){
+					case (count<3):
+						x = 10+(count%3)*160;
+						y = 10;
+						break;
+					case (count<6):
+						x = 81+(count%3)*160;
+						y = 110;
+						width= 69;
+						break;
+					case (count<9):
+						x = 96+(count%3)*160;
+						y = 26;
+						width= 54;						
+						break;
+					default:
+						x = 8+(count%3)*160;
+						y = 123;
+						width= 54;						
+						break;						
+				}
+				ctx.drawImage(image, x, y, width, width);
 				count++;
 				if (count >= units.length){
 					var data = canvas.toDataURL();

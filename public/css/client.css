@@ -1,838 +1,830 @@
-body
-{
-    z-index: 1;
-	padding:60px 0;
-	/*transition: padding 0.5s;*/
+body {
+  z-index: 1;
+  padding: 60px 0;
+  /*transition: padding 0.5s;*/
 }
-body.expanded{
-	padding-bottom: 360px;
+body.expanded {
+  padding-bottom: 360px;
 }
-
-.body,
-.wrapper
-{
-    width: 100%;
-    margin: 0;
+.body, .wrapper {
+  width: 100%;
+  margin: 0;
 }
-.button i
-{
-    vertical-align: top;
+.button i {
+  vertical-align: top;
 }
-.button
-{
-    display: inline-block;
-
-    margin: 5px;
-    padding: 10px;
-	font-size: 12px;
-
-    text-align: center;
-	box-shadow: 0 0 1px 1px #aaa;
-    border-radius: 5px;
-    background: #fff;
-	cursor: pointer;
-
+.button {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  box-shadow: 0 0 1px 1px #aaa;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
 }
-.button svg{
-	vertical-align: top;	
+.button svg {
+  vertical-align: top;
 }
-.button.pressed,
-.button.on
-{
-	transition: 0.3s all;
-    color: #fff;
-    background:#6a6aea;
+.button.pressed, .button.on {
+  transition: 0.3s all;
+  color: #fff;
+  background: #6a6aea;
 }
-.button.pressed svg,
-.button.on svg
-{
-    fill: #fff;
+.button.pressed svg, .button.on svg {
+  fill: #fff;
 }
-
-.toolbar{
-	position: fixed;
-	top:0;
-	left:0;
-	width:100%;
-	z-index: 20;
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
 }
-.title{
-	font-size: 40px;
-	padding:10px;text-align: center;
-	margin-bottom:40px;
-	letter-spacing: 2px;
+.title {
+  font-size: 40px;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
 }
-
-.toolbar .btnList{
-	position: absolute;
-	right:10px;
-	top:10px;
+.toolbar .btnList {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
-
-#btnGetShareURL{
-	width:140px;
+#btnGetShareURL {
+  width: 140px;
 }
-#chars,
-#equips{
-	text-align: center;
-	max-width:960px;
-	margin: 0 auto;
-	display: none;
-	transition: opacity 0.3s;
+#chars, #equips {
+  text-align: center;
+  max-width: 960px;
+  margin: 0 auto;
+  display: none;
+  transition: opacity 0.3s;
 }
-.viewchar #chars{
-	display: block;
+.viewchar #chars {
+  display: block;
 }
-.viewequip #equips{
-	display: block;
+.viewequip #equips {
+  display: block;
 }
-
-#chars h2,
-#equips h2{
-	clear:both;
-	width: 100%;
-	margin:20px 0 10px 5px;
-	text-align: center;
+#chars h2, #equips h2 {
+  clear: both;
+  width: 100%;
+  margin: 20px 0 10px 5px;
+  text-align: center;
 }
-#chars h2 img,#equips h2 img{
-	width: 60px;
+#chars h2 img, #equips h2 img {
+  width: 60px;
 }
-#chars section,
-#equips section{
-	position: relative;
+#chars section, #equips section {
+  position: relative;
 }
-#chars section .score,
-#equips section .score{
-	position: absolute;
-	right: 85px;
-	top: 5px;
-	font-size: 11px;
-	color: #999;
+#chars section .score, #equips section .score {
+  position: absolute;
+  right: 85px;
+  top: 5px;
+  font-size: 11px;
+  color: #999;
 }
 .btnSelectAll {
-    padding: 5px;
-    font-size: 10px;
-    position: absolute;
-    top: -5px;
-    right: 0;
-	width:60px;
-	transition: 0.3s all;
+  padding: 5px;
+  font-size: 10px;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  width: 60px;
+  transition: 0.3s all;
 }
-.btnSelectAll.on{
-	color: #000;
-	background-color: #dde;
+.btnSelectAll.on {
+  color: #000;
+  background-color: #dde;
 }
-#switchUnits{
-	text-align: center;
-    margin: 0 auto 40px;
-    display: flex;
-	width: 300px;
+#switchUnits {
+  text-align: center;
+  margin: 0 auto 40px;
+  display: flex;
+  width: 300px;
 }
-#switchUnits li{
-	font-size: 13px;
-	transition: 0.1s all;
+#switchUnits li {
+  font-size: 13px;
+  transition: 0.1s all;
 }
-#switchUnits li.on{
-	color:#fff;
-	background:#6a6aea;
-	font-weight: bold;
-	transition: none;
+#switchUnits li.on {
+  color: #fff;
+  background: #6a6aea;
+  font-weight: bold;
+  transition: none;
 }
-#charGrandTotal,
-#equipGrandTotal{
-	margin-top: 10px;
-	text-align: center;
-	font-size: 11px;
-	color: #999;
-	margin-bottom: 20px;
+#charGrandTotal, #equipGrandTotal {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 20px;
 }
-#charGrandTotal .percentage,
-#equipGrandTotal .percentage{
-	font-size: 24px;
-	line-height: 36px;
-	font-weight: bold;
-	color: #000;
+#charGrandTotal .percentage, #equipGrandTotal .percentage {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: bold;
+  color: #000;
+}
+.unitList {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  transition: 0.5s all;
+  opacity: 1;
+}
+.flash {
+  transition: 0s all;
+  opacity: 0;
+}
+.unit {
+  min-width: 60px;
+  min-height: 60px;
+  border: 3px solid #fff;
+  background: #fff;
+  margin: 2px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  opacity: 0.35;
+  box-shadow: 0 0 1px 1px #aaa;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  flex: 1 1 60px;
+  position: relative;
+}
+.unit.checked {
+  border: 3px solid #fff;
+  padding: 0;
+  background: #dde;
+  opacity: 1;
+}
+.unit.selected {
+  background: #6a6aea;
+  border: 3px solid #6a6aea;
+  opacity: 1;
+}
+.unit.spookyStuff {
+  border-top: none;
+  border-bottom: none;
+  opacity: 0 !important;
+  cursor: auto;
+  min-height: inherit;
+  padding: 0 !important;
+}
+.unit img {
+  max-width: 100%;
+  height: auto;
+}
+.char:before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  padding: 2px;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #fff;
+  background-size: 12px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  max-width: 100%;
+  border-radius: 3px;
+}
+.filterList {
+  border-radius: 5px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 1px 1px #aaa;
+  display: inline-flex;
+  width: 200px;
+  margin: 0 4px 10px;
+  vertical-align: bottom;
+  transition: 0.3s all;
+}
+.filterList li {
+  width: 12px;
+  height: 12px;
+  padding: 8px;
+  border-left: 1px solid #aaa;
+  cursor: pointer;
+  transition: 0.3s all;
+  flex: 1 1 20px;
+  font-size: 11px;
+  line-height: 12px;
+}
+.filterList li img {
+  max-height: 12px;
+  margin: 0 auto;
+}
+.filterList li.on {
+  background: #dde;
+}
+.filterList li:first-child {
+  border: none;
+}
+#filterCharRarity, #filterEquipRarity, #filterAltArt {
+  width: 300px
+}
+#filterEquipObtain {
+  width: 200px;
+}
+#filterCharRole {
+  opacity: 0;
+  margin-top: -25px;
+  margin-bottom: -5px;
+  pointer-events: none;
+}
+#filterCharRace {
+  opacity: 0;
+  margin-top: -25px;
+  margin-bottom: -5px;
+  pointer-events: none;
+  width: 612px;
+}
+.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt {
+  margin: -10px 4px 20px;
+}
+.showRole #filterCharRole, .showRole #filterCharRace {
+  opacity: 1;
+  pointer-events: auto;
+}
+#filterCharRole img {
+  background-color: #000;
+  filter: invert();
+  opacity: 0.8;
+}
+#filterCharRole .on img {
+  background-color: inherit;
+  filter: none;
+  opacity: 1;
+}
+.unit.filtered {
+  display: none;
+}
+.planner .unit{
+  opacity: 1;
 }
 
-.unitList{
+
+.partyList {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  transition: 0.5s all;
+  opacity: 1;
+}
+.plannerWrapper {
+  max-width: 480px;
+  margin: 10px auto;
+}
+#unisons{
 	display: flex;
-	flex-wrap: wrap;
-	align-content:flex-start;
-	transition: 0.5s all;
-	opacity: 1;
+	margin-bottom: 10px;
 }
-.flash{
-	transition: 0s all;
-	opacity: 0;
+#unisons .unit{
+	min-width: inherit;
+	min-height: inherit;
 }
-.unit{ 
-	min-width: 60px;
-	min-height: 60px;
-	border:3px solid #fff;
-	background: #fff;
-	margin: 2px;
-	box-sizing: border-box;
-	border-radius: 3px;
-	opacity: 0.35;
-	box-shadow: 0 0 1px 1px #aaa;
-	transition: opacity 0.3s;
-	cursor: pointer;
-	flex: 1 1 60px;
+#unisons .unit.checked{
+	background:#fff;
+}
+.unison{
+	flex: 1 1 33%;
+	margin: 0 1%;
 	position: relative;
 }
-
-.unit.checked{
-	border:3px solid #fff;
-	padding: 0;
-	background: #dde;
-	opacity: 1;	
+.main{
+	max-width:60%;
+	top: 0;right: 0;
 }
-.unit.selected{
-	background:#6a6aea;
-	border:3px solid #6a6aea;
-	opacity: 1;	
-}
-.unit.spookyStuff{
-	border-top: none;
-	border-bottom: none;
-	opacity: 0 !important;
-	cursor: auto;
-	min-height:inherit;
-	padding: 0!important;
-}
-.unit img{
-	max-width: 100%;
-	height: auto;
-}
-.char:before{
-	content:"";
-	width: 12px;
-	height: 12px;
-	padding: 2px;
+.weapon{
+	max-width:40%;
 	position:absolute;
-	top: -2px;
-	right: -2px;
-	background-color: #fff;
-	background-size: 12px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	max-width: 100%;
-	border-radius: 3px;
+	top: 16px;right: 0;
 }
-
-.char.AttributeFire:before{
-	background-image:url("../img/assets/sprites/elements/element_red.png");
+.sub{
+	max-width:50%;
+	position:absolute;
+	bottom: 0;right: 0;	
 }
-.char.AttributeWater:before{
-	background-image:url("../img/assets/sprites/elements/element_blue.png");
-}
-.char.AttributeWind:before{
-	background-image:url("../img/assets/sprites/elements/element_green.png");
-}
-.char.AttributeThunder:before{
-	background-image:url("../img/assets/sprites/elements/element_yellow.png");
-}
-.char.AttributeLight:before{
-	background-image:url("../img/assets/sprites/elements/element_white.png");
-}
-.char.AttributeDark:before{
-	background-image:url("../img/assets/sprites/elements/element_black.png");
-}
-.filterList{
-	border-radius: 5px;
-	background: #fff;
-	overflow: hidden;
-	box-shadow: 0 0 1px 1px #aaa;
-	display: inline-flex;
-	width: 200px;
-	margin: 0 4px 10px;
-	vertical-align: bottom;
-	transition: 0.3s all;
-}
-.filterList li{
-	width:  12px;
-	height: 12px;
-	padding: 8px;
-	border-left:1px solid #aaa;
-	cursor: pointer;
-	transition: 0.3s all;
-	flex: 1 1 20px;
-	font-size:  11px;
-	line-height: 12px;
-}
-.filterList li img{
-	max-height: 12px;
-	margin: 0 auto;
-}
-.filterList li.on{
-	background: #dde;
-}
-.filterList li:first-child{
-	border: none;
-}
-#filterCharRarity,
-#filterEquipRarity,
-#filterAltArt{
-	width:  300px
-}
-#filterEquipObtain{
-	width:  200px;
-}
-
-#filterCharRole{
-	opacity: 0;	
-	margin-top: -25px;
-	margin-bottom: -5px;
-	pointer-events: none;
-}
-#filterCharRace{
-	opacity: 0;
-	margin-top: -25px;
-	margin-bottom: -5px;
-	pointer-events: none;
-	width: 612px;
-}
-.showRole #filterCharAttribute,
-.showRole #filterCharRarity,
-.showRole #filterAltArt{
-    margin: -10px 4px 20px;
-}
-.showRole #filterCharRole,
-.showRole #filterCharRace{
-	opacity: 1;
-	pointer-events: auto;
-}
-#filterCharRole img{
-	background-color: #000;
-	filter: invert();
-	opacity: 0.8;
-}
-#filterCharRole .on img{
-	background-color: inherit;
-	filter: none;
-	opacity: 1;
-}
-.unit.filtered{
-	display: none;
-}
-
-.planner .char{
-	opacity: 1;		
-}
-#planner .charList .char:after{
-	font-size: 10px;
-	color:#333;
-}
-#planner .charList:first-child .char:nth-child(1):after{
-	content:"Leader";
-}
-#planner .charList:first-child .char:nth-child(2):after{
-	content:"Main";
-}
-#planner .charList:first-child .char:nth-child(3):after{
-	content:"Main";
-}
-#planner .charList .char:nth-child(1):after{
-	content:"Sub";
-}
-#planner .charList .char:nth-child(2):after{
-	content:"Sub";
-}
-#planner .charList .char:nth-child(3):after{
-	content:"Sub";
-}
-#info{
-	position:fixed;
-	background:#fff;
-	border-radius: 3px;
-	box-shadow: 0 0 1px 1px #aaa;	
-	width:100%;
-	bottom: 0px;
-	left:0px;
-	height: 0;
-	text-align: center;
-	transition: 0.5s all;
-	z-index: 3;
-}
-#info.charinfo{
-	height: 300px;		
-}
-#info.planner{
-	height: 260px;		
-}
-#info .expandBlock{
-	opacity: 0;
-	height:0;
-	transition: 0.5s all;	
-}
-#info.charinfo .expandBlock{
-	opacity: 1;
-
-}
-#info .ENName{
-	margin-top:5px;
-}
-#info .ENName,
-#info .JPName{
-	font-size:14px;
-	font-weight: bold;
-	line-height: 30px;
-		display: inline-block;
-}
-#info .plannerWrapper,
-#info .infoWrapper{
-	display: none;
-}
-#info.charinfo .infoWrapper{
-	display: block;
-}
-#info.planner .plannerWrapper{
-	display: block;
-}
-#info .btnList{
-	width:100%;
-    position: absolute;
-	margin-top: -41px;
-	height: 0;
-}
-#info .btnList .button{
+.soul{
+	max-width:40%;
+	margin: 10px 0 3px;
 	box-shadow: none;
-	border-radius: 5px 5px 0 0;
-    z-index: 1;
-    border: 1px solid #aaa;	
-	background: #dde;	
-	z-index: -1;
 }
-#info .btnList .button.on{
-	border-bottom: 1px solid #fff;
-	background: #fff;
-	color: #000;
+#unisons .char:after,
+#unisons .equip:after
+{
+  font-size: 10px;
+  color: #333;
 }
-
-.infoWrapper{
-	max-width:920px;
-	margin: 0 auto;
-	line-height: 1.5em;
+#unisons .main:after {
+  content: "Main";
 }
-.plannerWrapper{
-	max-width:240px;
-	margin: 10px auto;	
+#unisons ul:nth-child(1)  .main:after {
+  content: "Leader";
 }
-.partyList {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    transition: 0.5s all;
-    opacity: 1;
+#unisons .sub:after {
+  content: "Sub";
 }
-#info .Art{
-	float:left;
-	width: 240px;
-	height: 240px;
+#unisons .weapon:after {
+  content: "Weapon";
 }
-#info .equipInfoBlock .Art{
-	width: 82px;
-	height: 82px;
-	padding: 0 10px;
-	
+#unisons .soul:after {
+  content: "Soul";
 }
-#info .details{
-	text-align: left;
-	font-weight: bold;
-	overflow-y: auto;
-	max-height: 240px;
+#info {
+  position: fixed;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 1px 1px #aaa;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  height: 0;
+  text-align: center;
+  transition: 0.5s all;
+  z-index: 3;
 }
-.Attribute span:before,
-.Role span:before{
-	content:"";
-	width: 12px;
-	height: 12px;
-	margin: 0 4px -1px 0;
-	background-color: #fff;
-	background-size: 12px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	display: inline-block;
+#info.charinfo {
+  height: 300px;
 }
-.Role span:before{
-	background-color: #000;
-	filter: invert();
-	opacity: 0.8;
+#info.planner {
+  height: 260px;
 }
-.Attribute.Fire span:before{
-	background-image:url("../img/assets/sprites/elements/element_red.png");
+#info .expandBlock {
+  opacity: 0;
+  height: 0;
+  transition: 0.5s all;
 }
-.Attribute.Water span:before{
-	background-image:url("../img/assets/sprites/elements/element_blue.png");
+#info.charinfo .expandBlock {
+  opacity: 1;
 }
-.Attribute.Wind span:before{
-	background-image:url("../img/assets/sprites/elements/element_green.png");
+#info .ENName {
+  margin-top: 5px;
 }
-.Attribute.Thunder span:before{
-	background-image:url("../img/assets/sprites/elements/element_yellow.png");
+#info .ENName, #info .JPName {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  display: inline-block;
 }
-.Attribute.Light span:before{
-	background-image:url("../img/assets/sprites/elements/element_white.png");
+#info .plannerWrapper, #info .infoWrapper {
+  display: none;
 }
-.Attribute.Dark span:before{
-	background-image:url("../img/assets/sprites/elements/element_black.png");
+#info.charinfo .infoWrapper {
+  display: block;
 }
-.Attribute.All span:before{
-	display: none;
+#info.planner .plannerWrapper {
+  display: block;
 }
-#info .Rarity span{
-	font-size: 0;
+#info .btnList {
+  width: 100%;
+  position: absolute;
+  margin-top: -41px;
+  height: 0;
 }
-.Rarity span:before{
-	content:"";
-	width: 60px;
-	height: 12px;
-	margin: 0 4px -1px 0;
-	background-color: #fff;
-	background-size: 60px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	display: inline-block;
+#info .btnList .button {
+  box-shadow: none;
+  border-radius: 5px 5px 0 0;
+  z-index: 1;
+  border: 1px solid #aaa;
+  background: #dde;
+  z-index: -1;
 }
-.Rarity.Rarity5 span:before{
-	background-image:url("../img/assets/sprites/rarity/star5.png");
+#info .btnList .button.on {
+  border-bottom: 1px solid #fff;
+  background: #fff;
+  color: #000;
 }
-.Rarity.Rarity4 span:before{
-	background-position: -6px;
-	background-image:url("../img/assets/sprites/rarity/star4.png");
+.infoWrapper {
+  max-width: 920px;
+  margin: 0 auto;
+  line-height: 1.5em;
 }
-.Rarity.Rarity3 span:before{
-	background-position: -11px;
-	background-image:url("../img/assets/sprites/rarity/star3.png");
+#info .Art {
+  float: left;
+  width: 240px;
+  height: 240px;
 }
-.Rarity.Rarity2 span:before{
-	background-position: -16px;
-	background-image:url("../img/assets/sprites/rarity/star2.png");
+#info .equipInfoBlock .Art {
+  width: 82px;
+  height: 82px;
+  padding: 0 10px;
 }
-.Rarity.Rarity1 span:before{
-	background-position: -21px;
-	background-image:url("../img/assets/sprites/rarity/star1.png");
+#info .details {
+  text-align: left;
+  font-weight: bold;
+  overflow-y: auto;
+  max-height: 240px;
 }
-.Role.Sword span:before{
-	background-image:url("../img/assets/sprites/types/type_knight.png");
+.Attribute span:before, .Role span:before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin: 0 4px -1px 0;
+  background-color: #fff;
+  background-size: 12px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
 }
-.Role.Fist span:before{
-	background-image:url("../img/assets/sprites/types/type_fighter.png");
-
+.Role span:before {
+  background-color: #000;
+  filter: invert();
+  opacity: 0.8;
 }
-.Role.Bow span:before{
-	background-image:url("../img/assets/sprites/types/type_ranged.png");
+.char.AttributeFire:before, .Attribute.Fire span:before {
+  background-image: url("../img/assets/sprites/elements/element_red.png");
 }
-.Role.Support span:before{
-	background-image:url("../img/assets/sprites/types/type_supporter.png");
+.char.AttributeWater:before, .Attribute.Water span:before {
+  background-image: url("../img/assets/sprites/elements/element_blue.png");
 }
-.Role.Special span:before{
-	background-image:url("../img/assets/sprites/types/type_special.png");
+.char.AttributeWind:before, .Attribute.Wind span:before {
+  background-image: url("../img/assets/sprites/elements/element_green.png");
 }
-
-#info .details span{
-	font-weight: normal;
-	
+.char.AttributeThunder:before, .Attribute.Thunder span:before {
+  background-image: url("../img/assets/sprites/elements/element_yellow.png");
 }
-.footer{
-	font-size: normal;
-	color:#666;
-	margin-top:20px;
+.char.AttributeLight:before, .Attribute.Light span:before {
+  background-image: url("../img/assets/sprites/elements/element_white.png");
 }
-.footer div{
-	display: inline-block;
-	margin-right:10px;
+.char.AttributeDark:before, .Attribute.Dark span:before {
+  background-image: url("../img/assets/sprites/elements/element_black.png");
 }
-
-
-#charNamePlate{
-	position: absolute;
-	background:rgba(255,255,255,0.8);
-	border-radius: 5px;
-	padding: 5px;
-	text-align: center;
-	box-shadow: 0 0 1px 1px #aaa;
-	margin-top: 5px;
-	transform: translate(-50%,0);
-	pointer-events: none;
+.Attribute.All span:before {
+  display: none;
 }
-#charNamePlate .ENName{
-	font-size:10px;
-	line-height: 15px;
+#info .Rarity span {
+  font-size: 0;
 }
-#charNamePlate .JPName{
-	font-size:10px;
-	line-height: 15px;
+.Rarity span:before {
+  content: "";
+  width: 60px;
+  height: 12px;
+  margin: 0 4px -1px 0;
+  background-color: #fff;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
 }
-#charNamePlate .Obtain{
-	font-size:9px;
-	line-height: 15px;
+.Rarity.Rarity5 span:before {
+  background-image: url("../img/assets/sprites/rarity/star5.png");
 }
-.alt{
-	display: none;
+.Rarity.Rarity4 span:before {
+  background-position: -6px;
+  background-image: url("../img/assets/sprites/rarity/star4.png");
 }
-.viewAlt .main{
-	display: none;
+.Rarity.Rarity3 span:before {
+  background-position: -11px;
+  background-image: url("../img/assets/sprites/rarity/star3.png");
 }
-.viewAlt .alt{
-	display: block
+.Rarity.Rarity2 span:before {
+  background-position: -16px;
+  background-image: url("../img/assets/sprites/rarity/star2.png");
 }
-.viewOwned .unit:not(.checked){
-	display: none;
+.Rarity.Rarity1 span:before {
+  background-position: -21px;
+  background-image: url("../img/assets/sprites/rarity/star1.png");
 }
-.viewOwned .unit.spookyStuff{
-	display: block;
+.Role.Sword span:before {
+  background-image: url("../img/assets/sprites/types/type_knight.png");
 }
-.unit .charInfoBlock,
-.unit .equipInfoBlock{
-	display: none;
-	opacity: 0;
-	transition: 0.5s all;
-	text-align: left;
-	padding-left:60px;
-	font-size: 11px;		
+.Role.Fist span:before {
+  background-image: url("../img/assets/sprites/types/type_fighter.png");
 }
-.listView .unitList .unit{
-	width: 100%;
-	flex: 0 0 100%;
-	background:#fff;
+.Role.Bow span:before {
+  background-image: url("../img/assets/sprites/types/type_ranged.png");
 }
-.listView .unitList .charInfoBlock,
-.listView .unitList .equipInfoBlock{
-	display: block;
-	opacity: 1;
+.Role.Support span:before {
+  background-image: url("../img/assets/sprites/types/type_supporter.png");
 }
-.unitList .details{
-	display: flex;
-	margin: 5px 0;
+.Role.Special span:before {
+  background-image: url("../img/assets/sprites/types/type_special.png");
 }
-.unitList .details div{
-	flex: 1 1 17%;
-	padding: 0 1%;
-	font-weight: bold;
-	text-align: center;
-	line-height: 16px;
+#info .details span {
+  font-weight: normal;
 }
-.equipList .details div.WeaponSkill{
-	flex: 1 1 60%;
+.footer {
+  font-size: normal;
+  color: #666;
+  margin-top: 20px;
 }
-.unitList .details div span{
-	font-weight: normal;
-	display: block;
-	text-align: left
+.footer div {
+  display: inline-block;
+  margin-right: 10px;
 }
-
-.unitList .details div.Rarity{
-	margin-top:  16px;
-	flex: 1 1 3%;
+#charNamePlate {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 0 1px 1px #aaa;
+  margin-top: 5px;
+  transform: translate(-50%, 0);
+  pointer-events: none;
 }
-.unitList .details div.Rarity span:before{
-	background-position: center center;
+#charNamePlate .ENName {
+  font-size: 10px;
+  line-height: 15px;
 }
-.unitList .Attribute{
-	display: none;
+#charNamePlate .JPName {
+  font-size: 10px;
+  line-height: 15px;
 }
-.unitList .ENName{
-	position: absolute;
-	left: 20px;
-    top: 62px;
-	line-height: 14px;
-	font-weight: bold;
+#charNamePlate .Obtain {
+  font-size: 9px;
+  line-height: 15px;
 }
-.equipList .ENName{
-	left: 5px;
+.altArt {
+  display: none;
 }
-.equipList .details div.Attribute{
-	display: block;
-	margin-top:  16px;
-	font-weight: bold;
-	flex: 1 1 3%;
+.viewAlt .mainArt {
+  display: none;
 }
-.equipList .details div span{
-	text-align: center;
+.viewAlt .altArt {
+  display: block
 }
-
-.unitList .JPName{
-	position: absolute;
-	left: 5px;
-    top: 78px;
-	font-size: 9px;
+.viewOwned .unit:not(.checked) {
+  display: none;
 }
-
-.unitList .details .footer{
-	position: absolute;
-	bottom: 5px;
-	left: 74px;
-	padding: 0;
-	display: none;
+.viewOwned .unit.spookyStuff {
+  display: block;
+}
+.unit .charInfoBlock, .unit .equipInfoBlock {
+  display: none;
+  opacity: 0;
+  transition: 0.5s all;
+  text-align: left;
+  padding-left: 60px;
+  font-size: 11px;
+}
+.listView .unitList .unit {
+  width: 100%;
+  flex: 0 0 100%;
+  background: #fff;
+}
+.listView .unitList .charInfoBlock, .listView .unitList .equipInfoBlock {
+  display: block;
+  opacity: 1;
+}
+.unitList .details {
+  display: flex;
+  margin: 5px 0;
+}
+.unitList .details div {
+  flex: 1 1 17%;
+  padding: 0 1%;
+  font-weight: bold;
+  text-align: center;
+  line-height: 16px;
+}
+.equipList .details div.WeaponSkill {
+  flex: 1 1 60%;
+}
+.unitList .details div span {
+  font-weight: normal;
+  display: block;
+  text-align: left
+}
+.unitList .details div.Rarity {
+  margin-top: 16px;
+  flex: 1 1 3%;
+}
+.unitList .details div.Rarity span:before {
+  background-position: center center;
+}
+.unitList .Attribute {
+  display: none;
+}
+.unitList .ENName {
+  position: absolute;
+  left: 20px;
+  top: 62px;
+  line-height: 14px;
+  font-weight: bold;
+}
+.equipList .ENName {
+  left: 5px;
+}
+.equipList .details div.Attribute {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+  flex: 1 1 3%;
+}
+.equipList .details div span {
+  text-align: center;
+}
+.unitList .JPName {
+  position: absolute;
+  left: 5px;
+  top: 78px;
+  font-size: 9px;
+}
+.unitList .details .footer {
+  position: absolute;
+  bottom: 5px;
+  left: 74px;
+  padding: 0;
+  display: none;
 }
 .showRole .unitList .details {
-	padding-bottom: 20px;
+  padding-bottom: 20px;
 }
-.showRole .unitList .details .footer{
-	display: block;
+.showRole .unitList .details .footer {
+  display: block;
 }
 .unitList .details .footer div {
-	padding: 0;
+  padding: 0;
 }
-.listView .unitList .char:before{
-	top: 60px;
-	left: 3px;
+.listView .unitList .char:before {
+  top: 60px;
+  left: 3px;
 }
 .listView .unit {
-	opacity: 1;	
+  opacity: 1;
 }
-
-.listView .unit.checked,
-.listView .unit.selected{
-	opacity: 1;
+.listView .unit.checked, .listView .unit.selected {
+  opacity: 1;
 }
-.listView .unitList .unit img{
-	width: 52px;
-	height: 52px;
-	float: left;
-	margin: 5px 5px 40px;
-	background:#fff;
-	border-radius: 5px;
-	box-shadow: 0 0 1px 1px #aaa;	
-	opacity: 0.5;
+.listView .unitList .unit img {
+  width: 52px;
+  height: 52px;
+  float: left;
+  margin: 5px 5px 40px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 1px 1px #aaa;
+  opacity: 0.5;
 }
-.listView .unitList .unit.checked img{
-	background:#dde;
-	opacity: 1;
+.listView .unitList .unit.checked img {
+  background: #dde;
+  opacity: 1;
 }
-.listView #charNamePlate{
-	display: none !important;
+.listView #charNamePlate {
+  display: none !important;
 }
-
-
 @media all and (max-width: 920px) {
-	.wrapper{
-		width: 92%;
-		padding-left: 4%;
-		padding-right: 4%;
-	}
-	#info .Art{
-		width: 30vw;
-		height: 30vw;
-	}
-	#info .equipInfoBlock .Art{
-		width: 12vw;
-		height: 12vw;
-		padding: 0 2vw;
-
-	}	
-	.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt{
-		margin-bottom: 10px;
-	}
-	#filterCharRole{
-		display:none;
-	}
-	.showRole #filterCharRole,
-	.showRole #filterCharRace{
-		display:inline-flex;
-		margin-top: 0px;
-		margin-bottom: 10px;
-		
-	}
-	.showRole #filterCharRace{
-		max-width: 100%;
-	}
-}	
-	
+  .wrapper {
+    width: 92%;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+  #info .Art {
+    width: 30vw;
+    height: 30vw;
+  }
+  #info .equipInfoBlock .Art {
+    width: 12vw;
+    height: 12vw;
+    padding: 0 2vw;
+  }
+  .showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt {
+    margin-bottom: 10px;
+  }
+  #filterCharRole {
+    display: none;
+  }
+  .showRole #filterCharRole, .showRole #filterCharRace {
+    display: inline-flex;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  .showRole #filterCharRace {
+    max-width: 100%;
+  }
+}
 @media all and (max-width: 599px) {
-	#info .Art{
-		width: 40vw;
-		height: 40vw;
-	}	
-	#info .equipInfoBlock .Art{
-		width: 18vw;
-		height: 18vw;
-		padding: 0 2vw;
-
-	}	
-	.unitList .details div{
-		flex: 1 1 100%;
-		margin-bottom: 10px;
-	}
-	.unitList .details .footer,
-	.unitList .details .footer div{
-		margin-bottom: 0px;
-	}	
-	.unitList .details {
-		display: flex;
-		flex-wrap: wrap;
-	}
-	.unitList .ENName{
-		max-width: 42px;
-    	overflow: hidden;
-		white-space: nowrap;
-	}
-	.equipList .ENName{
-		max-width: 120px;
-		overflow: hidden;
-	}
-	.equipList .details div.Obtain{
-		flex: 1 1 60%;
-		justify-content: flex-end;
-		padding-left: 19%;
-	}	
-	.unitList .details div.Rarity{
-		margin-top: 0;
-		position: absolute;
-		left: -2px;
-		top: 92px;
-	}
-	.listView .unitList .unit img{
-		margin-bottom: 54px;
-	}
-	.filterList{
-		width: 92% !important;
-		margin-left: 4%;
-		margin-right: 4%;
-	}
-	.showRole #filterAltArt{
-		margin-bottom:10px;
-	}
-	.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt{
-		margin-top: 0;
-		margin-bottom: 10px;
-	}	
-	#filterCharRole,
-	#filterCharRace{
-		margin-top:-20px;
-		margin-bottom:-30px;;
-	}
-	#filterCharRace{
-		flex-wrap: wrap;
-	}
-	#filterCharRace li{
-		flex: 1 1 20%;
-		border-bottom: 1px solid #aaa;
-	}
-	#filterCharRace li:nth-child(4n+1){
-		border-left: none;
-	}
-	#filterCharRace li:nth-child(n+9){
-		border-bottom: none;
-	}
-	.showRole #filterCharRole,
-	.showRole #filterCharRace{
-		margin-top: 0;		
-		margin-bottom: 10px;
-	}
+  #info .Art {
+    width: 40vw;
+    height: 40vw;
+  }
+  #info .equipInfoBlock .Art {
+    width: 18vw;
+    height: 18vw;
+    padding: 0 2vw;
+  }
+  .unitList .details div {
+    flex: 1 1 100%;
+    margin-bottom: 10px;
+  }
+  .unitList .details .footer, .unitList .details .footer div {
+    margin-bottom: 0px;
+  }
+  .unitList .details {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .unitList .ENName {
+    max-width: 42px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .equipList .ENName {
+    max-width: 120px;
+    overflow: hidden;
+  }
+  .equipList .details div.Obtain {
+    flex: 1 1 60%;
+    justify-content: flex-end;
+    padding-left: 19%;
+  }
+  .unitList .details div.Rarity {
+    margin-top: 0;
+    position: absolute;
+    left: -2px;
+    top: 92px;
+  }
+  .listView .unitList .unit img {
+    margin-bottom: 54px;
+  }
+  .filterList {
+    width: 92% !important;
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  .showRole #filterAltArt {
+    margin-bottom: 10px;
+  }
+  .showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  #filterCharRole, #filterCharRace {
+    margin-top: -20px;
+    margin-bottom: -30px;
+    ;
+  }
+  #filterCharRace {
+    flex-wrap: wrap;
+  }
+  #filterCharRace li {
+    flex: 1 1 20%;
+    border-bottom: 1px solid #aaa;
+  }
+  #filterCharRace li:nth-child(4n+1) {
+    border-left: none;
+  }
+  #filterCharRace li:nth-child(n+9) {
+    border-bottom: none;
+  }
+  .showRole #filterCharRole, .showRole #filterCharRace {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 }
 @media all and (max-width: 395px) {
-	#filterCharRace li:nth-child(4n+1){
-		border-left: 1px solid #aaa;
-	}	
-	#filterCharRace li:nth-child(3n+1){
-		border-left: none;
-	}
-	#filterCharRace li:nth-child(9){
-		border-bottom: 1px solid #aaa;
-	}	
-	#filterCharRace li:nth-child(n+10){
-		border-bottom: none;
-	}	
+  #filterCharRace li:nth-child(4n+1) {
+    border-left: 1px solid #aaa;
+  }
+  #filterCharRace li:nth-child(3n+1) {
+    border-left: none;
+  }
+  #filterCharRace li:nth-child(9) {
+    border-bottom: 1px solid #aaa;
+  }
+  #filterCharRace li:nth-child(n+10) {
+    border-bottom: none;
+  }
+/*.plannerWrapper {
+  max-width: 360px;
+  margin: 10px auto;
+}
+.partyList.main li{
+	margin-right: 50px;
+    margin-left: 10px;
+}
+.partyList.weapon li{
+margin-left: 75px;
+    flex: 1 1 40px;
+    min-width: 40px;
+    min-height: 40px;
+    margin-top: -60px;
+}
+.partyList.sub li{
+margin-left: 60px;
+    flex: 1 1 40px;
+    min-width: 40px;
+    min-height: 40px;
+	margin-top: 3px;
+	
+}
+.partyList.soul li{
+margin-right: 65px;
+    flex: 1 1 40px;
+    margin-left: 10px;
+    min-width: 30px;
+    min-height: 40px;
+    margin-top: -75px;
+    margin-bottom: 25px;
+	
+}*/
 }
