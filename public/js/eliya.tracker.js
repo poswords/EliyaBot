@@ -330,9 +330,9 @@ $(document).ready(function () {
   });
   $(".btnSelectAll").on("click", function () {
     if (!$(this).is('.on')) {
-      $(this).siblings('.unitList').find('.unit').not('.spookyStuff').addClass('checked');
+      $(this).siblings('.unitList').find('.unit').not('.spookyStuff').not('.filtered').addClass('checked');
     } else {
-      $(this).siblings('.unitList').find('.unit').not('.spookyStuff').removeClass('checked');
+      $(this).siblings('.unitList').find('.unit').not('.spookyStuff').not('.filtered').removeClass('checked');
     }
     $("#btnSave").removeClass("on");
     updateCharScore();
