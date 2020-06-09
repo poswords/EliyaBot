@@ -9,7 +9,7 @@ const server = http.Server(app);
 const io = require('socket.io')(server);
 const { createCanvas, loadImage } = require('canvas')
 const path = require('path');
-app.use(express.static('public'));
+app.use(express.static('public', {maxAge: "30d"}));
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -19,21 +19,18 @@ const DB = require('./data')
 var data = DB.getData();
 
 app.get('/', function(req, res){
-	res.set('Cache-Control','public, max-age=31536000');
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {}
 	});
 });
 app.get('/:id(\\d+)/', function(req, res){
-	res.set('Cache-Control','public, max-age=31536000');	
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {listid: req.params.id }
 	});
 });
 app.get('/list', function(req, res){
-	res.set('Cache-Control','public, max-age=31536000');	
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {listview: true}
