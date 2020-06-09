@@ -56,17 +56,23 @@ app.get('/comp/:w', function(req, res){
 			loadImage(imageUrl).then((image) => {
 				var width = 82;
 				var x,y;
-				switch(true){
-					case (count<3):
-						x = 10+(count%3)*160;
+				switch(count){
+					case 0:
+					case 2:
+					case 4:
+						x = 10+Math.floor(count/2)*160;
 						y = 10;
 						break;
-					case (count<6):
-						x = 81+(count%3)*160;
+					case 1:
+					case 3:
+					case 5:
+						x = 81+Math.floor(count/2)*160;
 						y = 110;
 						width= 69;
 						break;
-					case (count<9):
+					case 6:
+					case 7:
+					case 8:
 						x = 96+(count%3)*160;
 						y = 26;
 						width= 54;						
