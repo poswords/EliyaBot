@@ -71,14 +71,14 @@ app.get('/comp/:w', function(req, res){
 						width= 69;
 						break;
 					case 6:
-					case 7:
 					case 8:
-						x = 96+(count%3)*160;
+					case 10:						
+						x = 96+Math.floor(count/2)*160;
 						y = 26;
 						width= 54;						
 						break;
 					default:
-						x = 8+(count%3)*160;
+						x = 8+Math.floor(count/2)*160;
 						y = 123;
 						width= 54;						
 						break;						
