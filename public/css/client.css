@@ -219,6 +219,7 @@ body.expanded{
 	max-width: 100%;
 	border-radius: 3px;
 }
+
 .char.AttributeFire:before{
 	background-image:url("../img/assets/sprites/elements/element_red.png");
 }
@@ -246,6 +247,7 @@ body.expanded{
 	width: 200px;
 	margin: 0 4px 10px;
 	vertical-align: bottom;
+	transition: 0.3s all;
 }
 .filterList li{
 	width:  12px;
@@ -269,12 +271,46 @@ body.expanded{
 	border: none;
 }
 #filterCharRarity,
-#filterEquipRarity{
+#filterEquipRarity,
+#filterAltArt{
 	width:  300px
 }
-#filterEquipObtain,
-#filterAltArt{
+#filterEquipObtain{
 	width:  200px;
+}
+
+#filterCharRole{
+	opacity: 0;	
+	margin-top: -25px;
+	margin-bottom: -5px;
+	pointer-events: none;
+}
+#filterCharRace{
+	opacity: 0;
+	margin-top: -25px;
+	margin-bottom: -5px;
+	pointer-events: none;
+	width: 612px;
+}
+.showRole #filterCharAttribute,
+.showRole #filterCharRarity,
+.showRole #filterAltArt{
+    margin: -10px 4px 20px;
+}
+.showRole #filterCharRole,
+.showRole #filterCharRace{
+	opacity: 1;
+	pointer-events: auto;
+}
+#filterCharRole img{
+	background-color: #000;
+	filter: invert();
+	opacity: 0.8;
+}
+#filterCharRole .on img{
+	background-color: inherit;
+	filter: none;
+	opacity: 1;
 }
 .unit.filtered{
 	display: none;
@@ -626,9 +662,15 @@ body.expanded{
 .unitList .details .footer{
 	position: absolute;
 	bottom: 5px;
-	left: 5px;
-	padding: 0;	
+	left: 74px;
+	padding: 0;
 	display: none;
+}
+.showRole .unitList .details {
+	padding-bottom: 20px;
+}
+.showRole .unitList .details .footer{
+	display: block;
 }
 .unitList .details .footer div {
 	padding: 0;
@@ -662,9 +704,8 @@ body.expanded{
 .listView #charNamePlate{
 	display: none !important;
 }
-.listView .unit.spookyStuff{
-	margin: 0;
-}
+
+
 @media all and (max-width: 920px) {
 	.wrapper{
 		width: 92%;
@@ -681,6 +722,22 @@ body.expanded{
 		padding: 0 2vw;
 
 	}	
+	.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt{
+		margin-bottom: 10px;
+	}
+	#filterCharRole{
+		display:none;
+	}
+	.showRole #filterCharRole,
+	.showRole #filterCharRace{
+		display:inline-flex;
+		margin-top: 0px;
+		margin-bottom: 10px;
+		
+	}
+	.showRole #filterCharRace{
+		max-width: 100%;
+	}
 }	
 	
 @media all and (max-width: 599px) {
@@ -698,6 +755,10 @@ body.expanded{
 		flex: 1 1 100%;
 		margin-bottom: 10px;
 	}
+	.unitList .details .footer,
+	.unitList .details .footer div{
+		margin-bottom: 0px;
+	}	
 	.unitList .details {
 		display: flex;
 		flex-wrap: wrap;
@@ -729,5 +790,35 @@ body.expanded{
 		width: 92% !important;
 		margin-left: 4%;
 		margin-right: 4%;
+	}
+	.showRole #filterAltArt{
+		margin-bottom:10px;
+	}
+	.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt{
+		margin-top: 0;
+		margin-bottom: 10px;
+	}	
+	#filterCharRole,
+	#filterCharRace{
+		margin-top:-20px;
+		margin-bottom:-30px;;
+	}
+	#filterCharRace{
+		flex-wrap: wrap;
+	}
+	#filterCharRace li{
+		flex: 1 1 20%;
+		border-bottom: 1px solid #aaa;
+	}
+	#filterCharRace li:nth-child(4n+1){
+		border-left: none;
+	}
+	#filterCharRace li:nth-child(n+9){
+		border-bottom: none;
+	}
+	.showRole #filterCharRole,
+	.showRole #filterCharRace{
+		margin-top: 0;		
+		margin-bottom: 10px;
 	}
 }

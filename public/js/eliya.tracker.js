@@ -48,9 +48,14 @@ $(document).ready(function () {
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
-        var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + '  char unit"></li>')
+        var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' Role' + unit.Role + ' char unit"></li>')
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="main">'))
           .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="alt">'));
+		var races = unit.Race.split(' / ');
+		for (i=0;i<races.length;i++){
+			elem.addClass('Race'+races[i]);
+		}
+		  
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -250,6 +255,11 @@ $(document).ready(function () {
 	  }, 100);
 	  updateEquipScore();
   });
+	
+  $("#btnShowRole").on("click", function () {
+	  $(this).toggleClass('on');
+	  $('body').toggleClass('showRole');
+  });	
   $("#chars .btnFilter").on("click", function () {
     $(this).toggleClass('on');
     updateCharFilter();
@@ -451,17 +461,15 @@ $(document).ready(function () {
       } else {
         $("#chars .char").removeClass('filtered');
       }
+		
       $("#chars .char").not('.filtered').addClass('tempFilter');
 
-      if ($('#filterCharRarity .btnFilter.on').length > 0) {
-        $('.tempFilter').addClass('filtered');
-        $('#filterCharRarity .btnFilter.on').each(function () {
-          var filter = $(this).data('filter');
-          $('.tempFilter.' + filter).removeClass('filtered');
-        });
-      }
-      $('.tempFilter').removeClass('tempFilter');
-
+	  filterUnit('CharRarity');
+      filterUnit('CharRole');
+	  filterUnit('CharRace');
+		
+	   $('.tempFilter').removeClass('tempFilter');
+	
       $(".charList").each(function () {
         if ($(this).find('.char').not('.filtered').length == 0) {
           $(this).parent().addClass('hidden')
@@ -479,6 +487,22 @@ $(document).ready(function () {
     updateCharScore();
   }
 
+	
+  function filterUnit(target){
+      if ($('#filter'+target+' .btnFilter.on').length > 0) {
+        $('.tempFilter').addClass('filtered');
+        $('#filter'+target+' .btnFilter.on').each(function () {
+          var filter = $(this).data('filter');
+          $('.tempFilter.' + filter).removeClass('filtered');
+        });
+		$('.tempFilter').removeClass('tempFilter');
+		$("#chars .char").not('.filtered').addClass('tempFilter');
+		$("#equips .equip").not('.filtered').addClass('tempFilter');
+		  
+      }
+	  
+  }
+	
   function updateEquipFilter() {
     if ($('.btnFilter.on').length <= 0) {
       $("#equips .equip").removeClass('filtered');
