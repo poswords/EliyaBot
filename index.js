@@ -8,9 +8,9 @@ const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);
 const { createCanvas, loadImage } = require('canvas')
+const path = require('path');
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
-const path = require('path');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -19,18 +19,21 @@ const DB = require('./data')
 var data = DB.getData();
 
 app.get('/', function(req, res){
+	res.set('Cache-Control','public, max-age=31536000');
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {}
 	});
 });
 app.get('/:id(\\d+)/', function(req, res){
+	res.set('Cache-Control','public, max-age=31536000');	
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {listid: req.params.id }
 	});
 });
 app.get('/list', function(req, res){
+	res.set('Cache-Control','public, max-age=31536000');	
 	res.render(viewFolder+'index.ejs', {
 		title: 'Eliya',
 		data: {listview: true}
