@@ -822,3 +822,11 @@ body.expanded{
 		margin-bottom: 10px;
 	}
 }
+@media all and (max-width: 499px) {
+	#filterCharRace li:nth-child(3n+1){
+		border-left: none;
+	}
+	#filterCharRace li:nth-child(n+8){
+		border-bottom: none;
+	}	
+}
