@@ -822,7 +822,7 @@ body.expanded{
 		margin-bottom: 10px;
 	}
 }
-@media all and (max-width: 499px) {
+@media all and (max-width: 395px) {
 	#filterCharRace li:nth-child(3n+1){
 		border-left: none;
 	}
