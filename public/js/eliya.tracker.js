@@ -73,6 +73,7 @@ $(document).ready(function () {
             $(this).addClass('selected');
           } else if ($("#info").is(".planner")) {
             if ($(".planner .char.selected").length > 0) {
+			  $("#btnUnset").appendTo($("#planner"));
               $(".planner .char.selected").html(elem.html());
 			  $(".planner .char.selected").find('.charInfoBlock').remove();
               $(".planner .char.selected").data("DevNicknames", elem.data("DevNicknames"));
@@ -165,6 +166,7 @@ $(document).ready(function () {
             $(this).addClass('selected');
           } else if ($("#info").is(".planner")) {
             if ($(".planner .equip.selected").length > 0) {
+			  $("#btnUnset").appendTo($("#planner"));
               $(".planner .equip.selected").html(elem.html());
               $(".planner .equip.selected").data("DevNicknames", elem.data("DevNicknames"));
               $(".planner .equip.selected").addClass(elem.attr("class"));
@@ -278,6 +280,7 @@ $(document).ready(function () {
 		$("#btnShowChar").trigger("click");		
 	}	  
     if ($("#chars .char.selected").length > 0) {
+	  $("#btnUnset").appendTo($("#planner"));
       $(this).html($("#chars .char.selected").html());
       $(this).data("DevNicknames", $("#chars .char.selected").data("DevNicknames"));
       $(this).addClass($("#chars .char.selected").attr("class"));
@@ -286,7 +289,34 @@ $(document).ready(function () {
     } else {
       $(".selected").not(this).removeClass("selected");
       $(this).toggleClass("selected");
+	  if($(this).is(".selected") && $(this).data("DevNicknames")!='blank'){
+		$("#btnUnset").appendTo($(this));
+	  }
     }
+  });
+	
+  $("#btnUnset").on("click", function (e) {
+	  e.stopPropagation();
+	  $("#btnUnset").appendTo($("#planner"));
+	  var target = $('.selected');
+	  target.html('<img src="img/assets/chars/blank/square_0.png">').data("DevNicknames", "blank");
+	  if (target.is('.main')){
+		  target.removeClass();
+		  target.addClass('unit main');
+	  }
+	  if (target.is('.weapon')){
+		  target.removeClass();
+		  target.addClass('unit weapon');
+	  }
+	  if (target.is('.sub')){
+		  target.removeClass();
+		  target.addClass('unit sub');
+	  }
+	  if (target.is('.soul')){
+		  target.removeClass();
+		  target.addClass('unit soul');
+	  }	  
+	  
   });
   $("#planner .equip").on("click", function () {
 	if (!$("#btnShowEquip").is('.on')){
@@ -301,6 +331,9 @@ $(document).ready(function () {
     } else {
       $(".selected").not(this).removeClass("selected");
       $(this).toggleClass("selected");
+	  if($(this).is(".selected") && $(this).data("DevNicknames")!='blank'){
+		$("#btnUnset").appendTo($(this));
+	  }		
     }
   });	
   $("#btnCharInfo").on("click", function () {

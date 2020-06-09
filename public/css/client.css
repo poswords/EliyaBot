@@ -338,6 +338,23 @@ body.expanded {
 #unisons .soul:after {
   content: "Soul";
 }
+#btnUnset{
+	background: #dde;
+	width: 10px;
+	height: 10px;
+	font-size:10px;
+	line-height: 10px;
+	font-weight: bold;
+	display: none;
+	position: absolute;
+	right: -16px;
+	top: -16px;
+	z-index: 5;
+	border-radius: 50px;
+}
+.selected #btnUnset{
+	display: block;
+}
 #info {
   position: fixed;
   background: #fff;
