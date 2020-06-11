@@ -7,7 +7,7 @@ const moment = require('moment-timezone');
 const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
 
-const getInfoEmbed = unit => {
+const getInfoEmbed = (unit, flag)  => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   if (unit.DropLocation) {
@@ -23,12 +23,16 @@ const getInfoEmbed = unit => {
     .addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
-    .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
     .setFooter(footer);
+	if (flag == 'awaken'){
+    	msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')   		
+	}else{
+		msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
+	}		
   return msg;
 };
 
-const getEquipEmbed = unit => {
+const getEquipEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');	
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
@@ -36,36 +40,41 @@ const getEquipEmbed = unit => {
       + '\n**Rarity: **' + rarity
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
-    .setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')  
     .setFooter(unit.DevNicknames);
+	if (flag == 'soul'){
+    	msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png')   		
+	}else{
+		msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png') 
+	}	
   return msg;
 }; 
 
-const getThumbnailEmbed = unit => {
+const getThumbnailEmbed =(unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
+	console.log(flag);
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
-    .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')  
+  	.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')  	
+	.setFooter(unit.DevNicknames);
+	if (flag == 'awaken'){
+    	msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')   		
+	}else{
+		msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
+	}			
+  return msg;
+};
+
+const getArtEmbed = (unit, flag)=> {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter(unit.DevNicknames);
-  return msg;
-};
-
-const getArtEmbed = unit => {
-  var msg = new Discord.MessageEmbed()
-    .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png')
-    .setFooter('!alt ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/649164742988005378.png');
-  return msg;
-
-};
-
-const getAltEmbed = unit => {
-  var msg = new Discord.MessageEmbed()
-    .setTitle(unit.ENName + ' ' + unit.JPName)
-.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png')  
-    .setFooter('!art ' + unit.DevNicknames, 'https://cdn.discordapp.com/emojis/648800594940657684.png');
+	if (flag == 'awaken'){
+    	msg.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png')  		
+	}else{
+		msg.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png')  
+	}		
   return msg;
 
 };
@@ -86,32 +95,89 @@ const getSpecialEmbed = unit => {
     .setFooter(unit.DevNicknames);
   return msg;
 };
-
+const reactionExpiry = 3000;
+const normalReaction = '🙂'
+const awakenReaction = '😤'	
 const sendMessage = async (unit, message) => {
-	
-  await message.channel.send(getInfoEmbed(unit))
+  const filter = (reaction, user) => {
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+  };	
+  const msg = await message.channel.send(getInfoEmbed(unit, 'normal'));	
+  await msg.react(normalReaction);
+  await msg.react(awakenReaction);  
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+    if (r.emoji.name === normalReaction) {
+      msg.edit(getInfoEmbed(unit, 'normal'));
+    }
+    if (r.emoji.name === awakenReaction) {
+      msg.edit(getInfoEmbed(unit, 'awaken'));
+    }
+  });	
+  collector.on('end', collected => msg.reactions.removeAll());
 };
 
 const sendEquip= async (unit, message) => {
-/*  const weaponReaction = '📀';	
+  const weaponReaction = '⚔️';	
   const soulReaction = '📀';	
-  const reactionExpiry = 30000;
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
-  };	*/
-  await message.channel.send(getEquipEmbed(unit))
+  };	
+  const msg = await message.channel.send(getEquipEmbed(unit, 'icon'));	
+  await msg.react(weaponReaction);
+  await msg.react(soulReaction);
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+    if (r.emoji.name === weaponReaction) {
+      msg.edit(getEquipEmbed(unit, 'icon'));
+    }
+    if (r.emoji.name === soulReaction) {
+      msg.edit(getEquipEmbed(unit, 'soul'));
+    }
+  });	
+  collector.on('end', collected => msg.reactions.removeAll());	
 };
 
 const sendThumbnail = async (unit, message) => {
-  await message.channel.send(getThumbnailEmbed(unit))
+  await message.channel.send(getThumbnailEmbed(unit, 'normal'))
 };
 
 const sendArt = async (unit, message) => {
-  await message.channel.send(getArtEmbed(unit))
+  const filter = (reaction, user) => {
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+  };	
+  const msg = await message.channel.send(getArtEmbed(unit, 'normal'));	
+  await msg.react(normalReaction);
+  await msg.react(awakenReaction);  
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+    if (r.emoji.name === normalReaction) {
+      msg.edit(getArtEmbed(unit, 'normal'));
+    }
+    if (r.emoji.name === awakenReaction) {
+      msg.edit(getArtEmbed(unit, 'awaken'));
+    }
+  });	
+  collector.on('end', collected => msg.reactions.removeAll());	
 };
 
 const sendAlt = async (unit, message) => {
-  await message.channel.send(getAltEmbed(unit))
+  const filter = (reaction, user) => {
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+  };	
+  const msg = await message.channel.send(getArtEmbed(unit, 'awaken'));	
+  await msg.react(normalReaction);
+  await msg.react(awakenReaction);  
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+    if (r.emoji.name === normalReaction) {
+      msg.edit(getArtEmbed(unit, 'normal'));
+    }
+    if (r.emoji.name === awakenReaction) {
+      msg.edit(getArtEmbed(unit, 'awaken'));
+    }
+  });
+  collector.on('end', collected => msg.reactions.removeAll());	
 };
 
 const searchCharByName = chara => {
