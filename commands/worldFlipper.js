@@ -190,6 +190,28 @@ const tls = {
   },
 };
 
+const event = {
+  name: 'event',
+  group,
+  aliases: ['ev', 'events'],
+  description: 'Lists ongoing/upcoming events.',
+  execute(message) {
+	var ongoingList = '';
+	var upcomingList = '';	  
+	for (i=0; i<data.events.length;i++){
+		const event = data.events[i];
+		var aLength=40-data.events[i].ENName.length;
+		if (aLength<0) {aLength=0};
+		ongoingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.End+"\n";
+	}
+	var msg = 'Ongoing Events: ```\n'+ongoingList+'```';
+	if (upcomingList.length > 0){
+		msg += 'Upcoming Events: ```\n'+upcomingList+'```';
+	}
+    return message.channel.send(msg);
+  },
+};
+
 const tracker = {
   name: 'tracker',
   group,
@@ -200,7 +222,6 @@ const tracker = {
     return message.channel.send(`The collection tracker can be found here: \n${tlDocLink}`);
   },
 };
-
 const character = {
   name: 'character',
   group,
@@ -404,4 +425,4 @@ const update = {
 }
 /*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
-module.exports = [guide, tls, tracker,character, equipment, race, whois, art, alt, update];
+module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];
