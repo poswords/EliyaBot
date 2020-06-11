@@ -3,6 +3,7 @@ const path = require('path');
 const Discord = require('discord.js');
 const DB = require('../data')
 var data = DB.getData();
+const moment = require('moment-timezone');
 const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
 
@@ -189,7 +190,22 @@ const tls = {
     return message.channel.send(`The main translation document can be found here:\n${tlDocLink}`);
   },
 };
-
+function getTimeUntil(diff){
+	const days =  Math.floor(diff/1000/ 60 / 60 / 24);
+	const hours =  Math.floor(diff/1000/ 60 / 60 - (days *24));
+	const minutes = Math.floor(diff/1000/60%60);
+	var timeUntil = '';
+	if (days > 0){
+		timeUntil+= days+'d';
+	}
+	if (hours > 0 || days > 0){
+		timeUntil+= hours+'h';
+	}
+	if (minutes >0 || hours > 0 || days > 0){
+		timeUntil+= minutes+'m';
+	}	
+	return timeUntil;
+}
 const event = {
   name: 'event',
   group,
@@ -197,16 +213,29 @@ const event = {
   description: 'Lists ongoing/upcoming events.',
   execute(message) {
 	var ongoingList = '';
-	var upcomingList = '';	  
+	var upcomingList = '';
 	for (i=0; i<data.events.length;i++){
 		const event = data.events[i];
-		var aLength=40-data.events[i].ENName.length;
-		if (aLength<0) {aLength=0};
-		ongoingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.End+"\n";
+		var aLength=40-event.ENName.length;
+		var start = moment.tz(event.Start, "Asia/Tokyo");
+		var end = moment.tz(event.End, "Asia/Tokyo");
+		var now = moment.tz("Asia/Tokyo");
+
+		if (end.isAfter(now)){
+
+			if (aLength<0) {aLength=0};
+			if (start.isBefore(now)){
+				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
+				ongoingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.End+' ('+timeUntil+")\n";
+			}else{
+				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
+				upcomingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.Start+' ('+timeUntil+")\n";
+			}
+		}
 	}
-	var msg = 'Ongoing Events: ```\n'+ongoingList+'```';
+	var msg = '```diff\n--- Ongoing Events ---'+Array(27).fill('\xa0').join('')+'Ends On\n'+ongoingList+'```';
 	if (upcomingList.length > 0){
-		msg += 'Upcoming Events: ```\n'+upcomingList+'```';
+		msg += '```diff\n--- Upcoming Events ---'+Array(25).fill('\xa0').join('')+'Begins On\n'+upcomingList+'```';
 	}
     return message.channel.send(msg);
   },
@@ -423,6 +452,5 @@ const update = {
     return message.channel.send('Database updated!');
   },
 }
-/*${char.Rarity}${char.Attribute.substring(0,2).toUpperCase()}*/
 
 module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];
