@@ -233,10 +233,10 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				ongoingList += event.ENName+'\n+ '+event.End+' ('+timeUntil+")\n";
+				ongoingList += event.ENName+'\n+ End: '+event.End+' ('+timeUntil+")\n";
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				upcomingList += event.ENName+'\n+ '+event.Start+' ('+timeUntil+")\n";
+				upcomingList += event.ENName+'\n+ Start: '+event.Start+' ('+timeUntil+")\n";
 			}
 		}
 	}
