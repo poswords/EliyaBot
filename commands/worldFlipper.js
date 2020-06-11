@@ -95,6 +95,8 @@ const getSpecialEmbed = unit => {
     .setFooter(unit.DevNicknames);
   return msg;
 };
+
+
 const reactionExpiry = 30000;
 const normalReaction = '🙂'
 const awakenReaction = '😤'	
@@ -314,18 +316,23 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				ongoingList += event.ENName+'\n+ End: '+event.End+' ('+timeUntil+")\n";
+				ongoingList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				upcomingList += event.ENName+'\n+ Start: '+event.Start+' ('+timeUntil+")\n";
+				upcomingList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
 			}
 		}
 	}
+	  /*
 	var msg = '```diff\n- Ongoing Events -\n'+ongoingList+'```';
 	if (upcomingList.length > 0){
 		msg += '```diff\n- Upcoming Events -\n'+upcomingList+'```';
 	}
-    return message.channel.send(msg);
+    return message.channel.send(msg);*/
+	var msg = new Discord.MessageEmbed()
+    .addFields({name:"Ongoing Events", value: "```diff\n"+ongoingList+"```"})
+	.addFields({name:"Upcoming Events", value: "```diff\n"+upcomingList+"```"})
+    return message.channel.send(msg);	  
   },
 };
 
@@ -540,5 +547,5 @@ const update = {
     return message.channel.send('Database updated!');
   },
 }
-
-module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];
+module.exports = [event, update]
+/*module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];*/
