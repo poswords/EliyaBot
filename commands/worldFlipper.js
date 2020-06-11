@@ -93,7 +93,12 @@ const sendMessage = async (unit, message) => {
 };
 
 const sendEquip= async (unit, message) => {
-	
+/*  const weaponReaction = '📀';	
+  const soulReaction = '📀';	
+  const reactionExpiry = 30000;
+  const filter = (reaction, user) => {
+    return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+  };	*/
   await message.channel.send(getEquipEmbed(unit))
 };
 
@@ -228,16 +233,16 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				ongoingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.End+' ('+timeUntil+")\n";
+				ongoingList += event.ENName+'\n+ '+event.End+' ('+timeUntil+")\n";
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				upcomingList += event.ENName+Array(aLength).fill('\xa0').join('')+' '+event.Start+' ('+timeUntil+")\n";
+				upcomingList += event.ENName+'\n+ '+event.Start+' ('+timeUntil+")\n";
 			}
 		}
 	}
-	var msg = '```diff\n- Ongoing Events -'+Array(31).fill('\xa0').join('')+'Ends On\n'+ongoingList+'```';
+	var msg = '```diff\n- Ongoing Events -\n'+ongoingList+'```';
 	if (upcomingList.length > 0){
-		msg += '```diff\n- Upcoming Events -'+Array(29).fill('\xa0').join('')+'Begins On\n'+upcomingList+'```';
+		msg += '```diff\n- Upcoming Events -\n'+upcomingList+'```';
 	}
     return message.channel.send(msg);
   },
