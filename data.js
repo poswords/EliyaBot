@@ -14,7 +14,8 @@ var range_names = [
   "'3* Characters'!A1:O300",
   "'1*/2* Characters'!A1:P30",
   "'Boss/Event Weapons'!C1:P300",
-  "'Gacha/Story Weapons'!B1:P300"
+  "'Gacha/Story Weapons'!B1:P300",
+  "'Events'!C1:E300"
 ];
 var range_rarity = [
   5,
@@ -29,6 +30,7 @@ module.exports = {
     var results = [];
     var chars = [];
     var equips = [];
+	var events = [];
     sheets.spreadsheets.get({
       spreadsheetId: SPREADSHEET_ID
     }, (err, res) => {
@@ -132,8 +134,23 @@ module.exports = {
             }
             Array.prototype.push.apply(equips, rows)
           }
+          for (r = 6; r < 7; r++) {
+            var range = res.data.valueRanges[r];
+            var columnNames = range.values[0];
+            var dataRows = range.values.splice(1);
+            var type = 'event'
+            var rows = dataRows.map(function (a) {
+              var temp = {};
+              columnNames.forEach(function (key, i) {
+                temp[key.replace(/\s+/g, "")] = a[i];
+              })
+              return temp;
+            });
+			Array.prototype.push.apply(events, rows)
+		  }
 		  results.chars = chars;
 		  results.equips = equips;
+		  results.events = events;
         });
     });
     console.log('Complete')
