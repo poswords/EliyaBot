@@ -547,5 +547,5 @@ const update = {
     return message.channel.send('Database updated!');
   },
 }
-module.exports = [event, update]
-/*module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];*/
+
+module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];
