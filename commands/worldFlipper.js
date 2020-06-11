@@ -88,10 +88,12 @@ const getSpecialEmbed = unit => {
 };
 
 const sendMessage = async (unit, message) => {
+	
   await message.channel.send(getInfoEmbed(unit))
 };
 
 const sendEquip= async (unit, message) => {
+	
   await message.channel.send(getEquipEmbed(unit))
 };
 
@@ -233,9 +235,9 @@ const event = {
 			}
 		}
 	}
-	var msg = '```diff\n--- Ongoing Events ---'+Array(27).fill('\xa0').join('')+'Ends On\n'+ongoingList+'```';
+	var msg = '```diff\n- Ongoing Events -'+Array(31).fill('\xa0').join('')+'Ends On\n'+ongoingList+'```';
 	if (upcomingList.length > 0){
-		msg += '```diff\n--- Upcoming Events ---'+Array(25).fill('\xa0').join('')+'Begins On\n'+upcomingList+'```';
+		msg += '```diff\n- Upcoming Events -'+Array(29).fill('\xa0').join('')+'Begins On\n'+upcomingList+'```';
 	}
     return message.channel.send(msg);
   },
@@ -444,7 +446,7 @@ const update = {
 	 axios.post('http://eliya-bot.herokuapp.com/update', {
 	})
 	.then((res) => {
-	  console.log(res)
+	  /*console.log(res)*/
 	})
 	.catch((error) => {
 	  console.error(error)
