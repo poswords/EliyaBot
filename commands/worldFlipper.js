@@ -95,7 +95,7 @@ const getSpecialEmbed = unit => {
     .setFooter(unit.DevNicknames);
   return msg;
 };
-const reactionExpiry = 3000;
+const reactionExpiry = 30000;
 const normalReaction = '🙂'
 const awakenReaction = '😤'	
 const sendMessage = async (unit, message) => {
