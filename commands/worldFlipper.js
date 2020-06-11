@@ -139,7 +139,22 @@ const sendEquip= async (unit, message) => {
 };
 
 const sendThumbnail = async (unit, message) => {
-  await message.channel.send(getThumbnailEmbed(unit, 'normal'))
+  const filter = (reaction, user) => {
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+  };	
+  const msg = await message.channel.send(getThumbnailEmbed(unit, 'normal'));	
+  await msg.react(normalReaction);
+  await msg.react(awakenReaction);  
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+    if (r.emoji.name === normalReaction) {
+      msg.edit(getThumbnailEmbed(unit, 'normal'));
+    }
+    if (r.emoji.name === awakenReaction) {
+      msg.edit(getThumbnailEmbed(unit, 'awaken'));
+    }
+  });	
+  collector.on('end', collected => msg.reactions.removeAll());	
 };
 
 const sendArt = async (unit, message) => {
