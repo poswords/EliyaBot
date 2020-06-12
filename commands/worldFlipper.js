@@ -18,8 +18,8 @@ const getInfoEmbed = (unit, flag)  => {
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
-      + '\n**Leader Skill: **' + unit.LeaderBuff
-      + '\n**Active Skill: **' + unit.Skill)
+      + '\n**Leader Buff: **' + unit.LeaderBuff
+      + '\n**Skill: **' + unit.Skill)
     .addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
@@ -98,8 +98,10 @@ const getSpecialEmbed = unit => {
 
 
 const reactionExpiry = 30000;
-const normalReaction = '🙂'
-const awakenReaction = '😤'	
+const normalReaction = '🙂';
+const awakenReaction = '😤';
+const weaponReaction = '⚔️';	
+const soulReaction = '📀';	
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
@@ -120,8 +122,6 @@ const sendMessage = async (unit, message) => {
 };
 
 const sendEquip= async (unit, message) => {
-  const weaponReaction = '⚔️';	
-  const soulReaction = '📀';	
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };	
