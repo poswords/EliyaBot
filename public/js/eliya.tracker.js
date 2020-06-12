@@ -58,6 +58,7 @@ $(document).ready(function () {
 		  
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
+		elem.data("SkillWait", parseInt(unit.Skill.match(/(?<=ost\: )[0-9]{1,4}/))||0);	  
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
             info.find('.' + key + ' span').text(unit[key]);
@@ -78,7 +79,9 @@ $(document).ready(function () {
 			  $(".planner .char.selected").find('.charInfoBlock').remove();
               $(".planner .char.selected").data("DevNicknames", elem.data("DevNicknames"));
               $(".planner .char.selected").addClass(elem.attr("class"));
+			  $(".planner .char.selected").append($('<div class="SkillWait">'+elem.data("SkillWait")+'</div>'));
               $(".selected").removeClass("selected");
+		      setSkillWait();
               $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
             } else {
               $(".selected").not(this).removeClass("selected");
@@ -145,7 +148,8 @@ $(document).ready(function () {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' equip unit"></li>')
-          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">'));
+          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'))
+		  .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">'));
         if (unit.Obtain != "Weapon Gacha") {
           elem.addClass('NoGacha')
         }
@@ -242,11 +246,13 @@ $(document).ready(function () {
     document.body.removeChild(el);
   }
   for (i = 1; i < 4; i++) {
-    var html = '<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>';
-    $('#unison'+i).append($(html).addClass('char main').data("DevNicknames", "blank"));
-	$('#unison'+i).append($(html).addClass('equip weapon').data("DevNicknames", "blank"));	  
-	$('#unison'+i).append($(html).addClass('char sub').data("DevNicknames", "blank"));
-	$('#unison'+i).append($(html).addClass('equip soul').data("DevNicknames", "blank"));
+    const html = '<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>';
+	const skillwait = '<div class="SkillWait">0</div>';
+    $('#unison'+i).append($(html).append(skillwait).addClass('char main').data("DevNicknames", "blank"))
+		.append($(html).addClass('equip weapon').data("DevNicknames", "blank"))
+		.append($(html).append(skillwait).addClass('char sub').data("DevNicknames", "blank"))
+		.append($(html).addClass('equip soul').data("DevNicknames", "blank"))
+	    .append($('<li class="totalSkillWait">Cost: <span>0</span></li>'));
   }
 	
 	
@@ -283,8 +289,12 @@ $(document).ready(function () {
 	  $("#btnUnset").appendTo($("#planner"));
       $(this).html($("#chars .char.selected").html());
       $(this).data("DevNicknames", $("#chars .char.selected").data("DevNicknames"));
+	  $(this).data("SkillWait", $("#chars .char.selected").data("SkillWait"));		
       $(this).addClass($("#chars .char.selected").attr("class"));
+	  $(this).find('.charInfoBlock').remove();
+	  $(this).append($('<div class="SkillWait">'+$("#chars .char.selected").data("SkillWait")+'</div>'));
       $(".selected").removeClass("selected");
+	  setSkillWait();
       $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
     } else {
       $(".selected").not(this).removeClass("selected");
@@ -295,6 +305,8 @@ $(document).ready(function () {
     }
   });
 	
+	
+	
   $("#btnUnset").on("click", function (e) {
 	  e.stopPropagation();
 	  $("#btnUnset").appendTo($("#planner"));
@@ -302,21 +314,23 @@ $(document).ready(function () {
 	  target.html('<img src="img/assets/chars/blank/square_0.png">').data("DevNicknames", "blank");
 	  if (target.is('.main')){
 		  target.removeClass();
-		  target.addClass('unit main');
+		  target.append('<div class="SkillWait">0</div>');
+		  target.addClass('unit char main');
 	  }
 	  if (target.is('.weapon')){
 		  target.removeClass();
-		  target.addClass('unit weapon');
+		  target.addClass('unit equip weapon');
 	  }
 	  if (target.is('.sub')){
 		  target.removeClass();
-		  target.addClass('unit sub');
+		  target.append('<div class="SkillWait">0</div>');
+		  target.addClass('unit char sub');
 	  }
 	  if (target.is('.soul')){
 		  target.removeClass();
-		  target.addClass('unit soul');
+		  target.addClass('unit equip soul');
 	  }	  
-	  
+	  $(".selected").removeClass("selected");
   });
   $("#planner .equip").on("click", function () {
 	if (!$("#btnShowEquip").is('.on')){
@@ -370,8 +384,8 @@ $(document).ready(function () {
   $("#btnListView").on("click", function () {
     $(this).toggleClass('on');
     $('body').toggleClass('listView');
-
   });
+
   $("#btnSave").on("click", function () {
     Cookies.set('charList', getUnitList('char'), {
       expires: 60
@@ -421,16 +435,21 @@ $(document).ready(function () {
       $("#btnGetCompURL").text("Image URL Copied").addClass("on");
     }, 100);
   });
-
+  $("#btnShowSkillWait").on("click", function () {
+    $(this).toggleClass('on');
+    $('#info').toggleClass('showSkillWait');
+  });	
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
     $(this).toggleClass("on");
-    $(".charList").addClass('flash');
-    setTimeout(function () {
-      $(".charList").removeClass('flash');
-    }, 100);
   });
 
+  $("#btnViewSoul").on("click", function () {
+    $("body").toggleClass("viewSoul");
+    $(this).toggleClass("on");
+  });
+	
+	
   $(".btnShowOwned").on("click", function () {
     var type = $(this).data("type");
     $("#" + type + "s").toggleClass("viewOwned");
@@ -506,7 +525,7 @@ $(document).ready(function () {
 		$("#equipGrandTotal .percentage").text('');
 	}		
   }
-
+  
   function updateCharFilter() {
     if ($('.btnFilter.on').length <= 0) {
       $("#chars .char").removeClass('filtered');
@@ -607,5 +626,18 @@ $(document).ready(function () {
     }, 100);
     updateEquipScore();
   }
+	function setSkillWait(){
+		$(".unison").each(function(){
+			var main = parseInt($(this).find('.main .SkillWait').text()) || 0;
+			var sub = parseInt($(this).find('.sub .SkillWait').text()) || 0;
+			var wait = 0;
+			if (main == 0 || sub ==0){
+				wait = (main*2 + sub*2)/2
+			}else{
+				wait = (main + sub)/2
+			}
+			$(this).find(".totalSkillWait span").text(wait);
+		});
 
+	}
 });
