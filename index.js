@@ -12,8 +12,7 @@ const {
   loadImage
 } = require('canvas')
 const path = require('path');
-/*app.use(express.static('public', {maxAge: "30d"}));*/
-app.use(express.static('public'));
+app.use(express.static('public', {maxAge: "30d"}));
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
