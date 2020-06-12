@@ -358,7 +358,7 @@ $(document).ready(function () {
       $("#info").addClass("charinfo");
       $("body").addClass("expanded");
     }
-    if ($("#info .btnList .on").not("#btnAltArt").length <= 0) {
+    if ($("#infoButtons .on").length <= 0) {
       $("#info").removeClass("charinfo");
       $("#info").removeClass("planner");
       $('.selected').removeClass('selected');
@@ -373,7 +373,7 @@ $(document).ready(function () {
       $("#info").addClass("planner");
       $("body").addClass("expanded");
     }
-    if ($("#info .btnList .on").not("#btnAltArt").length <= 0) {
+    if ($("#infoButtons .on").length <= 0) {
       $("#info").removeClass("charinfo");
       $("#info").removeClass("planner");
       $('.selected').removeClass('selected');
