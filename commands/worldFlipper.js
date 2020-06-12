@@ -101,7 +101,7 @@ const reactionExpiry = 30000;
 const normalReaction = '🙂';
 const awakenReaction = '😤';
 const weaponReaction = '⚔️';	
-const soulReaction = '📀';	
+const soulReaction = '📀';
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
@@ -323,15 +323,19 @@ const event = {
 			}
 		}
 	}
-	  /*
-	var msg = '```diff\n- Ongoing Events -\n'+ongoingList+'```';
-	if (upcomingList.length > 0){
-		msg += '```diff\n- Upcoming Events -\n'+upcomingList+'```';
+	var msg = new Discord.MessageEmbed();
+    
+	if (ongoingList.length>0){
+		msg.addFields({name:"Ongoing Events", value: "```diff\n"+ongoingList+"```"});
+	}else{
+		msg.addFields({name:"Ongoing Events", value: "```diff\nNo ongoing event```"})
+	}	  
+	if (upcomingList.length>0){
+		msg.addFields({name:"Upcoming Events", value: "```diff\n"+upcomingList+"```"})
+	}else{
+		msg.addFields({name:"Upcoming Events", value: "```diff\nNo upcoming event```"})
 	}
-    return message.channel.send(msg);*/
-	var msg = new Discord.MessageEmbed()
-    .addFields({name:"Ongoing Events", value: "```diff\n"+ongoingList+"```"})
-	.addFields({name:"Upcoming Events", value: "```diff\n"+upcomingList+"```"})
+	
     return message.channel.send(msg);	  
   },
 };
