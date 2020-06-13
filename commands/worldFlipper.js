@@ -40,14 +40,17 @@ const getEquipEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');	
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setDescription('**Attribute: **' + unit.Attribute
-      + '\n**Rarity: **' + rarity
-      + '\n**Weapon Skill: **' + unit.WeaponSkill)
     .addField('Obtain', unit.Obtain, true)
     .setFooter(unit.DevNicknames);
 	if (flag == 'soul'){
+    	msg.setDescription('**Attribute: **' + unit.Attribute
+      + '\n**Rarity: **' + rarity
+      + '\n**Ability Soul: **' + unit.AbilitySoul)		
     	msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png')   		
 	}else{
+		msg.setDescription('**Attribute: **' + unit.Attribute
+      + '\n**Rarity: **' + rarity
+      + '\n**Weapon Skill: **' + unit.WeaponSkill)
 		msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png') 
 	}	
   return msg;
