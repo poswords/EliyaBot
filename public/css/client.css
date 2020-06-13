@@ -189,6 +189,7 @@ body.expanded {
 .viewAlt .altArt {
   display: block
 }
+#equips .AbilitySoul,
 .soulArt{
 	display: none;
 }
@@ -203,6 +204,12 @@ body.expanded {
 	transform: scale(0.5);
 	transform-origin: bottom center;
 	display: block;
+}
+.viewSoul #equips .WeaponSkill{
+	display:none;
+}
+.viewSoul #equips .AbilitySoul{
+	display:block;
 }
 .viewSoul .unit.checked{
 	background: #f7f7ff;
@@ -659,7 +666,8 @@ body.expanded {
   text-align: center;
   line-height: 16px;
 }
-.equipList .details div.WeaponSkill {
+.equipList .details div.WeaponSkill,
+.equipList .details div.AbilitySoul{
   flex: 1 1 60%;
 }
 .unitList .details div span {
