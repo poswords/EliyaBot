@@ -504,7 +504,7 @@ body.expanded {
 #info .AbilitySoul{
 	color:#999;
 }
-#info .soulArt{
+#info .Art .soulArt{
 	display: block;
 	width: 50%;
     margin: 10px auto;
