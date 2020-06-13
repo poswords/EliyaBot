@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 const Discord = require('discord.js');
 const DB = require('../data')
@@ -6,7 +6,11 @@ var data = DB.getData();
 const moment = require('moment-timezone');
 const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
-
+const reactionExpiry = 30000;
+const normalReaction = '🙂';
+const awakenReaction = '😤';
+const weaponReaction = '⚔️';	
+const soulReaction = '📀';
 const getInfoEmbed = (unit, flag)  => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -96,12 +100,6 @@ const getSpecialEmbed = unit => {
   return msg;
 };
 
-
-const reactionExpiry = 30000;
-const normalReaction = '🙂';
-const awakenReaction = '😤';
-const weaponReaction = '⚔️';	
-const soulReaction = '📀';
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
@@ -276,7 +274,7 @@ const tls = {
   aliases: ['tl', 'translation'],
   description: 'Links Doli\'s Translation Sheet.',
   execute(message) {
-    const tlDocLink = 'https://docs.google.com/spreadsheets/d/1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c/edit';
+    const tlDocLink = 'http://eliya-bot.herokuapp.com/list';
     return message.channel.send(`The main translation document can be found here:\n${tlDocLink}`);
   },
 };
