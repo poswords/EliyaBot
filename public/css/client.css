@@ -857,32 +857,19 @@ body.expanded {
   }
   #filterCharRace li {
     flex: 1 1 20%;
+	border-top: none;
+	border-left: none;
+	border-right: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
-  }
-  #filterCharRace li:nth-child(4n+1) {
-    border-left: none;
-  }
-  #filterCharRace li:nth-child(n+9) {
-    border-bottom: none;
+	margin-right: -1px;
+	  margin-bottom: -1px;
   }
   .showRole #filterCharRole, .showRole #filterCharRace {
     margin-top: 0;
     margin-bottom: 10px;
   }
 }
-@media all and (max-width: 395px) {
-  #filterCharRace li:nth-child(4n+1) {
-    border-left: 1px solid #aaa;
-  }
-  #filterCharRace li:nth-child(3n+1) {
-    border-left: none;
-  }
-  #filterCharRace li:nth-child(9) {
-    border-bottom: 1px solid #aaa;
-  }
-  #filterCharRace li:nth-child(n+10) {
-    border-bottom: none;
-  }
+@media all and (max-width: 390px) {
 /*.plannerWrapper {
   max-width: 360px;
   margin: 10px auto;
