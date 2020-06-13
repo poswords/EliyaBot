@@ -272,10 +272,10 @@ const tls = {
   name: 'translations',
   group,
   aliases: ['tl', 'translation'],
-  description: 'Links Doli\'s Translation Sheet.',
+  description: "Link to Eliya Bot's translation webapp",
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/list';
-    return message.channel.send(`The main translation document can be found here:\n${tlDocLink}`);
+    return message.channel.send(`The translation webapp can be found here:\n${tlDocLink}`);
   },
 };
 function getTimeUntil(diff){
