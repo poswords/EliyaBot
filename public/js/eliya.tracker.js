@@ -190,7 +190,7 @@ $(document).ready(function () {
           Object.keys(unit).forEach(function (key) {
             info.find('.' + key + ' span').text(unit[key]);
           });
-          info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png">');
+          info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png"><img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           $("#info .infoWrapper").html("").append(info);

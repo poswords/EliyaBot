@@ -501,6 +501,14 @@ body.expanded {
   height: 82px;
   padding: 0 10px;
 }
+#info .AbilitySoul{
+	color:#999;
+}
+#info .soulArt{
+	display: block;
+	width: 50%;
+    margin: 10px auto;
+}
 #info .details {
   text-align: left;
   font-weight: bold;
