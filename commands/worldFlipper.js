@@ -11,6 +11,8 @@ const normalReaction = '🙂';
 const awakenReaction = '😤';
 const weaponReaction = '⚔️';	
 const soulReaction = '📀';
+const numberReactions = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+
 const getInfoEmbed = (unit, flag)  => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -101,6 +103,43 @@ const getSpecialEmbed = unit => {
   	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/special.gif')    
     .setFooter(unit.DevNicknames);
   return msg;
+};
+const sendList = async (units, message, type) => {
+  const filter = (reaction, user) => {
+    return numberReactions.includes(reaction.emoji.name) && user.id === message.author.id;
+  };
+  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
+  var num = units.length;
+  if (units.length > 10) num=10;
+  for (i=0;i<num;i++){
+	await msg.react(numberReactions[i]);  
+  }
+  const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
+  collector.on('collect', r => {
+	  for (i=0;i<num;i++){
+		if (r.emoji.name === numberReactions[i]) {
+			switch (type){
+				case 'c':					
+					sendMessage(units[i],message);
+				 	break;
+  				case 'w':
+					sendThumbnail(units[i],message);
+				 	break;
+  				case 'e':
+					sendEquip(units[i],message);
+				 	break;	
+  				case 'art':
+					sendArt(units[i],message);
+				 	break;	
+  				case 'alt':
+					sendAlt(units[i],message);
+				 	break;						
+			}
+			msg.reactions.removeAll();
+		}		  
+	  }	  
+  });	
+  collector.on('end', collected => msg.reactions.removeAll());
 };
 
 const sendMessage = async (unit, message) => {
@@ -378,7 +417,7 @@ const character = {
 		if (arrFound.length === 1) {
 		  sendMessage(arrFound[0], message);
 		} else {
-		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
+		  sendList(arrFound,message, 'c');
 		}
 	}
   },
@@ -407,7 +446,7 @@ const equipment = {
 		if (arrFound.length === 1) {
 		  sendEquip(arrFound[0], message);
 		} else {
-		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!e ${char.DevNicknames}`)).join('\n') + '```');
+		  sendList(arrFound,message, 'e');
 		}
 	}
   },
@@ -439,7 +478,7 @@ const race = {
     if (arrFound.length === 1) {
       sendMessage(arrFound[0], message);
     } else {
-      message.channel.send('Found matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!c ${char.DevNicknames}`)).join('\n') + '```');
+      sendList(arrFound,message, 'c');
     }
 
   },
@@ -472,7 +511,7 @@ const whois = {
 		if (arrFound.length === 1) {
 		  sendThumbnail(arrFound[0], message);
 		} else {
-		  message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!w ${char.DevNicknames}`)).join('\n') + '```');
+		  sendList(arrFound,message, 'w');
 		}
 	}
   },
@@ -501,7 +540,7 @@ const art = {
     if (arrFound.length === 1) {
       sendArt(arrFound[0], message);
     } else {
-      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!art ${char.DevNicknames}`)).join('\n') + '```');
+      sendList(arrFound,message, 'art');
     }
   },
 };
@@ -528,7 +567,7 @@ const alt = {
     if (arrFound.length === 1) {
       sendAlt(arrFound[0], message);
     } else {
-      message.channel.send('Found potential matches:\n```diff\n' + arrFound.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!alt ${char.DevNicknames}`)).join('\n') + '```');
+      sendList(arrFound,message, 'alt');
     }
   },
 };
