@@ -281,7 +281,7 @@ $(document).ready(function () {
       var target = $(this);
       var sourceDevNicknames = getDevNicknames(source);
       var targetDevNicknames = getDevNicknames(target);
-      if (sourceDevNicknames == "blank" && targetDevNicknames == "blank") {
+      if (sourceDevNicknames == "blank") {
         $(".selected").removeClass("selected");
         $(this).toggleClass("selected");
       } else {
@@ -310,7 +310,7 @@ $(document).ready(function () {
       var target = $(this);
       var sourceDevNicknames = getDevNicknames(source);
       var targetDevNicknames = getDevNicknames(target);
-      if (sourceDevNicknames == "blank" && targetDevNicknames == "blank") {
+      if (sourceDevNicknames == "blank") {
         $(".selected").removeClass("selected");
         $(this).toggleClass("selected");
       } else {
