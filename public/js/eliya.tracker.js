@@ -10,6 +10,7 @@ $(document).ready(function () {
   var charLoaded = false;
   var equipLoaded = false;
   var waitingForUrl = false;
+  var blank_elem = $('<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>');
 
   function clearUI() {
 
@@ -74,15 +75,7 @@ $(document).ready(function () {
             $(this).addClass('selected');
           } else if ($("#info").is(".planner")) {
             if ($(".planner .char.selected").length > 0) {
-              $("#btnUnset").appendTo($("#planner"));
-              $(".planner .char.selected").html(elem.html());
-              $(".planner .char.selected").find('.charInfoBlock').remove();
-              $(".planner .char.selected").data("DevNicknames", elem.data("DevNicknames"));
-              $(".planner .char.selected").addClass(elem.attr("class"));
-              $(".planner .char.selected").append($('<div class="SkillWait">' + elem.data("SkillWait") + '</div>'));
-              $(".selected").removeClass("selected");
-              setSkillWait();
-              $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+              setCharSlot($(".planner .char.selected"), unit.DevNicknames);
             } else {
               $(".selected").not(this).removeClass("selected");
               $(this).toggleClass("selected");
@@ -170,12 +163,7 @@ $(document).ready(function () {
             $(this).addClass('selected');
           } else if ($("#info").is(".planner")) {
             if ($(".planner .equip.selected").length > 0) {
-              $("#btnUnset").appendTo($("#planner"));
-              $(".planner .equip.selected").html(elem.html());
-              $(".planner .equip.selected").data("DevNicknames", elem.data("DevNicknames"));
-              $(".planner .equip.selected").addClass(elem.attr("class"));
-              $(".selected").removeClass("selected");
-              $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+              setEquipSlot($(".planner .equip.selected"), unit.DevNicknames);
             } else {
               $(".selected").not(this).removeClass("selected");
               $(this).toggleClass("selected");
@@ -245,16 +233,15 @@ $(document).ready(function () {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
+
   for (i = 1; i < 4; i++) {
-    const html = '<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>';
     const skillwait = '<div class="SkillWait">0</div>';
-    $('#unison' + i).append($(html).append(skillwait).addClass('char main').data("DevNicknames", "blank"))
-      .append($(html).addClass('equip weapon').data("DevNicknames", "blank"))
-      .append($(html).append(skillwait).addClass('char sub').data("DevNicknames", "blank"))
-      .append($(html).addClass('equip soul').data("DevNicknames", "blank"))
+    $('#unison' + i).append(blank_elem.clone().append(skillwait).addClass('char main'))
+      .append(blank_elem.clone().addClass('equip weapon'))
+      .append(blank_elem.clone().append(skillwait).addClass('char sub'))
+      .append(blank_elem.clone().addClass('equip soul'))
       .append($('<li class="totalSkillWait">Cost: <span>0</span></li>'));
   }
-
 
   $("#switchUnits li").on("click", function () {
     $("#switchUnits li").removeClass('on');
@@ -286,16 +273,21 @@ $(document).ready(function () {
       $("#btnShowChar").trigger("click");
     }
     if ($("#chars .char.selected").length > 0) {
-      $("#btnUnset").appendTo($("#planner"));
-      $(this).html($("#chars .char.selected").html());
-      $(this).data("DevNicknames", $("#chars .char.selected").data("DevNicknames"));
-      $(this).data("SkillWait", $("#chars .char.selected").data("SkillWait"));
-      $(this).addClass($("#chars .char.selected").attr("class"));
-      $(this).find('.charInfoBlock').remove();
-      $(this).append($('<div class="SkillWait">' + $("#chars .char.selected").data("SkillWait") + '</div>'));
-      $(".selected").removeClass("selected");
-      setSkillWait();
-      $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+      setCharSlot($(this), $("#chars .char.selected").data("DevNicknames"));
+    } else if ($(this).is('.selected')) {
+      $(this).removeClass("selected");
+    } else if ($("#planner .char.selected").length > 0) {
+      var source = $("#planner .char.selected");
+      var target = $(this);
+      var sourceDevNicknames = getDevNicknames(source);
+      var targetDevNicknames = getDevNicknames(target);
+      if (sourceDevNicknames == "blank" && targetDevNicknames == "blank") {
+        $(".selected").removeClass("selected");
+        $(this).toggleClass("selected");
+      } else {
+        setCharSlot(target, sourceDevNicknames);
+        setCharSlot(source, targetDevNicknames);
+      }
     } else {
       $(".selected").not(this).removeClass("selected");
       $(this).toggleClass("selected");
@@ -305,42 +297,26 @@ $(document).ready(function () {
     }
   });
 
-
-  $("#btnUnset").on("click", function (e) {
-    e.stopPropagation();
-    $("#btnUnset").appendTo($("#planner"));
-    var target = $('.selected');
-    target.html('<img src="img/assets/chars/blank/square_0.png">').data("DevNicknames", "blank");
-    if (target.is('.main')) {
-      target.removeClass();
-      target.append('<div class="SkillWait">0</div>');
-      target.addClass('unit char main');
-    }
-    if (target.is('.weapon')) {
-      target.removeClass();
-      target.addClass('unit equip weapon');
-    }
-    if (target.is('.sub')) {
-      target.removeClass();
-      target.append('<div class="SkillWait">0</div>');
-      target.addClass('unit char sub');
-    }
-    if (target.is('.soul')) {
-      target.removeClass();
-      target.addClass('unit equip soul');
-    }
-    $(".selected").removeClass("selected");
-  });
   $("#planner .equip").on("click", function () {
     if (!$("#btnShowEquip").is('.on')) {
       $("#btnShowEquip").trigger("click");
     }
     if ($("#equips .equip.selected").length > 0) {
-      $(this).html($("#equips .equip.selected").html());
-      $(this).data("DevNicknames", $("#equips .equip.selected").data("DevNicknames"));
-      $(this).addClass($("#equips .equip.selected").attr("class"));
-      $(".selected").removeClass("selected");
-      $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+       setEquipSlot($(this), $("#equips .equip.selected").data("DevNicknames"));
+    } else if ($(this).is('.selected')) {
+      $(this).removeClass("selected");
+    } else if ($("#planner .equip.selected").length > 0) {
+      var source = $("#planner .equip.selected");
+      var target = $(this);
+      var sourceDevNicknames = getDevNicknames(source);
+      var targetDevNicknames = getDevNicknames(target);
+      if (sourceDevNicknames == "blank" && targetDevNicknames == "blank") {
+        $(".selected").removeClass("selected");
+        $(this).toggleClass("selected");
+      } else {
+        setEquipSlot(target, sourceDevNicknames);
+        setEquipSlot(source, targetDevNicknames);
+      }
     } else {
       $(".selected").not(this).removeClass("selected");
       $(this).toggleClass("selected");
@@ -348,6 +324,18 @@ $(document).ready(function () {
         $("#btnUnset").appendTo($(this));
       }
     }
+  });
+  $("#btnUnset").on("click", function (e) {
+    e.stopPropagation();
+    $("#btnUnset").appendTo($("#planner"));
+    var target = $('.selected');
+    if (target.is('.main')||target.is('.sub')) {
+      setCharSlot(target, "blank");
+    }
+    if (target.is('.weapon')||target.is('.soul')) {
+      setEquipSlot(target, "blank");
+    }
+    $(".selected").removeClass("selected");
   });
   $("#btnCharInfo").on("click", function () {
     $("#btnCharInfo").toggleClass("on");
@@ -357,12 +345,7 @@ $(document).ready(function () {
       $("#info").addClass("charinfo");
       $("body").addClass("expanded");
     }
-    if ($("#infoButtons .on").length <= 0) {
-      $("#info").removeClass("charinfo");
-      $("#info").removeClass("planner");
-      $('.selected').removeClass('selected');
-      $("body").removeClass("expanded");
-    }
+    checkInfoPanel();
   });
   $("#btnPlanner").on("click", function () {
     $("#btnPlanner").toggleClass("on");
@@ -372,13 +355,17 @@ $(document).ready(function () {
       $("#info").addClass("planner");
       $("body").addClass("expanded");
     }
+    checkInfoPanel();
+  });
+
+  function checkInfoPanel() {
     if ($("#infoButtons .on").length <= 0) {
       $("#info").removeClass("charinfo");
       $("#info").removeClass("planner");
       $('.selected').removeClass('selected');
       $("body").removeClass("expanded");
     }
-  });
+  }
 
   $("#btnListView").on("click", function () {
     $(this).toggleClass('on');
@@ -421,10 +408,12 @@ $(document).ready(function () {
     var units = [];
     $(".planner .char").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
+      if (!DevNicknames) DevNicknames = "blank";
       units.push(DevNicknames);
     })
     $(".planner .equip").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
+      if (!DevNicknames) DevNicknames = "blank";
       units.push(DevNicknames);
     })
     const imageUrl = "http://eliya-bot.herokuapp.com/comp/" + units.join('-') + ".png";
@@ -459,6 +448,80 @@ $(document).ready(function () {
     }, 100);
   });
 
+  function getSkillWait(DevNickname) {
+    if (DevNickname == "blank") {
+      return 0;
+    } else {
+      return $("#char-" + DevNickname).data("SkillWait");
+    }
+  }
+
+  function getDevNicknames(unit) {
+    if ($(unit).data("DevNicknames")) {
+      return $(unit).data("DevNicknames");
+    } else {
+      return "blank";
+    }
+  }
+
+  function setCharSlot(slot, DevNickname) {
+    $("#btnUnset").appendTo($("#planner"));
+    var unit;
+    if (DevNickname == "blank") {
+      unit = blank_elem.clone();
+      slot.data("DevNicknames", "blank");
+    } else {
+      unit = $("#char-" + DevNickname);
+      slot.data("DevNicknames", DevNickname);
+    }
+    slot.html(unit.html());
+    slot.find('.charInfoBlock').remove();
+    slot.find('.skillWait').remove();
+    var ismain = true;
+    if (slot.is('.sub')) {
+      ismain = false;
+    }
+    slot.removeClass().addClass(unit.attr("class"));
+    if (ismain) {
+      slot.addClass('unit main char');
+      slot.removeClass('sub')
+    } else {
+      slot.addClass('unit sub char');
+      slot.removeClass('main');
+    }
+    slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
+    $(".selected").removeClass("selected");
+    setSkillWait();
+    $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+  }
+
+
+  function setEquipSlot(slot, DevNickname) {
+    $("#btnUnset").appendTo($("#planner"));
+    if (DevNickname == "blank") {
+      unit = blank_elem.clone();
+      slot.data("DevNicknames", "blank");
+    } else {
+      unit = $("#equip-" + DevNickname);
+      slot.data("DevNicknames", DevNickname);
+    }
+    slot.html(unit.html());
+    slot.find('.equipInfoBlock').remove();
+    var isweapon = true;
+    if (slot.is('.soul')) {
+      isweapon = false;
+    }	  
+    slot.removeClass().addClass(unit.attr("class"));
+    if (isweapon) {
+      slot.addClass('unit weapon equip');
+      slot.removeClass('soul')
+    } else {
+      slot.addClass('unit soul equip');
+      slot.removeClass('weapon');
+    }	  
+    $(".selected").removeClass("selected");
+    $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+  }
 
   function setUnitList(unitList, type) {
     var units = unitList.split(",")
@@ -499,7 +562,6 @@ $(document).ready(function () {
     } else {
       $("#charGrandTotal .percentage").text('');
     }
-
   }
 
   function updateEquipScore() {
