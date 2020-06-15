@@ -59,7 +59,11 @@ $(document).ready(function () {
 
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
-        elem.data("SkillWait", parseInt(unit.Skill.match(/ost\: (\d+)\)/g)[0].replace(/\D/g, "")) || 0);
+		var skillWaitHtml = unit.Skill.match(/\(Skill Cost\: (\d+)\)/g)[0];
+		var skillWait = parseInt(skillWaitHtml.replace(/\D/g, "")) || 0;
+        elem.data("SkillWait", skillWait);
+		unit.SkillWait=skillWait;
+		unit.Skill = '['+unit.Skill.replace(skillWaitHtml,']');
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);

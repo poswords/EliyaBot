@@ -6,6 +6,9 @@ body {
 body.expanded {
   padding-bottom: 360px;
 }
+strong{
+	font-weight: bold;
+}
 .body, .wrapper {
   width: 100%;
   margin: 0;
@@ -356,7 +359,7 @@ body.expanded {
 	margin: 10px 0 3px;
 	box-shadow: none;
 }
-.SkillWait{
+#planner .SkillWait{
 	font-size: 10px;
 	line-height: 12px;
 	padding-top: 3px;
@@ -371,16 +374,16 @@ body.expanded {
 	opacity: 0;
 	transition: 0.5s all;
 }
-.showSkillWait .SkillWait{
+.showSkillWait #planner .SkillWait{
 	display: block;
 }
 .showSkillWait #unisons .main:after,
 .showSkillWait #unisons .sub:after{
 	display: none;
 }
-.showSkillWait .mainSkillWait,
-.showSkillWait .subSkillWait,
-.showSkillWait .totalSkillWait{
+.showSkillWait #planner .mainSkillWait,
+.showSkillWait #planner .subSkillWait,
+.showSkillWait #planner .totalSkillWait{
 	opacity: 1;
 }
 
@@ -674,6 +677,12 @@ body.expanded {
   text-align: center;
   line-height: 16px;
 }
+.unitList .details div.SkillWait{
+  flex: 1 1 8%;	
+}
+.unitList .details div.SkillWait span{
+	text-align: center;
+}
 .equipList .details div.WeaponSkill,
 .equipList .details div.AbilitySoul{
   flex: 1 1 60%;
@@ -683,6 +692,17 @@ body.expanded {
   display: block;
   text-align: left
 }
+.unitList .details div span .SkillName{
+	text-align: center;
+}
+.unitList .details div span .SkillWait{
+	text-align: center;
+}
+.unitList .details div span .SkillWait strong{
+	font-size:11px;
+	font-size:11px;
+}
+
 .unitList .details div.Rarity {
   margin-top: 16px;
   flex: 1 1 3%;
