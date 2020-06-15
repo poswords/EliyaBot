@@ -59,7 +59,7 @@ $(document).ready(function () {
 
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
-		var skillWaitHtml = unit.Skill.match(/\(Skill Cost\: (\d+)\)/g)[0];
+		var skillWaitHtml = unit.Skill.match(/\s\(Skill Cost\: (\d+)\)/g)[0];
 		var skillWait = parseInt(skillWaitHtml.replace(/\D/g, "")) || 0;
         elem.data("SkillWait", skillWait);
 		unit.SkillWait=skillWait;
