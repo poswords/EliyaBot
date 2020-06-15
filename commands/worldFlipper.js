@@ -16,8 +16,8 @@ const numberReactions = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️
 const getInfoEmbed = (unit, flag)  => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
-  if (unit.DropLocation) {
-    footer = footer + ' - ' + unit.DropLocation;
+  if (unit.Obtain) {
+    footer = footer + ' - ' + unit.Obtain;
   }
   footer += '           ' + unit.DevNicknames
   var msg = new Discord.MessageEmbed()
