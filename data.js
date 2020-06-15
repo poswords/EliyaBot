@@ -9,13 +9,13 @@ const sheets = google.sheets({
   auth: APIKey
 });
 var range_names = [
-  "'5* Characters'!A1:O300",
-  "'4* Characters'!A1:O300",
-  "'3* Characters'!A1:O300",
-  "'1*/2* Characters'!A1:P30",
-  "'Boss/Event Weapons'!C1:P300",
-  "'Gacha/Story Weapons'!B1:P300",
-  "'Events'!C1:E300"
+  "'5* Characters'!A1:Q300",
+  "'4* Characters'!A1:Q300",
+  "'3* Characters'!A1:Q300",
+  "'1*/2* Characters'!A1:Q30",
+  "'Boss/Event Weapons'!C1:Q300",
+  "'Gacha/Story Weapons'!B1:Q300",
+  "'Events'!C1:G300"
 ];
 var range_rarity = [
   5,
