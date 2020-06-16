@@ -133,7 +133,10 @@ $(document).ready(function () {
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-        var unitList = Cookies.get('charList');
+        var unitList = localStorage.getItem("charList");
+        if (!unitList) {		  
+		  unitList = Cookies.get('charList');
+		}
         if (!unitList) {
           unitList = Cookies.get('unitList');
         }
@@ -222,7 +225,10 @@ $(document).ready(function () {
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-        var unitList = Cookies.get('equipList');
+		var unitList = localStorage.getItem("equipList");
+		if (!unitList) {  
+          unitList = Cookies.get('equipList');
+		}
         if (unitList) {
           setUnitList(unitList, 'equip');
         }
@@ -386,12 +392,8 @@ $(document).ready(function () {
   });
 
   $("#btnSave").on("click", function () {
-    Cookies.set('charList', getUnitList('char'), {
-      expires: 60
-    });
-    Cookies.set('equipList', getUnitList('equip'), {
-      expires: 60
-    });
+	localStorage.setItem("charList", getUnitList('char'));	 
+    localStorage.setItem("equipList", getUnitList('equip'));	 	  
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
