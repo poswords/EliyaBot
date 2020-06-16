@@ -57,6 +57,28 @@ strong{
   right: 10px;
   top: 10px;
 }
+#errMsg{
+  position: fixed;
+	top: 60px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 90%;
+	background:rgba(237,191,192,0.9);
+	color: #D20000;
+	text-align: center;
+	line-height: 2em;
+	max-width: 480px;
+	padding:10px;
+	border-radius: 5px;
+	border: 1px solid #d20000;
+	transition: 0.5s all;
+	cursor: pointer;
+}
+#errMsg.hidden{
+	display: block;
+	opacity: 0;
+	pointer-events: none;
+}
 #btnGetShareURL {
   width: 140px;
 }

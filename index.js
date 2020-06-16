@@ -148,6 +148,13 @@ io.on('connection', function (socket) {
           id: rows.insertId,
           url: list
         });
+		 connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
+      		if (err) {
+        		console.log(err);
+      		} else {			 
+				console.log(rows);
+			}
+		 });
       }
     });
   });

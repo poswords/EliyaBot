@@ -33,14 +33,19 @@ $(document).ready(function () {
   });
   socket.on('url', function (url) {
     if (waitingForUrl) {
-      if (url.url) {
-        setUnitList(url.url, 'char');
-        console.log("chars");
-      }
-      if (url.equips) {
-        console.log("equips");
-        setUnitList(url.equips, 'equip');
-      }
+	  if (url){
+		  if (url.url) {
+			setUnitList(url.url, 'char');
+			console.log("chars");
+		  }
+		  if (url.equips) {
+			console.log("equips");
+			setUnitList(url.equips, 'equip');
+		  }
+	  }else{
+		  $("#errMsg").removeClass('hidden');
+		  $("#errMsg").html("URL expired (created more than 60 days ago)");
+	  }
       waitingForUrl = false;
     }
   });
@@ -259,7 +264,10 @@ $(document).ready(function () {
     }, 100);
     updateEquipScore();
   });
-
+  $("#errMsg").on("click", function () {
+    $(this).addClass('hidden');
+  });
+	
   $("#btnShowRole").on("click", function () {
     $(this).toggleClass('on');
     $('body').toggleClass('showRole');
