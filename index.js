@@ -26,7 +26,9 @@ const { Client } = require('pg');
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: true
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 app.get('/', function (req, res) {
@@ -160,7 +162,7 @@ io.on('connection', function (socket) {
 		console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')");
 		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')", (err, res) => {
 			console.log("here");
-			console.log("res");
+			console.log(res);
 		  if (err) throw err;
 		  for (let row of res.rows) {
 			  console.log(row.id);
