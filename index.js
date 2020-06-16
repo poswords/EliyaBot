@@ -22,14 +22,11 @@ app.use(bodyParser.urlencoded({
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data')
 var data = DB.getData();
-const { Client } = require('pg');
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res)
+  pool.end()
+})
 
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
@@ -157,7 +154,7 @@ io.on('connection', function (socket) {
 			}
 		 });
 		  
-
+/*
 		client.connect();
 		console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')");
 		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')", (err, res) => {
@@ -173,7 +170,7 @@ io.on('connection', function (socket) {
 		  }
 		  client.end();
 		});
-		
+		*/
       }
     });
   });
