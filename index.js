@@ -160,7 +160,7 @@ io.on('connection', function (socket) {
 		  
 
 		client.connect();
-
+		  console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id");
 		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", (err, res) => {
 		  if (err) throw err;
 		  for (let row of res.rows) {
