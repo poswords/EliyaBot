@@ -159,16 +159,6 @@ io.on('connection', function (socket) {
 		 });
 		  
 
-		client.connect();
-
-		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "' RETURNING id", (err, res) => {
-			console.log(res)
-		  if (err) throw err;
-		  for (let row of res.rows) {
-		
-		  }
-		  client.end();
-		});
 		  
       }
     });
