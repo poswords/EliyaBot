@@ -30,17 +30,6 @@ const client = new Client({
     rejectUnauthorized: false
   }
 });
-/*
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
-*/
 
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
@@ -168,6 +157,19 @@ io.on('connection', function (socket) {
 				console.log(rows);
 			}
 		 });
+		  
+
+		client.connect();
+
+		client.query('INSERT INTO short_urls SET url="' + list.chars + '", equips="' + list.equips + '" RETURNING id', (err, res) => {
+			console.log(res);
+		  if (err) throw err;
+		  for (let row of res.rows) {
+		
+		  }
+		  client.end();
+		});
+		  
       }
     });
   });
