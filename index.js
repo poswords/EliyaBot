@@ -170,8 +170,9 @@ io.on('connection', function (socket) {
 			  url: list
 			});		
 		  }
+		  client.end();
 		});
-		client.end();
+		
       }
     });
   });
