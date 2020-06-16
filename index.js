@@ -22,6 +22,25 @@ app.use(bodyParser.urlencoded({
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data')
 var data = DB.getData();
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+/*
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+*/
 
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
@@ -127,12 +146,6 @@ var mysql = require('mysql');
 var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 connection.connect();
-
-function Client(id, name, device) {
-  this.id = id;
-  this.name = name;
-  this.device = device;
-}
 
 io.on('connection', function (socket) {
   io.to(socket.id).emit('equips', data.equips);
