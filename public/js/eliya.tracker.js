@@ -30,9 +30,6 @@ $(document).ready(function () {
     copyToClipboard(shareUrl);
     $("#btnGetShareURL").text("Share URL Copied").addClass("on");
   });
-  socket.on('url new', function (url) {
-    console.log("newurl:"+url);
-  });	
   socket.on('url', function (url) {
     if (waitingForUrl) {
 	  if (url){

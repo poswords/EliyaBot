@@ -12,7 +12,9 @@ const {
   loadImage
 } = require('canvas')
 const path = require('path');
-app.use(express.static('public', {maxAge: "30d"}));
+app.use(express.static('public', {
+  maxAge: "30d"
+}));
 app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -22,8 +24,15 @@ app.use(bodyParser.urlencoded({
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data')
 var data = DB.getData();
-const { Client } = require('pg');
-
+const {
+  Client
+} = require('pg');
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
     title: 'Eliya',
@@ -105,7 +114,7 @@ app.get('/comp/:w', function (req, res) {
         }
         ctx.drawImage(image, x, y, width, width);
         count++;
-        if (count >= units.length+3) {
+        if (count >= units.length + 3) {
           var data = canvas.toDataURL();
           data = data.replace(/^data:image\/png;base64,/, '');
           var img = new Buffer.from(data, 'base64');
@@ -128,13 +137,13 @@ var mysql = require('mysql');
 var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 connection.connect();
-
+client.connect();
 io.on('connection', function (socket) {
   io.to(socket.id).emit('equips', data.equips);
   io.to(socket.id).emit('chars', data.chars);
 
   socket.on('add url', function (list) {
-    connection.query('INSERT INTO short_urls SET url="' + list.chars + '", equips="' + list.equips + '"', function (err, rows, fields) {
+    /*connection.query('INSERT INTO short_urls SET url="' + list.chars + '", equips="' + list.equips + '"', function (err, rows, fields) {
       //if(err) throw err
       if (err) {
         console.log(err);
@@ -143,31 +152,26 @@ io.on('connection', function (socket) {
           id: rows.insertId,
           url: list
         });
-		 connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
-      		if (err) {
-        		console.log(err);
-      		} else {			 
-			}
-		 });
-		  
-
-		const client = new Client({
-		    connectionString: process.env.DATABASE_URL,
-			  ssl: {
-				rejectUnauthorized: false
-			  }
-		})
-		 client.connect(function (err) {
-		  if (err) throw err
-		  client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')", function (err,res) {
-		   if (err) throw err;
-		   console.log(res);
-		   client.end();
-		  })
-		 })		  
-		  		
+        connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+          } else {}
+        });
       }
-    });
+    });*/
+
+    client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {
+      if (err) throw err;
+      io.to(socket.id).emit('url added', {
+        id: res.rows[0].id,
+        url: list
+      });
+      connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
+        if (err) {
+          console.log(err);
+        } else {}
+      });
+    })
   });
   socket.on('get url', function (id) {
     connection.query('SELECT * FROM short_urls WHERE id=' + id, function (err, rows, fields) {
@@ -175,12 +179,25 @@ io.on('connection', function (socket) {
       if (err) {
         console.log(err);
       } else {
-        rows.forEach(function (row) {
-          delete row.created_date;
-        });
-        io.to(socket.id).emit('url', rows[0]);
+
+        if (rows.length == 0) {
+          client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
+            if (err) throw err;
+            res.rows.forEach(function (row) {
+              delete row.created_date;
+            });
+            io.to(socket.id).emit('url', res.rows[0]);
+          })
+        } else {
+          rows.forEach(function (row) {
+            delete row.created_date;
+          });
+          io.to(socket.id).emit('url', rows[0]);
+        }
+
       }
     });
+
   });
 
 });
