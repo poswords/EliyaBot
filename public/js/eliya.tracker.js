@@ -92,6 +92,7 @@ $(document).ready(function () {
             $(this).toggleClass("checked");
             var parent = $(this).parent();
             $("#btnSave").removeClass("on");
+			$("#btnGetShareURL").removeClass("on");
             updateCharScore();
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -180,6 +181,7 @@ $(document).ready(function () {
             $(this).toggleClass("checked");
             var parent = $(this).parent();
             $("#btnSave").removeClass("on");
+			$("#btnGetShareURL").removeClass("on");
             updateEquipScore();
           }
           var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -402,6 +404,7 @@ $(document).ready(function () {
       $(this).siblings('.unitList').find('.unit').not('.spookyStuff').not('.filtered').removeClass('checked');
     }
     $("#btnSave").removeClass("on");
+	$("#btnGetShareURL").removeClass("on");
     updateCharScore();
     updateEquipScore();
   });
