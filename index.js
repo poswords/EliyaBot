@@ -162,13 +162,29 @@ io.on('connection', function (socket) {
     })
   });
   socket.on('get url', function (id) {
-	  client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
-         if (err) throw err;
-         res.rows.forEach(function (row) {
-         	delete row.created_date;
-		 });
-         io.to(socket.id).emit('url', res.rows[0]);
-      })
+    connection.query('SELECT * FROM short_urls WHERE id=' + id, function (err, rows, fields) {
+      //if(err) throw err
+      if (err) {
+        console.log(err);
+      } else {
+		  console.log(rows);
+        if (rows.length == 0) {
+          client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
+            if (err) throw err;
+            res.rows.forEach(function (row) {
+              delete row.created_date;
+            });
+            io.to(socket.id).emit('url', res.rows[0]);
+          })
+        } else {
+          rows.forEach(function (row) {
+            delete row.created_date;
+          });
+          io.to(socket.id).emit('url', rows[0]);
+        }
+
+      }
+    });
 
   });
 
