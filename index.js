@@ -157,22 +157,15 @@ io.on('connection', function (socket) {
 				rejectUnauthorized: false
 			  }
 		})
-		client.connect()
-		console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')");
-		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')", (err, res) => {
-
-			console.log(res);
-		  if (err) throw err;
-		  for (let row of res.rows) {
-			  console.log(row.id);
-			io.to(socket.id).emit('url new', {
-			  id: row.id,
-			  url: list
-			});		
-		  }
-		  client.end();
-		});
-		
+		 client.connect(function (err) {
+		  if (err) throw err
+		  client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "')", function (err,res) {
+		   if (err) throw err;
+		   console.log(res);
+		   client.end();
+		  })
+		 })		  
+		  		
       }
     });
   });
