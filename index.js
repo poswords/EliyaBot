@@ -154,14 +154,14 @@ io.on('connection', function (socket) {
       		if (err) {
         		console.log(err);
       		} else {			 
-				console.log(rows);
 			}
 		 });
 		  
 
 		client.connect();
-		  console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id");
+		console.log("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id");
 		client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", (err, res) => {
+			console.log("here");
 		  if (err) throw err;
 		  for (let row of res.rows) {
 			  console.log(row.id);
@@ -170,9 +170,8 @@ io.on('connection', function (socket) {
 			  url: list
 			});		
 		  }
-		  client.end();
 		});
-		  
+		client.end();
       }
     });
   });
