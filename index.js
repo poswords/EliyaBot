@@ -23,10 +23,6 @@ const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data')
 var data = DB.getData();
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
 
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
