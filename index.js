@@ -164,7 +164,6 @@ io.on('connection', function (socket) {
   socket.on('get url', function (id) {
 	  client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
          if (err) throw err;
-		  console.log(res);
          res.rows.forEach(function (row) {
          	delete row.created_date;
 		 });
