@@ -43,7 +43,7 @@ $(document).ready(function () {
 		  }
 	  }else{
 		  $("#errMsg").removeClass('hidden');
-		  $("#errMsg").html("URL expired (created more than 60 days ago)");
+		  $("#errMsg").html("URL expired");
 	  }
       waitingForUrl = false;
     }
