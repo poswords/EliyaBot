@@ -143,60 +143,33 @@ io.on('connection', function (socket) {
   io.to(socket.id).emit('chars', data.chars);
 
   socket.on('add url', function (list) {
-    /*connection.query('INSERT INTO short_urls SET url="' + list.chars + '", equips="' + list.equips + '"', function (err, rows, fields) {
-      //if(err) throw err
-      if (err) {
-        console.log(err);
-      } else {
-        io.to(socket.id).emit('url added', {
-          id: rows.insertId,
-          url: list
-        });
-        connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
-          if (err) {
-            console.log(err);
-          } else {}
-        });
-      }
-    });*/
-
     client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {
       if (err) throw err;
+	  var id;
       io.to(socket.id).emit('url added', {
         id: res.rows[0].id,
         url: list
       });
-      connection.query('Delete FROM short_urls WHERE created_date < NOW() - INTERVAL 60 DAY;', function (err, rows, fields) {
-        if (err) {
-          console.log(err);
-        } else {}
-      });
+	  var target=id-9980;
+	  if(target>0){
+		client.query('Delete FROM short_urls WHERE id < '+target, function (err, rows, fields) {
+			if (err) {
+			  console.log(err);
+			} else {}
+		});	  
+	  }
+      
     })
   });
   socket.on('get url', function (id) {
-    connection.query('SELECT * FROM short_urls WHERE id=' + id, function (err, rows, fields) {
-      //if(err) throw err
-      if (err) {
-        console.log(err);
-      } else {
-
-        if (rows.length == 0) {
-          client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
-            if (err) throw err;
-            res.rows.forEach(function (row) {
-              delete row.created_date;
-            });
-            io.to(socket.id).emit('url', res.rows[0]);
-          })
-        } else {
-          rows.forEach(function (row) {
-            delete row.created_date;
-          });
-          io.to(socket.id).emit('url', rows[0]);
-        }
-
-      }
-    });
+	  client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
+         if (err) throw err;
+		  console.log(res);
+         res.rows.forEach(function (row) {
+         	delete row.created_date;
+		 });
+         io.to(socket.id).emit('url', res.rows[0]);
+      })
 
   });
 
