@@ -157,18 +157,7 @@ io.on('connection', function (socket) {
 				console.log(rows);
 			}
 		 });
-		  
 
-		client.connect();
-
-		client.query('INSERT INTO short_urls SET url="' + list.chars + '", equips="' + list.equips + '" RETURNING id', (err, res) => {
-			console.log(res);
-		  if (err) throw err;
-		  for (let row of res.rows) {
-		
-		  }
-		  client.end();
-		});
 		  
       }
     });
