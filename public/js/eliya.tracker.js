@@ -29,7 +29,6 @@ $(document).ready(function () {
     const shareUrl = "http://eliya-bot.herokuapp.com/" + url.id
     copyToClipboard(shareUrl);
     $("#btnGetShareURL").text("Share URL Copied").addClass("on");
-    gtag('event', 'share');
   });
   socket.on('url', function (url) {
     if (waitingForUrl) {
@@ -356,7 +355,6 @@ $(document).ready(function () {
     if ($("#btnCharInfo").is(".on")) {
       $("#info").addClass("charinfo");
       $("body").addClass("expanded");
-	  gtag('event', 'view_item');
     }
     checkInfoPanel();
   });
