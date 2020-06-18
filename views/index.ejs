@@ -51,8 +51,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	  <li id="btnListView" class="button <% if (data.listview) { %>on<% } %>">List View</li>
 	  <li id="btnSave" class="button">Save</li>
 	  <li id="btnGetShareURL" class="button">Generate Share URL</li>
+	  <li id="shareURL" class="url">
+		<input id="txtShareURL" type="text" class="txtURL" value="">
+		<div id="btnUrlCopy" class="button btnCopy" data-target="txtShareURL">
+		  <svg class="" viewBox="0 0 24 24" version="1.1" width="16" height="16" aria-hidden="true"><path xmlns="http://www.w3.org/2000/svg" d="M20.25 2.625h-2.625v1.5h2.25v17.625h-15.75v-17.625h2.25v-1.5h-2.625c-0.621 0.001-1.124 0.504-1.125 1.125v18.375c0.001 0.621 0.504 1.124 1.125 1.125h16.5c0.621-0.001 1.124-0.504 1.125-1.125v-18.375c-0.001-0.621-0.504-1.124-1.125-1.125h-0z"/><path xmlns="http://www.w3.org/2000/svg" d="M9 6.563h6c0.621-0.001 1.124-0.504 1.125-1.125v-4.688h-8.25v4.688c0.001 0.621 0.504 1.124 1.125 1.125h0zM9.375 2.25h5.25v2.813h-5.25z"/></svg>
+        </div>
+	  </li>
 	  </ul>
-	<div id="errMsg" class="hidden"></div>
+	<div id="errMsg" class="message hidden"></div>
   </div>		
 	  <h1 class="title">World Flipper Collection Tracker</h1>
 	  <ul id="switchUnits" class="filterList">
@@ -248,6 +254,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  <ul id="plannerButtons" class="btnList">
 				  <li id="btnShowSkillWait" class="button">Show Skill Cost</li>
 				  <li id="btnGetCompURL" class="button">Generate Image URL</li>
+				  <li id="compURL" class="url">
+					<input id="txtCompURL" type="text" class="txtURL" value="">
+					<div id="btnUrlCopy" class="button btnCopy" data-target="txtCompURL">
+					  <svg class="" viewBox="0 0 24 24" version="1.1" width="16" height="16" aria-hidden="true"><path xmlns="http://www.w3.org/2000/svg" d="M20.25 2.625h-2.625v1.5h2.25v17.625h-15.75v-17.625h2.25v-1.5h-2.625c-0.621 0.001-1.124 0.504-1.125 1.125v18.375c0.001 0.621 0.504 1.124 1.125 1.125h16.5c0.621-0.001 1.124-0.504 1.125-1.125v-18.375c-0.001-0.621-0.504-1.124-1.125-1.125h-0z"/><path xmlns="http://www.w3.org/2000/svg" d="M9 6.563h6c0.621-0.001 1.124-0.504 1.125-1.125v-4.688h-8.25v4.688c0.001 0.621 0.504 1.124 1.125 1.125h0zM9.375 2.25h5.25v2.813h-5.25z"/></svg>
+					</div>
+				  </li>				  
 			  </ul>
 
 		  </div>
@@ -302,10 +314,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>
 	  var listid;
 		<% if (data.listid) { %> listid = <%= data.listid %>; <% } %>
+     window.module = {}  		
   </script>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>	  
   <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>	
+  <script src="/js/copy.js"></script>
   <script src="/js/eliya.tracker.js?2006161855"></script>
   </body>
 

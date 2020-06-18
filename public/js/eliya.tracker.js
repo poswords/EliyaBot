@@ -5,7 +5,7 @@ $(document).ready(function () {
   var inputUp = isIOS ? "touchend" : "touchend mouseup";
   var w_width = $(window).width();
   var w_height = $(window).height();
-  const assetPath = '/img/assets/'
+  const assetPath = '/img/assets/';
   var socket = io();
   var charLoaded = false;
   var equipLoaded = false;
@@ -24,21 +24,29 @@ $(document).ready(function () {
     resizeCheck();
   });
   resizeCheck();
-
+  $(".btnCopy").on("click",function(){
+	 var str = $("#"+$(this).data("target")).val();
+	 if (!window.module.exports(str)){setStatus(false);}else{
+		 $(this).addClass("on");
+	 }
+  });
+	
   socket.on('url added', function (url) {
     const shareUrl = "http://eliya-bot.herokuapp.com/" + url.id
-    copyToClipboard(shareUrl);
-    $("#btnGetShareURL").text("Share URL Copied").addClass("on");
+	$("#txtShareURL").val(shareUrl);		
+    if (!copyToClipboard(shareUrl)){
+		$('.body').addClass("showShareURL");	
+	}else{
+		$("#btnGetShareURL").text("Share URL Copied").addClass("on");
+	}
   });
   socket.on('url', function (url) {
     if (waitingForUrl) {
 	  if (url){
 		  if (url.url) {
 			setUnitList(url.url, 'char');
-			console.log("chars");
 		  }
 		  if (url.equips) {
-			console.log("equips");
 			setUnitList(url.equips, 'equip');
 		  }
 	  }else{
@@ -91,9 +99,7 @@ $(document).ready(function () {
           } else {
             $(this).toggleClass("checked");
             var parent = $(this).parent();
-            $("#btnSave").removeClass("on");
-			$("#btnGetShareURL").removeClass("on");
-            updateCharScore();
+            unitChanged();
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
@@ -183,9 +189,7 @@ $(document).ready(function () {
           } else {
             $(this).toggleClass("checked");
             var parent = $(this).parent();
-            $("#btnSave").removeClass("on");
-			$("#btnGetShareURL").removeClass("on");
-            updateEquipScore();
+            unitChanged();
           }
           var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
@@ -239,15 +243,13 @@ $(document).ready(function () {
   });
 
   function copyToClipboard(str) {
-    nstr = str;
-    //nstr = shrinkUrl(nstr);
-    console.log(nstr);
     const el = document.createElement('textarea');
-    el.value = nstr;
+    el.value = str;
     document.body.appendChild(el);
     el.select();
-    document.execCommand('copy');
+    var success = document.execCommand('copy');
     document.body.removeChild(el);
+	return success;
   }
 
   for (i = 1; i < 4; i++) {
@@ -405,10 +407,7 @@ $(document).ready(function () {
     } else {
       $(this).siblings('.unitList').find('.unit').not('.spookyStuff').not('.filtered').removeClass('checked');
     }
-    $("#btnSave").removeClass("on");
-	$("#btnGetShareURL").removeClass("on");
-    updateCharScore();
-    updateEquipScore();
+	unitChanged();
   });
 
 
@@ -433,11 +432,14 @@ $(document).ready(function () {
       units.push(DevNicknames);
     })
     const imageUrl = "http://eliya-bot.herokuapp.com/comp/" + units.join('-') + ".png";
-    copyToClipboard(imageUrl);
-
-    setTimeout(function () {
-      $("#btnGetCompURL").text("Image URL Copied").addClass("on");
-    }, 100);
+    $("#txtCompURL").val(imageUrl);		  
+    if (!copyToClipboard(imageUrl)){
+		$('.body').addClass("showCompURL");
+	}else{
+		setTimeout(function () {
+		  $("#btnGetCompURL").text("Image URL Copied").addClass("on");
+		}, 100);
+	}
   });
   $("#btnShowSkillWait").on("click", function () {
     $(this).toggleClass('on');
@@ -509,8 +511,8 @@ $(document).ready(function () {
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+	$('body').removeClass("showCompURL"); 
   }
-
 
   function setEquipSlot(slot, DevNickname) {
     $("#btnUnset").appendTo($("#planner"));
@@ -537,7 +539,16 @@ $(document).ready(function () {
     }	  
     $(".selected").removeClass("selected");
     $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+	$('body').removeClass("showCompURL");   
   }
+  function unitChanged(){
+	$("#btnSave").removeClass("on");
+	$("#btnGetShareURL").text("Generate Share URL").removeClass("on");
+	$("#btnUrlCopy").removeClass("on");
+	$('body').removeClass("showShareURL"); 
+    updateCharScore();
+    updateEquipScore();
+  }	
 
   function setUnitList(unitList, type) {
     var units = unitList.split(",")

@@ -7,6 +7,7 @@ const listenport = process.env.PORT || 8888;
 const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);
+
 const {
   createCanvas,
   loadImage

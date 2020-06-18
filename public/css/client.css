@@ -21,6 +21,7 @@ strong{
   margin: 5px;
   padding: 10px;
   font-size: 12px;
+  line-height: 12px;
   text-align: center;
   box-shadow: 0 0 1px 1px #aaa;
   border-radius: 5px;
@@ -57,30 +58,72 @@ strong{
   right: 10px;
   top: 10px;
 }
-#errMsg{
+.message{
   position: fixed;
 	top: 60px;
 	left: 50%;
 	transform: translate(-50%);
 	width: 90%;
-	background:rgba(237,191,192,0.9);
-	color: #D20000;
 	text-align: center;
 	line-height: 2em;
 	max-width: 480px;
 	padding:10px;
 	border-radius: 5px;
-	border: 1px solid #d20000;
 	transition: 0.5s all;
 	cursor: pointer;
+	background:rgba(255,255,255,0.9);
+	color: #333;	
+	border: 1px solid #333;	
 }
-#errMsg.hidden{
+.message.hidden{
 	display: block;
 	opacity: 0;
 	pointer-events: none;
 }
+#errMsg{
+	background:rgba(237,191,192,0.9);
+	color: #D20000;	
+	border: 1px solid #d20000;	
+}
 #btnGetShareURL {
   width: 140px;
+}
+.showShareURL #btnGetShareURL {
+	display: none;
+}
+.showCompURL #btnGetCompURL{
+	display: none;
+}
+#shareURL,
+#compURL{
+	display: none;
+}
+.txtURL{
+    width: 128px;	
+	margin: 5px 0px 5px 5px;
+    padding: 9px 10px;
+    font-size: 12px;
+	line-height: 12px;
+    text-align: center;
+	border:none;
+    box-shadow: 0 0 1px 1px #aaa;
+    border-radius: 5px;
+    background: #fff;
+	box-sizing: border-box;
+	border-radius: 5px 0 0 5px;
+	float: left;
+	direction: rtl;
+}
+.btnCopy{
+	line-height:16px;
+	width: 16px;
+	padding: 8px;
+	margin: 5px 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+.showShareURL #shareURL,
+.showCompURL #compURL{
+	display: inline-block;;
 }
 #chars, #equips {
   text-align: center;
