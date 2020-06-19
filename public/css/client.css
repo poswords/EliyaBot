@@ -537,7 +537,7 @@ strong{
 #infoButtons {
   width: 100%;
   position: absolute;
-  margin-top: -41px;
+  margin-top: -39px;
   height: 0;
 }
 #infoButtons .button {
@@ -952,39 +952,4 @@ strong{
     margin-top: 0;
     margin-bottom: 10px;
   }
-}
-@media all and (max-width: 390px) {
-/*.plannerWrapper {
-  max-width: 360px;
-  margin: 10px auto;
-}
-.partyList.main li{
-	margin-right: 50px;
-    margin-left: 10px;
-}
-.partyList.weapon li{
-margin-left: 75px;
-    flex: 1 1 40px;
-    min-width: 40px;
-    min-height: 40px;
-    margin-top: -60px;
-}
-.partyList.sub li{
-margin-left: 60px;
-    flex: 1 1 40px;
-    min-width: 40px;
-    min-height: 40px;
-	margin-top: 3px;
-	
-}
-.partyList.soul li{
-margin-right: 65px;
-    flex: 1 1 40px;
-    margin-left: 10px;
-    min-width: 30px;
-    min-height: 40px;
-    margin-top: -75px;
-    margin-bottom: 25px;
-	
-}*/
 }
