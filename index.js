@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(i18n({
   translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
-  siteLangs: ["en","ja"],
+  siteLangs: ["en","ja","zh-tw", "zh-cn"],
   textsVarName: 'translation'
 }));
 const viewFolder = path.join(__dirname, './views/');
