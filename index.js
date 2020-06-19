@@ -7,11 +7,12 @@ const listenport = process.env.PORT || 8888;
 const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);
-
+var cookieParser = require('cookie-parser');
+var i18n=require("i18n-express");
 const {
   createCanvas,
   loadImage
-} = require('canvas')
+} = require('canvas');
 const path = require('path');
 app.use(express.static('public', {
   maxAge: "30d"
@@ -22,9 +23,17 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(cookieParser());
+app.use(i18n({
+  translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
+  siteLangs: ["en","ja"],
+  textsVarName: 'translation'
+}));
 const viewFolder = path.join(__dirname, './views/');
-const DB = require('./data')
+const DB = require('./data');
+const DBja = require('./data-jp');
 var data = DB.getData();
+var dataja =DBja.getData();
 const {
   Client
 } = require('pg');
@@ -140,8 +149,19 @@ var connection = mysql.createConnection(process.env.JAWSDB_URL);
 connection.connect();
 client.connect();
 io.on('connection', function (socket) {
-  io.to(socket.id).emit('equips', data.equips);
-  io.to(socket.id).emit('chars', data.chars);
+  socket.on('connected', function(lang){
+	  console.log(lang);
+	switch(lang){
+		case "ja":
+			io.to(socket.id).emit('equips', dataja.equips);
+			io.to(socket.id).emit('chars', dataja.chars);  
+			break;
+		default:
+			io.to(socket.id).emit('equips', data.equips);
+			io.to(socket.id).emit('chars', data.chars);  			
+	}
+  });
+  
 
   socket.on('add url', function (list) {
     client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {

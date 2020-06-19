@@ -457,21 +457,6 @@ strong{
   font-size: 10px;
   color: #333;
 }
-#unisons .main:after {
-  content: "Main";
-}
-#unisons ul:nth-child(1)  .main:after {
-  content: "Leader";
-}
-#unisons .sub:after {
-  content: "Sub";
-}
-#unisons .weapon:after {
-  content: "Weapon";
-}
-#unisons .soul:after {
-  content: "Soul";
-}
 #btnUnset{
 	background: #dde;
 	width: 10px;

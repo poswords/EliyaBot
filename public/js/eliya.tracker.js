@@ -15,7 +15,7 @@ $(document).ready(function () {
   function clearUI() {
 
   }
-
+  socket.emit('connected', lang);
   function resizeCheck() {
     w_width = $(window).width();
     w_height = $(window).height();
@@ -29,8 +29,8 @@ $(document).ready(function () {
 	 if (!window.module.exports(str)){setStatus(false);}else{
 		 $(this).addClass("on");
 	 }
-  });
-	
+  }); 
+
   socket.on('url added', function (url) {
     const shareUrl = "http://eliya-bot.herokuapp.com/" + url.id
 	$("#txtShareURL").val(shareUrl);
@@ -41,6 +41,7 @@ $(document).ready(function () {
 		$("#btnGetShareURL").text("Share URL Copied").addClass("on");
 	}
   });
+
   socket.on('url', function (url) {
     if (waitingForUrl) {
 	  if (url){
@@ -52,7 +53,7 @@ $(document).ready(function () {
 		  }
 	  }else{
 		  $("#errMsg").removeClass('hidden');
-		  $("#errMsg").html("URL expired");
+		  $("#errMsg").html(tls.URLExpired);
 	  }
       waitingForUrl = false;
     }
@@ -69,14 +70,18 @@ $(document).ready(function () {
         for (i = 0; i < races.length; i++) {
           elem.addClass('Race' + races[i]);
         }
-
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
-		var skillWaitHtml = unit.Skill.match(/\s\(Skill Cost\: (\d+)\)/g)[0];
-		var skillWait = parseInt(skillWaitHtml.replace(/\D/g, "")) || 0;
+		var skillWaitHtml, skillWait;
+		if(unit.SkillWait){
+			skillWait = unit.SkillWait
+		}else{
+			skillWaitHtml = unit.Skill.match(/\s\(Skill Cost\: (\d+)\)/g)[0];
+			skillWait = parseInt(skillWaitHtml.replace(/\D/g, "")) || 0;
+			unit.Skill = '['+unit.Skill.replace(skillWaitHtml,']');			
+		}
         elem.data("SkillWait", skillWait);
 		unit.SkillWait=skillWait;
-		unit.Skill = '['+unit.Skill.replace(skillWaitHtml,']');
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);
@@ -104,7 +109,24 @@ $(document).ready(function () {
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
-            info.find('.' + key + ' span').text(unit[key]);
+			if (lang != "en"){
+				if (key == "Race"){
+					var races = unit.Race.split(' / ');
+					var tls =[];
+					for (i=0;i<races.length;i++){
+						tls.push(getTls("Race"+races[i]));
+					}
+					console.log(tls);
+					info.find('.' + key + ' span').text(tls.join(' / '));	
+				}else if(key=="Attribute" || key =="Role" || key=="Gender"){
+					var tl = getTls(key+unit[key]);
+					if (tl) info.find('.' + key + ' span').text(tl);
+				}else{
+					info.find('.' + key + ' span').text(unit[key]);	
+				}
+			}else{
+				info.find('.' + key + ' span').text(unit[key]);	
+			}
           });
           info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt">');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
@@ -172,8 +194,8 @@ $(document).ready(function () {
           info.find('.' + key + ' span').text(unit[key]);
         });
         var attr = '';
-        if (unit.Attribute == 'All') attr = 'All';
-        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' + attr + '</span>');
+        if (unit.Attribute == 'All') attr = getTls('AttributeAll');
+        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' + +attr + '</span>');
         info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
         elem.append(info);
         elem.on("click", function () {
@@ -197,7 +219,7 @@ $(document).ready(function () {
             info.find('.' + key + ' span').text(unit[key]);
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png"><img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">');
-          info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
+          info.find('.Attribute').removeClass().addClass("Attribute " +  getTls("Attribute"+unit.Attribute));
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           $("#info .infoWrapper").html("").append(info);
         });
@@ -252,6 +274,11 @@ $(document).ready(function () {
     document.body.removeChild(el);
 	return success;
   }
+  function getTls(skey){
+	for (const [key, value] of Object.entries(tls)) {
+	  if(skey == key) return value;
+	}
+  }	
 
   for (i = 1; i < 4; i++) {
     const skillwait = '<div class="SkillWait">0</div>';
@@ -259,7 +286,7 @@ $(document).ready(function () {
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($('<li class="totalSkillWait">Cost: <span>0</span></li>'));
+      .append($('<li class="totalSkillWait">'+tls.Wait+': <span>0</span></li>'));
   }
 
   $("#switchUnits li").on("click", function () {
@@ -579,9 +606,9 @@ $(document).ready(function () {
       gTotal += total;
       gCount += count;
       if (count == total) {
-        $(this).siblings('.btnSelectAll').addClass('on').html("Deselect All");
+        $(this).siblings('.btnSelectAll').addClass('on').html(tls.DeselectAll);
       } else {
-        $(this).siblings('.btnSelectAll').removeClass('on').html("Select All");
+        $(this).siblings('.btnSelectAll').removeClass('on').html(tls.SelectAll);
       }
     });
     $("#charGrandTotal .score").text(gCount + '/' + gTotal);
@@ -602,9 +629,9 @@ $(document).ready(function () {
       gTotal += total;
       gCount += count;
       if (count == total) {
-        $(this).siblings('.btnSelectAll').addClass('on').html("Deselect All");
+        $(this).siblings('.btnSelectAll').addClass('on').html(tls.DeselectAll);
       } else {
-        $(this).siblings('.btnSelectAll').removeClass('on').html("Select All");
+        $(this).siblings('.btnSelectAll').removeClass('on').html(tls.SelectAll);
       }
     });
     $("#equipGrandTotal .score").text(gCount + '/' + gTotal);
@@ -645,8 +672,6 @@ $(document).ready(function () {
           $(this).parent().removeClass('hidden');
         }
       });
-
-
     }
     $(".charList").addClass('flash');
     setTimeout(function () {
@@ -654,7 +679,6 @@ $(document).ready(function () {
     }, 100);
     updateCharScore();
   }
-
 
   function filterUnit(target) {
     if ($('#filter' + target + ' .btnFilter.on').length > 0) {
@@ -666,9 +690,7 @@ $(document).ready(function () {
       $('.tempFilter').removeClass('tempFilter');
       $("#chars .char").not('.filtered').addClass('tempFilter');
       $("#equips .equip").not('.filtered').addClass('tempFilter');
-
     }
-
   }
 
   function updateEquipFilter() {
