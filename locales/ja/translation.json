@@ -1,6 +1,6 @@
 {
 "title": "ワーフリ所有率チェッカー",
-"ListView": "一覧モード",
+"ListView": "一覧表示",
 "Save": "保存",
 "URLExpired": "リンクが期限切れました。",
 "GenerateShareURL":"共有リンクを取得",
@@ -52,13 +52,17 @@
 "WeaponSkill": "装備効果",
 "AbilitySoul": "アビリティソウル",
 "Obtain": "入手方法",
+"WeaponGacha":"装備ガチャ",
 "PartyPlanner": "パーティ作成",
 "Leader": "リーダー",
 "Main": "メイン",
 "Sub": "サブ",
+"Weapon": "装備",
 "Soul": "アビソ",
 "Wait": "ウェイト",
 "ShowSkillWait": "スキルウェイト表示",
 "GenerateImageURL":"画像リンクを取得",
-"ImageURLCopied": "画像リンクコピー済"
+"ImageURLCopied": "画像リンクコピー済",
+"SiteLink": "https://www.wf-calc.net/",
+"SiteLinkText": "ワールドフリッパー攻略検証ブログ"
 }

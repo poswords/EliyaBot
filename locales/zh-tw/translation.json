@@ -11,9 +11,9 @@
 "Characters":"角色",
 "Equipments":"武器",
 "ShowRole":"显示职业/种族",
-"Awaken":"显示第二立绘",
-"ShowOwned":"显示已拥有的角色",
-"NoGacha":"装备池武器除外",
+"Awaken":"显示突破立绘",
+"ShowOwned":"显示已拥有角色",
+"NoGacha":"装备池除外",
 "RaceAquatic":"水栖",
 "RaceBeast":"兽",
 "RaceDemon":"魔",
@@ -25,7 +25,7 @@
 "RaceUndead":"不死",
 "RaceYoukai":"妖",
 "RoleSword":"剑士",
-"RoleFist":"格斗家",
+"RoleFist":"格斗",
 "RoleBow":"射手",
 "RoleSupport":"辅助",
 "RoleSpecial":"特殊",
@@ -56,9 +56,10 @@
 "Leader":"队长",
 "Main":"主要角色",
 "Sub":"SUB",
+"Weapon": "武器",
 "Soul":"珠子",
 "Wait":"技能槽",
 "ShowSkillWait":"显示技能槽",
 "GenerateImageURL":"生成图片链接",
-"ImageURLCopied":"已复制图片链接"
+"ImageURLCopied":"已复制图片链接"	
 }

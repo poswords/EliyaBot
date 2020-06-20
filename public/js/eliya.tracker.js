@@ -38,7 +38,7 @@ $(document).ready(function () {
     if (!copyToClipboard(shareUrl)){
 		$('.body').addClass("showShareURL");	
 	}else{
-		$("#btnGetShareURL").text("Share URL Copied").addClass("on");
+		$("#btnGetShareURL").text(tls.ShareURLCopied).addClass("on");
 	}
   });
 
@@ -184,7 +184,7 @@ $(document).ready(function () {
         var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' equip unit"></li>')
           .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'))
           .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">'));
-        if (unit.Obtain != "Weapon Gacha") {
+        if (unit.Obtain != tls.WeaponGacha) {
           elem.addClass('NoGacha')
         }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
@@ -289,8 +289,8 @@ $(document).ready(function () {
       .append($('<li class="totalSkillWait">'+tls.Wait+': <span>0</span></li>'));
   }
 
-  $("#switchUnits li").on("click", function () {
-    $("#switchUnits li").removeClass('on');
+  $(".btnSwitchUnit").on("click", function () {
+    $(".btnSwitchUnit").removeClass('on');
     $(this).addClass('on');
     $('body').removeClass('viewchar viewequip');
     var target = $(this).data('type');
@@ -459,13 +459,15 @@ $(document).ready(function () {
       if (!DevNicknames) DevNicknames = "blank";
       units.push(DevNicknames);
     })
-    const imageUrl = "http://eliya-bot.herokuapp.com/comp/" + units.join('-') + ".png";
+	var lngcode = '';
+	if (lang!="en") lngcode+='.'+lang;
+    const imageUrl = "http://eliya-bot.herokuapp.com/comp/" + units.join('-') +lngcode+ ".png";
     $("#txtCompURL").val(imageUrl);		  
     if (!copyToClipboard(imageUrl)){
 		$('.body').addClass("showCompURL");
 	}else{
 		setTimeout(function () {
-		  $("#btnGetCompURL").text("Image URL Copied").addClass("on");
+		  $("#btnGetCompURL").text(tls.ImageURLCopied).addClass("on");
 		}, 100);
 	}
   });
@@ -492,6 +494,10 @@ $(document).ready(function () {
     setTimeout(function () {
       $("." + type + "List").removeClass('flash');
     }, 100);
+  });
+  $("#listLang").on("click",function(){
+	  $(this).toggleClass("on");
+	  $(this).find('.active').prependTo($(this));
   });
 
   function getSkillWait(DevNickname) {
@@ -538,7 +544,7 @@ $(document).ready(function () {
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
     $(".selected").removeClass("selected");
     setSkillWait();
-    $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+    $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
 	$('body').removeClass("showCompURL"); 
   }
 
@@ -566,12 +572,12 @@ $(document).ready(function () {
       slot.removeClass('weapon');
     }	  
     $(".selected").removeClass("selected");
-    $("#btnGetCompURL").text("Generate Image URL").removeClass("on");
+    $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
 	$('body').removeClass("showCompURL");   
   }
   function unitChanged(){
 	$("#btnSave").removeClass("on");
-	$("#btnGetShareURL").text("Generate Share URL").removeClass("on");
+	$("#btnGetShareURL").text(tls.GenerateShareURL).removeClass("on");
 	$("#btnUrlCopy").removeClass("on");
 	$('body').removeClass("showShareURL"); 
     updateCharScore();

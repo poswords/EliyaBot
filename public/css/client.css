@@ -6,8 +6,8 @@ body {
 body.expanded {
   padding-bottom: 360px;
 }
-strong{
-	font-weight: bold;
+strong {
+  font-weight: bold;
 }
 .body, .wrapper {
   width: 100%;
@@ -47,82 +47,118 @@ strong{
   z-index: 20;
 }
 .title {
-  font-size: 40px;
+  font-size: 36px;
   padding: 10px;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   letter-spacing: 2px;
+  
+}
+.title a{
+	text-decoration: none;
 }
 .toolbar .btnList {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-.message{
+.message {
   position: fixed;
-	top: 60px;
-	left: 50%;
-	transform: translate(-50%);
-	width: 90%;
-	text-align: center;
-	line-height: 2em;
-	max-width: 480px;
-	padding:10px;
-	border-radius: 5px;
-	transition: 0.5s all;
-	cursor: pointer;
-	background:rgba(255,255,255,0.9);
-	color: #333;	
-	border: 1px solid #333;	
+  top: 60px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 90%;
+  text-align: center;
+  line-height: 2em;
+  max-width: 480px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.5s all;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: 1px solid #333;
 }
-.message.hidden{
-	display: block;
-	opacity: 0;
-	pointer-events: none;
+.message.hidden {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
 }
-#errMsg{
-	background:rgba(237,191,192,0.9);
-	color: #D20000;	
-	border: 1px solid #d20000;	
+#errMsg {
+  background: rgba(237, 191, 192, 0.9);
+  color: #D20000;
+  border: 1px solid #d20000;
+}
+#listLang {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 5px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: left;
+  box-shadow: 0 0 1px 1px #aaa;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+#listLang li a {
+  padding: 10px 10px 10px 0;
+  display: none;
+  color: #999;
+  padding-left: 30px;
+}
+#listLang li.active a {
+  display: block;
+  pointer-events: none;
+  text-decoration: none;
+  color: #000;
+  background-image: url("../img/globe.svg");
+  background-size: 20px;
+  background-position: 6px 5px;
+  background-repeat: no-repeat;
+}
+#listLang.on li a {
+  display: block;
 }
 #btnGetShareURL {
   width: 140px;
 }
 .showShareURL #btnGetShareURL {
-	display: none;
+  display: none;
 }
-.showCompURL #btnGetCompURL{
-	display: none;
+.showCompURL #btnGetCompURL {
+  display: none;
 }
-#shareURL,
-#compURL{
-	display: none;
+#shareURL, #compURL {
+  display: none;
 }
-.txtURL{
-    width: 108px;	
-	margin: 5px 0px 5px 5px;
-    padding: 10px;
-    font-size: 12px;
-	line-height: 12px;
-	height: 12px;
-    text-align: center;
-	border:none;
-    box-shadow: 0 0 1px 1px #aaa;
-    background: #fff;
-	border-radius: 5px 0 0 5px;
-	float: left;
-	direction: rtl;
+.txtURL {
+  width: 108px;
+  margin: 5px 0px 5px 5px;
+  padding: 10px;
+  font-size: 12px;
+  line-height: 12px;
+  height: 12px;
+  text-align: center;
+  border: none;
+  box-shadow: 0 0 1px 1px #aaa;
+  background: #fff;
+  border-radius: 5px 0 0 5px;
+  float: left;
+  direction: rtl;
 }
-.btnCopy{
-	line-height:16px;
-	width: 16px;
-	padding: 8px;
-	margin: 5px 5px 5px 0;
-	border-radius: 0 5px 5px 0;
+.btnCopy {
+  line-height: 16px;
+  width: 16px;
+  padding: 8px;
+  margin: 5px 5px 5px 0;
+  border-radius: 0 5px 5px 0;
 }
-.showShareURL #shareURL,
-.showCompURL #compURL{
-	display: inline-block;;
+.showShareURL #shareURL, .showCompURL #compURL {
+  display: inline-block;
+  ;
 }
 #chars, #equips {
   text-align: center;
@@ -256,36 +292,32 @@ strong{
 .viewAlt .altArt {
   display: block
 }
-#equips .AbilitySoul,
-.soulArt{
-	display: none;
+#equips .AbilitySoul, .soulArt {
+  display: none;
 }
-.viewSoul #equips .weaponArt,
-.soul .weaponArt{
-	transform: scale(0.6) translate(0,-3px);
-	position: absolute;
-	transform-origin: top center;
+.viewSoul #equips .weaponArt, .soul .weaponArt {
+  transform: scale(0.6) translate(0, -3px);
+  position: absolute;
+  transform-origin: top center;
 }
-.viewSoul #equips .soulArt,
-.soul .soulArt{
-	transform: scale(0.5);
-	transform-origin: bottom center;
-	display: block;
+.viewSoul #equips .soulArt, .soul .soulArt {
+  transform: scale(0.5);
+  transform-origin: bottom center;
+  display: block;
 }
-.viewSoul #equips .WeaponSkill{
-	display:none;
+.viewSoul #equips .WeaponSkill {
+  display: none;
 }
-.viewSoul #equips .AbilitySoul{
-	display:block;
+.viewSoul #equips .AbilitySoul {
+  display: block;
 }
-.viewSoul .unit.checked{
-	background: #f7f7ff;
+.viewSoul .unit.checked {
+  background: #f7f7ff;
 }
-.listView .unitList .unit.checked img.soulArt{
-	background: none;
-	box-shadow: none;
-} 
-
+.listView .unitList .unit.checked img.soulArt {
+  background: none;
+  box-shadow: none;
+}
 .char:before {
   content: "";
   width: 12px;
@@ -315,11 +347,11 @@ strong{
 .filterList li {
   width: 12px;
   height: 12px;
-  padding: 8px;
   border-left: 1px solid #aaa;
   cursor: pointer;
   transition: 0.3s all;
-  flex: 1 1 20px;
+  padding: 8px 0;
+  flex: 1 1 36px;
   font-size: 11px;
   line-height: 12px;
 }
@@ -333,10 +365,7 @@ strong{
 .filterList li:first-child {
   border: none;
 }
-#filterCharRarity, 
-#filterEquipRarity, 
-#filterAltArt,
-#filterEquipObtain {
+#filterCharRarity, #filterEquipRarity, #filterAltArt, #filterEquipObtain {
   width: 300px
 }
 #filterCharRole {
@@ -372,11 +401,9 @@ strong{
 .unit.filtered {
   display: none;
 }
-.planner .unit{
+.planner .unit {
   opacity: 1;
 }
-
-
 .partyList {
   display: flex;
   flex-wrap: wrap;
@@ -388,91 +415,88 @@ strong{
   max-width: 480px;
   margin: 10px auto;
 }
-#unisons{
-	display: flex;
-	margin-bottom:10px;
+#unisons {
+  display: flex;
+  margin-bottom: 10px;
 }
-#unisons .unit{
-	min-width: inherit;
-	min-height: inherit;
+#unisons .unit {
+  min-width: inherit;
+  min-height: inherit;
 }
-#unisons .unit.checked{
-	background:#fff;
+#unisons .unit.checked {
+  background: #fff;
 }
-.unison{
-	flex: 1 1 33%;
-	margin: 5px 1%;
-	position: relative;
+.unison {
+  flex: 1 1 33%;
+  margin: 5px 1%;
+  position: relative;
 }
-.main{
-	max-width:60%;
-	top: 0;right: 0;
+.main {
+  max-width: 60%;
+  top: 0;
+  right: 0;
 }
-.weapon{
-	max-width:40%;
-	position:absolute;
-	top: 16px;right: 0;
+.weapon {
+  max-width: 40%;
+  position: absolute;
+  top: 16px;
+  right: 0;
 }
-.sub{
-	max-width:50%;
-	position:absolute;
-	bottom: 0;right: 0;	
+.sub {
+  max-width: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
-.soul{
-	max-width:40%;
-	margin: 10px 0 3px;
-	box-shadow: none;
+.soul {
+  max-width: 40%;
+  margin: 10px 0 3px;
+  box-shadow: none;
 }
-#planner .SkillWait{
-	font-size: 10px;
-	line-height: 12px;
-	padding-top: 3px;
-	display: none;
+#planner .SkillWait {
+  font-size: 10px;
+  line-height: 12px;
+  padding-top: 3px;
+  display: none;
 }
-.totalSkillWait{
-	position: absolute;
-	bottom: -15px;
-	left: 0;
-	font-size:10px;
-	width: 100%;
-	opacity: 0;
-	transition: 0.5s all;
+.totalSkillWait {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  font-size: 10px;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s all;
 }
-.showSkillWait #planner .SkillWait{
-	display: block;
+.showSkillWait #planner .SkillWait {
+  display: block;
 }
-.showSkillWait #unisons .main:after,
-.showSkillWait #unisons .sub:after{
-	display: none;
+.showSkillWait #unisons .main:after, .showSkillWait #unisons .sub:after {
+  display: none;
 }
-.showSkillWait #planner .mainSkillWait,
-.showSkillWait #planner .subSkillWait,
-.showSkillWait #planner .totalSkillWait{
-	opacity: 1;
+.showSkillWait #planner .mainSkillWait, .showSkillWait #planner .subSkillWait, .showSkillWait #planner .totalSkillWait {
+  opacity: 1;
 }
-
-#unisons .char:after,
-#unisons .equip:after
-{
+#unisons .char:after, #unisons .equip:after {
   font-size: 10px;
   color: #333;
 }
-#btnUnset{
-	background: #dde;
-	width: 10px;
-	height: 10px;
-	font-size:10px;
-	line-height: 10px;
-	font-weight: bold;
-	display: none;
-	position: absolute;
-	right: -16px;
-	top: -16px;
-	z-index: 5;
-	border-radius: 50px;
+#btnUnset {
+  background: #dde;
+  width: 10px;
+  height: 10px;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: bold;
+  display: none;
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  z-index: 5;
+  border-radius: 50px;
 }
-.selected #btnUnset{
-	display: block;
+.selected #btnUnset {
+  display: block;
 }
 #info {
   position: fixed;
@@ -553,13 +577,13 @@ strong{
   height: 82px;
   padding: 0 10px;
 }
-#info .AbilitySoul{
-	color:#999;
+#info .AbilitySoul {
+  color: #999;
 }
-#info .Art .soulArt{
-	display: block;
-	width: 50%;
-    margin: 10px auto;
+#info .Art .soulArt {
+  display: block;
+  width: 50%;
+  margin: 10px auto;
 }
 #info .details {
   text-align: left;
@@ -665,6 +689,7 @@ strong{
   margin-right: 10px;
 }
 #charNamePlate {
+  display: none;
   position: absolute;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
@@ -676,18 +701,17 @@ strong{
   pointer-events: none;
 }
 #charNamePlate .ENName {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 15px;
 }
 #charNamePlate .JPName {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 15px;
 }
 #charNamePlate .Obtain {
-  font-size: 9px;
+  font-size: 10px;
   line-height: 15px;
 }
-
 .viewOwned .unit:not(.checked) {
   display: none;
 }
@@ -711,9 +735,8 @@ strong{
   display: block;
   opacity: 1;
 }
-.listView .equipList .MaxHP,
-.listView .equipList .MaxATK{
-	display: none;
+.listView .equipList .MaxHP, .listView .equipList .MaxATK {
+  display: none;
 }
 .unitList .details {
   display: flex;
@@ -726,14 +749,13 @@ strong{
   text-align: center;
   line-height: 16px;
 }
-.unitList .details div.SkillWait{
-  flex: 1 1 8%;	
+.unitList .details div.SkillWait {
+  flex: 1 1 8%;
 }
-.unitList .details div.SkillWait span{
-	text-align: center;
+.unitList .details div.SkillWait span {
+  text-align: center;
 }
-.equipList .details div.WeaponSkill,
-.equipList .details div.AbilitySoul{
+.equipList .details div.WeaponSkill, .equipList .details div.AbilitySoul {
   flex: 1 1 60%;
 }
 .unitList .details div span {
@@ -741,17 +763,16 @@ strong{
   display: block;
   text-align: left
 }
-.unitList .details div span .SkillName{
-	text-align: center;
+.unitList .details div span .SkillName {
+  text-align: center;
 }
-.unitList .details div span .SkillWait{
-	text-align: center;
+.unitList .details div span .SkillWait {
+  text-align: center;
 }
-.unitList .details div span .SkillWait strong{
-	font-size:11px;
-	font-size:11px;
+.unitList .details div span .SkillWait strong {
+  font-size: 11px;
+  font-size: 11px;
 }
-
 .unitList .details div.Rarity {
   margin-top: 16px;
   flex: 1 1 3%;
@@ -926,12 +947,12 @@ strong{
   }
   #filterCharRace li {
     flex: 1 1 20%;
-	border-top: none;
-	border-left: none;
-	border-right: 1px solid #aaa;
+    border-top: none;
+    border-left: none;
+    border-right: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
-	margin-right: -1px;
-	  margin-bottom: -1px;
+    margin-right: -1px;
+    margin-bottom: -1px;
   }
   .showRole #filterCharRole, .showRole #filterCharRace {
     margin-top: 0;
