@@ -851,6 +851,10 @@ strong {
 .listView #charNamePlate {
   display: none !important;
 }
+.resources{
+	font-size: 11px;
+	text-align: center;
+}
 @media all and (max-width: 920px) {
   .wrapper {
     width: 92%;

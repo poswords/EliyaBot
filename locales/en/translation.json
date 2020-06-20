@@ -62,5 +62,8 @@
 "Wait": "Cost",
 "ShowSkillWait": "Show Skill Cost",
 "GenerateImageURL":"Generate Image URL",
-"ImageURLCopied": "Image URL Copied"
+"ImageURLCopied": "Image URL Copied",
+"Source": "Resources",
+"SiteLink": "https://www.wf-calc.net/",
+"SiteLinkText": "ワールドフリッパー攻略検証ブログ"
 }
