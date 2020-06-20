@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  
-<title>World Flipper Collection Tracker</title>
-<meta property="og:title" content="World Flipper Collection Tracker" />
+<title><%=t('title')%></title>
+<meta property="og:title" content="<%=t('title')%>" />
 <meta property="og:type" content="website">
 <meta property="og:url" content="http://eliya-bot.herokuapp.com/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
 <meta property="og:image" content="http://eliya-bot.herokuapp.com/favicon-32x32.png" />
@@ -34,23 +34,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/css/normalize.css" type="text/css">
 <link rel="stylesheet" href="/css/reset.css" type="text/css">	
 <link rel="stylesheet" href="/css/common.css" type="text/css">	
-<link rel="stylesheet" href="/css/client.css?2006191114" type="text/css">
+<link rel="stylesheet" href="/css/client.css?2006210359" type="text/css">
 <style>
-
-	  </style>
-  </head>
-
-<body class="body viewchar <% if (data.listview) { %>listView<% } %>">
+#unisons .main:after { content: "<%=t('Main')%>";}
+#unisons ul:nth-child(1)  .main:after {content: "<%=t('Leader')%>";}
+#unisons .sub:after {content: "<%=t('Sub')%>";}
+#unisons .weapon:after {content: "<%=t('Weapon')%>";}
+#unisons .soul:after {content: "<%=t('Soul')%>";}
+</style>
+</head>
+<body class="body viewchar <% if (data.listview) { %>listView<% } %> lang-<%=i18n.language%>">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PV2RM77"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->	
-  <div class="wrapper">
+  
+<div class="wrapper">
+  <ul id="listLang">
+    <li class="<%=(i18n.language=="en"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
+    <li class="<%=(i18n.language=="ja"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>	
+<!--	<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">简体中文</a></li>
+    <li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-cn">繁體中文</a></li>-->
+  </ul>
   <div class="toolbar">
+
   <ul class="btnList">
-	  <li id="btnListView" class="button <% if (data.listview) { %>on<% } %>">List View</li>
-	  <li id="btnSave" class="button">Save</li>
-	  <li id="btnGetShareURL" class="button">Generate Share URL</li>
+
+	  <li id="btnSave" class="button"><%=t('Save')%></li>
+	  <li id="btnGetShareURL" class="button"><%=t('GenerateShareURL')%></li>
 	  <li id="shareURL" class="url">
 		<input id="txtShareURL" type="text" class="txtURL" value="">
 		<div id="btnUrlCopy" class="button btnCopy" data-target="txtShareURL">
@@ -60,183 +71,146 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	  </ul>
 	<div id="errMsg" class="message hidden"></div>
   </div>		
-	  <h1 class="title">World Flipper Collection Tracker</h1>
+	  <h1 class="title"><a href="/"><%= t('title')%></a></h1>
 	  <ul id="switchUnits" class="filterList">
-			  <li id="btnShowChar" class="on" data-type="char">Characters  </li>
-			  <li id="btnShowEquip" data-type="equip">Equipments  </li>
-			  </ul>
+			  <li id="btnShowChar" class="btnSwitchUnit on" data-type="char"><%=t('Characters')%></li>
+			  <li id="btnShowEquip" class="btnSwitchUnit" data-type="equip"><%=t('Equipments')%></li>
+  			  <li id="btnListView" class="<% if (data.listview) { %>on<% } %>"><%=t('ListView')%></li>	  		  
+	  </ul>
 	  <article id="chars">
 		  <ul id="filterCharAttribute" class="filterList">
-			  <li class="btnFilter charFilter" data-filter="AttributeFire"><img src="/img/assets/sprites/elements/element_red.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="AttributeWater"><img src="/img/assets/sprites/elements/element_blue.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="AttributeWind"><img src="/img/assets/sprites/elements/element_green.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="AttributeThunder"><img src="/img/assets/sprites/elements/element_yellow.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="AttributeLight"><img src="/img/assets/sprites/elements/element_white.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="AttributeDark"><img src="/img/assets/sprites/elements/element_black.png">
-			  </li>
+			  <li class="btnFilter charFilter" data-filter="AttributeFire"><img src="/img/assets/sprites/elements/element_red.png"></li>
+			  <li class="btnFilter charFilter" data-filter="AttributeWater"><img src="/img/assets/sprites/elements/element_blue.png"></li>
+			  <li class="btnFilter charFilter" data-filter="AttributeThunder"><img src="/img/assets/sprites/elements/element_yellow.png"></li>
+			  <li class="btnFilter charFilter" data-filter="AttributeWind"><img src="/img/assets/sprites/elements/element_green.png"></li>			  
+			  <li class="btnFilter charFilter" data-filter="AttributeLight"><img src="/img/assets/sprites/elements/element_white.png"></li>
+			  <li class="btnFilter charFilter" data-filter="AttributeDark"><img src="/img/assets/sprites/elements/element_black.png"></li>
 			  </ul>
 		  <ul id="filterCharRarity" class="filterList">
-			  <li class="btnFilter charFilter" data-filter="Rarity5"><img src="/img/assets/sprites/rarity/star5.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="Rarity4"><img src="/img/assets/sprites/rarity/star4.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png">
-			  </li>
+			  <li class="btnFilter charFilter" data-filter="Rarity5"><img src="/img/assets/sprites/rarity/star5.png"></li>
+			  <li class="btnFilter charFilter" data-filter="Rarity4"><img src="/img/assets/sprites/rarity/star4.png"></li>
+			  <li class="btnFilter charFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png"></li>
+			  <li class="btnFilter charFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
+			  <li class="btnFilter charFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
 			  </ul>		
 		  <ul id="filterAltArt" class="filterList">			  
-			  <li id="btnShowRole" data-type="char">Show Role/Race</li>				  
-			  <li id="btnAltArt">Awaken</li>
-			  <li class="btnShowOwned" data-type="char">Show Owned</li>
+			  <li id="btnShowRole" data-type="char"><%=t('ShowRole')%></li>				  
+			  <li id="btnAltArt"><%=t('Awaken')%></li>
+			  <li class="btnShowOwned" data-type="char"><%=t('ShowOwned')%></li>
 			  </ul>			
 		  <ul id="filterCharRole" class="filterList">
-			  <li class="btnFilter charFilter" data-filter="RoleSword"><img src="/img/assets/sprites/types/type_knight.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RoleFist"><img src="/img/assets/sprites/types/type_fighter.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RoleBow"><img src="/img/assets/sprites/types/type_ranged.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RoleSupport"><img src="/img/assets/sprites/types/type_supporter.png">
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RoleSpecial"><img src="/img/assets/sprites/types/type_special.png">
-			  </li>
+			  <li class="btnFilter charFilter" data-filter="RoleSword"><img src="/img/assets/sprites/types/type_knight.png"></li>
+			  <li class="btnFilter charFilter" data-filter="RoleFist"><img src="/img/assets/sprites/types/type_fighter.png"></li>
+			  <li class="btnFilter charFilter" data-filter="RoleBow"><img src="/img/assets/sprites/types/type_ranged.png"></li>
+			  <li class="btnFilter charFilter" data-filter="RoleSupport"><img src="/img/assets/sprites/types/type_supporter.png"></li>
+			  <li class="btnFilter charFilter" data-filter="RoleSpecial"><img src="/img/assets/sprites/types/type_special.png"></li>
 			  </ul>		
 		  <ul id="filterCharRace" class="filterList">
-			  <li class="btnFilter charFilter" data-filter="RaceAquatic">Aquatic
-			  </li>					  
-			  <li class="btnFilter charFilter" data-filter="RaceBeast">Beast
-			  </li>				  
-			  <li class="btnFilter charFilter" data-filter="RaceDemon">Demon
-			  </li>				  
-			  <li class="btnFilter charFilter" data-filter="RaceDragon">Dragon
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RaceHuman">Human
-			  </li>				  
-			  <li class="btnFilter charFilter" data-filter="RaceMecha">Mecha
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RacePlant">Plant
-			  </li>				  
-			  <li class="btnFilter charFilter" data-filter="RaceSprite">Sprite
-			  </li>
-			  <li class="btnFilter charFilter" data-filter="RaceUndead">Undead
-			  </li>				  
-			  <li class="btnFilter charFilter" data-filter="RaceYoukai">Youkai
-			  </li>
+			  <li class="btnFilter charFilter" data-filter="RaceAquatic"><%=t('RaceAquatic')%></li>					  
+			  <li class="btnFilter charFilter" data-filter="RaceBeast"><%=t('RaceBeast')%></li>				  
+			  <li class="btnFilter charFilter" data-filter="RaceDemon"><%=t('RaceDemon')%></li>				  
+			  <li class="btnFilter charFilter" data-filter="RaceDragon"><%=t('RaceDragon')%></li>
+			  <li class="btnFilter charFilter" data-filter="RaceHuman"><%=t('RaceHuman')%></li>				  
+			  <li class="btnFilter charFilter" data-filter="RaceMecha"><%=t('RaceMecha')%></li>
+			  <li class="btnFilter charFilter" data-filter="RacePlant"><%=t('RacePlant')%></li>				  
+			  <li class="btnFilter charFilter" data-filter="RaceSprite"><%=t('RaceSprite')%></li>
+			  <li class="btnFilter charFilter" data-filter="RaceUndead"><%=t('RaceUndead')%></li>				  
+			  <li class="btnFilter charFilter" data-filter="RaceYoukai"><%=t('RaceYoukai')%></li>
 
 			  </ul>			  
 		  <section id="charRarity5">
 			<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllChar5" class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllChar5" class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 charList unitList"></ul>
 		  </section>
 		  <section id="charRarity4">
 			<h2><img src="/img/assets/sprites/rarity/star4.png"></h2>
 			  <span class="score"></span>
-			<div id="btnSelectAllChar4" class="btnSelectAll button">Select All</div>				  
+			<div id="btnSelectAllChar4" class="btnSelectAll button"><%=t('SelectAll')%></div>				  
 			<ul class="rarity4 charList unitList"></ul>
 		  </section>
 		  <section id="charRarity3">
 			<h2><img src="/img/assets/sprites/rarity/star3.png"></h2>
 			  <span class="score"></span>
-			<div id="btnSelectAllChar3" class="btnSelectAll button">Select All</div>				  
+			<div id="btnSelectAllChar3" class="btnSelectAll button"><%=t('SelectAll')%></div>				  
 			<ul class="rarity3 charList unitList"></ul>
 		  </section>
 		  <section id="charRarity2">
 			<h2><img src="/img/assets/sprites/rarity/star2.png"></h2>
 			  <span class="score"></span>
-			<div id="btnSelectAllChar2" class="btnSelectAll button">Select All</div>				  
+			<div id="btnSelectAllChar2" class="btnSelectAll button"><%=t('SelectAll')%></div>				  
 			<ul class="rarity2 charList unitList"></ul>
 		  </section>
 		  <section id=charRarity1>
 			<h2><img src="/img/assets/sprites/rarity/star1.png"></h2>
 			  <span class="score"></span>
-			<div id="btnSelectAllChar1" class="btnSelectAll button">Select All</div>				  
+			<div id="btnSelectAllChar1" class="btnSelectAll button"><%=t('SelectAll')%></div>				  
 			<ul class="rarity1 charList unitList"></ul>
 		  </section>
-		  <div id="charGrandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
+		  <div id="charGrandTotal"><%=t('Overall')%><br><span class="percentage"></span><br><span class="score"></span></div>
 	  </article>
 	  <article id="equips">
 		  <ul id="filterEquipAttribute" class="filterList">
-			  <li class="btnFilter" data-filter="AttributeFire"><img src="/img/assets/sprites/elements/element_red.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeWater"><img src="/img/assets/sprites/elements/element_blue.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeWind"><img src="/img/assets/sprites/elements/element_green.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeThunder"><img src="/img/assets/sprites/elements/element_yellow.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeLight"><img src="/img/assets/sprites/elements/element_white.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeDark"><img src="/img/assets/sprites/elements/element_black.png">
-			  </li>
-			  <li class="btnFilter" data-filter="AttributeAll">All
-			  </li>				  
+			  <li class="btnFilter" data-filter="AttributeFire"><img src="/img/assets/sprites/elements/element_red.png"></li>
+			  <li class="btnFilter" data-filter="AttributeWater"><img src="/img/assets/sprites/elements/element_blue.png"></li>
+			  <li class="btnFilter" data-filter="AttributeThunder"><img src="/img/assets/sprites/elements/element_yellow.png"></li>			  
+			  <li class="btnFilter" data-filter="AttributeWind"><img src="/img/assets/sprites/elements/element_green.png"></li>
+			  <li class="btnFilter" data-filter="AttributeLight"><img src="/img/assets/sprites/elements/element_white.png"></li>
+			  <li class="btnFilter" data-filter="AttributeDark"><img src="/img/assets/sprites/elements/element_black.png"></li>
+			  <li class="btnFilter" data-filter="AttributeAll"><%=t('AttributeAll')%></li>				  
 			  </ul>
 		  <ul id="filterEquipRarity" class="filterList">
-			  <li class="btnFilter" data-filter="Rarity5"><img src="/img/assets/sprites/rarity/star5.png">
-			  </li>
-			  <li class="btnFilter" data-filter="Rarity4"><img src="/img/assets/sprites/rarity/star4.png">
-			  </li>
-			  <li class="btnFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png">
-			  </li>
-			  <li class="btnFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png">
-			  </li>
-			  <li class="btnFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png">
-			  </li>
+			  <li class="btnFilter" data-filter="Rarity5"><img src="/img/assets/sprites/rarity/star5.png"></li>
+			  <li class="btnFilter" data-filter="Rarity4"><img src="/img/assets/sprites/rarity/star4.png"></li>
+			  <li class="btnFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png"></li>
+			  <li class="btnFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
+			  <li class="btnFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
 			  </ul>		
 		  <ul id="filterEquipObtain" class="filterList">
-			  <li class="btnFilter" data-filter="NoGacha">No Gacha </li>
-			  <li id="btnViewSoul">Ability Soul</li>				  
-			  <li class="btnShowOwned" data-type="equip">Show Owned</li>
+			  <li class="btnFilter" data-filter="NoGacha"><%=t('NoGacha')%></li>
+			  <li id="btnViewSoul"><%=t('AbilitySoul')%></li>				  
+			  <li class="btnShowOwned" data-type="equip"><%=t('ShowOwned')%></li>
 			  </ul>				  
 		  <section id="equipRarity5">
 			<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllEquip5" class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllEquip5" class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 equipList unitList"></ul>
 		  </section>	
 		  <section id="equipRarity4">
 			<h2><img src="/img/assets/sprites/rarity/star4.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllEquip4"  class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllEquip4"  class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 equipList unitList"></ul>
 		  </section>	
 		  <section id="equipRarity3">
 			<h2><img src="/img/assets/sprites/rarity/star3.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllEquip3"  class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllEquip3"  class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 equipList unitList"></ul>
 		  </section>	
 		  <section id="equipRarity2">
 			<h2><img src="/img/assets/sprites/rarity/star2.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllEquip2"  class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllEquip2"  class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 equipList unitList"></ul>
 		  </section>	
 		  <section id="equipRarity1">
 			<h2><img src="/img/assets/sprites/rarity/star1.png"></h2>
 			<span class="score"></span>
-			<div id="btnSelectAllEquip1"  class="btnSelectAll button">Select All</div>
+			<div id="btnSelectAllEquip1"  class="btnSelectAll button"><%=t('SelectAll')%></div>
 			<ul class="rarity5 equipList unitList"></ul>
 		  </section>	
-		   <div id="equipGrandTotal">Overall<br><span class="percentage"></span><br><span class="score"></span></div>
+		   <div id="equipGrandTotal"><%=t('Overall')%><br><span class="percentage"></span><br><span class="score"></span></div>
 	  </article>		  
 	  <div id="info">
 		  <div id="infoButtons" class="btnList">
 			  <div id="btnCharInfo" class="button">
-				  Unit Info
+				  <%=t('UnitInfo')%>
 			  </div>
 			  <div id="btnPlanner" class="button">
-				  Party Planner
+				  <%=t('PartyPlanner')%>
 			  </div>	
 		  </div>			
 		  <div class="infoWrapper">
@@ -252,8 +226,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  </div>
 			  <div id="btnUnset" class="button">X</div>
 			  <ul id="plannerButtons" class="btnList">
-				  <li id="btnShowSkillWait" class="button">Show Skill Cost</li>
-				  <li id="btnGetCompURL" class="button">Generate Image URL</li>
+				  <li id="btnShowSkillWait" class="button"><%=t('ShowSkillWait')%></li>
+				  <li id="btnGetCompURL" class="button"><%=t('GenerateImageURL')%></li>
 				  <li id="compURL" class="url">
 					<input id="txtCompURL" type="text" class="txtURL" value="">
 					<div id="btnUrlCopy" class="button btnCopy" data-target="txtCompURL">
@@ -261,29 +235,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					</div>
 				  </li>				  
 			  </ul>
-
 		  </div>
-
 	</div>
+	  
   <div id="charNamePlate">
-	  <div class="ENName"><span></span></div>
+	  <% if (i18n.language=="en"){%><div class="ENName"><span></span></div><% } %>
 	  <div class="JPName"><span></span></div>
 	  <div class="Obtain"><span></span></div>
   </div>
   <div id="charInfoTemplate" class="hidden charInfoBlock" >
-	  <div class="ENName"><span></span></div>
+	  <% if (i18n.language=="en"){%><div class="ENName"><span></span></div><% } %>
+	  <% if (i18n.language=="ja"){%><div class="SubName"><span></span></div><% } %>
 	  <div class="JPName"><span></span></div>
 	  <div class="expandBlock">
 		  <div class="Art"></div>
 		  <div class="details">
-			  <div class="Attribute">Attribute: <span></span></div>
-			  <div class="Rarity">Rarity: <span></span></div>
-			  <div class="LeaderBuff">Leader Buff: <span></span></div>
-			  <div class="Skill">Skill: <span></span></div>		
-			  <div class="SkillWait">Skill Cost: <span></span></div>
-			  <div class="Ability1">Ability 1: <span></span></div>		
-			  <div class="Ability2">Ability 2: <span></span></div>		
-			  <div class="Ability3">Ability 3: <span></span></div>
+			  <div class="Attribute"><%=t('Attribute')%>: <span></span></div>
+			  <div class="Rarity"><%=t('Rarity')%>: <span></span></div>
+			  <div class="LeaderBuff"><%=t('LeaderBuff')%>: <span></span></div>
+			  <div class="Skill"><%=t('Skill')%>: <span></span></div>		
+			  <div class="SkillWait"><%=t('SkillWait')%>: <span></span></div>
+			  <div class="Ability1"><%=t('Ability1')%>: <span></span></div>		
+			  <div class="Ability2"><%=t('Ability2')%>: <span></span></div>		
+			  <div class="Ability3"><%=t('Ability3')%>: <span></span></div>
 			  <div class="footer">
 				  <div class="Role"><span></span></div>
 				  <div class="Gender"><span></span></div>
@@ -300,27 +274,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	  <div class="expandBlock">
 		  <div class="Art"></div>
 		  <div class="details">
-			  <div class="Attribute">Attribute: <span></span></div>
-			  <div class="Rarity">Rarity: <span></span></div>
-			  <div class="MaxHP">HP: <span></span></div>		
-			  <div class="MaxATK">ATK: <span></span></div>		
-			  <div class="WeaponSkill">Weapon Skill: <span></span></div>	
-			  <div class="AbilitySoul">Ability Soul: <span></span></div>
-			  <div class="Obtain">Obtain: <span></span></div>		
+			  <div class="Attribute"><%=t('Attribute')%>: <span></span></div>
+			  <div class="Rarity"><%=t('Rarity')%>: <span></span></div>
+			  <div class="MaxHP"><%=t('HP')%>: <span></span></div>		
+			  <div class="MaxATK"><%=t('ATK')%>: <span></span></div>		
+			  <div class="WeaponSkill"><%=t('WeaponSkill')%>: <span></span></div>	
+			  <div class="AbilitySoul"><%=t('AbilitySoul')%>: <span></span></div>
+			  <div class="Obtain"><%=t('Obtain')%>: <span></span></div>		
 		  </div>				
 	  </div>
-
   </div>	  
+  </div>	  	  
   <script>
 	  var listid;
+	  var lang = "<%=i18n.language%>"
 		<% if (data.listid) { %> listid = <%= data.listid %>; <% } %>
-     window.module = {}  		
+		window.module = {};
+	  var tls={"GenerateImageURL":"<%=t('GenerateImageURL')%>","GenerateShareURL":"<%=t('GenerateShareURL')%>","ImageURLCopied":"<%=t('ImageURLCopied')%>","ShareURLCopied":"<%=t('ShareURLCopied')%>","ShareURLCopied":"<%=t('ShareURLCopied')%>","SelectAll":"<%=t('SelectAll')%>","DeselectAll":"<%=t('DeselectAll')%>","Wait":"<%=t('Wait')%>","URLExpired":"<%=t('URLExpired')%>","RaceAquatic": "<%=t('RaceAquatic')%>","RaceBeast": "<%=t('RaceBeast')%>","RaceDemon": "<%=t('RaceDemon')%>","RaceDragon": "<%=t('RaceDragon')%>","RaceHuman": "<%=t('RaceHuman')%>","RaceMecha": "<%=t('RaceMecha')%>","RacePlant": "<%=t('RacePlant')%>","RaceSprite": "<%=t('RaceSprite')%>","RaceUndead": "<%=t('RaceUndead')%>","RaceYoukai": "<%=t('RaceYoukai')%>","RoleSword": "<%=t('RoleSword')%>","RoleFist": "<%=t('RoleFist')%>","RoleBow": "<%=t('RoleBow')%>","RoleSupport": "<%=t('RoleSupport')%>","RoleSpecial": "<%=t('RoleSpecial')%>","AttributeFire": "<%=t('AttributeFire')%>","AttributeWater": "<%=t('AttributeWater')%>","AttributeThunder": "<%=t('AttributeThunder')%>","AttributeWind": "<%=t('AttributeWind')%>","AttributeLight": "<%=t('AttributeLight')%>","AttributeDark": "<%=t('AttributeDark')%>","AttributeAll": "<%=t('AttributeAll')%>","GenderMale":"<%=t('GenderMale')%>","GenderFemale":"<%=t('GenderFemale')%>","WeaponGacha":"<%=t('WeaponGacha')%>"}
   </script>
   <script src="/socket.io/socket.io.js"></script>	  
   <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>	
   <script src="/js/copy.js"></script>
-  <script src="/js/eliya.tracker.js?2006181449"></script>
+  <script src="/js/eliya.tracker.js?2006210359"></script>
   </body>
 
 </html>
