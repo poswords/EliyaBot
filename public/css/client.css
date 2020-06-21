@@ -173,6 +173,9 @@ strong {
 .viewequip #equips {
   display: block;
 }
+#btnListView {
+  margin-right: -1px;
+}
 #chars h2, #equips h2 {
   clear: both;
   width: 100%;
