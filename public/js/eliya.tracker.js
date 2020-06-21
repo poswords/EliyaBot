@@ -197,8 +197,8 @@ $(document).ready(function () {
           info.find('.' + key + ' span').text(unit[key]);
         });
         var attr = '';
-        if (unit.Attribute == 'All') attr = getTls('AttributeAll');
-        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' + +attr + '</span>');
+        if (unit.Attribute == 'All'){attr = getTls('AttributeAll');}
+        info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span>' +attr + '</span>');
         info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
         elem.append(info);
         elem.on("click", function () {
@@ -219,10 +219,19 @@ $(document).ready(function () {
           }
           var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
-            info.find('.' + key + ' span').text(unit[key]);
+			if (lang != "en"){
+				if(key=="Attribute"){
+					var tl = getTls(key+unit[key]);
+					if (tl) info.find('.' + key + ' span').text(tl);
+				}else{
+					info.find('.' + key + ' span').text(unit[key]);	
+				}
+			}else{
+				info.find('.' + key + ' span').text(unit[key]);	
+			}
           });
           info.find('.Art').html('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png"><img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">');
-          info.find('.Attribute').removeClass().addClass("Attribute " +  getTls("Attribute"+unit.Attribute));
+          info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           $("#info .infoWrapper").html("").append(info);
         });

@@ -743,7 +743,7 @@ strong {
   display: block;
   opacity: 1;
 }
-.listView .equipList .MaxHP, .listView .equipList .MaxATK {
+.listView .equipList .MaxHP, .listView .equipList .MaxATK,.listView .SubName{
   display: none;
 }
 .unitList .details {
@@ -791,15 +791,20 @@ strong {
 .unitList .Attribute {
   display: none;
 }
-.unitList .ENName {
+.unitList .ENName,
+.unitList .ZHName,
+.lang-ja .unitList .JPName{
   position: absolute;
   left: 20px;
   top: 62px;
   line-height: 14px;
   font-weight: bold;
+  font-size: 11px;
 }
-.equipList .ENName {
-  left: 5px;
+.equipList .ENName,
+.equipList .ZHName,
+.equipList .JPName{
+	left: 5px;
 }
 .equipList .details div.Attribute {
   display: block;
@@ -810,12 +815,14 @@ strong {
 .equipList .details div span {
   text-align: center;
 }
+
 .unitList .JPName {
   position: absolute;
   left: 5px;
   top: 78px;
   font-size: 9px;
 }
+
 .unitList .details .footer {
   position: absolute;
   bottom: 5px;
