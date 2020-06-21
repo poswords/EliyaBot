@@ -39,16 +39,16 @@ i18next
 	order: ['querystring', 'cookie'],
 	caches: ['cookie']
   },
-  preload: ['en', 'ja'],
+  preload: ['en', 'ja', 'zh-TW'],
   fallbackLng: ['en']
 
 });
 app.use(i18nextMiddleware.handle(i18next));
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data');
-const DBja = require('./data-jp');
-var data = DB.getData();
-var dataja =DBja.getData();
+var data = DB.getData('en');
+var dataja =DB.getData('ja');
+var datazhtw =DB.getData('zh-TW');
 const {
   Client
 } = require('pg');
@@ -159,7 +159,9 @@ app.get('/comp/:w', function (req, res) {
   });
 });
 app.post('/update', async (req, res) => {
-  data = DB.getData();
+	data = DB.getData('en');
+	dataja =DB.getData('ja');
+	datazhtw =DB.getData('zh-TW');	
   res.send("webapp updated!");
 });
 
@@ -175,6 +177,10 @@ io.on('connection', function (socket) {
 			io.to(socket.id).emit('equips', dataja.equips);
 			io.to(socket.id).emit('chars', dataja.chars);  
 			break;
+		case "zh-TW":
+			io.to(socket.id).emit('equips', datazhtw.equips);
+			io.to(socket.id).emit('chars', datazhtw.chars);  
+			break;			
 		default:
 			io.to(socket.id).emit('equips', data.equips);
 			io.to(socket.id).emit('chars', data.chars);  			

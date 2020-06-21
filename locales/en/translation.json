@@ -31,6 +31,7 @@
 "RoleSpecial": "Special",
 "GenderMale": "Male",
 "GenderFemale": "Female",
+"GenderUnknown": "Unknown",	
 "AttributeFire": "Fire",
 "AttributeWater": "Water",
 "AttributeWind": "Wind",

@@ -528,11 +528,16 @@ strong {
 #info .ENName {
   margin-top: 5px;
 }
-#info .ENName, #info .JPName {
+#info .ENName,#info .ZHName, #info .JPName {
   font-size: 14px;
   font-weight: bold;
   line-height: 30px;
   display: inline-block;
+}
+#info .SubName{
+  margin-top: 10px;
+  font-size: 11px;
+  margin-bottom: -5px;
 }
 #info .plannerWrapper, #info .infoWrapper {
   display: none;

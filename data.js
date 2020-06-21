@@ -2,17 +2,16 @@ const {
   google
 } = require('googleapis');
 
-const SPREADSHEET_ID = '1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
 const APIKey = process.env.GOOGLE_API_KEY;
 const sheets = google.sheets({
   version: "v4",
   auth: APIKey
 });
 var range_names = [
-  "'5* Characters'!A1:Q300",
-  "'4* Characters'!A1:Q300",
-  "'3* Characters'!A1:Q300",
-  "'1*/2* Characters'!A1:Q30",
+  "'5* Characters'!A1:T300",
+  "'4* Characters'!A1:T300",
+  "'3* Characters'!A1:T300",
+  "'1*/2* Characters'!A1:T30",
   "'Boss/Event Weapons'!C1:Q300",
   "'Gacha/Story Weapons'!B1:Q300",
   "'Events'!C1:G300"
@@ -25,7 +24,16 @@ var range_rarity = [
 ]
 
 module.exports = {
-  getData: function () {
+  getData: function (lang) {
+	var SPREADSHEET_ID;
+	switch(lang){
+		case 'zh-TW': SPREADSHEET_ID='1ufgoiam83634LwZwj1ECNmyMd6cAdHz8u4YX7k62-6w';
+			break;
+		case 'ja': SPREADSHEET_ID='1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
+			break;
+		default:SPREADSHEET_ID='1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
+			break;
+	}
     console.log('Getting data..')
     var results = [];
     var chars = [];
@@ -134,23 +142,23 @@ module.exports = {
             }
             Array.prototype.push.apply(equips, rows)
           }
-          for (r = 6; r < 7; r++) {
-            var range = res.data.valueRanges[r];
-            var columnNames = range.values[0];
-            var dataRows = range.values.splice(1);
-            var type = 'event'
-            var rows = dataRows.map(function (a) {
-              var temp = {};
-              columnNames.forEach(function (key, i) {
-                temp[key.replace(/\s+/g, "")] = a[i];
-              })
-              return temp;
-            });
+		  for (r = 6; r < 7; r++) {
+			var range = res.data.valueRanges[r];
+			var columnNames = range.values[0];
+			var dataRows = range.values.splice(1);
+			var type = 'event'
+			var rows = dataRows.map(function (a) {
+			  var temp = {};
+			  columnNames.forEach(function (key, i) {
+				temp[key.replace(/\s+/g, "")] = a[i];
+			  })
+			  return temp;
+			});
 			Array.prototype.push.apply(events, rows)
 		  }
 		  results.chars = chars;
-		  results.equips = equips;
-		  results.events = events;
+		  results.equips = equips;		  
+		  results.events = events;		  
         });
     });
     console.log('Complete')

@@ -31,6 +31,7 @@
 "RoleSpecial": "特殊",
 "GenderMale": "男性",
 "GenderFemale": "女性",
+"GenderUnknown": "不明",
 "AttributeFire": "火",
 "AttributeWater": "水",
 "AttributeWind": "風",
