@@ -230,6 +230,9 @@ $(document).ready(function () {
         elem.on("mouseover", function (e) {
           $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
+		  if(lang=="zh-TW"){
+			$("#charNamePlate").find('.ZHName').html("");  
+		  }			
           $("#charNamePlate").find('.JPName').html(unit.JPName);
           $("#charNamePlate").find('.Obtain').html(unit.Obtain).removeClass('hidden');
           $("#charNamePlate").css({
