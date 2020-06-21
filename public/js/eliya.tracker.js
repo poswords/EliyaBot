@@ -138,6 +138,9 @@ $(document).ready(function () {
           $("#charNamePlate").show();
           $("#charNamePlate").find('.ENName').html(unit.ENName.replace(/\[(.+?)\]/g, ''))
           $("#charNamePlate").find('.JPName').html(unit.JPName);
+		  if(unit.ZHName){
+			$("#charNamePlate").find('.ZHName').html(unit.ZHName);  
+		  }
           $("#charNamePlate").find('.Obtain').html('').addClass('hidden');
           $("#charNamePlate").css({
             "left": elem.offset().left + elem.outerWidth() / 2,
