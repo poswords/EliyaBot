@@ -375,7 +375,7 @@ function getTimeUntil(diff){
 	return timeUntil;
 }
 const event = {
-  name: 'イベント',
+  name: 'event',
   group,
   aliases: ['ev', 'events'],
   description: '開催中・開催決定のイベントを表示',
