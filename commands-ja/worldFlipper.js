@@ -294,6 +294,9 @@ const searchCharByName = chara => {
         if (item.JPName.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
           res = true;
         }
+        if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
         if (typeof item.OtherCommonNames !== 'undefined') {
           if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
             res = true;
@@ -319,12 +322,12 @@ const searchEquipByName = chara => {
     result = data.equips.filter(function (item) {
       var res;
       if (res != true) {
+        if (item.JPName.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
+          res = true;
+        }
         if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
           res = true;
-        }
-        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
-          res = true;
-        }
+        }		  
         if (typeof item.OtherCommonNames !== 'undefined') {
           if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
             res = true;
