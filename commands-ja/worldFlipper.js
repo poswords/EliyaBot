@@ -367,13 +367,13 @@ function getTimeUntil(diff){
 	const minutes = Math.floor(diff/1000/60%60);
 	var timeUntil = '';
 	if (days > 0){
-		timeUntil+= days+'d';
+		timeUntil+= days+'日';
 	}
 	if (hours > 0 || days > 0){
-		timeUntil+= hours+'h';
+		timeUntil+= hours+'時間';
 	}
 	if (minutes >0 || hours > 0 || days > 0){
-		timeUntil+= minutes+'m';
+		timeUntil+= minutes+'分';
 	}	
 	return timeUntil;
 }
