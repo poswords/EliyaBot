@@ -51,9 +51,6 @@ $(document).ready(function () {
 		  if (url.equips) {
 			setUnitList(url.equips, 'equip');
 		  }
-		  if(listid){
-			$(".btnShowOwned").trigger('click');
-		  }
 	  }else{
 		  $("#errMsg").removeClass('hidden');
 		  $("#errMsg").html(tls.URLExpired);
