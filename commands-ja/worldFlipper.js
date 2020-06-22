@@ -301,6 +301,9 @@ const searchCharByName = chara => {
           if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
             res = true;
           }
+          if (item.OtherCommonNames.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
+            res = true;
+          }			
         }
       }
       return res
@@ -329,7 +332,7 @@ const searchEquipByName = chara => {
           res = true;
         }		  
         if (typeof item.OtherCommonNames !== 'undefined') {
-          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
+          if (item.OtherCommonNames.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
             res = true;
           }
         }
