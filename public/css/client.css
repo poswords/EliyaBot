@@ -803,7 +803,7 @@ strong {
 }
 .equipList .ENName,
 .equipList .ZHName,
-.equipList .JPName{
+.lang-ja .equipList .JPName{
 	left: 5px;
 }
 .equipList .details div.Attribute {
