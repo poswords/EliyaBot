@@ -551,10 +551,10 @@ $(document).ready(function () {
     slot.removeClass().addClass(unit.attr("class"));
     if (ismain) {
       slot.addClass('unit main char');
-      slot.removeClass('sub')
+      slot.removeClass('sub filtered')
     } else {
       slot.addClass('unit sub char');
-      slot.removeClass('main');
+      slot.removeClass('main filtered');
     }
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
     $(".selected").removeClass("selected");
@@ -581,10 +581,10 @@ $(document).ready(function () {
     slot.removeClass().addClass(unit.attr("class"));
     if (isweapon) {
       slot.addClass('unit weapon equip');
-      slot.removeClass('soul')
+      slot.removeClass('soul filtered')
     } else {
       slot.addClass('unit soul equip');
-      slot.removeClass('weapon');
+      slot.removeClass('weapon filtered');
     }	  
     $(".selected").removeClass("selected");
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
