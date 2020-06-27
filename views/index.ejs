@@ -208,7 +208,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	  <p class="resources"><%=t('Source')%>: <a href="<%=t('SiteLink')%>"><%=t('SiteLinkText')%></a></p>
 	  <div class="donation"><%=t('Donation')%>
 				<div id="paypal-button-container"></div>
-</div>
+</div>		  
+
 	  <div id="info">
 		  <div id="infoButtons" class="btnList">
 			  <div id="btnCharInfo" class="button">
@@ -305,6 +306,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>	
   <script src="/js/copy.js"></script>
   <script src="/js/eliya.tracker.js?2006271540"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AeaJ3pFrnWM7aveHFyKX_H2vGuqwkY5UezcRhPFMVhDiIIsQZfzvg6Ymw2KUYPPYal_LgtA3E2YWOM92&currency=JPY" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'horizontal',
+          label: 'paypal',
+          tagline: 'false'
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '100'
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+  }).render('#paypal-button-container');
+</script>	
   </body>
 
 </html>
