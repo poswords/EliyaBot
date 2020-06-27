@@ -59,7 +59,6 @@ const getInfoEmbed = (unit, flag)  => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + unit.DevNicknames
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.SubName + ' ' + unit.JPName)
     .setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
@@ -83,8 +82,7 @@ const getEquipEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');	
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.JPName)
-    .addField('入手方法', unit.Obtain, true)
-    .setFooter(unit.DevNicknames);
+    .addField('入手方法', unit.Obtain, true);
 	if (flag == 'soul'){
     	msg.setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
       + '\n**レアリティ: **' + rarity
@@ -106,8 +104,7 @@ const getThumbnailEmbed =(unit, flag) => {
     .setTitle(unit.SubName + ' ' + unit.JPName)
     .setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
       + '\n**レアリティ: **' + rarity)
-  	.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')  	
-	.setFooter(unit.DevNicknames);
+  	.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png');
 	if (flag == 'awaken'){
     	msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')   		
 	}else{
@@ -118,8 +115,7 @@ const getThumbnailEmbed =(unit, flag) => {
 
 const getArtEmbed = (unit, flag)=> {
   var msg = new Discord.MessageEmbed()
-    .setTitle(unit.SubName + ' ' + unit.JPName)
-    .setFooter(unit.DevNicknames);
+    .setTitle(unit.SubName + ' ' + unit.JPName);
 	if (flag == 'awaken'){
     	msg.setImage(assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png')  		
 	}else{
@@ -132,8 +128,7 @@ const getArtEmbed = (unit, flag)=> {
 const getAnimationEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.SubName + ' ' + unit.JPName)
-  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/front.gif')  
-    .setFooter(unit.DevNicknames);
+  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/front.gif');
   return msg;
 
 };
@@ -141,15 +136,14 @@ const getAnimationEmbed = unit => {
 const getSpecialEmbed = unit => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.SubName + ' ' + unit.JPName)
-  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/special.gif')    
-    .setFooter(unit.DevNicknames);
+  	.setImage(assetPath + 'chars/' + unit.DevNicknames + '/special.gif');
   return msg;
 };
 const sendList = async (units, message, type) => {
   const filter = (reaction, user) => {
     return numberReactions.includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send('検索結果:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${(char.SubName)?char.SubName+' '+char.JPName:char.JPName} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
+  const msg = await message.channel.send('検索結果:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${(char.SubName)?char.SubName+' '+char.JPName:char.JPName}`)).join('\n') + '```');
   var num = units.length;
   if (units.length > 10) num=10;
   for (i=0;i<num;i++){
@@ -280,11 +274,11 @@ const sendAlt = async (unit, message) => {
 
 const searchCharByName = chara => {
   var result = data.chars.filter(function (item) {
-    if (typeof item.DevNicknames !== 'undefined') {
+/*    if (typeof item.DevNicknames !== 'undefined') {
       if (item.DevNicknames.toLowerCase() === chara) {
         return true;
       }
-    }
+    }*/
   });
   if (result.length <= 0) {
 
@@ -314,11 +308,11 @@ const searchCharByName = chara => {
 
 const searchEquipByName = chara => {
   var result = data.equips.filter(function (item) {
-    if (typeof item.DevNicknames !== 'undefined') {
+/*    if (typeof item.DevNicknames !== 'undefined') {
       if (item.DevNicknames.toLowerCase() === chara) {
         return true;
       }
-    }
+    }*/
   });
   if (result.length <= 0) {
 
