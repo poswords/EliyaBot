@@ -876,6 +876,10 @@ strong {
 	max-width: 360px;
 	margin:10px auto;
 }
+
+#paypal-button-container iframe{
+	z-index: 1!important;
+}
 @media all and (max-width: 920px) {
   .wrapper {
     width: 92%;
