@@ -870,6 +870,12 @@ strong {
 	font-size: 11px;
 	text-align: center;
 }
+.donation{
+	font-size: 11px;
+	text-align: center;
+	max-width: 360px;
+	margin:10px auto;
+}
 @media all and (max-width: 920px) {
   .wrapper {
     width: 92%;
