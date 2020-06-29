@@ -289,7 +289,7 @@ const searchCharByName = chara => {
         if (item.JPName.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
           res = true;
         }
-        if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
+        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
           res = true;
         }
         if (typeof item.OtherCommonNames !== 'undefined') {
@@ -323,7 +323,7 @@ const searchEquipByName = chara => {
         if (item.JPName.toLowerCase().indexOf(wanakana.toKatakana(chara)) !== -1) {
           res = true;
         }
-        if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
+        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
           res = true;
         }		  
         if (typeof item.OtherCommonNames !== 'undefined') {
