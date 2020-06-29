@@ -52,6 +52,7 @@ const getEquipEmbed = (unit, flag) => {
 	}else{
 		msg.setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
+	  + '\n**HP: **'+unit.MaxHP+ '　　**ATK: **'+unit.MaxATK
       + '\n**Weapon Skill: **' + unit.WeaponSkill)
 		msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png') 
 	}	
