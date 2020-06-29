@@ -86,11 +86,12 @@ const getEquipEmbed = (unit, flag) => {
 	if (flag == 'soul'){
     	msg.setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
       + '\n**レアリティ: **' + rarity
-      + '\n**アビリティソウル: **' + unit.AbilitySoul)		
+      + '\n**アビリティソウル: **' + unit.AbilitySoul)
     	msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png')   		
 	}else{
 		msg.setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
       + '\n**レアリティ: **' + rarity
+	  + '\n**HP: **'+unit.MaxHP+ '　　**ATK: **'+unit.MaxATK
       + '\n**装備効果: **' + unit.WeaponSkill)
 		msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png') 
 	}	
