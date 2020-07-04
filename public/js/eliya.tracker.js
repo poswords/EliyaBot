@@ -128,7 +128,7 @@ $(document).ready(function () {
 				info.find('.' + key + ' span').text(unit[key]);	
 			}
           });
-          info.find('.Art').html('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt">');
+          info.find('.Art').html('<a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_0.png" class="mainArt"></a><a href="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" target="_blank"><img src="' + assetPath + 'chars/' + unit.DevNicknames + '/full_shot_1.png" class="altArt"></a>');
           info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute);
           info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity);
           info.find('.Role').removeClass().addClass("Role " + unit.Role);
