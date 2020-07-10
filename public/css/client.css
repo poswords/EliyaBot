@@ -46,7 +46,7 @@ strong {
   width: 100%;
   z-index: 20;
 }
-.title {
+.sitetitle {
   font-size: 36px;
   padding: 10px;
   text-align: center;
@@ -54,7 +54,15 @@ strong {
   letter-spacing: 2px;
   
 }
-.title a{
+.subtitle {
+  font-size: 24px;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  
+}
+.sitetitle a{
 	text-decoration: none;
 }
 .toolbar .btnList {
@@ -160,12 +168,16 @@ strong {
   display: inline-block;
   ;
 }
-#chars, #equips {
+#chars, #equips, #titles {
   text-align: center;
   max-width: 960px;
   margin: 0 auto;
   display: none;
   transition: opacity 0.3s;
+}
+#titles{
+	display: block;
+	margin-bottom: 50px;
 }
 .viewchar #chars {
   display: block;
@@ -237,7 +249,8 @@ strong {
   font-weight: bold;
   color: #000;
 }
-.unitList {
+.unitList,
+.titleList{
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -263,6 +276,32 @@ strong {
   flex: 1 1 60px;
   position: relative;
 }
+.title{
+  flex: 0 0 100%;
+}
+.titleInfoBlock{
+	display: flex;
+}
+.titleInfoBlock div{
+	flex: 1 1 60%;
+	padding: 10px 1%;
+
+    text-align: left;
+    line-height: 16px;
+	
+}
+.titleInfoBlock .JPName,
+.titleInfoBlock .ENName{
+	font-weight: bold;	
+	flex: 1 1 20%;	
+	text-align: center;
+}
+#title .score,
+#titleGrandTotal{
+
+	display: none;
+}
+
 .unit.checked {
   border: 3px solid #fff;
   padding: 0;
@@ -720,7 +759,8 @@ strong {
   font-size: 10px;
   line-height: 15px;
 }
-.viewOwned .unit:not(.checked) {
+.viewOwned .unit:not(.checked),
+.viewOwned .title:not(.checked) {
   display: none;
 }
 .viewOwned .unit.spookyStuff {

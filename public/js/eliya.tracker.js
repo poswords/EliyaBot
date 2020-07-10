@@ -104,7 +104,6 @@ $(document).ready(function () {
             }
           } else {
             $(this).toggleClass("checked");
-            var parent = $(this).parent();
             unitChanged();
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -214,7 +213,6 @@ $(document).ready(function () {
             }
           } else {
             $(this).toggleClass("checked");
-            var parent = $(this).parent();
             unitChanged();
           }
           var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");

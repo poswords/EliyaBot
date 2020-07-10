@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PV2RM77');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  
+<title><%=t('title')%></title>
+<meta property="og:title" content="<%=t('title')%>" />
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://eliya-bot.herokuapp.com/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
+<meta property="og:image" content="http://eliya-bot.herokuapp.com/favicon-32x32.png" />
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">	
+<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+<link rel="stylesheet" href="/css/reset.css" type="text/css">	
+<link rel="stylesheet" href="/css/common.css" type="text/css">	
+<link rel="stylesheet" href="/css/client.css?2006271906" type="text/css">
+<style>
+#unisons .main:after { content: "<%=t('Main')%>";}
+#unisons ul:nth-child(1)  .main:after {content: "<%=t('Leader')%>";}
+#unisons .sub:after {content: "<%=t('Sub')%>";}
+#unisons .weapon:after {content: "<%=t('Weapon')%>";}
+#unisons .soul:after {content: "<%=t('Soul')%>";}
+</style>
+<script data-ad-client="ca-pub-5427424861859599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body class="body listView lang-<%=i18n.language%>">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PV2RM77"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->	
+  
+<div class="wrapper">
+  <ul id="listLang">
+    <li class="<%=(i18n.language=="en"?"active":"")%>"><a href="/titles<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
+    <li class="<%=(i18n.language=="ja"?"active":"")%>"><a href="/titles<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>	
+	<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a href="/titles<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
+    <!--<li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/titles<%=(data.listid)?data.listid:''%>?lng=zh-cn">简体中文</a></li>-->
+  </ul>
+  <div class="toolbar">
+
+  <ul class="btnList">
+
+<!--	  <li id="btnSave" class="button"><%=t('Save')%></li>-->
+	  </ul>
+	<div id="errMsg" class="message hidden"></div>
+  </div>		
+	  <h1 class="sitetitle"><a href="/"><%= t('title')%></a></h1>
+	  <h2 class="subtitle"><%= t('TitleList')%></h1>
+
+	  <article id="titles">
+<!--		  <ul id="filterAltArt" class="filterList">			  
+			  <li class="btnShowOwned" data-type="title"><%=t('ShowOwned')%></li>
+			  </ul>			-->
+	  
+		  <section id=title>
+			  <span class="score"></span>
+			<div id="btnSelectAllTitle" class="btnSelectAll button"><%=t('SelectAll')%></div>				  
+			<ul class="titleList"></ul>
+		  </section>
+		  <div id="titleGrandTotal"><%=t('Overall')%><br><span class="percentage"></span><br><span class="score"></span></div>
+	  </article>
+	
+	  <p class="resources"><%=t('Source')%>: <a href="<%=t('SiteLink')%>"><%=t('SiteLinkText')%></a></p>
+	  <div class="donation"><%=t('Donation')%>
+				<div id="paypal-button-container"></div>
+</div>		  
+  <div id="titleInfoTemplate" class="hidden titleInfoBlock" >
+	  <div class="JPName"><span></span></div>	  
+	  <% if (i18n.language=="en"){%><div class="ENName"><span></span></div><% } %>
+	  <% if (i18n.language=="zh-TW"){%><div class="ZHName"><span></span></div><% } %>
+	  <div class="Condition"><span></span></div>		
+  </div>	
+	  
+	</div>
+  <script>
+	  var lang = "<%=i18n.language%>";
+	  var tls={"SelectAll":"<%=t('SelectAll')%>","DeselectAll":"<%=t('DeselectAll')%>"}	  
+	</script>
+  <script src="/socket.io/socket.io.js"></script>	  
+  <script src="/js/jquery-3.4.1.min.js"></script>
+  <script src="/js/eliya.titles.js?2006271540"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AeaJ3pFrnWM7aveHFyKX_H2vGuqwkY5UezcRhPFMVhDiIIsQZfzvg6Ymw2KUYPPYal_LgtA3E2YWOM92&currency=JPY" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'horizontal',
+          label: 'paypal',
+          tagline: 'false'
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '200'
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+  }).render('#paypal-button-container');
+</script>	
+  </body>
+
+</html>
