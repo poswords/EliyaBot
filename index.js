@@ -80,6 +80,14 @@ app.get('/list', function (req, res) {
     }
   });
 });
+app.get('/titles', function (req, res) {
+  res.render(viewFolder + 'titles.ejs', {
+    title: 'Eliya',
+    data: {
+      listview: true
+    }
+  });
+});
 app.get('/comp/:w', function (req, res) {
   const canvas = createCanvas(480, 205);
   const ctx = canvas.getContext('2d');
@@ -186,6 +194,18 @@ io.on('connection', function (socket) {
 			io.to(socket.id).emit('chars', data.chars);  			
 	}
   });
+  socket.on('connected-title', function(lang){
+	switch(lang){
+		case "ja":
+			io.to(socket.id).emit('titles', dataja.titles);
+			break;
+		case "zh-TW":
+			io.to(socket.id).emit('titles', datazhtw.titles);
+			break;			
+		default:
+			io.to(socket.id).emit('titles', data.titles);		
+	}
+  });	
   
 
   socket.on('add url', function (list) {

@@ -1,0 +1,348 @@
+世界を渡る者,星見の街から旅立った証,degree_default,せかいをわたるもの
+操作に慣れてきた,プレイヤーランクが 50 に到達,degree_player_rank_growth_1,そうさになれてきた
+やりこみ勢,プレイヤーランクが 100 に到達,degree_player_rank_growth_2,やりこみぜい
+更なる高みへ,プレイヤーランクが 125 に到達,degree_player_rank_growth_3,さらなるたかみへ
+獄炎の龍王,【獄炎の龍王】ヴァーグナーをLv100かつ絆の証を入手,degree_favor_fire_dragon,ごくえんのりゅうおう
+星を渡る海賊船長,【星を渡る海賊船長】マリーナをLv100かつ絆の証を入手,degree_favor_pirates_girl,ほしをわたるかいぞくせんちょう
+未完の錬金術師,【未完の錬金術師】クラリスをLv100かつ絆の証を入手,degree_favor_clarisse,みかんのれんきんじゅつし
+子国のアイドル,【子国のアイドル】ノエネをLv100かつ絆の証を入手,degree_favor_heavenly_one,ねのくにのあいどる
+放浪の花魁,【放浪の花魁】キクノをLv100かつ絆の証を入手,degree_favor_compliment_oiran,ほうろうのおいらん
+黒狼の騎士,【黒狼の騎士】ロルフをLv100かつ絆の証を入手,degree_favor_black_wolf_knight,こくろうのきし
+踊る水の華,【踊る水の華】ソーニャをLv100かつ絆の証を入手,degree_favor_brown_fighter,おどるみずのはな
+希代の陰陽師,【希代の陰陽師】スイゼンをLv100かつ絆の証を入手,degree_favor_onmyoji_boy,きだいのおんみょうじ
+氷の魔女,【氷の魔女】サイファをLv100かつ絆の証を入手,degree_favor_ice_witch,こおりのまじょ
+鋼の狼,【鋼の狼】シレーヌをLv100かつ絆の証を入手,degree_favor_commander,はがねのおおかみ
+竜の守人,【竜の守人】リムニスをLv100かつ絆の証を入手,degree_favor_lakeside_guardian,りゅうのもりびと
+辺境の導き手,【辺境の導き手】ラキーシャをLv100かつ絆の証を入手,degree_favor_drawing_witch,へんきょうのみちびきて
+九尾の継承者,【九尾の継承者】イナホをLv100かつ絆の証を入手,degree_favor_fox_oracle,きゅうびのけいしょうしゃ
+可憐な九尾,【可憐な九尾】イナホをLv100かつ絆の証を入手,degree_favor_fox_oracle_xm19,かれんなきゅうび
+開闢の錬金術師,【開闢の錬金術師】カリオストロをLv100かつ絆の証を入手,degree_favor_cagliostro,かいびゃくのれんきんじゅつし
+豪遊する雷弓使い,【豪遊する雷弓使い】メーティスをLv100かつ絆の証を入手,degree_favor_thunder_archer,ごうゆうするらいきゅうづかい
+迅雷の拳王,【迅雷の拳王】バラクをLv100かつ絆の証を入手,degree_favor_mighty_striker,じんらいのけんおう
+神速のシューター,【神速のシューター】タージェスをLv100かつ絆の証を入手,degree_favor_starbreak_hunter,しんそくのしゅーたー
+自由の弾丸,【自由の弾丸】バレッタをLv100かつ絆の証を入手,degree_favor_combat_soldier,じゆうのだんがん
+忠義の撃鉄,【忠義の撃鉄】セラをLv100かつ絆の証を入手,degree_favor_machine_police_girl,ちゅうぎのげきてつ
+チャキチャキ花火師,【チャキチャキ花火師】ボタンをLv100かつ絆の証を入手,degree_favor_big_gunner,ちゃきちゃきはなびし
+可憐なる剣鬼,【可憐なる剣鬼】シルティーをLv100かつ絆の証を入手,degree_favor_wind_spgirl,かれんなるけんき
+宿命の戦巫女,【宿命の戦巫女】フィリアをLv100かつ絆の証を入手,degree_favor_wind_oracle,しゅくめいのいくさみこ
+霊刀の宿精,【霊刀の宿精】ムラクモをLv100かつ絆の証を入手,degree_favor_katana_ghost,れいとうのしゅくせい
+揺らぎの生還者,【揺らぎの生還者】レオンをLv100かつ絆の証を入手,degree_favor_mercenary,ゆらぎのせいかんしゃ
+大翼の精霊使い,【大翼の精霊使い】シウエをLv100かつ絆の証を入手,degree_favor_bigwing_shaman,たいよくのせいれいつかい
+天翔ける外交官,【天翔ける外交官】ミゲルをLv100かつ絆の証を入手,degree_favor_gentle_barten,あまかけるがいこうかん
+小さなガイド役,【小さなガイド役】コッコロをLv100かつ絆の証を入手,degree_favor_kokkoro,ちいさながいどやく
+目覚めた古代兵器,【目覚めた古代兵器】ネフティムをLv100かつ絆の証を入手,degree_favor_ruin_girl,めざめたこだいへいき
+祝祭の美少女兵器,【祝祭の美少女兵器】ネフティムをLv100かつ絆の証を入手,degree_favor_ruin_girl_halfanv,しゅくさいのびしょうじょへいき
+旅の腹ペコ剣士,【旅の腹ペコ剣士】ペコリーヌをLv100かつ絆の証を入手,degree_favor_pecorine,たびのはらぺこけんし
+流浪の王子,【流浪の王子】ラーゼルトをLv100かつ絆の証を入手,degree_favor_prince_zero,るろうのおうじ
+七彩の剣闘士,【七彩の剣闘士】エクリールをLv100かつ絆の証を入手,degree_favor_bodysuit_trooper,しちさいのけんとうし
+尊大なる交渉者,【尊大なる交渉者】リーブラムをLv100かつ絆の証を入手,degree_favor_blade_dancer,そんだいなるこうしょうしゃ
+次元の魔女,【次元の魔女】ベルセティアをLv100かつ絆の証を入手,degree_favor_dimension_witch,じげんのまじょ
+老巧の狩人,【老巧の狩人】ヴェロンをLv100かつ絆の証を入手,degree_favor_veteran_hunter,ろうこうのかりうど
+流浪の魔剣士,【流浪の魔剣士】モルミアをLv100かつ絆の証を入手,degree_favor_blade_witch,るろうのまけんし
+蛇影と笑う少女,【蛇影と笑う少女】カーラをLv100かつ絆の証を入手,degree_favor_cursed_girl,じゃえいとわらうしょうじょ
+堕天使,【堕天使】オリヴィエをLv100かつ絆の証を入手,degree_favor_olivia,だてんし
+ネコミミ魔法使い,【ネコミミ魔法使い】キャルをLv100かつ絆の証を入手,degree_favor_kyaru,ねこみみまほうつかい
+星行く少年,【星行く少年】アルクをLv100かつ絆の証を入手,degree_favor_alk,ほしゆくしょうねん
+ドラゴンを狩る者,【ドラゴンを狩る者】アゼルをLv100かつ絆の証を入手,degree_favor_dragon_slayer,どらごんをかるもの
+蠱惑の召喚術師,【蠱惑の召喚術師】ビアンカをLv100かつ絆の証を入手,degree_favor_lady_summoner,こわくのしょうかんじゅつし
+忍ばずの忍者,【忍ばずの忍者】ハナビをLv100かつ絆の証を入手,degree_favor_kunoichi,しのばずのにんじゃ
+鬼神の血統,【鬼神の血統】アスキリマルをLv100かつ絆の証を入手,degree_favor_half_oni_boy,きしんのけっとう
+剛盾の剣士,【剛盾の剣士】グライドをLv100かつ絆の証を入手,degree_favor_master_knight,ごうじゅんのけんし
+赤髪のダブルガンナー,【赤髪のダブルガンナー】カノンをLv100かつ絆の証を入手,degree_favor_red_gunner,せきはつのだぶるがんなー
+美しすぎる冒険家,【美しすぎる冒険家】レヴィをLv100かつ絆の証を入手,degree_favor_shapely_soldier,うつくしすぎるぼうけんか
+泣き虫ガンガール,【泣き虫ガンガール】キリをLv100かつ絆の証を入手,degree_favor_crybaby_shooter,なきむしがんがーる
+暴走する弾丸,【暴走する弾丸】ヘイズをLv100かつ絆の証を入手,degree_favor_pirates_gunner,ぼうそうするだんがん
+内気な武術家,【内気な武術家】ミルミナをLv100かつ絆の証を入手,degree_favor_sanctuary_guard,うちきなぶじゅつか
+飛燕の自由騎士,【飛燕の自由騎士】ユーウェルをLv100かつ絆の証を入手,degree_favor_swallow_knight,ひえんのじゆうきし
+飯マズ祝祭調理人,【飯マズ祝祭調理人】ユーウェルをLv100かつ絆の証を入手,degree_favor_swallow_knight_ny20,めしまずしゅくさいちょうりにん
+迷宮の天使,【迷宮の天使】リーゼルをLv100かつ絆の証を入手,degree_favor_bishop_girl,めいきゅうのてんし
+真夏の救済者,【真夏の救済者】リーゼルをLv100かつ絆の証を入手,degree_favor_bishop_girl_smr20,まなつのきゅうさいしゃ
+深海の人魚姫,【深海の人魚姫】アメリアをLv100かつ絆の証を入手,degree_favor_mermaid,しんかいのにんぎょひめ
+漂流の魔法少女,【漂流の魔法少女】アリスをLv100かつ絆の証を入手,degree_favor_alice,ひょうりゅうのまほうしょうじょ
+戦うギルド職員,【戦うギルド職員】シャロンをLv100かつ絆の証を入手,degree_favor_battle_guild_staff,たたかうぎるどしょくいん
+深海の怪人,【深海の怪人】ザールをLv100かつ絆の証を入手,degree_favor_deepsea_mage,しんかいのかいじん
+砂塵の魔具使い,【砂塵の魔具使い】モルディアーガをLv100かつ絆の証を入手,degree_favor_desert_wizard,さじんのまぐつかい
+白蛇の陰陽師,【白蛇の陰陽師】ミズチをLv100かつ絆の証を入手,degree_favor_onmyo_attendant,はくじゃのおんみょうじ
+壊れた精霊薬師,【壊れた精霊薬師】ソーヴィをLv100かつ絆の証を入手,degree_favor_psycho_reaper,こわれたせいれいやくし
+海駆ける士官,【海駆ける士官】ラナーをLv100かつ絆の証を入手,degree_favor_spry_sailor,うみかけるしかん
+夢幻の雷龍,【夢幻の雷龍】ラムスをLv100かつ絆の証を入手,degree_favor_thunder_dragon,むげんのらいりゅう
+笑う科学者,【笑う科学者】ルナールをLv100かつ絆の証を入手,degree_favor_fox_scientist,わらうかがくしゃ
+機人の紳士,【機人の紳士】レジスをLv100かつ絆の証を入手,degree_favor_rec_android,きじんのしんし
+星の焔,【星の焔】エレンノールをLv100かつ絆の証を入手,degree_favor_elf_soldier,ほしのほむら
+探知する老猫,【探知する老猫】ジェイをLv100かつ絆の証を入手,degree_favor_cat_shaman,たんちするろうびょう
+闘牛女傑,【闘牛女傑】ミノをLv100かつ絆の証を入手,degree_favor_minotaur_girl,とうぎゅうじょけつ
+秘剣の策士,【秘剣の策士】アドーニをLv100かつ絆の証を入手,degree_favor_black_hair_swordman,ひけんのさくし
+まどろみの機婦人,【まどろみの機婦人】ルディをLv100かつ絆の証を入手,degree_favor_lady_android,まどろみのきふじん
+白虎の獣人,【白虎の獣人】シロをLv100かつ絆の証を入手,degree_favor_white_tiger,びゃっこのじゅうじん
+創造する人形姫,【創造する人形姫】プリカをLv100かつ絆の証を入手,degree_favor_fake_princess,そうぞうするにんぎょひめ
+がんばる虎娘,【がんばる虎娘】ミアをLv100かつ絆の証を入手,degree_favor_tiger_treasure_hunter,がんばるとらむすめ
+夏に燃えるお宝虎娘,【夏に燃えるお宝虎娘】ミアをLv100かつ絆の証を入手,degree_favor_tiger_treasure_hunter_smr20,なつにもえるおたからとらむすめ
+大空の狩人,【大空の狩人】オロウルをLv100かつ絆の証を入手,degree_favor_birdman,おおぞらのかりうど
+雲断つサムライ,【雲断つサムライ】ソウシロウをLv100かつ絆の証を入手,degree_favor_samurai,くもたつさむらい
+聖夜のサムライ,【聖夜のサムライ】ソウシロウをLv100かつ絆の証を入手,degree_favor_samurai_xm19,せいよのさむらい
+風つがう娘,【風つがう娘】メルスールをLv100かつ絆の証を入手,degree_favor_elf_archer,かぜつがうむすめ
+白狼の棒術師,【白狼の棒術師】ヘルガをLv100かつ絆の証を入手,degree_favor_dog_slasher,はくろうのぼうじゅつし
+わくわく冒険少年,【わくわく冒険少年】ルーをLv100かつ絆の証を入手,degree_favor_beast_adventurer,わくわくぼうけんしょうねん
+不本意のクノイチ,【不本意のクノイチ】スズカをLv100かつ絆の証を入手,degree_favor_timid_kunoichi,ふほんいのくのいち
+天狗の愛弟子,【天狗の愛弟子】コハネをLv100かつ絆の証を入手,degree_favor_tengu_girl,てんぐのまなでし
+森の守護者,【森の守護者】アリサをLv100かつ絆の証を入手,degree_favor_arisa,もりのしゅごしゃ
+機人の歌姫,【機人の歌姫】ディアをLv100かつ絆の証を入手,degree_favor_sing_android,きじんのうたひめ
+白き覆面騎士,【白き覆面騎士】ジェラールをLv100かつ絆の証を入手,degree_favor_unicorn_lancer,しろきふくめんきし
+光弾の魔術師,【光弾の魔術師】エリヤをLv100かつ絆の証を入手,degree_favor_lightbullet_wiz,こうだんのまじゅつし
+水芸の羽子板娘,【水芸の羽子板娘】エリヤをLv100かつ絆の証を入手,degree_favor_lightbullet_wiz_ny20,みずげいのはごいたむすめ
+治安を守りし者,【治安を守りし者】フィンをLv100かつ絆の証を入手,degree_favor_palpebra_knight,ちあんのまもりしもの
+笑顔を守りし者,【笑顔を守りし者】キーラをLv100かつ絆の証を入手,degree_favor_palpebra_knight_lady,えがおをまもりしもの
+生態調査ハンター,【生態調査ハンター】ライアをLv100かつ絆の証を入手,degree_favor_unyielding_adventurer,せいたいちょうさはんたー
+トリックシューター,【トリックシューター】ホプルをLv100かつ絆の証を入手,degree_favor_unleash_hunter,とりっくしゅーたー
+幻光の奇術師,【幻光の奇術師】イルミをLv100かつ絆の証を入手,degree_favor_illusionist,げんこうのきじゅつし
+真夏の奇術師,【真夏の奇術師】イルミをLv100かつ絆の証を入手,degree_favor_illusionist_smr20,まなつのきじゅつし
+無鉄砲な傭兵剣士,【無鉄砲な傭兵剣士】フロレッタをLv100かつ絆の証を入手,degree_favor_whitedog_beast,むてっぽうなようへいきし
+魔物料理人,【魔物料理人】パルフェをLv100かつ絆の証を入手,degree_favor_monster_cook,まものりょうりにん
+無垢なる邪影,【無垢なる邪影】アルムをLv100かつ絆の証を入手,degree_favor_devil_princess,むくなるじゃえい
+戦闘メイド,【戦闘メイド】マリアンネをLv100かつ絆の証を入手,degree_favor_battle_maid,せんとうめいど
+ドレッシー・メイド,【ドレッシー・メイド】マリアンネをLv100かつ絆の証を入手,degree_favor_battle_maid_xm19,どれっしーめいど
+棺使いの霊能士,【棺使いの霊能士】アンディをLv100かつ絆の証を入手,degree_favor_undead_boy,ひつぎつかいのれいのうし
+深淵の探求者,【深淵の探求者】リアンをLv100かつ絆の証を入手,degree_favor_warlock,しんえんのたんきゅうしゃ
+眼帯の銃士,【眼帯の銃士】セルジールをLv100かつ絆の証を入手,degree_favor_blindness_gunner,がんたいのじゅうし
+幼き死霊術師,【幼き死霊術師】ルナをLv100かつ絆の証を入手,degree_favor_luna,おさなきしりょうじゅつし
+黒髪の麗人,【黒髪の麗人】クォーツァーをLv100かつ絆の証を入手,degree_favor_sword_beauty,くろかみのれいじん
+終わらぬ夜の太母,【終わらぬ夜の太母】ラヴをLv100かつ絆の証を入手,degree_favor_touyakiren_ceo,おわらぬよるのたいぼ
+爆裂錬金術師,【爆裂錬金術師】リリルをLv100かつ絆の証を入手,degree_favor_alchemist,ばくれつれんきんじゅつし
+見習い魔女,【見習い魔女】メイミーをLv100かつ絆の証を入手,degree_favor_pretty_witch,みならいまじょ
+砂漠の銃士,【砂漠の銃士】イリスをLv100かつ絆の証を入手,degree_favor_gunslinger,さばくのじゅうし
+辺境の狩人,【辺境の狩人】ハーシュをLv100かつ絆の証を入手,degree_favor_monster_hunter,へんきょうのかりうど
+博愛の無法者,【博愛の無法者】ジンをLv100かつ絆の証を入手,degree_favor_black_doctor,はくあいのむほうしゃ
+紅の呪剣士,【紅の呪剣士】トレーネをLv100かつ絆の証を入手,degree_favor_cool_woman_soldier,くれないのじゅうけんし
+狂戦士,【狂戦士】ギルスラッドをLv100かつ絆の証を入手,degree_favor_berserker,きょうせんし
+火の巫女,【火の巫女】エンニをLv100かつ絆の証を入手,degree_favor_fire_shaman,ひのみこ
+厳正なる監査士,【厳正なる監査士】ジェイクをLv100かつ絆の証を入手,degree_favor_disciplined_swordman,げんせいなるかんさし
+鳥族の女戦士,【鳥族の女戦士】クランをLv100かつ絆の証を入手,degree_favor_birdwoman,ちょうぞくのおんなせんし
+調和の癒し手,【調和の癒し手】ハリシャをLv100かつ絆の証を入手,degree_favor_tradition_healer,ちょうわのいやして
+虎を追うネズミ,【虎を追うネズミ】スヴェンをLv100かつ絆の証を入手,degree_favor_brave_mouse,とらをおうねずみ
+森の狩人,【森の狩人】ケイロスをLv100かつ絆の証を入手,degree_favor_sniper,もりのかりうど
+蒼の少女剣士,【蒼の少女剣士】トリスタをLv100かつ絆の証を入手,degree_favor_urban_soldier,あいのしょうじょけんし
+臆病重戦士,【臆病重戦士】ヴァルターをLv100かつ絆の証を入手,degree_favor_hard_face_soldier,おくびょうじゅうせんし
+白衣の無法者,【白衣の無法者】エルザをLv100かつ絆の証を入手,degree_favor_nurse,はくいのむほうしゃ
+牙の暗殺者,【牙の暗殺者】クラウスをLv100かつ絆の証を入手,degree_favor_wolf_assassin,きばのあんさつしゃ
+九尾の付き人,【九尾の付き人】シラノをLv100かつ絆の証を入手,degree_favor_fox_companion,きゅうびのつきびと
+幻杯の導師,【幻杯の導師】カイユをLv100かつ絆の証を入手,degree_favor_depraved_monk,げんぱいのどうし
+求道の水兵少女,【求道の水兵少女】ラッティをLv100かつ絆の証を入手,degree_favor_sailor_girl,きゅうどうのすいへいしょうじょ
+おどける子竜,【おどける子竜】ファフをLv100かつ絆の証を入手,degree_favor_cute_fafnir,おどけるこりゅう
+霊泉の伊達娘,【霊泉の伊達娘】リコをLv100かつ絆の証を入手,degree_favor_mens_attire_girl,れいせんのだてむすめ
+憧憬する女傭兵,【憧憬する女傭兵】クラーラをLv100かつ絆の証を入手,degree_favor_junior_yearngirl,どうけいするおんなようへい
+ミーハー★シャーマン,【ミーハー★シャーマン】サマサをLv100かつ絆の証を入手,degree_favor_little_shaman,みーはーしゃーまん
+夢見る双剣使い,【夢見る双剣使い】ユナをLv100かつ絆の証を入手,degree_favor_twin_blader,ゆめみるそうけんつかい
+痺れる蜂娘,【痺れる蜂娘】ホーニィをLv100かつ絆の証を入手,degree_favor_bee_girl,しびれるはちむすめ
+雷撃の拳闘士,【雷撃の拳闘士】タイガをLv100かつ絆の証を入手,degree_favor_lightning_fighter,らいげきのけんとうし
+理知する黒豹,【理知する黒豹】クロをLv100かつ絆の証を入手,degree_favor_outlaw_panther,りちするくろひょう
+牙の貴公子,【牙の貴公子】アルベルトをLv100かつ絆の証を入手,degree_favor_wolf_swordsman,きばのきこうし
+風雷の舞姫,【風雷の舞姫】カヅチをLv100かつ絆の証を入手,degree_favor_oni_girl,ふうらいのまいひめ
+酔頼の冒険者,【酔頼の冒険者】タチアナをLv100かつ絆の証を入手,degree_favor_sociable_mestizo,すいらいのぼうけんしゃ
+没落の雷術師,【没落の雷術師】コルトをLv100かつ絆の証を入手,degree_favor_magic_boy,ぼつらくのらいじゅつし
+銃愛の学生技師,【銃愛の学生技師】シャ・ススをLv100かつ絆の証を入手,degree_favor_student_gunsmith,じゅうあいのがくせいぎし
+遠見の占い師,【遠見の占い師】フォウラをLv100かつ絆の証を入手,degree_favor_fortuneteller,とおみのうらないし
+孤高の鉄人,【孤高の鉄人】バルゲンをLv100かつ絆の証を入手,degree_favor_old_mercenary,ここうのてつじん
+揺らぎの探索者,【揺らぎの探索者】エヴァンをLv100かつ絆の証を入手,degree_favor_highlander,ゆらぎのたんさくしゃ
+森の愛娘,【森の愛娘】チャルアをLv100かつ絆の証を入手,degree_favor_dryad,もりのまなむすめ
+聖なる樹霊,【聖なる樹霊】チャルアをLv100かつ絆の証を入手,degree_favor_dryad_xm19,せいなるじゅれい
+優しき不死王,【優しき不死王】レシタールをLv100かつ絆の証を入手,degree_favor_lich,やさしきふしおう
+魂の勝負師,【魂の勝負師】ネスカをLv100かつ絆の証を入手,degree_favor_casino_dealer,たましいのしょうぶし
+太陽の勝負師,【太陽の勝負師】ネスカをLv100かつ絆の証を入手,degree_favor_casino_dealer_smr20,たいようのしょうぶし
+猫耳格闘士,【猫耳格闘士】ミュウをLv100かつ絆の証を入手,degree_favor_cat_fighter,ねこみみかくとうし
+新春晴着猫娘,【新春晴着猫娘】ミュウをLv100かつ絆の証を入手,degree_favor_cat_fighter_ny20,しんしゅんはれぎねこむすめ
+嗤う道化師,【嗤う道化師】フォルスをLv100かつ絆の証を入手,degree_favor_devil_clown,わらうどうけし
+春風の薬草士,【春風の薬草士】ハートリーフをLv100かつ絆の証を入手,degree_favor_herbalist,しゅんぷうのやくそうし
+技光の槍兵,【技光の槍兵】コナーをLv100かつ絆の証を入手,degree_favor_spearman,ぎこうのそうへい
+罠師酪農家,【罠師酪農家】ジャスターをLv100かつ絆の証を入手,degree_favor_trap_errand,わなしらくのうか
+牙剥く義賊,【牙剥く義賊】ケイトをLv100かつ絆の証を入手,degree_favor_gang_girl,きばむくぎぞく
+魔法理論の探求者,【魔法理論の探求者】ネティをLv100かつ絆の証を入手,degree_favor_lazy_genious,まほうりろんのたんきゅうしゃ
+慈愛の侍祭,【慈愛の侍祭】コリーナをLv100かつ絆の証を入手,degree_favor_priest,じあいのじさい
+美しき銃士,【美しき銃士】マルグリットをLv100かつ絆の証を入手,degree_favor_lady_gunner,うつくしきじゅうし
+守護の女騎士,【守護の女騎士】セシリアをLv100かつ絆の証を入手,degree_favor_woman_knight,しゅごのおんなきし
+騎獣宅配便,【騎獣宅配便】アウレオをLv100かつ絆の証を入手,degree_favor_docking_beast,きじゅうたくはいびん
+聖夜の配達屋,【聖夜の配達屋】アウレオをLv100かつ絆の証を入手,degree_favor_docking_beast_xm19,せいやのはいたつや
+孤島酒場の店主,【孤島酒場の店主】ラウルをLv100かつ絆の証を入手,degree_favor_exorcist_oldman,ことうさかばのてんしゅ
+生硬の騎士少年,【生硬の騎士少年】ミレスをLv100かつ絆の証を入手,degree_favor_half_knight,せいこうのきししょうねん
+新人記者少女,【新人記者少女】リュリュカをLv100かつ絆の証を入手,degree_favor_reporter,しんじんきしゃしょうじょ
+書初めの伝道記者,【書初めの伝道記者】リュリュカをLv100かつ絆の証を入手,degree_favor_reporter_ny20,かきはじめのでんどうきしゃ
+はぐれ狼の娘,【はぐれ狼の娘】カロをLv100かつ絆の証を入手,degree_favor_wild_wolfgirl,はぐれおおかみのむすめ
+死者の守人,【死者の守人】ファルチェをLv100かつ絆の証を入手,degree_favor_reaper_girl,ししゃのもりびと
+寡黙な巡業者,【寡黙な巡業者】ジャリルをLv100かつ絆の証を入手,degree_favor_chakram_shooter,かもくなじゅんぎょうしゃ
+魔の背信者,【魔の背信者】アーリィをLv100かつ絆の証を入手,degree_favor_devil_woman_soldier,まのはいしんしゃ
+大望抱く情報屋,【大望抱く情報屋】シオンをLv100かつ絆の証を入手,degree_favor_informant,たいぼういだくじょうほうや
+残生の闘士,【残生の闘士】アディルをLv100かつ絆の証を入手,degree_favor_arabic_swordman,ざんせいのとうし
+いじわるメイド,【いじわるメイド】ドロセアをLv100かつ絆の証を入手,degree_favor_dark_nursemaid,いじわるめいど
+夢見る魔術師,【夢見る魔術師】レベッカをLv100かつ絆の証を入手,degree_favor_bearish_darkwitch,ゆめみるまじゅつし
+慌てる占い巫女,【慌てる占い巫女】レベッカをLv100かつ絆の証を入手,degree_favor_bearish_darkwitch_ny20,あわてるうらないみこ
+魔物に愛されし者,【魔物に愛されし者】ノーセルをLv100かつ絆の証を入手,degree_favor_monster_attract,まものにあいされしもの
+妄想冒険者,【妄想冒険者】メリルをLv100かつ絆の証を入手,degree_favor_delusion_girl,もうそうぼうけんしゃ
+砂塵の守護者,【砂塵の守護者】ゴーレムをLv100かつ絆の証を入手,degree_favor_guardian_golem,さじんのしゅごしゃ
+森の識者,【森の識者】ポジートをLv100かつ絆の証を入手,degree_favor_owl,もりのしきしゃ
+風刃妖怪,【風刃妖怪】カマイタチをLv100かつ絆の証を入手,degree_favor_fox,ふうじんようかい
+暴走支援の賜物,【暴走支援の賜物】Ｃ・Ｆ・キセキをLv100かつ絆の証を入手,degree_favor_towa_namakubi,ぼうそうしえんのたまもの
+時空超える電波歌姫,【時空超える電波歌姫】斗和キセキをLv100かつ絆の証を入手,degree_favor_towa_vtuber,じくうこえるでんぱうたひめ
+胞子の妖精,【胞子の妖精】キノをLv100かつ絆の証を入手,degree_favor_kinoko,ほうしのようせい
+炎のぷるぷる,【炎のぷるぷる】レッドプルをLv100かつ絆の証を入手,degree_favor_slango_red,ほのおのぷるぷる
+炎の精霊,【炎の精霊】ファイアスピリをLv100かつ絆の証を入手,degree_favor_spirit_fire,ほのおのせいれい
+水のぷるぷる,【水のぷるぷる】ブループルをLv100かつ絆の証を入手,degree_favor_slango_blue,みずのぷるぷる
+雷のぷるぷる,【雷のぷるぷる】イエロープルをLv100かつ絆の証を入手,degree_favor_slango_yellow,かみなりのぷるぷる
+電針ネズミ,【電針ネズミ】パララットをLv100かつ絆の証を入手,degree_favor_paralysis_hedgehog,らいしんねずみ
+風のぷるぷる,【風のぷるぷる】グリーンプルをLv100かつ絆の証を入手,degree_favor_slango_green,かぜのぷるぷる
+みんなのリーダー,キャラを 15 体仲間にする,degree_companion_add_1,みんなのりーだー
+カリスマリーダー,キャラを 50 体仲間にする,degree_companion_add_2,かりすまりーだー
+どこまでも一緒に,キャラを 200 体仲間にする,degree_companion_add_3,どこまでもいっしょに
+最初の難関,キャラLv 60 達成,degree_character_lv_growth_1,さいしょのなんかん
+身近な壁,キャラLv 80 達成,degree_character_lv_growth_2,みぢかなかべ
+ひとつの到達点,キャラLv 100 達成,degree_character_lv_growth_3,ひとつのとうたつてん
+己を超えし者,オーバーリミット 10 回達成,degree_overlimit_growth_1,おのれをこえしもの
+人を超えし者,オーバーリミット 350 回達成,degree_overlimit_growth_2,ひとをこえしもの
+星を超えし者,オーバーリミット 1000 回達成,degree_overlimit_growth_3,ほしをこえしもの
+トレーナー,マナボードを 100 回強化,degree_manaboard_growth_1,とれーなー
+トップトレーナー,マナボードを 1500 回強化,degree_manaboard_growth_2,とっぷとれーなー
+カリスマトレーナー,マナボードを 3000 回強化,degree_manaboard_growth_3,かりすまとれーなー
+仲間と共に,絆の証を 10 個獲得,degree_proof_of_bond_get_1,なかまとともに
+同士と共に,絆の証を 50 個獲得,degree_proof_of_bond_get_2,どうしとともに
+友と共に,絆の証を 200 個獲得,degree_proof_of_bond_get_3,ともとともに
+フレンドトーカー,キャラエピソードを 15 個クリア,degree_character_episode_read_1,ふれんどとーかー
+スタートーカー,キャラエピソードを 150 個クリア,degree_character_episode_read_2,すたーとーかー
+ワールドトーカー,キャラエピソードを 500 個クリア,degree_character_episode_read_3,わいるどとーかー
+とりあえず付けとけ,アビリティソウルを 3 回使用,degree_abilitiesoul_use_1,とりあえずつけとけ
+心の余裕,アビリティソウルを 30 回使用,degree_abilitiesoul_use_2,こころのよゆう
+さて、どれにするかな,アビリティソウルを 100 回使用,degree_abilitiesoul_use_3,さてどれにするかな
+精霊の微笑み,1章「精霊の楽園」をMAINとEXでクリア,degree_all_episode_quest_clear_1,せいれいのほほえみ
+砂海の友情,2章「砂塵の王国」をMAINとEXでクリア,degree_all_episode_quest_clear_2,さかいのゆうじょう
+女海賊の狂宴,3章「大海の果て」をMAINとEXでクリア,degree_all_episode_quest_clear_3,おんなかいぞくのきょうえん
+爪牙の交わり,4章「牙の戦場」をMAINとEXでクリア,degree_all_episode_quest_clear_4,そうがのまじわり
+歌姫の調べ,5章「機人の惑星」をMAINとEXでクリア,degree_all_episode_quest_clear_5,うたひめのしらべ
+人妖百鬼夜行,6章「大和の都」をMAINとEXでクリア,degree_all_episode_quest_clear_6,じんようひゃっきやこう
+炎の絆,7章「衰亡の箱庭」をMAINとEXでクリア,degree_all_episode_quest_clear_7,ほのおのきずな
+迷宮の熟練者,揺らぎの迷宮を 100 回クリア,degree_challenge_dungeon_clear_1,めいきゅうのじゅくれんしゃ
+迷宮の達人,揺らぎの迷宮を 500 回クリア,degree_challenge_dungeon_clear_2,めいきゅうのたつじん
+迷宮がマイホーム,揺らぎの迷宮を 3000 回クリア,degree_challenge_dungeon_clear_3,めいきゅうがまいほーむ
+死に打ち克つ者,シングルバトルで不死王レシタールの超級を討伐,degree_boss_battle_ex_clear_single_2,しにうちかつもの
+巨壁を砕く者,シングルバトルでルインゴーレムの超級を討伐,degree_boss_battle_ex_clear_single_3,きょへきをくだくもの
+荒波に抗う者,シングルバトルでヤドリオーの超級を討伐,degree_boss_battle_ex_clear_single_4,あらなみにあらがうもの
+深海を統べる者,シングルバトルでカースアークエギルの超級を討伐,degree_boss_battle_ex_clear_single_5,しんかいをすべるもの
+怨念を解き放つ者,シングルバトルで白虎の超級を討伐,degree_boss_battle_ex_clear_single_6,おんねんをときはなつもの
+支配に立ち向かう者,シングルバトルでアドミニスターの超級を討伐,degree_boss_battle_ex_clear_single_8,しはいにたちむかうもの
+硬,かたい人形をSSランクで討伐,degree_practice_rank_ss_clear_1,こう
+早,はやい人形をSSランクで討伐,degree_practice_rank_ss_clear_2,そう
+強,つよい人形をSSランクで討伐,degree_practice_rank_ss_clear_3,ごう
+呪,呪いの人形をSSランクで討伐,degree_practice_rank_ss_clear_4,じゅ
+守,守りの人形をSSランクで討伐,degree_practice_rank_ss_clear_5,しゅ
+当然の結果です,シングルバトルでランクSS 100 回クリア,degree_rank_ss_clear_single_1,とうぜんのけっかです
+いつもの景色,シングルバトルでランクSS 500 回クリア,degree_rank_ss_clear_single_2,いつものけしき
+息を吸うように,シングルバトルでランクSS 1500 回クリア,degree_rank_ss_clear_single_3,いきをすうように
+スコアアタッカー,シングルバトルをスコア 10000000 以上でクリア,degree_score_clear_single_1,すこああたっかー
+ハイスコアプレイヤー,シングルバトルをスコア 50000000 以上でクリア,degree_score_clear_single_2,はいすこあぷれいやー
+ジャックポット！！,シングルバトルをスコア 99999999 以上でクリア,degree_score_clear_single_3,じゃっくぽっと
+スピードスター,シングルバトルを 60 秒以下でクリア,degree_time_clear_single_1,すぴーどすたー
+音速の貴公子,シングルバトルを 10 秒以下でクリア,degree_time_clear_single_2,おんそくのきこうし
+瞬息万変,シングルバトルを 5 秒以下でクリア,degree_time_clear_single_3,しゅんそくばんぺん
+毎日がフィーバー,シングルバトルでフィーバーを 50 回発動,degree_fever_condition_single_1,まいにちがふぃーばー
+今夜も盛り上がってるー？,シングルバトルでフィーバーを 1000 回発動,degree_fever_condition_single_2,こんやももりあがってるー
+フィーバーはやめられない,シングルバトルでフィーバーを 5000 回発動,degree_fever_condition_single_3,ふぃーばーはやめられない
+パーティーピープル,シングルバトルでフィーバーの総時間 180 秒達成,degree_time_fever_elapse_single_1,ぱーてぃーぴーぷる
+ダンシングオールナイト,シングルバトルでフィーバーの総時間 600 秒達成,degree_time_fever_elapse_single_2,だんしんぐおーるないと
+寝ても覚めてもフィーバー,シングルバトルでフィーバーの総時間 3600 秒達成,degree_time_fever_elapse_single_3,ねてもさめてもふぃーばー
+弱体効果の名人,シングルバトルでスキルを使用して敵に弱体効果を 50 回達成,degree_weak_enemy_use_single_1,じゃくたいこうかのめいじん
+弱体効果の達人,シングルバトルでスキルを使用して敵に弱体効果を 100 回達成,degree_weak_enemy_use_single_2,じゃくたいこうかのたつじん
+弱体効果の鬼,シングルバトルでスキルを使用して敵に弱体効果を 1500 回達成,degree_weak_enemy_use_single_3,じゃくたいこうかのおに
+強化効果解除の名人,シングルバトルでスキルを使用して敵の強化効果解除を 50 回達成,degree_debuff_enemy_use_single_1,きょうかこうかかいじょのめいじん
+強化効果解除の達人,シングルバトルでスキルを使用して敵の強化効果解除を 100 回達成,degree_debuff_enemy_use_single_2,きょうかこうかかいじょのたつじん
+強化効果解除の鬼,シングルバトルでスキルを使用して敵の強化効果解除を 1500 回達成,degree_debuff_enemy_use_single_3,きょうかこうかかいじょのおに
+弱体効果解除の名人,シングルバトルでスキルを使用して自身の弱体効果解除を 50 回達成,degree_deweak_myself_use_single_1,じゃくたいこうかかいじょのめいじん
+弱体効果解除の達人,シングルバトルでスキルを使用して自身の弱体効果解除を 100 回達成,degree_deweak_myself_use_single_2,じゃくたいこうかかいじょのたつじん
+弱体効果解除の王者,シングルバトルでスキルを使用して自身の弱体効果解除を 1500 回達成,degree_deweak_myself_use_single_3,じゃくたいこうかかいじょのおうじゃ
+強化効果の名人,協力バトルでスキルを使用して参戦者に強化効果を 50 回達成,degree_buff_companion_use_1,きょうかこうかのめいじん
+強化効果の達人,協力バトルでスキルを使用して参戦者に強化効果を 100 回達成,degree_buff_companion_use_2,きょうかこうかのたつじん
+強化効果の王者,協力バトルでスキルを使用して参戦者に強化効果を 1500 回達成,degree_buff_companion_use_3,きょうかこうかのおうじゃ
+戦場の看護師,協力バトルでスキルを使用して参戦者のHPを 50 回回復,degree_recovery_hp_companion_1,せんじょうのかんごふ
+戦場の医者,協力バトルでスキルを使用して参戦者のHPを 100 回回復,degree_recovery_hp_companion_2,せんじょうのいしゃ
+戦場の大天使,協力バトルでスキルを使用して参戦者のHPを 1500 回回復,degree_recovery_hp_companion_3,せんじょうのだいてんし
+マルチ中級者,協力バトルを 100 回クリア,degree_multi_battle_clear_1,まるちちゅうきゅうしゃ
+マルチ上級者,協力バトルを 500 回クリア,degree_multi_battle_clear_2,まるちじょうきゅうしゃ
+マルチ熟練者,協力バトルを 1500 回クリア,degree_multi_battle_clear_3,まるちじゅくれんしゃ
+祭りだ,協力バトルをホストで 100 回クリア,degree_multi_battle_by_host_clear_1,まつりだ
+宴の始まり,協力バトルをホストで 500 回クリア,degree_multi_battle_by_host_clear_2,うたげのはじまり
+俺についてきな,協力バトルをホストで 1500 回クリア,degree_multi_battle_by_host_clear_3,おれについてきな
+呼ばれて飛び出て,救援を累計 100 回完遂,degree_attention_battle_clear_1,よばれてとびでて
+考えるより先に足が出る,救援を累計 500 回完遂,degree_attention_battle_clear_2,かんがえるよりさきにあしがでる
+舞い降りる救世主,救援を累計 1500 回完遂,degree_attention_battle_clear_3,まいおりるきゅうせいしゅ
+めざせ、１番！,MVPを累計 100 回達成,degree_mvp_get_1,めざせいちばん
+いつも、１番！,MVPを累計 500 回達成,degree_mvp_get_2,いつもいちばん
+つねに、１番！,MVPを累計 1500 回達成,degree_mvp_get_3,つねにいちばん
+カルテット,スキルチェイン 4 を達成,degree_skill_chain_condition_1,かるてっと
+セプテット,スキルチェイン 7 を達成,degree_skill_chain_condition_2,せぷてっと
+アンサンブル,スキルチェイン 9 を達成,degree_skill_chain_condition_3,あんさんぶる
+挨拶は大事,協力バトル中にエモートを 1 回使用,degree_emotion_multi_battle_use_1,あいさつはだいじ
+フランクに行こうぜ！,協力バトル中にエモートを 20 回使用,degree_emotion_multi_battle_use_2,ふらんくにいこうぜ
+届け、この想い,協力バトル中にエモートを 100 回使用,degree_emotion_multi_battle_use_3,とどけこのおもい
+カラミティ,敵を 500 体討伐,degree_kill_enemy_1,からみてぃ
+ディザスター,敵を 1000 体討伐,degree_kill_enemy_2,でぃざすたー
+カタストロフ,敵を 25000 体討伐,degree_kill_enemy_3,かたすとろふ
+打倒,ボスバトルを 10 回クリア,degree_boss_battle_clear_1,だとう
+討伐,ボスバトルを 500 回クリア,degree_boss_battle_clear_2,とうばつ
+駆逐,ボスバトルを 5000 回クリア,degree_boss_battle_clear_3,くちく
+黒雷の打倒者,降臨討伐 黒雷の廃竜を 10 回クリア,degree_advent_event_black_clear_1,こくらいのだとうしゃ
+黒雷の征服者,降臨討伐 黒雷の廃竜を 100 回クリア,degree_advent_event_black_clear_2,こくらいのせいふくしゃ
+黒雷の討滅者,降臨討伐 黒雷の廃竜を 500 回クリア,degree_advent_event_black_clear_3,こくらいのとうめつしゃ
+灼炎の打倒者,降臨討伐 灼炎の廃竜を 10 回クリア,degree_advent_event_red_clear_1,しゃくえんのだとうしゃ
+灼炎の征服者,降臨討伐 灼炎の廃竜を 100 回クリア,degree_advent_event_red_clear_2,しゃくえんのせいふくしゃ
+灼炎の討滅者,降臨討伐 灼炎の廃竜を 500 回クリア,degree_advent_event_red_clear_3,しゃくえんのとうめつしゃ
+光芒の打倒者,降臨討伐 光芒の廃竜を 10 回クリア,degree_advent_event_white_clear_1,こうぼうのだとうしゃ
+光芒の征服者,降臨討伐 光芒の廃竜を 100 回クリア,degree_advent_event_white_clear_2,こうぼうのせいふくしゃ
+光芒の討滅者,降臨討伐 光芒の廃竜を 500 回クリア,degree_advent_event_white_clear_3,こうぼうのとうめつしゃ
+水蝕の打倒者,降臨討伐 水蝕の廃竜を 10 回クリア,degree_advent_event_blue_clear_1,すいしょくのだとうしゃ
+水蝕の征服者,降臨討伐 水蝕の廃竜を 100 回クリア,degree_advent_event_blue_clear_2,すいしょくのせいふくしゃ
+水蝕の討滅者,降臨討伐 水蝕の廃竜を 500 回クリア,degree_advent_event_blue_clear_3,すいしょくのとうめつしゃ
+脱、初心者！,戦力 3000 以上でクリア,degree_condition_party_force_1,だつしょしんしゃ
+脱、中級者！,戦力 7500 以上でクリア,degree_condition_party_force_2,だつちゅうきゅうしゃ
+戦、極めたり！！,戦力 8500 以上でクリア,degree_condition_party_force_3,いくさきわめたり
+いまがチャンス,スキルを 100 回使用,degree_skill_use_1,いまがちゃんす
+ここで決める！,スキルを 1000 回使用,degree_skill_use_2,ここできめる
+いつでもいいぜ？,スキルを 10000 回使用,degree_skill_use_3,いつでもいいぜ
+１００　ＣＯＭＢＯ！,一度のバトルで 100 コンボ達成,degree_combo_onetime_1,わんはんどれっどこんぼ
+５００　ＣＯＭＢＯ！,一度のバトルで 500 コンボ達成,degree_combo_onetime_2,ふぁいぶはんどれっどこんぼ
+１０００　ＣＯＭＢＯ！,一度のバトルで 1000 コンボ達成,degree_combo_onetime_3,わんさうざんどこんぼ
+パワーヒッター,一発の最大ダメージで 1000K 達成,degree_damage_onetime_1,ぱわーひったー
+芯に響くぜ……,一発の最大ダメージで 5000K 達成,degree_damage_onetime_2,しんにひびくぜ
+一撃必殺！,一発の最大ダメージで 15000K 達成,degree_damage_onetime_3,いちげきひっさつ
+ザ・フール,敵の弱点を累計 100 回破壊,degree_destruction_weak_point_1,ざふーる
+ワイルド,敵の弱点を累計 500 回破壊,degree_destruction_weak_point_2,わいるど
+トリックスター,敵の弱点を累計 3000 回破壊,degree_destruction_weak_point_3,とりっくすたー
+ダッシュ！ダッシュ！,ダッシュを 1000 回使用,degree_dash_use_1,だっしゅだっしゅ
+シャトルランナー,ダッシュを 5000 回使用,degree_dash_use_2,しゃとるらんなー
+鮪,ダッシュを 30000 回使用,degree_dash_use_3,まぐろ
+パワフリの達人,Lv3パワーフリップを 500 回発動,degree_power_flip_lv3_use_1,ぱわふりのたつじん
+パワフリの鉄人,Lv3パワーフリップを 3000 回発動,degree_power_flip_lv3_use_2,ぱわふりのてつじん
+パワフリの匠,Lv3パワーフリップを 15000 回発動,degree_power_flip_lv3_use_3,ぱわふりのたくみ
+不死王,棺桶カウント30以上から復帰,degree_return_coffin_count_30over_1,ふしおう
+目醒めさせる者,棺桶カウントを累計 25 回減らす,degree_coffin_count_sub_1,めざめさせるもの
+もしもーし？起きてます？,棺桶カウントを累計 100 回減らす,degree_coffin_count_sub_2,もしもーしおきてます
+ネクロマンサー,棺桶カウントを累計 999 回減らす,degree_coffin_count_sub_3,ねくろまんさー
+鍛冶玉拾い,累計で鍛冶玉を 1000 個入手,degree_craft_point_get_1,かじだまひろい
+鍛冶玉収集家,累計で鍛冶玉を 5000 個入手,degree_craft_point_get_2,かじだましゅうしゅうか
+鍛冶玉愛好家,累計で鍛冶玉を 10000 個入手,degree_craft_point_get_3,かじだまあいこうか
+鍛冶屋,装備覚醒を 10 回達成,degree_equipment_awake_1,かじや
+鍛冶王,装備覚醒を 100 回達成,degree_equipment_awake_2,かじおう
+鍛冶神,装備覚醒を 1000 回達成,degree_equipment_awake_3,かじしん
+まずは一安心,Lv5装備 5 個入手,degree_equipment_lv5_get_1,まずはひとあんしん
+矢でも鉄砲でも,Lv5装備 50 個入手,degree_equipment_lv5_get_2,やでもてっぽうでも
+質も量も大事,Lv5装備 100 個入手,degree_equipment_lv5_get_3,しつもりょうもだいじ
+まいどあり～！,ほりだしもので 100000 マナ使用,degree_treasure_shop_mana_use_1,まいどありー
+マ・ルルシャの大口取引先,ほりだしもので 300000 マナ使用,degree_treasure_shop_mana_use_2,まるるしゃのおおぐちとりひきさき
+今日の夕飯は具なしカレー,ほりだしもので 1000000 マナ使用,degree_treasure_shop_mana_use_3,きょうのゆうはんはぐなしかれー
+はじめてのおつかい,ほりだしもので 100 個購入,degree_treasure_shop_buy_count_1,はじめてのおつかい
+ここからここまで全部くれ,ほりだしもので 200 個購入,degree_treasure_shop_buy_count_2,ここからここまでぜんぶくれ
+店ごともらおう！,ほりだしもので 500 個購入,degree_treasure_shop_buy_count_3,みせごともらおう
+好き者,キャラ詳細でイラストを拡大表示して 1 分間見る,degree_sukimono_1,すきもの
+魂のドット,キャラ詳細でドットのモーションを 50 回再生,degree_dot_image_looking_1,たましいのどっと
+気になるあの子,ホーム画面の星見の街のキャラを 5 回タップ,degree_character_tap_1,きになるあのこ
+私の声を聞け！,ホーム画面でボイスを 5 回切り替える,degree_voice_change_in_home_1,わたしのこえをきけ
+フルマラソンアスリート,累計消費スタミナ 1000 達成,degree_stamina_use_1,ふるまらそんあすりーと
+世界一周ランナー,累計消費スタミナ 5000 達成,degree_stamina_use_2,せかいいっしゅうらんなー
+第一種永久機関,累計消費スタミナ 30000 達成,degree_stamina_use_3,だいいっしゅえいきゅうきかん
+週刊ワールドフリッパー,累計ログイン 7 日間達成,degree_login_count_1,しゅうかんわーるどふりっぱー
+月刊ワールドフリッパー,累計ログイン 30 日間達成,degree_login_count_2,げっかんわーるどふりっぱー
+年がら年中ワーフリ！,累計ログイン 365 日間達成,degree_login_count_3,ねんがらねんじゅうわーふり
