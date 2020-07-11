@@ -369,9 +369,12 @@ const searchTitle = chara => {
         if (item.Kana.toLowerCase().indexOf(wanakana.toHiragana(chara)) !== -1) {
           res = true;
         }
-        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
+        if (item.JPName.indexOf(chara) !== -1) {
           res = true;
         }
+        if (item.Condition.indexOf(chara) !== -1) {
+          res = true;
+        }		  
         if (typeof item.OtherCommonNames !== 'undefined') {
           if (item.OtherCommonNames.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
             res = true;
