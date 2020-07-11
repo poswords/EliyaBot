@@ -125,6 +125,14 @@ const getArtEmbed = (unit, flag)=> {
   return msg;
 
 };
+const getTitleEmbed = (unit)=> {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.JPName)
+    .setDescription('**獲得条件: **' + unit.Condition);
+   	msg.setImage(assetPath + 'titles/' + unit.DevNicknames + '.png')  		
+  return msg;
+
+};
 
 const getAnimationEmbed = unit => {
   var msg = new Discord.MessageEmbed()
@@ -169,6 +177,9 @@ const sendList = async (units, message, type) => {
 				 	break;	
   				case 'alt':
 					sendAlt(units[i],message);
+				 	break;	
+  				case 't':
+					sendTitle(units[i],message);
 				 	break;						
 			}
 			msg.reactions.removeAll();
@@ -272,6 +283,10 @@ const sendAlt = async (unit, message) => {
   });
   collector.on('end', collected => msg.reactions.removeAll());	
 };
+const sendTitle = async (unit, message) => {
+  message.channel.send(getTitleEmbed(unit));	
+};
+
 
 const searchCharByName = chara => {
   var result = data.chars.filter(function (item) {
@@ -337,6 +352,39 @@ const searchEquipByName = chara => {
   }
   return result;
 };
+
+const searchTitle = chara => {
+  var result = data.titles.filter(function (item) {
+/*    if (typeof item.DevNicknames !== 'undefined') {
+      if (item.DevNicknames.toLowerCase() === chara) {
+        return true;
+      }
+    }*/
+  });
+  if (result.length <= 0) {
+
+    result = data.titles.filter(function (item) {
+      var res;
+      if (res != true) {		  
+        if (item.Kana.toLowerCase().indexOf(wanakana.toHiragana(chara)) !== -1) {
+          res = true;
+        }
+        if (item.JPName.toLowerCase().indexOf(chara) !== -1) {
+          res = true;
+        }
+        if (typeof item.OtherCommonNames !== 'undefined') {
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+            res = true;
+          }
+        }
+      }
+      return res
+    });
+  }
+  return result;
+};
+
+
 /*
 const guide = {
   name: 'guide',
@@ -627,4 +675,31 @@ const update = {
   },
 }
 
-module.exports = [tracker, event,character, equipment, whois, art, alt,update];
+const title = {
+  name: 'title',
+  group,
+  args: true,
+  usage: '<title>',
+  aliases: ['t'],
+  description: '称号を検索',
+  async execute(message, args) {
+    const chara = args.length ? args.join(' ').toLowerCase() : null;
+    if (chara.length < 2) {
+      return message.channel.send('検索ワードは２文字以上お願いします!');
+    }
+    var arrFound = searchTitle(chara);
+
+    if (arrFound.length === 0) {
+      return message.channel.send('称号が見つかりません!');
+    }
+    if (arrFound.length > 30) {
+      return message.channel.send('結果'+arrFound.length + '件! 検索ワードを絞り込んでください');
+    }
+    if (arrFound.length === 1) {
+      sendTitle(arrFound[0], message);
+    } else {
+      sendList(arrFound,message, 't');
+    }
+  },
+};
+module.exports = [tracker, event,character, equipment, whois, art, alt,title,update];
