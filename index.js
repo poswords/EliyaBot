@@ -83,6 +83,12 @@ app.get('/list', function (req, res) {
 app.get('/titles', function (req, res) {
   res.render(viewFolder + 'titles.ejs', {
     title: 'Eliya',
+    data: {}
+  });
+});
+app.get('/titles/list', function (req, res) {
+  res.render(viewFolder + 'titles.ejs', {
+    title: 'Eliya',
     data: {
       listview: true
     }
