@@ -25,8 +25,10 @@ $(document).ready(function () {
     if (!titleLoaded) {
       $('#titles .titleList').html("");
       data.forEach(function (title) {
-        var elem = $('<li class="title"></li>');
-        elem.appendTo($(".titleList"));		  
+        var elem = $('<li id="title-' + title.DevNicknames + '" class="title"></li>')
+		  .append($('<img src="' + assetPath + 'titles/' + title.DevNicknames + '.png" class="titleArt">'))
+        elem.appendTo($(".titleList"));		
+		elem.data("DevNicknames", title.DevNicknames);
         var info = $("#titleInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(title).forEach(function (key) {
           info.find('.' + key + ' span').text(title[key]);
@@ -40,7 +42,7 @@ $(document).ready(function () {
 
 		
       var elem = ''
-      for (i = 0; i < 14; i++) {
+      for (i = 0; i < 3; i++) {
         elem += '<li class="title spookyStuff">';
       }
 
@@ -72,6 +74,7 @@ $(document).ready(function () {
   $("#btnSave").on("click", function () {
 	localStorage.setItem("titleList", getUnitList('title')); 	  
     $(this).removeClass("on");
+	  console.log( getUnitList('title'));
     setTimeout(function () {
       $("#btnSave").addClass("on")
     }, 100);

@@ -55,12 +55,17 @@ strong {
   
 }
 .subtitle {
-  font-size: 24px;
-  padding: 10px;
+  font-size: 14px;
   text-align: center;
   margin-bottom: 30px;
-  letter-spacing: 2px;
-  
+  text-align: center;
+}
+.subtitle li{
+  padding: 10px 20px;	
+	display: inline;
+}
+.subtitle .active{
+	font-weight: bold;
 }
 .sitetitle a{
 	text-decoration: none;
@@ -179,6 +184,9 @@ strong {
 	display: block;
 	margin-bottom: 50px;
 }
+#title{
+	padding-top: 25px;
+}
 .viewchar #chars {
   display: block;
 }
@@ -197,10 +205,10 @@ strong {
 #chars h2 img, #equips h2 img {
   width: 60px;
 }
-#chars section, #equips section {
+#chars section, #equips section, #titles section {
   position: relative;
 }
-#chars section .score, #equips section .score {
+#chars section .score, #equips section .score,  #titles section .score {
   position: absolute;
   right: 85px;
   top: 5px;
@@ -276,31 +284,7 @@ strong {
   flex: 1 1 60px;
   position: relative;
 }
-.title{
-  flex: 0 0 100%;
-}
-.titleInfoBlock{
-	display: flex;
-}
-.titleInfoBlock div{
-	flex: 1 1 60%;
-	padding: 10px 1%;
 
-    text-align: left;
-    line-height: 16px;
-	
-}
-.titleInfoBlock .JPName,
-.titleInfoBlock .ENName{
-	font-weight: bold;	
-	flex: 1 1 20%;	
-	text-align: center;
-}
-#title .score,
-#titleGrandTotal{
-
-	display: none;
-}
 
 .unit.checked {
   border: 3px solid #fff;
@@ -308,12 +292,93 @@ strong {
   background: #dde;
   opacity: 1;
 }
+.title{
+  flex: 0 0 236px;
+  border: 3px solid #fff;
+  background: #fff;
+  margin: 2px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  opacity: 1;
+  box-shadow: 0 0 1px 1px #aaa;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  position: relative;	
+}
+.title img{
+  max-width:230px;
+}
+.title .Kana{
+	font-size: 10px;
+	line-height: 10px;
+	opacity: 0.6;
+}
+.titleInfoBlock{
+	display: flex;
+	flex-direction: column;
+}
+.titleInfoBlock div{
+	flex: 1 1 60%;
+	padding: 5px 1%;
+    text-align: center;
+    line-height: 16px;
+	
+	
+}
+.titleInfoBlock .JPName{
+	color: rgba(255,255,255,0);
+	height: 0;
+    margin: -25px 0 6px 21px;
+    letter-spacing: -1px;
+    font-weight: bold;
+    font-size: 15px;
+	line-height: 16px;
+	padding: 0;
+}
+.titleInfoBlock .ENName,
+.titleInfoBlock .ZHName{
+	font-weight: bold;	
+}
+.title.checked {
+  border: 3px solid #fff;
+  padding: 0;	
+  background: #dde;
+  opacity: 1;	
+}
+.listView .title{
+  width: 100%;
+  flex: 0 0 100%;
+}
+.listView .Kana{
+  display: none;
+}
+.listView .titleInfoBlock{
+  flex-direction: row;
+}
+.listView .titleInfoBlock div{
+	text-align: left;
+}
+.listView .title img{
+	float: left;
+}
+.listView .titleInfoBlock .JPName{
+   position: absolute;
+    left: 0;
+    top: 5px;
+    width: 230px;
+	text-align: center;
+}
+.listView .titleInfoBlock .ENName,
+.listView .titleInfoBlock .ZHName{
+	flex: 0 0 20%;
+}
 .unit.selected {
   background: #6a6aea;
   border: 3px solid #6a6aea;
   opacity: 1;
 }
-.unit.spookyStuff {
+.unit.spookyStuff,
+.title.spookyStuff{
   border-top: none;
   border-bottom: none;
   opacity: 0 !important;
@@ -763,7 +828,8 @@ strong {
 .viewOwned .title:not(.checked) {
   display: none;
 }
-.viewOwned .unit.spookyStuff {
+.viewOwned .unit.spookyStuff ,
+.viewOwned .title.spookyStuff {
   display: block;
 }
 .unit .charInfoBlock, .unit .equipInfoBlock {
@@ -921,6 +987,7 @@ strong {
 	z-index: 1!important;
 }
 @media all and (max-width: 920px) {
+	
   .wrapper {
     width: 92%;
     padding-left: 4%;
@@ -1027,4 +1094,17 @@ strong {
     margin-top: 0;
     margin-bottom: 10px;
   }
+	.listView .titleInfoBlock{
+		flex-direction:column;
+	}
+	.title{
+		flex: 0 0 48%;
+	}
+	.listView .title img{
+		width: 40%;
+	}
+	.title img{
+		max-width: 100%;
+	}
+	
 }

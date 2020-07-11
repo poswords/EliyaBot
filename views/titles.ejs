@@ -42,9 +42,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 #unisons .weapon:after {content: "<%=t('Weapon')%>";}
 #unisons .soul:after {content: "<%=t('Soul')%>";}
 </style>
-<script data-ad-client="ca-pub-5427424861859599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
-<body class="body listView lang-<%=i18n.language%>">
+<body class="body <% if (data.listview) { %>listView<% } %> lang-<%=i18n.language%>">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PV2RM77"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -61,17 +60,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <ul class="btnList">
 
-<!--	  <li id="btnSave" class="button"><%=t('Save')%></li>-->
+	  <li id="btnSave" class="button"><%=t('Save')%></li>
 	  </ul>
 	<div id="errMsg" class="message hidden"></div>
   </div>		
 	  <h1 class="sitetitle"><a href="/"><%= t('title')%></a></h1>
-	  <h2 class="subtitle"><%= t('TitleList')%></h1>
+	  <ul class="subtitle"><li><a href="/"><%= t('Characters')%></a></li> <li class="active"><%= t('TitleList')%></li></ul>
 
 	  <article id="titles">
-<!--		  <ul id="filterAltArt" class="filterList">			  
+		  <ul id="filterAltArt" class="filterList">			  
 			  <li class="btnShowOwned" data-type="title"><%=t('ShowOwned')%></li>
-			  </ul>			-->
+			  <li id="btnListView" class="<% if (data.listview) { %>on<% } %>"><%=t('ListView')%></li>	 
+			  </ul>			
 	  
 		  <section id=title>
 			  <span class="score"></span>
@@ -86,10 +86,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<div id="paypal-button-container"></div>
 </div>		  
   <div id="titleInfoTemplate" class="hidden titleInfoBlock" >
-	  <div class="JPName"><span></span></div>	  
+	  <div class="JPName"><span></span></div>
+	  <% if (i18n.language=="ja"){%><div class="Kana"><span></span></div><% } %>
 	  <% if (i18n.language=="en"){%><div class="ENName"><span></span></div><% } %>
 	  <% if (i18n.language=="zh-TW"){%><div class="ZHName"><span></span></div><% } %>
-	  <div class="Condition"><span></span></div>		
+	  <div class="Condition"><span></span></div>
   </div>	
 	  
 	</div>
