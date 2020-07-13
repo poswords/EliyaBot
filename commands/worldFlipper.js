@@ -91,7 +91,7 @@ const getArtEmbed = (unit, flag)=> {
 const getTitleEmbed = (unit)=> {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.JPName)
-    .setDescription('**獲得条件: **' + unit.Condition);
+    .setDescription('**Condition: **' + unit.Condition);
    	msg.setImage(assetPath + 'titles/' + unit.DevNicknames + '.png')  		
   return msg;
 
