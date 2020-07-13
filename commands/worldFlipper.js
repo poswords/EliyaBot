@@ -315,11 +315,11 @@ const searchEquipByName = chara => {
 
 const searchTitle = chara => {
   var result = data.titles.filter(function (item) {
-/*    if (typeof item.DevNicknames !== 'undefined') {
+    if (typeof item.DevNicknames !== 'undefined') {
       if (item.DevNicknames.toLowerCase() === chara) {
         return true;
       }
-    }*/
+    }
   });
   if (result.length <= 0) {
 
