@@ -117,7 +117,7 @@ const sendList = async (units, message, type) => {
   const filter = (reaction, user) => {
     return numberReactions.includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
+  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type=='t')?"["+char.JPName+"]":""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
   var num = units.length;
   if (units.length > 10) num=10;
   for (i=0;i<num;i++){
