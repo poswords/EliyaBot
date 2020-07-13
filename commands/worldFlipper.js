@@ -88,6 +88,14 @@ const getArtEmbed = (unit, flag)=> {
   return msg;
 
 };
+const getTitleEmbed = (unit)=> {
+  var msg = new Discord.MessageEmbed()
+    .setTitle(unit.JPName)
+    .setDescription('**獲得条件: **' + unit.Condition);
+   	msg.setImage(assetPath + 'titles/' + unit.DevNicknames + '.png')  		
+  return msg;
+
+};
 
 const getAnimationEmbed = unit => {
   var msg = new Discord.MessageEmbed()
@@ -134,7 +142,10 @@ const sendList = async (units, message, type) => {
 				 	break;	
   				case 'alt':
 					sendAlt(units[i],message);
-				 	break;						
+				 	break;		
+  				case 't':
+					sendTitle(units[i],message);
+				 	break;							
 			}
 			msg.reactions.removeAll();
 		}		  
@@ -237,7 +248,9 @@ const sendAlt = async (unit, message) => {
   });
   collector.on('end', collected => msg.reactions.removeAll());	
 };
-
+const sendTitle = async (unit, message) => {
+  message.channel.send(getTitleEmbed(unit));	
+};
 const searchCharByName = chara => {
   var result = data.chars.filter(function (item) {
     if (typeof item.DevNicknames !== 'undefined') {
@@ -300,6 +313,39 @@ const searchEquipByName = chara => {
   return result;
 };
 
+const searchTitle = chara => {
+  var result = data.titles.filter(function (item) {
+/*    if (typeof item.DevNicknames !== 'undefined') {
+      if (item.DevNicknames.toLowerCase() === chara) {
+        return true;
+      }
+    }*/
+  });
+  if (result.length <= 0) {
+
+    result = data.titles.filter(function (item) {
+      var res;
+      if (res != true) {		  
+        if (item.JPName.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+          res = true;
+        }
+        if (item.ENName.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+          res = true;
+        }
+        if (item.Condition.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+          res = true;
+        }		  
+        if (typeof item.OtherCommonNames !== 'undefined') {
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+            res = true;
+          }
+        }
+      }
+      return res
+    });
+  }
+  return result;
+};
 const guide = {
   name: 'guide',
   group,
@@ -573,6 +619,33 @@ const alt = {
   },
 };
 
+const title = {
+  name: 'title',
+  group,
+  args: true,
+  usage: '<title>',
+  aliases: ['t'],
+  description: 'Show title',
+  async execute(message, args) {
+    const chara = args.length ? args.join(' ').toLowerCase() : null;
+    if (chara.length < 2) {
+      return message.channel.send('Search too short please have a minimum of 2 letters!');
+    }
+    var arrFound = searchTitle(chara);
+
+    if (arrFound.length === 0) {
+      return message.channel.send('No character found!');
+    }
+    if (arrFound.length > 30) {
+      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+    }
+    if (arrFound.length === 1) {
+      sendTitle(arrFound[0], message);
+    } else {
+      sendList(arrFound,message, 't');
+    }
+  },
+};
 const update = {
   name: 'update',
   group,
@@ -593,4 +666,4 @@ const update = {
   },
 }
 
-module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt, update];
+module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt,title, update];
