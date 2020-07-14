@@ -155,12 +155,13 @@ const sendList = async (units, message, type) => {
   const msg = await message.channel.send('検索結果:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${(char.SubName)?char.SubName+' '+char.JPName:char.JPName}`)).join('\n') + '```');
   var num = units.length;
   if (units.length > 10) num=10;
-  for (i=0;i<num;i++){
-	await msg.react(numberReactions[i]);  
+  for (var i=0;i<num;i++){
+	await msg.react(numberReactions[i]);
   }
   const collector = msg.createReactionCollector(filter, { max: 10, time: reactionExpiry });  
   collector.on('collect', r => {
-	  for (i=0;i<num;i++){
+	  console.log("colected",r.emoji.name);
+	  for (var i=0;i<num;i++){
 		if (r.emoji.name === numberReactions[i]) {
 			switch (type){
 				case 'c':					
@@ -180,7 +181,7 @@ const sendList = async (units, message, type) => {
 				 	break;	
   				case 't':
 					sendTitle(units[i],message);
-				 	break;						
+				 	break;					
 			}
 			msg.reactions.removeAll();
 		}		  
@@ -192,7 +193,7 @@ const sendList = async (units, message, type) => {
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
-  };	
+  };
   const msg = await message.channel.send(getInfoEmbed(unit, 'normal'));	
   await msg.react(normalReaction);
   await msg.react(awakenReaction);  
