@@ -25,7 +25,8 @@ const getInfoEmbed = (unit, flag)  => {
     .setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
       + '\n**Leader Buff: **' + unit.LeaderBuff
-      + '\n**Skill: **' + unit.Skill)
+      + '\n**Skill: **' + unit.Skill
+	  + '\n**Skill Cost: **' + unit.SkillWait)					
     .addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
