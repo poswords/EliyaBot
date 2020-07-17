@@ -117,6 +117,36 @@ app.get('/data/ja/chars.json', function (req, res) {
     "chars": dataja.chars
   });
 });
+app.get('/data/en/equips.json', function (req, res) {
+  res.json({
+    "chars": data.equips
+  });
+});
+app.get('/data/zh-TW/equips.json', function (req, res) {
+  res.json({
+    "chars": datazhtw.equips
+  });
+});
+app.get('/data/ja/equips.json', function (req, res) {
+  res.json({
+    "chars": dataja.equips
+  });
+});
+app.get('/data/en/titles.json', function (req, res) {
+  res.json({
+    "chars": data.titles
+  });
+});
+app.get('/data/zh-TW/titles.json', function (req, res) {
+  res.json({
+    "chars": datazhtw.titles
+  });
+});
+app.get('/data/ja/titles.json', function (req, res) {
+  res.json({
+    "chars": dataja.titles
+  });
+});
 app.get('/comp/:w', function (req, res) {
   const canvas = createCanvas(480, 205);
   const ctx = canvas.getContext('2d');
