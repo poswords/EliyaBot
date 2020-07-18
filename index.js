@@ -201,7 +201,7 @@ app.get('/comp/:w', function (req, res) {
           case 9:
           case 11:
             x = 13 + ((count - 7) / 2) * 160;
-            y = 130;
+            y = 135;
             width = 44;
             break;
           default:
