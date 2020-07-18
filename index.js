@@ -162,20 +162,16 @@ app.get('/comp/:w', function (req, res) {
   var count = 0;
   loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
     ctx.drawImage(bg, 0, 0, 480, 205);
-    for (i = 0; i < units.length + 3; i++) {
+    for (i = 0; i < units.length; i++) {
       var imageUrl = '';
       if (i < 6) {
         imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
       } else if (i < 12) {
-        imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'
-        /*if (i%2==0){
+        if (i%2==0){
         	imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
         }else{
         	imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
-        }*/
-      } else {
-        var j = (i - 11) * 2 + 5;
-        imageUrl = './public/img/assets/item/equipment/' + units[j] + '_soul.png'
+        }
       }
       loadImage(imageUrl).then((image) => {
         var width = 82;
@@ -204,20 +200,16 @@ app.get('/comp/:w', function (req, res) {
           case 7:
           case 9:
           case 11:
-            x = 18 + ((count - 7) / 2) * 160;
-            y = 123;
-            /*y = 140;*/
-            width = 34;
+            x = 13 + ((count - 7) / 2) * 160;
+            y = 130;
+            width = 44;
             break;
           default:
-            x = 23 + (count - 12) * 160;
-            y = 150;
-            width = 24;
             break;
         }
         ctx.drawImage(image, x, y, width, width);
         count++;
-        if (count >= units.length + 3) {
+        if (count >= units.length) {
           var data = canvas.toDataURL();
           data = data.replace(/^data:image\/png;base64,/, '');
           var img = new Buffer.from(data, 'base64');

@@ -403,13 +403,9 @@ strong {
   display: none;
 }
 .viewSoul #equips .weaponArt, .soul .weaponArt {
-  transform: scale(0.6) translate(0, -3px);
-  position: absolute;
-  transform-origin: top center;
+  display: none;
 }
 .viewSoul #equips .soulArt, .soul .soulArt {
-  transform: scale(0.5);
-  transform-origin: bottom center;
   display: block;
 }
 .viewSoul #equips .WeaponSkill {
@@ -418,6 +414,24 @@ strong {
 .viewSoul #equips .AbilitySoul {
   display: block;
 }
+.viewSoul #equips .soulArt{
+	background-size: contain;
+}
+.viewSoul #equips .Rarity5 .soulArt{
+	background-image: url("../img/assets/item/rarity_soul5.png");
+}
+.viewSoul #equips .Rarity4 .soulArt{
+	background-image: url("../img/assets/item/rarity_soul4.png");
+}
+.viewSoul #equips .Rarity3 .soulArt{
+	background-image: url("../img/assets/item/rarity_soul3.png");
+}
+.viewSoul #equips .Rarity2 .soulArt{
+	background-image: url("../img/assets/item/rarity_soul2.png");
+}
+.viewSoul #equips .Rarity1 .soulArt{
+	background-image: url("../img/assets/item/rarity_soul1.png");
+}
 .viewSoul .unit.checked {
   background: #f7f7ff;
 }
@@ -425,7 +439,7 @@ strong {
   background: none;
   box-shadow: none;
 }
-.char:before {
+.char:before{
   content: "";
   width: 12px;
   height: 12px;
@@ -439,6 +453,21 @@ strong {
   background-position: center center;
   max-width: 100%;
   border-radius: 3px;
+}
+.viewSoul #equips .equip:before{
+  content: "";
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background-color: #fff;
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  max-width: 100%;
+  border-radius:0 0 0 3px;	
 }
 .filterList {
   border-radius: 5px;
@@ -693,9 +722,7 @@ strong {
   color: #999;
 }
 #info .Art .soulArt {
-  display: block;
-  width: 50%;
-  margin: 10px auto;
+  display: none;
 }
 #info .details {
   text-align: left;
@@ -719,26 +746,26 @@ strong {
   filter: invert();
   opacity: 0.8;
 }
-.char.AttributeFire:before, .Attribute.Fire span:before {
+.char.AttributeFire:before, .Attribute.Fire span:before,.viewSoul #equips .equip.AttributeFire:before {
   background-image: url("../img/assets/sprites/elements/element_red.png");
 }
-.char.AttributeWater:before, .Attribute.Water span:before {
+.char.AttributeWater:before, .Attribute.Water span:before,.viewSoul #equips .equip.AttributeWater:before {
   background-image: url("../img/assets/sprites/elements/element_blue.png");
 }
-.char.AttributeWind:before, .Attribute.Wind span:before {
+.char.AttributeWind:before, .Attribute.Wind span:before,.viewSoul #equips .equip.AttributeWind:before {
   background-image: url("../img/assets/sprites/elements/element_green.png");
 }
-.char.AttributeThunder:before, .Attribute.Thunder span:before {
+.char.AttributeThunder:before, .Attribute.Thunder span:before,.viewSoul #equips .equip.AttributeThunder:before {
   background-image: url("../img/assets/sprites/elements/element_yellow.png");
 }
-.char.AttributeLight:before, .Attribute.Light span:before {
+.char.AttributeLight:before, .Attribute.Light span:before,.viewSoul #equips .equip.AttributeLight:before{
   background-image: url("../img/assets/sprites/elements/element_white.png");
 }
-.char.AttributeDark:before, .Attribute.Dark span:before {
+.char.AttributeDark:before, .Attribute.Dark span:before,.viewSoul #equips .equip.AttributeDark:before {
   background-image: url("../img/assets/sprites/elements/element_black.png");
 }
-.Attribute.All span:before {
-  display: none;
+.char.AttributeDark:before, .Attribute.All span:before,.viewSoul #equips .equip.AttributeAll:before {
+  background-image: url("../img/assets/sprites/elements/element_any.png");
 }
 #info .Rarity span {
   font-size: 0;
