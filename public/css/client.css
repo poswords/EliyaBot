@@ -764,7 +764,7 @@ strong {
 .char.AttributeDark:before, .Attribute.Dark span:before,.viewSoul #equips .equip.AttributeDark:before {
   background-image: url("../img/assets/sprites/elements/element_black.png");
 }
-.char.AttributeDark:before, .Attribute.All span:before,.viewSoul #equips .equip.AttributeAll:before {
+.char.AttributeAll:before, .Attribute.All span:before,.viewSoul #equips .equip.AttributeAll:before {
   background-image: url("../img/assets/sprites/elements/element_any.png");
 }
 #info .Rarity span {
