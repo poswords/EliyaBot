@@ -76,9 +76,7 @@ $(document).ready(function () {
 		if(unit.SkillWait){
 			skillWait = unit.SkillWait
 		}else{
-			skillWaitHtml = unit.Skill.match(/\s\(Skill Cost\: (\d+)\)/g)[0];
-			skillWait = parseInt(skillWaitHtml.replace(/\D/g, "")) || 0;
-			unit.Skill = '['+unit.Skill.replace(skillWaitHtml,']');			
+			skillWait = 0;
 		}
         elem.data("SkillWait", skillWait);
 		unit.SkillWait=skillWait;
