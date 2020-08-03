@@ -436,12 +436,12 @@ const event = {
 	if (ongoingBannerList.length>0){
 		msg.addFields({name:"Ongoing Banners", value: "```diff\n"+ongoingBannerList+"```"});
 	}else{
-		msg.addFields({name:"Ongoing Banners", value: "```diff\nNo ongoing pickup banner```"})
+		msg.addFields({name:"Ongoing Banners", value: "```diff\nNo ongoing pick-up banner```"})
 	}	  
 	if (upcomingBannerList.length>0){
 		msg.addFields({name:"Upcoming Banners", value: "```diff\n"+upcomingBannerList+"```"})
 	}else{
-		msg.addFields({name:"Upcoming Banners", value: "```diff\nNo upcoming pickup banner```"})
+		msg.addFields({name:"Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
 	}
 		  
 	
