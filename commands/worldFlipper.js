@@ -433,12 +433,12 @@ const event = {
 	}else{
 		msg.addFields({name:"Upcoming Events", value: "```diff\nNo upcoming event```"})
 	}
-	if (ongoingList.length>0){
+	if (ongoingBannerList.length>0){
 		msg.addFields({name:"Ongoing Banners", value: "```diff\n"+ongoingBannerList+"```"});
 	}else{
 		msg.addFields({name:"Ongoing Banners", value: "```diff\nNo ongoing pickup banner```"})
 	}	  
-	if (upcomingList.length>0){
+	if (upcomingBannerList.length>0){
 		msg.addFields({name:"Upcoming Banners", value: "```diff\n"+upcomingBannerList+"```"})
 	}else{
 		msg.addFields({name:"Upcoming Banners", value: "```diff\nNo upcoming pickup banner```"})
