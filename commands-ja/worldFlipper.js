@@ -435,6 +435,8 @@ const event = {
   execute(message) {
 	var ongoingList = '';
 	var upcomingList = '';
+	var ongoingBannerList = '';
+    var upcomingBannerList = '';	  
 	for (i=0; i<data.events.length;i++){
 		const event = data.events[i];
 		var aLength=40-event.ENName.length;
@@ -447,10 +449,19 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				ongoingList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";
+				if (event.Type=="Banner"){
+					ongoingBannerList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";	
+				}else{
+					ongoingList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";
+				}
+				
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				upcomingList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
+				if (event.Type=="Banner"){
+					upcomingBannerList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
+				}else{
+					upcomingList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
+				}
 			}
 		}
 	}
@@ -466,6 +477,16 @@ const event = {
 	}else{
 		msg.addFields({name:"開催決定", value: "```diff\nなし```"})
 	}
+	if (ongoingBannerList.length>0){
+		msg.addFields({name:"開催中ガチャ", value: "```diff\n"+ongoingBannerList+"```"})
+	}else{
+		msg.addFields({name:"開催中ガチャ", value: "```diff\nなし```"})
+	}
+	if (upcomingBannerList.length>0){
+		msg.addFields({name:"開催決定ガチャ", value: "```diff\n"+upcomingBannerList+"```"})
+	}else{
+		msg.addFields({name:"開催決定ガチャ", value: "```diff\nなし```"})
+	}	  
 	
     return message.channel.send(msg);	  
   },

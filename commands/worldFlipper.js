@@ -392,6 +392,8 @@ const event = {
   execute(message) {
 	var ongoingList = '';
 	var upcomingList = '';
+	var ongoingBannerList = '';
+    var upcomingBannerList = '';		  
 	for (i=0; i<data.events.length;i++){
 		const event = data.events[i];
 		var aLength=40-event.ENName.length;
@@ -404,10 +406,18 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				ongoingList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
+				if (event.Type=="Banner"){
+					ongoingBannerList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
+				}else{
+					ongoingList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
+				}
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				upcomingList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
+				if (event.Type=="Banner"){
+					upcomingBannerList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
+				}else{
+					upcomingList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
+				}
 			}
 		}
 	}
@@ -423,6 +433,17 @@ const event = {
 	}else{
 		msg.addFields({name:"Upcoming Events", value: "```diff\nNo upcoming event```"})
 	}
+	if (ongoingList.length>0){
+		msg.addFields({name:"Ongoing Banners", value: "```diff\n"+ongoingBannerList+"```"});
+	}else{
+		msg.addFields({name:"Ongoing Banners", value: "```diff\nNo ongoing pickup banner```"})
+	}	  
+	if (upcomingList.length>0){
+		msg.addFields({name:"Upcoming Banners", value: "```diff\n"+upcomingBannerList+"```"})
+	}else{
+		msg.addFields({name:"Upcoming Banners", value: "```diff\nNo upcoming pickup banner```"})
+	}
+		  
 	
     return message.channel.send(msg);	  
   },
