@@ -449,17 +449,13 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				if (event.Type=="Banner"){
-					ongoingBannerList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";	
-				}else{
+				if (event.Type!="Banner"){
 					ongoingList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";
 				}
 				
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				if (event.Type=="Banner"){
-					upcomingBannerList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
-				}else{
+				if (event.Type!="Banner"){
 					upcomingList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
 				}
 			}
@@ -477,6 +473,44 @@ const event = {
 	}else{
 		msg.addFields({name:"開催決定", value: "```diff\nなし```"})
 	}
+	
+    return message.channel.send(msg);	  
+  },
+};
+const gacha = {
+  name: 'gacha',
+  group,
+  aliases: ['g'],
+  description: '開催中・開催決定のガチャを表示',
+  execute(message) {
+	var ongoingBannerList = '';
+    var upcomingBannerList = '';	  
+	for (i=0; i<data.events.length;i++){
+		const event = data.events[i];
+		var aLength=40-event.ENName.length;
+		var start = moment.tz(event.Start, "Asia/Tokyo");
+		var end = moment.tz(event.End, "Asia/Tokyo");
+		var now = moment.tz("Asia/Tokyo");
+
+		if (end.isAfter(now)){
+
+			if (aLength<0) {aLength=0};
+			if (start.isBefore(now)){
+				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
+				if (event.Type=="Banner"){
+					ongoingBannerList += event.ENName+'\n+ 終了 : '+event.End+' ('+timeUntil+")\n";	
+				}
+				
+			}else{
+				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
+				if (event.Type=="Banner"){
+					upcomingBannerList += event.ENName+'\n+ 開始 : '+event.Start+' ('+timeUntil+")\n";
+				}
+			}
+		}
+	}
+	var msg = new Discord.MessageEmbed();
+
 	if (ongoingBannerList.length>0){
 		msg.addFields({name:"開催中ガチャ", value: "```diff\n"+ongoingBannerList+"```"})
 	}else{
@@ -491,7 +525,6 @@ const event = {
     return message.channel.send(msg);	  
   },
 };
-
 const tracker = {
   name: 'tracker',
   group,
@@ -727,4 +760,4 @@ const title = {
     }
   },
 };
-module.exports = [tracker, event,character, equipment, whois, art, alt,title,update];
+module.exports = [tracker, event, gacha,character, equipment, whois, art, alt,title,update];

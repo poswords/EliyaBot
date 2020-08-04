@@ -431,10 +431,10 @@ const event = {
     return message.channel.send(msg);	  
   },
 };
-const banner = {
-  name: 'banner',
+const gacha = {
+  name: 'gacha',
   group,
-  aliases: ['b', 'bn','banners'],
+  aliases: ['g','b','bn','banner','banners'],
   description: 'Lists ongoing/upcoming pick-up banner.',
   execute(message) {
 	var ongoingBannerList = '';
@@ -717,4 +717,4 @@ const update = {
   },
 }
 
-module.exports = [guide, tls, tracker, event, banner,character, equipment, race, whois, art, alt,title, update];
+module.exports = [guide, tls, tracker, event, gacha,character, equipment, race, whois, art, alt,title, update];
