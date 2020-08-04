@@ -434,7 +434,7 @@ const event = {
 const gacha = {
   name: 'gacha',
   group,
-  aliases: ['g','b','bn','banner','banners'],
+  aliases: ['b','bn','banner','banners'],
   description: 'Lists ongoing/upcoming pick-up banner.',
   execute(message) {
 	var ongoingBannerList = '';
