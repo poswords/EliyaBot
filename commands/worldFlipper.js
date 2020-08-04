@@ -392,8 +392,6 @@ const event = {
   execute(message) {
 	var ongoingList = '';
 	var upcomingList = '';
-	var ongoingBannerList = '';
-    var upcomingBannerList = '';		  
 	for (i=0; i<data.events.length;i++){
 		const event = data.events[i];
 		var aLength=40-event.ENName.length;
@@ -406,16 +404,12 @@ const event = {
 			if (aLength<0) {aLength=0};
 			if (start.isBefore(now)){
 				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
-				if (event.Type=="Banner"){
-					ongoingBannerList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
-				}else{
+				if (event.Type!="Banner"){
 					ongoingList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
 				}
 			}else{
 				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
-				if (event.Type=="Banner"){
-					upcomingBannerList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
-				}else{
+				if (event.Type!="Banner"){
 					upcomingList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
 				}
 			}
@@ -433,6 +427,43 @@ const event = {
 	}else{
 		msg.addFields({name:"Upcoming Events", value: "```diff\nNo upcoming event```"})
 	}
+ 
+    return message.channel.send(msg);	  
+  },
+};
+const banner = {
+  name: 'banner',
+  group,
+  aliases: ['b', 'bn','banners'],
+  description: 'Lists ongoing/upcoming pick-up banner.',
+  execute(message) {
+	var ongoingBannerList = '';
+    var upcomingBannerList = '';		  
+	for (i=0; i<data.events.length;i++){
+		const event = data.events[i];
+		var aLength=40-event.ENName.length;
+		var start = moment.tz(event.Start, "Asia/Tokyo");
+		var end = moment.tz(event.End, "Asia/Tokyo");
+		var now = moment.tz("Asia/Tokyo");
+
+		if (end.isAfter(now)){
+
+			if (aLength<0) {aLength=0};
+			if (start.isBefore(now)){
+				timeUntil = getTimeUntil(end.format("x")-now.format("x"));
+				if (event.Type=="Banner"){
+					ongoingBannerList += event.ENName+'\n+ End : '+event.End+' ('+timeUntil+")\n";
+				}
+			}else{
+				timeUntil = getTimeUntil(start.format("x")-now.format("x"));
+				if (event.Type=="Banner"){
+					upcomingBannerList += event.ENName+'\n+ Start : '+event.Start+' ('+timeUntil+")\n";
+				}
+			}
+		}
+	}
+	var msg = new Discord.MessageEmbed();
+
 	if (ongoingBannerList.length>0){
 		msg.addFields({name:"Ongoing Banners", value: "```diff\n"+ongoingBannerList+"```"});
 	}else{
@@ -443,12 +474,10 @@ const event = {
 	}else{
 		msg.addFields({name:"Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
 	}
-		  
-	
+
     return message.channel.send(msg);	  
   },
 };
-
 const tracker = {
   name: 'tracker',
   group,
@@ -688,4 +717,4 @@ const update = {
   },
 }
 
-module.exports = [guide, tls, tracker, event,character, equipment, race, whois, art, alt,title, update];
+module.exports = [guide, tls, tracker, event, banner,character, equipment, race, whois, art, alt,title, update];
