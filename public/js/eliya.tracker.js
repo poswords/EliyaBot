@@ -436,7 +436,6 @@ $(document).ready(function () {
 	localStorage.setItem("charList", getUnitList('char'));	 
     localStorage.setItem("equipList", getUnitList('equip'));
 	window.history.pushState("saved", "", "http://eliya-bot.herokuapp.com");
-	console.log("here");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
