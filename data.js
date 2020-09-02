@@ -32,8 +32,6 @@ module.exports = {
 			break;
 		case 'ja': SPREADSHEET_ID='1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
 			break;
-		case 'jasite': SPREADSHEET_ID='1OI9gTEeodz7kHlufqVM9J_AWuNkBUu1Ax5Ye1XNMb80';
-			break;			
 		default:SPREADSHEET_ID='1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
 			break;
 	}

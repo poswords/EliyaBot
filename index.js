@@ -47,7 +47,6 @@ app.use(i18nextMiddleware.handle(i18next));
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data');
 var data = DB.getData('en');
-var datajasite = DB.getData('jasite');
 var dataja = DB.getData('ja');
 var datazhtw = DB.getData('zh-TW');
 const {
@@ -227,7 +226,6 @@ app.get('/comp/:w', function (req, res) {
 app.post('/update', async (req, res) => {
   data = DB.getData('en');
   dataja = DB.getData('ja');
-  datajasite = DB.getData('jasite');
   datazhtw = DB.getData('zh-TW');
   res.send("webapp updated!");
 });
@@ -241,8 +239,8 @@ io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
     switch (lang) {
       case "ja":
-        io.to(socket.id).emit('equips', datajasite.equips);
-        io.to(socket.id).emit('chars', datajasite.chars);
+        io.to(socket.id).emit('equips', dataja.equips);
+        io.to(socket.id).emit('chars', dataja.chars);
         break;
       case "zh-TW":
         io.to(socket.id).emit('equips', datazhtw.equips);
