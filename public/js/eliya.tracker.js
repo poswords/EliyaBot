@@ -114,7 +114,7 @@ $(document).ready(function () {
 						tls.push(getTls("Race"+races[i]));
 					}
 					console.log(tls);
-					info.find('.' + key + ' span').text(tls.join(' / '));
+					info.find('.' + key + ' span').text(tls.join(' / '));	
 				}else if(key=="Attribute" || key =="Role" || key=="Gender"){
 					var tl = getTls(key+unit[key]);
 					if (tl) info.find('.' + key + ' span').text(tl);

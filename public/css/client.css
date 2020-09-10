@@ -982,16 +982,27 @@ strong {
 .details .charAbility:before{
 	position: absolute;
 	left: 0;
-	top: 1px;
-	color: #2EC4B6;
-	font-size: 16px;
+	top: 2px;
+	background-color: #2EC4B6;
+	border-radius: 20px;
+	font-size: 10px;
+	width: 14px;
+    height: 14px;
+    color: #fff;
+    line-height: 14px;
+	text-align: center;
+	font-weight: normal;
+
 }
-.details .Ability1:before {content:"❶"	}
-.details .Ability2:before {	content:"❷"	}
-.details .Ability3:before {	content:"➌"	}
-.details .Ability4:before {	content:"➍"	}
-.details .Ability5:before {	content:"❺"	}
-.details .Ability6:before {	content:"❻"	}
+.unitList .details .charAbility:before{
+	top: 1px;	
+}
+.details .Ability1:before { content:"1"	}
+.details .Ability2:before {	content:"2"	}
+.details .Ability3:before {	content:"3"	}
+.details .Ability4:before {	content:"4"	}
+.details .Ability5:before {	content:"5"	}
+.details .Ability6:before {	content:"6"	}
 .details .charAbility{
 	text-align: left;
 	
