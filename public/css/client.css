@@ -884,7 +884,7 @@ strong {
   margin: 5px 0;
 }
 .unitList .details div {
-  flex: 1 1 17%;
+  flex: 1 1 40%;
   padding: 0 1%;
   font-weight: bold;
   text-align: center;
@@ -971,6 +971,34 @@ strong {
 }
 .unitList .details .footer div {
   padding: 0;
+}
+.details .charAbility{
+	overflow: hidden;
+	position: relative;
+}
+.details .charAbility label{
+	display: none;
+}
+.details .charAbility:before{
+	position: absolute;
+	left: 0;
+	top: 1px;
+	color: #2EC4B6;
+	font-size: 16px;
+}
+.details .Ability1:before {content:"❶"	}
+.details .Ability2:before {	content:"❷"	}
+.details .Ability3:before {	content:"➌"	}
+.details .Ability4:before {	content:"➍"	}
+.details .Ability5:before {	content:"❺"	}
+.details .Ability6:before {	content:"❻"	}
+.details .charAbility{
+	text-align: left;
+	
+}
+.details .charAbility span{
+	display: inline-block;
+	padding-left: 18px;
 }
 .listView .unitList .char:before {
   top: 60px;
