@@ -8,10 +8,10 @@ const sheets = google.sheets({
   auth: APIKey
 });
 var range_names = [
-  "'5* Characters'!A1:T300",
-  "'4* Characters'!A1:T300",
-  "'3* Characters'!A1:T300",
-  "'1*/2* Characters'!A1:T30",
+  "'5* Characters'!A1:Z300",
+  "'4* Characters'!A1:Z300",
+  "'3* Characters'!A1:Z300",
+  "'1*/2* Characters'!A1:Z30",
   "'Boss/Event Weapons'!C1:Q300",
   "'Gacha/Story Weapons'!B1:Q300",
   "'Events'!A1:G300",
