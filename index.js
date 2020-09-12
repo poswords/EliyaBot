@@ -297,7 +297,6 @@ io.on('connection', function (socket) {
               delete row.created_date;
             });
             io.to(socket.id).emit('url', res.rows[0]);
-			  console.log(res.rows[0]);
           })
         } else {
           rows.forEach(function (row) {

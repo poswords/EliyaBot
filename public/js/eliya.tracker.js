@@ -43,7 +43,6 @@ $(document).ready(function () {
   });
 
   socket.on('url', function (url) {
-	  console.log(url);
     if (waitingForUrl) {
 	  if (url){
 		  if (url.url) {
