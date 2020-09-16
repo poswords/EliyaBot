@@ -71,9 +71,9 @@ const getInfoEmbed = (unit, flag)  => {
     .addField('アビリティ3', unit.Ability3, true)
     .setFooter(footer);
     if (unit.Ability4 && unit.Ability5 && unit.Ability6){
-        msg.addField('Ability 4', unit.Ability4, true)
-        .addField('Ability 5', unit.Ability5, true)
-        .addField('Ability 6', unit.Ability6, true)  
+        msg.addField('アビリティ4', unit.Ability4, true)
+        .addField('アビリティ5', unit.Ability5, true)
+        .addField('アビリティ6', unit.Ability6, true)  
     }    
 	if (flag == 'awaken'){
     	msg.setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_1.png')   		
