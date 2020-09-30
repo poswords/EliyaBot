@@ -32,6 +32,7 @@
 "GenderMale":"男",
 "GenderFemale":"女",
 "GenderUnknown": "不明",	
+"GenderLily": "リリィ",	
 "AttributeFire":"火",
 "AttributeWater":"水",
 "AttributeWind":"風",

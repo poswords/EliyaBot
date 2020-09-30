@@ -32,6 +32,7 @@
 "GenderMale": "Male",
 "GenderFemale": "Female",
 "GenderUnknown": "Unknown",	
+"GenderLily": "Lily",	
 "AttributeFire": "Fire",
 "AttributeWater": "Water",
 "AttributeWind": "Wind",
