@@ -469,6 +469,9 @@ strong {
   max-width: 100%;
   border-radius:0 0 0 3px;	
 }
+.filterWrapper{
+    width: 100%;
+}
 .filterList {
   border-radius: 5px;
   background: #fff;
@@ -501,7 +504,7 @@ strong {
 .filterList li:first-child {
   border: none;
 }
-#filterCharRarity, #filterEquipRarity, #filterAltArt, #filterEquipObtain {
+#filterCharRarity, #filterEquipRarity, #filterCharAvailability{
   width: 300px
 }
 #filterCharRole {
@@ -517,7 +520,7 @@ strong {
   pointer-events: none;
   width: 612px;
 }
-.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt {
+.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt , .showRole #filterCharAvailability{
   margin: -10px 4px 20px;
 }
 .showRole #filterCharRole, .showRole #filterCharRace {
@@ -852,13 +855,22 @@ strong {
   line-height: 15px;
 }
 .viewOwned .unit:not(.checked),
-.viewOwned .title:not(.checked) {
+.viewOwned .title:not(.checked),
+.viewNotOwned .unit.checked,
+.viewNotOwned .title.checked{
   display: none;
 }
+ 
 .viewOwned .unit.spookyStuff ,
-.viewOwned .title.spookyStuff {
+.viewOwned .title.spookyStuff,
+.viewNotOwned .unit.spookyStuff ,
+.viewNotOwned .title.spookyStuff {
   display: block;
 }
+.viewManaboard2 .unit:not(.ManaBoard2){
+  display: none;
+}
+
 .unit .charInfoBlock, .unit .equipInfoBlock {
   display: none;
   opacity: 0;
@@ -1135,7 +1147,7 @@ strong {
   .showRole #filterAltArt {
     margin-bottom: 10px;
   }
-  .showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt {
+  .showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt, .showRole #filterCharAvailability {
     margin-top: 0;
     margin-bottom: 10px;
   }

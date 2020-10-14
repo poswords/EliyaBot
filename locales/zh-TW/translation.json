@@ -13,6 +13,8 @@
 "ShowRole":"顯示類型/種族",
 "Awaken":"顯示第二立繪",
 "ShowOwned":"顯示已擁有角色",
+"ShowNotOwned":"顯示已擁有角色",    
+"ShowManaBoard2":"能力4-6",    
 "NoGacha":"裝備池除外",
 "RaceAquatic":"水棲",
 "RaceBeast":"獸",

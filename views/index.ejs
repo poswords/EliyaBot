@@ -93,12 +93,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  <li class="btnFilter charFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png"></li>
 			  <li class="btnFilter charFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
 			  <li class="btnFilter charFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
-			  </ul>		
+			  </ul>	<br>
 		  <ul id="filterAltArt" class="filterList">			  
 			  <li id="btnShowRole" data-type="char"><%=t('ShowRole')%></li>				  
 			  <li id="btnAltArt"><%=t('Awaken')%></li>
+          </ul>          
+        <ul id="filterCharAvailability" class="filterList">	              
 			  <li class="btnShowOwned" data-type="char"><%=t('ShowOwned')%></li>
-			  </ul>			
+              <li class="btnShowNotOwned" data-type="char"><%=t('ShowNotOwned')%></li>
+                <li class="btnFilter charFilter" data-filter="ManaBoard2"><%=t('ShowManaBoard2')%></li>        
+			  </ul>	<br>       
+
+            		
 		  <ul id="filterCharRole" class="filterList">
 			  <li class="btnFilter charFilter" data-filter="RoleSword"><img src="/img/assets/sprites/types/type_knight.png"></li>
 			  <li class="btnFilter charFilter" data-filter="RoleFist"><img src="/img/assets/sprites/types/type_fighter.png"></li>
@@ -167,12 +173,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  <li class="btnFilter" data-filter="Rarity3"><img src="/img/assets/sprites/rarity/star3.png"></li>
 			  <li class="btnFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
 			  <li class="btnFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
-			  </ul>		
+			  </ul><br>
 		  <ul id="filterEquipObtain" class="filterList">
 			  <li class="btnFilter" data-filter="NoGacha"><%=t('NoGacha')%></li>
 			  <li id="btnViewSoul"><%=t('AbilitySoul')%></li>				  
+          </ul>
+          <ul id="filterEquipAvailability" class="filterList">
 			  <li class="btnShowOwned" data-type="equip"><%=t('ShowOwned')%></li>
-			  </ul>				  
+              <li class="btnShowNotOwned" data-type="equip"><%=t('ShowNotOwned')%></li>
+			  </ul>		
+          
 		  <section id="equipRarity5">
 			<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 			<span class="score"></span>

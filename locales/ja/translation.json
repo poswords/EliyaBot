@@ -13,6 +13,8 @@
 "ShowRole": "タイプ・種族",  
 "Awaken": "進化",
 "ShowOwned": "所有のみ表示",
+"ShowNotOwned": "未所有のみ表示",
+"ShowManaBoard2": "マナボード２あり",
 "NoGacha": "ガチャなし",  
 "RaceAquatic": "水棲",  
 "RaceBeast": "獣",  

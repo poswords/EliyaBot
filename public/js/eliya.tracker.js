@@ -78,6 +78,9 @@ $(document).ready(function () {
 		}else{
 			skillWait = 0;
 		}
+        if(unit.Ability4){
+            elem.addClass("ManaBoard2")
+        }
         elem.data("SkillWait", skillWait);
 		unit.SkillWait=skillWait;
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -506,7 +509,24 @@ $(document).ready(function () {
     setTimeout(function () {
       $("." + type + "List").removeClass('flash');
     }, 100);
+    if ($(this).is(".on")){
+        $(".btnShowNotOwned").removeClass("on");
+        $("#" + type + "s").removeClass("viewNotOwned");
+    }
   });
+  $(".btnShowNotOwned").on("click", function () {
+    var type = $(this).data("type");
+    $("#" + type + "s").toggleClass("viewNotOwned");
+    $(this).toggleClass("on");
+    $("." + type + "List").addClass('flash');
+    setTimeout(function () {
+      $("." + type + "List").removeClass('flash');
+    }, 100);
+    if ($(this).is(".on")){
+        $(".btnShowOwned").removeClass("on");
+        $("#" + type + "s").removeClass("viewOwned");
+    }      
+  });    
   $("#listLang").on("click",function(){
 	  $(this).toggleClass("on");
 	  $(this).find('.active').prependTo($(this));
@@ -680,6 +700,7 @@ $(document).ready(function () {
       filterUnit('CharRarity');
       filterUnit('CharRole');
       filterUnit('CharRace');
+      filterUnit('CharAvailability');
 
       $('.tempFilter').removeClass('tempFilter');
 
