@@ -1253,3 +1253,13 @@ strong {
     background: #333;
     border: 3px solid #999;
 }
+.darktheme .Rarity span:before{
+    background-color: rgba(0,0,0,0);
+}
+.darktheme .Attribute span:before{
+    padding: 2px; border-radius: 3px;
+}
+.darktheme .Role span:before{
+    filter:none;
+    background-color: rgba(0,0,0,0);
+}
