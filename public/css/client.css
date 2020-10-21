@@ -620,6 +620,9 @@ strong {
   font-size: 10px;
   color: #333;
 }
+#unisons .char.selected:after, #unisons .equip.selected:after{
+  color:#eee;
+}
 #btnUnset {
   background: #dde;
   width: 10px;
@@ -1184,5 +1187,69 @@ strong {
 	.title img{
 		max-width: 100%;
 	}
-	
+    #btnGetShareURL{
+        width: 120px;
+    }
+}
+.darktheme{
+    background: #121212;
+    color: #eee;
+}
+.darktheme .filterList li{
+    border-left: 1px solid #666;
+}
+.darktheme .filterList li:first-child{
+    border-left: none;
+}
+.darktheme #listLang li.active a{
+    filter: invert(92%); 
+}
+.darktheme .button{
+    background: #333;
+    box-shadow: 0 0 1px 1px #666;
+}
+.darktheme .filterList{
+    background: #333;    
+    box-shadow: 0 0 1px 1px #666;
+}
+.darktheme #charGrandTotal .percentage, 
+.darktheme #equipGrandTotal .percentage, 
+.darktheme #titleGrandTotal .percentage,
+.darktheme a{
+    color: #fff;
+}
+.darktheme #listLang{
+    background: #333;   
+}
+.darktheme #info{
+    background: #333;   
+}
+.darktheme #charNamePlate{
+    background: rgba(48, 48, 48, 0.8);
+}
+.darktheme .unit.selected{
+    background: #6a6acf;
+    border: 3px solid #6a6acf;
+}
+
+
+.darktheme .filterList li.on,
+.darktheme #switchUnits li.on{
+    background: #6a6aef;
+}
+.darktheme #infoButtons .button {
+    border: 1px solid #666;
+    background: #335;
+    color: #eee;
+}
+.darktheme #infoButtons .button.on{
+    border-bottom: 1px solid #333;
+    background: #333; 
+}
+.darktheme #btnUnset{
+    background: #666;
+}
+.darktheme.listView .unitList .unit{
+    background: #333;
+    border: 3px solid #999;
 }

@@ -11,7 +11,9 @@ $(document).ready(function () {
   var equipLoaded = false;
   var waitingForUrl = false;
   var blank_elem = $('<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>');
-
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    $("body").addClass("darktheme");
+}
   function clearUI() {
 
   }
