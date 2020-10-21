@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/css/reset.css" type="text/css">	
 <link rel="stylesheet" href="/css/common.css" type="text/css">	
 <link rel="stylesheet" href="/css/client.css?2010211553" type="text/css">
-<style>
+  <style>
 #unisons .main:after { content: "<%=t('Main')%>";}
 #unisons ul:nth-child(1)  .main:after {content: "<%=t('Leader')%>";}
 #unisons .sub:after {content: "<%=t('Sub')%>";}
@@ -71,7 +71,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<div id="errMsg" class="message hidden"></div>
   </div>		
 	  <h1 class="sitetitle"><a href="/"><%= t('title')%></a></h1>
-	  <ul class="subtitle"><li class="active"><%= t('Characters')%></li> <li><a href="/titles"><%= t('TitleList')%></a></li></ul>
+<!--	  <ul class="subtitle"><li class="active"><%= t('Characters')%></li> <li><a href="/titles"><%= t('TitleList')%></a></li></ul>-->
 	  <ul id="switchUnits" class="filterList">
 			  <li id="btnShowChar" class="btnSwitchUnit on" data-type="char"><%=t('Characters')%></li>
 			  <li id="btnShowEquip" class="btnSwitchUnit" data-type="equip"><%=t('Equipments')%></li>
@@ -93,15 +93,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  <li class="btnFilter charFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
 			  <li class="btnFilter charFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
 			  </ul>	<br>
-		  <ul id="filterAltArt" class="filterList">			  
-			  <li id="btnShowRole" data-type="char"><%=t('ShowRole')%></li>				  
-			  <li id="btnAltArt"><%=t('Awaken')%></li>
-          </ul>          
-        <ul id="filterCharAvailability" class="filterList">	              
+       <ul id="filterCharAvailability" class="filterList">	              
 			  <li class="btnShowOwned" data-type="char"><%=t('ShowOwned')%></li>
-              <li class="btnShowNotOwned" data-type="char"><%=t('ShowNotOwned')%></li>
-                <li class="btnFilter charFilter" data-filter="ManaBoard2"><%=t('ShowManaBoard2')%></li>        
-			  </ul>	<br>       
+              <li class="btnShowNotOwned" data-type="char"><%=t('ShowNotOwned')%></li>        
+			  </ul>          
+		  <ul id="filterAltArt" class="filterList">			  
+			  <li id="btnShowRole" data-type="char"><%=t('ShowRole')%></li>			
+              <li class="btnFilter charFilter" data-filter="ManaBoard2"><%=t('ShowManaBoard2')%></li>                
+			  <li id="btnAltArt"><%=t('Awaken')%></li>
+          </ul>     	<br>         
+    
 
             		
 		  <ul id="filterCharRole" class="filterList">
@@ -173,14 +174,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			  <li class="btnFilter" data-filter="Rarity2"><img src="/img/assets/sprites/rarity/star2.png"></li>
 			  <li class="btnFilter" data-filter="Rarity1"><img src="/img/assets/sprites/rarity/star1.png"></li>
 			  </ul><br>
-		  <ul id="filterEquipObtain" class="filterList">
-			  <li class="btnFilter" data-filter="NoGacha"><%=t('NoGacha')%></li>
-			  <li id="btnViewSoul"><%=t('AbilitySoul')%></li>				  
-          </ul>
           <ul id="filterEquipAvailability" class="filterList">
 			  <li class="btnShowOwned" data-type="equip"><%=t('ShowOwned')%></li>
               <li class="btnShowNotOwned" data-type="equip"><%=t('ShowNotOwned')%></li>
-			  </ul>		
+			  </ul>	          
+		  <ul id="filterEquipObtain" class="filterList">
+			  <li class="btnFilter btnNoGacha" data-filter="NoGacha"><%=t('NoGacha')%></li>
+              <li class="btnFilter btnShowGacha" data-filter="Gacha"><%=t('ShowGacha')%></li>              
+			  <li id="btnViewSoul"><%=t('AbilitySoul')%></li>				  
+          </ul>
+	
           
 		  <section id="equipRarity5">
 			<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>

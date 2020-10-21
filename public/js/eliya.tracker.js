@@ -191,6 +191,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
           .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">'));
         if (unit.Obtain != tls.WeaponGacha) {
           elem.addClass('NoGacha')
+        }else{
+          elem.addClass('Gacha')
         }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
@@ -331,6 +333,14 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   });
   $("#equips .btnFilter").on("click", function () {
     $(this).toggleClass('on');
+    if ($(this).is(".on")){
+        if ($(this).is(".btnShowGacha")){
+            $(".btnNoGacha").removeClass("on");
+        }else if ($(this).is(".btnNoGacha")){
+            $(".btnShowGacha").removeClass("on");
+        }
+        
+    }
     updateEquipFilter();
   });
   $("#planner .char").on("click", function () {
@@ -528,7 +538,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         $(".btnShowOwned").removeClass("on");
         $("#" + type + "s").removeClass("viewOwned");
     }      
-  });    
+  });  
+    
   $("#listLang").on("click",function(){
 	  $(this).toggleClass("on");
 	  $(this).find('.active').prependTo($(this));
@@ -702,7 +713,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       filterUnit('CharRarity');
       filterUnit('CharRole');
       filterUnit('CharRace');
-      filterUnit('CharAvailability');
+      filterUnit('AltArt');
 
       $('.tempFilter').removeClass('tempFilter');
 
@@ -760,8 +771,14 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       $('.tempFilter').removeClass('tempFilter');
 
       if ($('#filterEquipObtain .btnFilter.on').length > 0) {
-        $("#equips .equip").not('.NoGacha').addClass('filtered');
+          if ($('.btnNoGacha').is('.on')){
+            $("#equips .equip").not('.NoGacha').addClass('filtered');
+          }
+          if ($('.btnShowGacha').is('.on')){
+             $("#equips .equip").not('.Gacha').addClass('filtered');
+           }
       }
+        
       $(".equipList").each(function () {
         if ($(this).find('.equip').not('.filtered').length == 0) {
           $(this).parent().addClass('hidden')

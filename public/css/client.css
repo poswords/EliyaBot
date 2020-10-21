@@ -504,7 +504,7 @@ strong {
 .filterList li:first-child {
   border: none;
 }
-#filterCharRarity, #filterEquipRarity, #filterCharAvailability{
+#filterCharRarity, #filterEquipRarity, #filterAltArt, #filterEquipObtain{
   width: 300px
 }
 #filterCharRole {
@@ -1260,6 +1260,10 @@ strong {
     padding: 2px; border-radius: 3px;
 }
 .darktheme .Role span:before{
+    filter:none;
+    background-color: rgba(0,0,0,0);
+}
+.darktheme #filterCharRole img{
     filter:none;
     background-color: rgba(0,0,0,0);
 }
