@@ -121,6 +121,21 @@ const getSpecialEmbed = unit => {
   return msg;
 };
 
+const getShortENName = longName => {
+  let enName = '';
+  let n = longName.split('\n');
+  if (n.length === 2) {
+    enName = n[1];
+  } else {
+    enName = n[0];
+    const idx = enName.indexOf(']');
+    if (idx > 0) {
+      enName = enName.slice(idx + 1).trim();
+    }
+  }
+  return enName;
+}
+
 const sendList = async (units, message, type) => {
   const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
   await appendReacts(units, message, type, msg);
@@ -129,17 +144,7 @@ const sendList = async (units, message, type) => {
 const sendFastList = async (units, message, type) => {
   let list = `${units.length} characters found:\`\`\`python\n`;
   list += units.map((char, index) => {
-    let enName = '';
-    let n = char.ENName.split('\n');
-    if (n.length === 2) {
-      enName = n[1];
-    } else {
-      enName = n[0];
-      const idx = enName.indexOf(']');
-      if (idx > 0) {
-        enName = enName.slice(idx + 1).trim();
-      }
-    }
+    let enName = getShortENName(char['ENName']);
     return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
   }).join('\n');
   list += '\`\`\`';
@@ -295,9 +300,27 @@ const searchCharByName = chara => {
     }
   });
   if (result.length <= 0) {
-
     result = data.chars.filter(function (item) {
-      var res;
+      let res;
+      if (res != true) {
+        if (getShortENName(item['ENName']).split(' ')[0].toLowerCase() === chara) {
+          res = true;
+        }
+        if (item['JPName'] === chara) {
+          res = true;
+        }
+        if (typeof item.OtherCommonNames !== 'undefined') {
+          if (item.OtherCommonNames.toLowerCase() === chara) {
+            res = true;
+          }
+        }
+      }
+      return res
+    });
+  }
+  if (result.length <= 0) {
+    result = data.chars.filter(function (item) {
+      let res;
       if (res != true) {
         if (item.ENName.toLowerCase().indexOf(chara) !== -1) {
           res = true;
