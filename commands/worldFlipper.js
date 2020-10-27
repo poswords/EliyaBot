@@ -357,8 +357,8 @@ const searchTitle = chara => {
 
 const filterChar = (origin, cond) => {
   return origin.filter(function (char) {
-    // Elements, most used so make one/two alphabets shortcut
     switch (cond) {
+      // Elements, most used so make one/two alphabets shortcut
       case 'f': case 'fi': case 'fire':
         return char.Attribute === 'Fire'
       case 'w': case 'wa': case 'water':
@@ -371,10 +371,31 @@ const filterChar = (origin, cond) => {
         return char.Attribute === 'Light'
       case 'd': case 'da': case 'dark':
         return char.Attribute === 'Dark'
+      // Race
+      case 'human': case 'sprite': case 'beast': case 'mecha':
+      case 'dragon': case 'undead': case 'youkai': case 'plant':
+      case 'demon': case 'aquatic':
+        return char['Race'].toLowerCase().indexOf(cond) >= 0;
+      // PF type
+      case 'sword': case 'bow': case 'fist': case 'support': case 'special':
+        return char['Role'].toLowerCase() === cond;
+      // Gender
+      case 'male': case 'female': case 'unknown': case 'lily':
+        return char['Gender'].toLowerCase() === cond;
     }
     // Skill wait
     if (/^s[wc](>|<|==|>=|<=)\d+$/.test(cond)) {
       return eval(char['SkillWait'] + cond.slice(2))
+    }
+    // Rarity
+    const r = cond.match(/^(\d+)\*$/);
+    if (r != null) {
+      for (let i = 0; i < r[1].length; i++) {
+        if (parseInt(char['Rarity']) === parseInt(r[1].charAt(i))) {
+          return true;
+        }
+      }
+      return false;
     }
 
     // Unknown condition, ignore
@@ -413,7 +434,7 @@ const filterCharByText = (origin, text, options) => {
 
 const extractTextFilterOption = (options, arg) => {
   switch (arg) {
-    case 'leader': case 'ls':
+    case 'leader': case 'lb':
       options['fields'].push('LeaderBuff');
       return true;
     case 'skill': case 's':
@@ -624,7 +645,7 @@ const character = {
         return message.channel.send('No character found!');
       }
       if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + 'found! Please narrow your search');
+        return message.channel.send(arrFound.length + ' found! Please narrow your search');
       }
       if (arrFound.length === 1) {
         sendMessage(arrFound[0], message);
@@ -653,7 +674,7 @@ const equipment = {
         return message.channel.send('No equipment found!');
       }
       if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + 'found! Please narrow your search');
+        return message.channel.send(arrFound.length + ' found! Please narrow your search');
       }
       if (arrFound.length === 1) {
         sendEquip(arrFound[0], message);
@@ -718,7 +739,7 @@ const whois = {
         return message.channel.send('No character found!');
       }
       if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + 'found! Please narrow your search');
+        return message.channel.send(arrFound.length + ' found! Please narrow your search');
       }
       if (arrFound.length === 1) {
         sendThumbnail(arrFound[0], message);
@@ -747,7 +768,7 @@ const art = {
       return message.channel.send('No character found!');
     }
     if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+      return message.channel.send(arrFound.length + ' found! Please narrow your search');
     }
     if (arrFound.length === 1) {
       sendArt(arrFound[0], message);
@@ -774,7 +795,7 @@ const alt = {
       return message.channel.send('No character found!');
     }
     if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+      return message.channel.send(arrFound.length + ' found! Please narrow your search');
     }
     if (arrFound.length === 1) {
       sendAlt(arrFound[0], message);
@@ -802,7 +823,7 @@ const title = {
       return message.channel.send('No character found!');
     }
     if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+      return message.channel.send(arrFound.length + ' found! Please narrow your search');
     }
     if (arrFound.length === 1) {
       sendTitle(arrFound[0], message);
@@ -865,7 +886,7 @@ const filterCharacter = {
       return message.channel.send('No character found!');
     }
     if (filtered.length > 30) {
-      return message.channel.send(filtered.length + 'found! Please narrow your search');
+      return message.channel.send(filtered.length + ' found! Please narrow your search');
     }
     if (filtered.length === 1) {
       await sendMessage(filtered[0], message);
