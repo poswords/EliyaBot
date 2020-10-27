@@ -290,33 +290,6 @@ const searchCharByName = chara => {
   return result;
 };
 
-const filterChar = (origin, cond) => {
-  return origin.filter(function (char) {
-    // Elements, most used so make one/two alphabets shortcut
-    switch (cond) {
-      case 'f': case 'fi': case 'fire':
-        return char.Attribute === 'Fire'
-      case 'w': case 'a': case 'wa': case 'water':
-        return char.Attribute === 'Water'
-      case 'i': case 'wi': case 'wind':
-        return char.Attribute === 'Wind'
-      case 't': case 'th': case 'thunder':
-        return char.Attribute === 'Thunder'
-      case 'l': case 'li': case 'light':
-        return char.Attribute === 'Light'
-      case 'd': case 'da': case 'dark':
-        return char.Attribute === 'Dark'
-    }
-    if (cond.length === 1 && /[ftdl]/.test(cond)) {
-
-    }
-    // Skill wait
-    if (/^s[wc](>|<|==|>=|<=)\d+$/.test(cond)) {
-      return eval(char['SkillWait'] + cond.substring(2))
-    }
-  });
-};
-
 const searchEquipByName = chara => {
   var result = data.equips.filter(function (item) {
     if (typeof item.DevNicknames !== 'undefined') {
@@ -381,6 +354,105 @@ const searchTitle = chara => {
   }
   return result;
 };
+
+const filterChar = (origin, cond) => {
+  return origin.filter(function (char) {
+    // Elements, most used so make one/two alphabets shortcut
+    switch (cond) {
+      case 'f': case 'fi': case 'fire':
+        return char.Attribute === 'Fire'
+      case 'w': case 'wa': case 'water':
+        return char.Attribute === 'Water'
+      case 'i': case 'wi': case 'wind':
+        return char.Attribute === 'Wind'
+      case 't': case 'th': case 'thunder':
+        return char.Attribute === 'Thunder'
+      case 'l': case 'li': case 'light':
+        return char.Attribute === 'Light'
+      case 'd': case 'da': case 'dark':
+        return char.Attribute === 'Dark'
+    }
+    // Skill wait
+    if (/^s[wc](>|<|==|>=|<=)\d+$/.test(cond)) {
+      return eval(char['SkillWait'] + cond.slice(2))
+    }
+
+    // Unknown condition, ignore
+    return origin;
+  });
+};
+
+const filterCharByText = (origin, text, options) => {
+  return origin.filter(function (char) {
+    const exclude = !!options['exclude'];
+    const fields = options['fields'];
+    if (fields.length === 0) {
+      fields.push(...['LeaderBuff', 'Skill']);
+      for (let i = 1; i <= 6; i++) {
+        fields.push('Ability' + i);
+      }
+    }
+    if (options.regexp) {
+      for (let f in fields) {
+        const field = char[fields[f]];
+        if (new RegExp(text).test(field.toLowerCase())) {
+          return !exclude;
+        }
+      }
+    } else {
+      for (let f in fields) {
+        const field = char[fields[f]];
+        if (field.toLowerCase().indexOf(text) >= 0) {
+          return !exclude;
+        }
+      }
+    }
+    return exclude;
+  });
+};
+
+const extractTextFilterOption = (options, arg) => {
+  switch (arg) {
+    case 'leader': case 'ls':
+      options['fields'].push('LeaderBuff');
+      return true;
+    case 'skill': case 's':
+      options['fields'].push('Skill');
+      return true;
+    case 'ability': case 'abi': case 'ab': case 'a':
+      for (let i = 1; i <= 6; i++) {
+        options['fields'].push('Ability' + i);
+      }
+      return true;
+    case 'unison': case 'u': case 'sub':
+      options['fields'].push('Skill');
+      for (let i = 1; i <= 6; i++) {
+        if (i === 3) continue;
+        options['fields'].push('Ability' + i);
+      }
+      return true;
+    case 'exclude': case 'ex': case 'not':
+      options['exclude'] = true;
+      return true;
+    case 'regexp': case 're': case 'r':
+      options['regexp'] = true;
+      return true;
+    case 'reset':
+      options['fields'] = [];
+      delete options['exclude'];
+      delete options['regexp'];
+      return true;
+  }
+  const r = arg.match(/^ab?(\d+)$/);
+  if (r != null) {
+    for (let i = 0; i < r[1].length; i++) {
+      options['fields'].push('Ability' + r[1].charAt(i));
+    }
+    return true;
+  }
+  return false;
+};
+
 const guide = {
   name: 'guide',
   group,
@@ -758,7 +830,7 @@ const update = {
   },
 }
 
-const search = {
+const filterCharacter = {
   name: 'filter-character',
   group,
   args: true,
@@ -767,15 +839,33 @@ const search = {
   description: 'Filter characters by conditions',
   async execute(message, args) {
     let filtered = data.chars;
-    for (const i in args) {
-      filtered = filterChar(filtered, args[i].toLowerCase())
+    let textFilterOptions = {
+      fields: []
+    };
+    for (let i = 0; i < args.length; i++) {
+      const arg = args[i];
+      if (extractTextFilterOption(textFilterOptions, arg)) {
+        continue;
+      }
+      switch (arg) {
+        case '-t': case '--text':
+          if (i === args.length - 1) {
+            return message.channel.send("Not enough argument for -t text search!");
+          }
+          i++;
+          filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
+          break;
+        default:
+          filtered = filterChar(filtered, args[i].toLowerCase());
+          break;
+      }
     }
 
     if (filtered.length === 0) {
       return message.channel.send('No character found!');
     }
     if (filtered.length > 30) {
-      return message.channel.send(arrFound.length + 'found! Please narrow your search');
+      return message.channel.send(filtered.length + 'found! Please narrow your search');
     }
     if (filtered.length === 1) {
       await sendMessage(filtered[0], message);
@@ -787,4 +877,4 @@ const search = {
 
 
 module.exports = [guide, tls, tracker, event, gacha, character, equipment,
-  race, whois, art, alt, title, update, search];
+  race, whois, art, alt, title, update, filterCharacter];

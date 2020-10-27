@@ -25,9 +25,28 @@ client.on('message', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) {
     return;
   }
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
+  // Extract double quoted strings first
+  let input = message.content.slice(prefix.length).replace(/'/g, '"');
+  const args = [];
+  let quote = input.indexOf('"');
+  while (quote >= 0) {
+    if (quote > 0) {
+      args.push(...input.slice(0, quote).trim().split(/ +/));
+    }
+    const closing = input.indexOf('"', quote + 1);
+    if (closing < 0) {
+      await message.channel.send("Quotes are not closed!");
+      return;
+    }
+    args.push(input.slice(quote + 1, closing));
+    input = input.slice(closing + 1).trim();
+    quote = input.indexOf('"');
+  }
+  if (input.length > 0) {
+    args.push(...input.trim().split(/ +/));
+  }
 
+  const commandName = args.shift().toLowerCase();
   const command = client.commands.get(commandName)
     || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
