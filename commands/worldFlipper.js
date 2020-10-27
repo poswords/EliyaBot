@@ -12,6 +12,7 @@ const awakenReaction = '😤';
 const weaponReaction = '⚔️';
 const soulReaction = '📀';
 const numberReactions = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+const prefix = process.env.PREFIX || '!!';
 
 const getInfoEmbed = (unit, flag) => {
   var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
@@ -119,19 +120,45 @@ const getSpecialEmbed = unit => {
     .setFooter(unit.DevNicknames);
   return msg;
 };
+
 const sendList = async (units, message, type) => {
+  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
+  await appendReacts(units, message, type, msg);
+};
+
+const sendFastList = async (units, message, type) => {
+  let list = `${units.length} characters found:\`\`\`python\n`;
+  list += units.map((char, index) => {
+    let enName = '';
+    let n = char.ENName.split('\n');
+    if (n.length === 2) {
+      enName = n[1];
+    } else {
+      enName = n[0];
+      const idx = enName.indexOf(']');
+      if (idx > 0) {
+        enName = enName.slice(idx + 1).trim();
+      }
+    }
+    return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
+  }).join('\n');
+  list += '\`\`\`';
+  const msg = await message.channel.send(list);
+  await appendReacts(units, message, type, msg, 4);
+};
+
+const appendReacts = async (units, message, type, msg, max=10) => {
   const filter = (reaction, user) => {
     return numberReactions.includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
-  var num = units.length;
-  if (units.length > 10) num = 10;
-  for (var i = 0; i < num; i++) {
+  let num = units.length;
+  if (units.length > max) num = max;
+  for (let i = 0; i < num; i++) {
     await msg.react(numberReactions[i]);
   }
   const collector = msg.createReactionCollector(filter, {max: 10, time: reactionExpiry});
   collector.on('collect', r => {
-    for (var i = 0; i < num; i++) {
+    for (let i = 0; i < num; i++) {
       if (r.emoji.name === numberReactions[i]) {
         switch (type) {
           case 'c':
@@ -158,7 +185,7 @@ const sendList = async (units, message, type) => {
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
-};
+}
 
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
@@ -359,35 +386,61 @@ const filterChar = (origin, cond) => {
   let lambda = null;
   switch (cond) {
     // Elements, most used so make one/two alphabets shortcut
-    case 'f': case 'fi': case 'fire':
+    case 'f':
+    case 'fi':
+    case 'fire':
       lambda = char => char.Attribute === 'Fire'
       break;
-    case 'w': case 'wa': case 'water':
+    case 'w':
+    case 'wa':
+    case 'water':
       lambda = char => char.Attribute === 'Water'
       break;
-    case 'i': case 'wi': case 'wind':
+    case 'i':
+    case 'wi':
+    case 'wind':
       lambda = char => char.Attribute === 'Wind'
       break;
-    case 't': case 'th': case 'thunder':
+    case 't':
+    case 'th':
+    case 'thunder':
       lambda = char => char.Attribute === 'Thunder'
       break;
-    case 'l': case 'li': case 'light':
+    case 'l':
+    case 'li':
+    case 'light':
       lambda = char => char.Attribute === 'Light'
       break;
-    case 'd': case 'da': case 'dark':
+    case 'd':
+    case 'da':
+    case 'dark':
       lambda = char => char.Attribute === 'Dark'
       break;
     // Race
-    case 'human': case 'sprite': case 'beast': case 'mecha':
-    case 'dragon': case 'undead': case 'youkai': case 'plant':
-    case 'demon': case 'aquatic':
+    case 'human':
+    case 'sprite':
+    case 'beast':
+    case 'mecha':
+    case 'dragon':
+    case 'undead':
+    case 'youkai':
+    case 'plant':
+    case 'demon':
+    case 'aquatic':
       lambda = char => char['Race'].toLowerCase().indexOf(cond) >= 0;
     // PF type
-    case 'sword': case 'bow': case 'fist': case 'support': case 'special':
+    case 'sword':
+    case 'bow':
+    case 'fist':
+    case 'support':
+    case 'special':
       lambda = char => char['Role'].toLowerCase() === cond;
       break;
     // Gender
-    case 'male': case 'female': case 'unknown': case 'lily':
+    case 'male':
+    case 'female':
+    case 'unknown':
+    case 'lily':
       lambda = char => char['Gender'].toLowerCase() === cond;
       break;
   }
@@ -448,28 +501,39 @@ const filterCharByText = (origin, text, options) => {
 
 const extractTextFilterOption = (options, arg) => {
   switch (arg) {
-    case 'leader': case 'lb':
+    case 'leader':
+    case 'lb':
       options['fields'].push('LeaderBuff');
       return true;
-    case 'skill': case 's':
+    case 'skill':
+    case 's':
       options['fields'].push('Skill');
       return true;
-    case 'ability': case 'abi': case 'ab': case 'a':
+    case 'ability':
+    case 'abi':
+    case 'ab':
+    case 'a':
       for (let i = 1; i <= 6; i++) {
         options['fields'].push('Ability' + i);
       }
       return true;
-    case 'unison': case 'u': case 'sub':
+    case 'unison':
+    case 'u':
+    case 'sub':
       options['fields'].push('Skill');
       for (let i = 1; i <= 6; i++) {
         if (i === 3) continue;
         options['fields'].push('Ability' + i);
       }
       return true;
-    case 'exclude': case 'ex': case 'not':
+    case 'exclude':
+    case 'ex':
+    case 'not':
       options['exclude'] = true;
       return true;
-    case 'regexp': case 're': case 'r':
+    case 'regexp':
+    case 're':
+    case 'r':
       options['regexp'] = true;
       return true;
     case 'reset':
@@ -883,7 +947,8 @@ const filterCharacter = {
         continue;
       }
       switch (arg) {
-        case '-t': case '--text':
+        case '-t':
+        case '--text':
           if (i === args.length - 1) {
             return message.channel.send("Not enough argument for -t text search!");
           }
@@ -910,7 +975,7 @@ const filterCharacter = {
     if (filtered.length === 1) {
       await sendMessage(filtered[0], message);
     } else {
-      await sendList(filtered, message, 'c');
+      await sendFastList(filtered, message, 'c');
     }
   },
 };
