@@ -27,6 +27,8 @@ You can use `1234*` for not 5-star characters.
 Use `-t <text to filter>` to filter by a text. If the text contains spaces, enclose it by quotes (single or double).
 e.g. `-t "skill damage"`
 
+If the search text will not be recognized as a condition, you can emit the `-t`.
+
 You can add additional options before the `-t` part. Options will be applied to all `-t` part after them. You can use `reset` to clear the options.  
 #### Option: Search in fields
 These conditions are OR combined. If you indicate none, all fields will be searched.

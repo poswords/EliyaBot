@@ -356,40 +356,49 @@ const searchTitle = chara => {
 };
 
 const filterChar = (origin, cond) => {
-  return origin.filter(function (char) {
-    switch (cond) {
-      // Elements, most used so make one/two alphabets shortcut
-      case 'f': case 'fi': case 'fire':
-        return char.Attribute === 'Fire'
-      case 'w': case 'wa': case 'water':
-        return char.Attribute === 'Water'
-      case 'i': case 'wi': case 'wind':
-        return char.Attribute === 'Wind'
-      case 't': case 'th': case 'thunder':
-        return char.Attribute === 'Thunder'
-      case 'l': case 'li': case 'light':
-        return char.Attribute === 'Light'
-      case 'd': case 'da': case 'dark':
-        return char.Attribute === 'Dark'
-      // Race
-      case 'human': case 'sprite': case 'beast': case 'mecha':
-      case 'dragon': case 'undead': case 'youkai': case 'plant':
-      case 'demon': case 'aquatic':
-        return char['Race'].toLowerCase().indexOf(cond) >= 0;
-      // PF type
-      case 'sword': case 'bow': case 'fist': case 'support': case 'special':
-        return char['Role'].toLowerCase() === cond;
-      // Gender
-      case 'male': case 'female': case 'unknown': case 'lily':
-        return char['Gender'].toLowerCase() === cond;
-    }
-    // Skill wait
-    if (/^s[wc](>|<|==|>=|<=)\d+$/.test(cond)) {
-      return eval(char['SkillWait'] + cond.slice(2))
-    }
-    // Rarity
-    const r = cond.match(/^(\d+)\*$/);
-    if (r != null) {
+  let lambda = null;
+  switch (cond) {
+    // Elements, most used so make one/two alphabets shortcut
+    case 'f': case 'fi': case 'fire':
+      lambda = char => char.Attribute === 'Fire'
+      break;
+    case 'w': case 'wa': case 'water':
+      lambda = char => char.Attribute === 'Water'
+      break;
+    case 'i': case 'wi': case 'wind':
+      lambda = char => char.Attribute === 'Wind'
+      break;
+    case 't': case 'th': case 'thunder':
+      lambda = char => char.Attribute === 'Thunder'
+      break;
+    case 'l': case 'li': case 'light':
+      lambda = char => char.Attribute === 'Light'
+      break;
+    case 'd': case 'da': case 'dark':
+      lambda = char => char.Attribute === 'Dark'
+      break;
+    // Race
+    case 'human': case 'sprite': case 'beast': case 'mecha':
+    case 'dragon': case 'undead': case 'youkai': case 'plant':
+    case 'demon': case 'aquatic':
+      lambda = char => char['Race'].toLowerCase().indexOf(cond) >= 0;
+    // PF type
+    case 'sword': case 'bow': case 'fist': case 'support': case 'special':
+      lambda = char => char['Role'].toLowerCase() === cond;
+      break;
+    // Gender
+    case 'male': case 'female': case 'unknown': case 'lily':
+      lambda = char => char['Gender'].toLowerCase() === cond;
+      break;
+  }
+  // Skill wait
+  if (/^s[wc](>|<|==|>=|<=)\d+$/.test(cond)) {
+    lambda = char => eval(char['SkillWait'] + cond.slice(2));
+  }
+  // Rarity
+  const r = cond.match(/^(\d+)\*$/);
+  if (r != null) {
+    lambda = char => {
       for (let i = 0; i < r[1].length; i++) {
         if (parseInt(char['Rarity']) === parseInt(r[1].charAt(i))) {
           return true;
@@ -397,9 +406,14 @@ const filterChar = (origin, cond) => {
       }
       return false;
     }
+  }
 
-    // Unknown condition, ignore
-    return origin;
+  if (lambda == null) {
+    return null;
+  }
+
+  return origin.filter(function (char) {
+    return lambda(char);
   });
 };
 
@@ -877,7 +891,12 @@ const filterCharacter = {
           filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
           break;
         default:
-          filtered = filterChar(filtered, args[i].toLowerCase());
+          const result = filterChar(filtered, args[i].toLowerCase());
+          if (result == null) {
+            filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
+          } else {
+            filtered = result;
+          }
           break;
       }
     }
