@@ -428,6 +428,7 @@ const filterChar = (origin, cond) => {
     case 'demon':
     case 'aquatic':
       lambda = char => char['Race'].toLowerCase().indexOf(cond) >= 0;
+      break;
     // PF type
     case 'sword':
     case 'bow':
