@@ -26,21 +26,24 @@ var range_rarity = [
 
 module.exports = {
   getData: function (lang) {
-	var SPREADSHEET_ID;
-	switch(lang){
-		case 'zh-TW': SPREADSHEET_ID='1ufgoiam83634LwZwj1ECNmyMd6cAdHz8u4YX7k62-6w';
-			break;
-		case 'ja': SPREADSHEET_ID='1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
-			break;
-		default:SPREADSHEET_ID='1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
-			break;
-	}
+    var SPREADSHEET_ID;
+    switch (lang) {
+      case 'zh-TW':
+        SPREADSHEET_ID = '1ufgoiam83634LwZwj1ECNmyMd6cAdHz8u4YX7k62-6w';
+        break;
+      case 'ja':
+        SPREADSHEET_ID = '1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
+        break;
+      default:
+        SPREADSHEET_ID = '1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
+        break;
+    }
     console.log('Getting data..')
     var results = [];
     var chars = [];
     var equips = [];
-	var events = [];
-	var titles =[];
+    var events = [];
+    var titles = [];
     sheets.spreadsheets.get({
       spreadsheetId: SPREADSHEET_ID
     }, (err, res) => {
@@ -144,38 +147,38 @@ module.exports = {
             }
             Array.prototype.push.apply(equips, rows)
           }
-		  for (r = 6; r < 7; r++) {
-			var range = res.data.valueRanges[r];
-			var columnNames = range.values[0];
-			var dataRows = range.values.splice(1);
-			var type = 'event'
-			var rows = dataRows.map(function (a) {
-			  var temp = {};
-			  columnNames.forEach(function (key, i) {
-				temp[key.replace(/\s+/g, "")] = a[i];
-			  })
-			  return temp;
-			});
-			Array.prototype.push.apply(events, rows)
-		  }
-		  for (r = 7; r < 8; r++) {
-			var range = res.data.valueRanges[r];
-			var columnNames = range.values[0];
-			var dataRows = range.values.splice(1);
-			var type = 'title'
-			var rows = dataRows.map(function (a) {
-			  var temp = {};
-			  columnNames.forEach(function (key, i) {
-				temp[key.replace(/\s+/g, "")] = a[i];
-			  })
-			  return temp;
-			});
-			Array.prototype.push.apply(titles, rows)
-		  }		  
-		  results.chars = chars;
-		  results.equips = equips;		  
-		  results.events = events;
-		  results.titles = titles;
+          for (r = 6; r < 7; r++) {
+            var range = res.data.valueRanges[r];
+            var columnNames = range.values[0];
+            var dataRows = range.values.splice(1);
+            var type = 'event'
+            var rows = dataRows.map(function (a) {
+              var temp = {};
+              columnNames.forEach(function (key, i) {
+                temp[key.replace(/\s+/g, "")] = a[i];
+              })
+              return temp;
+            });
+            Array.prototype.push.apply(events, rows)
+          }
+          for (r = 7; r < 8; r++) {
+            var range = res.data.valueRanges[r];
+            var columnNames = range.values[0];
+            var dataRows = range.values.splice(1);
+            var type = 'title'
+            var rows = dataRows.map(function (a) {
+              var temp = {};
+              columnNames.forEach(function (key, i) {
+                temp[key.replace(/\s+/g, "")] = a[i];
+              })
+              return temp;
+            });
+            Array.prototype.push.apply(titles, rows)
+          }
+          results.chars = chars;
+          results.equips = equips;
+          results.events = events;
+          results.titles = titles;
         });
     });
     console.log('Complete')
