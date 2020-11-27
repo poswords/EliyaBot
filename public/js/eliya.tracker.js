@@ -120,7 +120,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 					}
 					console.log(tls);
 					info.find('.' + key + ' span').text(tls.join(' / '));	
-				}else if(key=="Attribute" || key =="Role" || key=="Gender"){
+				}else if(key=="Stance" || key=="Attribute" || key =="Role" || key=="Gender"){
 					var tl = getTls(key+unit[key]);
 					if (tl) info.find('.' + key + ' span').text(tl);
 				}else{

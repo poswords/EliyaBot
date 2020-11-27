@@ -15,7 +15,7 @@ const numberReactions = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', 
 const prefix = process.env.PREFIX || '!!';
 
 const getInfoEmbed = (unit, flag) => {
-  var footer = unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
+  var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
