@@ -118,7 +118,6 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 					for (i=0;i<races.length;i++){
 						tls.push(getTls("Race"+races[i]));
 					}
-					console.log(tls);
 					info.find('.' + key + ' span').text(tls.join(' / '));	
 				}else if(key=="Stance" || key=="Attribute" || key =="Role" || key=="Gender"){
 					var tl = getTls(key+unit[key]);
