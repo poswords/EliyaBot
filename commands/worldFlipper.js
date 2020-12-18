@@ -61,8 +61,8 @@ const getEquipEmbed = (unit, flag) => {
       + '\n**Rarity: **' + rarity
       + '\n**HP: **' + unit.MaxHP + '　　**ATK: **' + unit.MaxATK
       + '\n**Weapon Skill: **' + unit.WeaponSkill
-      + '\n**Weapon LB3: **' + unit.WeaponLB3
-      + '\n**Weapon LB5: **' + unit.WeaponLB5)      
+      + '\n**Awaken Lv3: **' + unit.AwakenLv3
+      + '\n**Awaken Lv5: **' + unit.AwakenLv5)      
     msg.setThumbnail(assetPath + 'item/equipment/' + unit.DevNicknames + '.png')
   }
   return msg;
