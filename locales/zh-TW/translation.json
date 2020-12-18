@@ -66,6 +66,8 @@
 "MaxHP":"HP",
 "MaxATK":"ATK",
 "WeaponSkill":"武器技能",
+"AwakenLv3": "覺醒Lv3",
+"AwakenLv5": "覺醒Lv5",	
 "AbilitySoul":"珠子",
 "Obtain":"取得方式",
 "WeaponGacha":"裝備池",
