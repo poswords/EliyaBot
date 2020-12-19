@@ -126,8 +126,8 @@ const getSpecialEmbed = unit => {
 const getShortENName = longName => {
   let enName = '';
   let n = longName.split('\n');
-  if (n.length === 2) {
-    enName = n[1];
+  if (n.length >= 2) {
+    enName = n[n.length - 1];
   } else {
     enName = n[0];
     const idx = enName.indexOf(']');
@@ -302,6 +302,7 @@ const searchCharByName = chara => {
     }
   });
   if (result.length <= 0) {
+    // Search exact match first
     result = data.chars.filter(function (item) {
       let res;
       if (res != true) {
@@ -312,8 +313,13 @@ const searchCharByName = chara => {
           res = true;
         }
         if (typeof item.OtherCommonNames !== 'undefined') {
-          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
-            res = true;
+          const ocns = item.OtherCommonNames.split(',');
+          for (let i in ocns) {
+            const n = ocns[o];
+            if (n.trim().toLowerCase() === chara) {
+              res = true;
+              break;
+            }
           }
         }
       }
@@ -331,8 +337,13 @@ const searchCharByName = chara => {
           res = true;
         }
         if (typeof item.OtherCommonNames !== 'undefined') {
-          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
-            res = true;
+          const ocns = item.OtherCommonNames.split(',');
+          for (let i in ocns) {
+            const n = ocns[o];
+            if (n.trim().toLowerCase().indexOf(chara) !== -1) {
+              res = true;
+              break;
+            }
           }
         }
       }
