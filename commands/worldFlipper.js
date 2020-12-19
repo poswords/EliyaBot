@@ -312,7 +312,7 @@ const searchCharByName = chara => {
           res = true;
         }
         if (typeof item.OtherCommonNames !== 'undefined') {
-          if (item.OtherCommonNames.toLowerCase() === chara) {
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara) !== -1) {
             res = true;
           }
         }

@@ -193,6 +193,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }else{
           elem.addClass('Gacha')
         }
+        if(unit.AwakenLv3){
+            elem.addClass("HasAwakenLv3")
+        }
+        if(unit.AwakenLv5){
+            elem.addClass("HasAwakenLv5")
+        }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
         var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
