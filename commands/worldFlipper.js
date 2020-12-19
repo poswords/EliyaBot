@@ -337,13 +337,8 @@ const searchCharByName = chara => {
           res = true;
         }
         if (typeof item.OtherCommonNames !== 'undefined') {
-          const ocns = item.OtherCommonNames.split(',');
-          for (let i in ocns) {
-            const n = ocns[i];
-            if (n.trim().toLowerCase().indexOf(chara) !== -1) {
-              res = true;
-              break;
-            }
+          if (item.OtherCommonNames.toLowerCase().indexOf(chara.toLowerCase()) !== -1) {
+            res = true;
           }
         }
       }
