@@ -315,7 +315,7 @@ const searchCharByName = chara => {
         if (typeof item.OtherCommonNames !== 'undefined') {
           const ocns = item.OtherCommonNames.split(',');
           for (let i in ocns) {
-            const n = ocns[o];
+            const n = ocns[i];
             if (n.trim().toLowerCase() === chara) {
               res = true;
               break;
@@ -339,7 +339,7 @@ const searchCharByName = chara => {
         if (typeof item.OtherCommonNames !== 'undefined') {
           const ocns = item.OtherCommonNames.split(',');
           for (let i in ocns) {
-            const n = ocns[o];
+            const n = ocns[i];
             if (n.trim().toLowerCase().indexOf(chara) !== -1) {
               res = true;
               break;
