@@ -269,11 +269,13 @@ io.on('connection', function (socket) {
     client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {
       if (err) throw err;
       var id;
+		id = res.rows[0].id;
       io.to(socket.id).emit('url added', {
         id: res.rows[0].id,
         url: list
       });
       var target = id - 9980;
+		
       if (target > 0) {
         client.query('Delete FROM short_urls WHERE id < ' + target, function (err, rows, fields) {
           if (err) {
