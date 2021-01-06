@@ -5,7 +5,7 @@
   "main": "bot.js",
   "author": "Araetha",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "canvas": "^2.6.1",
     "cookie-parser": "^1.4.5",
     "discord.io": "^2.5.3",
