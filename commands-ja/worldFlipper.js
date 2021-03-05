@@ -48,7 +48,7 @@ function getTls(skey){
 }	
 
 const getInfoEmbed = (unit, flag)  => {
-  var footer =  getTls("Stance"+unit.Stance) + ' - ' getTls("Role"+unit.Role) + ' - ' + getTls("Gender"+unit.Gender) + ' - ';
+  var footer =  getTls("Stance"+unit.Stance) + ' - ' + getTls("Role"+unit.Role) + ' - ' + getTls("Gender"+unit.Gender) + ' - ';
   var races = unit.Race.split(' / ');
 	var tls =[];
 	for (i=0;i<races.length;i++){
