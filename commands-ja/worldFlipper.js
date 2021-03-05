@@ -40,6 +40,12 @@ const tls={
 "AttributeLight": "光",
 "AttributeDark": "闇",
 "AttributeAll": "全",	
+"StanceAttacker": "アタッカー",
+"StanceHealer": "ヒーラー",
+"StanceBalanced": "バランス",
+"StanceJammer": "ジャマー",    
+"StanceSupporter": "サポーター",
+"StanceTank": "タンク", 
 }
 function getTls(skey){
 	for (const [key, value] of Object.entries(tls)) {
