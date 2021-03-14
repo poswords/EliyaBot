@@ -40,6 +40,12 @@ const tls={
 "AttributeLight": "光",
 "AttributeDark": "闇",
 "AttributeAll": "全",	
+"StanceAttacker": "アタッカー",
+"StanceHealer": "ヒーラー",
+"StanceBalanced": "バランス",
+"StanceJammer": "ジャマー",    
+"StanceSupporter": "サポーター",
+"StanceTank": "タンク", 
 }
 function getTls(skey){
 	for (const [key, value] of Object.entries(tls)) {
@@ -48,7 +54,7 @@ function getTls(skey){
 }	
 
 const getInfoEmbed = (unit, flag)  => {
-  var footer =  getTls("Stance"+unit.Stance) + ' - ' getTls("Role"+unit.Role) + ' - ' + getTls("Gender"+unit.Gender) + ' - ';
+  var footer =  getTls("Stance"+unit.Stance) + ' - ' + getTls("Role"+unit.Role) + ' - ' + getTls("Gender"+unit.Gender) + ' - ';
   var races = unit.Race.split(' / ');
 	var tls =[];
 	for (i=0;i<races.length;i++){
