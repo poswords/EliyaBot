@@ -1267,3 +1267,6 @@ strong {
     filter:none;
     background-color: rgba(0,0,0,0);
 }
+.darktheme .showSkillWait #planner .SkillWait{
+    color: #000;
+}
