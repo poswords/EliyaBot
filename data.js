@@ -35,7 +35,7 @@ module.exports = {
         SPREADSHEET_ID = '1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
         break;
       default:
-        SPREADSHEET_ID = '1moWhlsmAFkmItRJPrhhi9qCYu8Y93sXGyS1ZBo2L38c';
+        SPREADSHEET_ID = '1zvw7OOIJGki2OqPehj2pDa6d5l-SG9l2rH-gGE1Ja1w';
         break;
     }
     console.log('Getting data..')
