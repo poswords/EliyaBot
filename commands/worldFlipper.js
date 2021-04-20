@@ -590,7 +590,7 @@ const guide = {
   aliases: ['g', 'beginner'],
   description: 'Links LilyCat\'s Beginner Progression Guide.',
   execute(message) {
-    const guideLink = 'https://docs.google.com/document/d/1kOxR6SSj7TB564OI4f-nZ-tX2JioyoBGEK_a498Swcc/edit';
+    const guideLink = 'https://docs.google.com/document/d/1gParEsz_GsETHyjunJ9mBz7tgKfkUOmueopR4UUp274';
     return message.channel.send(`The Beginner Progression Guide can be found here:\n${guideLink}`);
   },
 };
