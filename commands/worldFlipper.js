@@ -70,7 +70,6 @@ const getEquipEmbed = (unit, flag) => {
 
 const getThumbnailEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
-  console.log(flag);
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription('**Attribute: **' + unit.Attribute
@@ -952,7 +951,7 @@ const update = {
     const axios = require('axios');
     axios.post('http://eliya-bot.herokuapp.com/update', {})
       .then((res) => {
-        /*console.log(res)*/
+
       })
       .catch((error) => {
         console.error(error)
