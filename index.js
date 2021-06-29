@@ -237,8 +237,6 @@ connection.connect();
 client.connect();
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
-    
-    console.log(data);
     switch (lang) {
       case "ja":
         io.to(socket.id).emit('equips', dataja.equips);
