@@ -74,7 +74,7 @@ $(document).ready(function () {
   $("#btnSave").on("click", function () {
 	localStorage.setItem("titleList", getUnitList('title')); 	  
     $(this).removeClass("on");
-	  console.log( getUnitList('title'));
+
     setTimeout(function () {
       $("#btnSave").addClass("on")
     }, 100);

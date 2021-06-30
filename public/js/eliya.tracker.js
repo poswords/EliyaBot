@@ -36,7 +36,6 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   socket.on('url added', function (url) {
     const shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
 	$("#txtShareURL").val(shareUrl);
-	  console.log(shareUrl);
     if (!copyToClipboard(shareUrl)){
 		$('.body').addClass("showShareURL");	
 	}else{

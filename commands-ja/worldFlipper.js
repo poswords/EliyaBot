@@ -111,7 +111,6 @@ const getEquipEmbed = (unit, flag) => {
 
 const getThumbnailEmbed =(unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
-	console.log(flag);
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.SubName + ' ' + unit.JPName)
     .setDescription('**属性: **' + getTls("Attribute"+unit.Attribute)
