@@ -166,12 +166,6 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         socket.emit('get url', id);
       } else {
         var unitList = localStorage.getItem("charList");
-        if (!unitList) {		  
-		  unitList = Cookies.get('charList');
-		}
-        if (!unitList) {
-          unitList = Cookies.get('unitList');
-        }
         if (unitList) {
           setUnitList(unitList, 'char');
         }
@@ -275,9 +269,6 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         socket.emit('get url', id);
       } else {
 		var unitList = localStorage.getItem("equipList");
-		if (!unitList) {  
-          unitList = Cookies.get('equipList');
-		}
         if (unitList) {
           setUnitList(unitList, 'equip');
         }
