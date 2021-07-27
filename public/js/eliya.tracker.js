@@ -34,7 +34,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   }); 
 
   socket.on('url added', function (url) {
-    const shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
+    var shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
+    if (server == 'gl') shareUrl+='?sv=gl';
+    if (server == 'tw') shareUrl+='?sv=tw';
 	$("#txtShareURL").val(shareUrl);
     if (!copyToClipboard(shareUrl)){
 		$('.body').addClass("showShareURL");	
@@ -73,7 +75,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }
         elem.appendTo($("#charRarity" + unit.Rarity + " .charList"));
         elem.data("DevNicknames", unit.DevNicknames);
-		var skillWaitHtml, skillWait;
+		var skillWait;
 		if(unit.SkillWait){
 			skillWait = unit.SkillWait
 		}else{
@@ -81,6 +83,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 		}
         if(unit.Ability4){
             elem.addClass("ManaBoard2")
+        }
+        if (unit.InGlobal == 'Y'){
+          elem.addClass("InGlobal")
+        }
+        if (unit.InTaiwan == 'Y'){
+          elem.addClass("InTaiwan")
         }
         elem.data("SkillWait", skillWait);
 		unit.SkillWait=skillWait;
@@ -171,7 +179,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }
       }
       charLoaded = true;
-      updateCharScore();
+      updateCharFilter();
     }
   });
   socket.on('equips', function (data) {
@@ -186,6 +194,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }else{
           elem.addClass('Gacha')
         }
+        if (unit.InGlobal == 'Y'){
+          elem.addClass("InGlobal")
+        }
+        if (unit.InTaiwan == 'Y'){
+          elem.addClass("InTaiwan")
+        }        
         if(unit.AwakenLv3){
             elem.addClass("HasAwakenLv3")
         }
@@ -274,7 +288,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
         }
       }
       equipLoaded = true;
-      updateEquipScore();
+      updateEquipFilter();
     }
   });
 
@@ -540,6 +554,19 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 	  $(this).find('.active').prependTo($(this));
   });
 
+  $("#listServer").on("click",function(){
+    $(this).toggleClass("on");
+  });
+  $("#listServer li").on("click",function(){
+    if ($("#listServer").is('.on')){    
+      $("#listServer li").removeClass('active');
+      $(this).addClass('active');
+      server = $(this).data('server');
+      updateCharFilter();
+      updateEquipFilter();
+    }
+  });  
+
   function getSkillWait(DevNickname) {
     if (DevNickname == "blank") {
       return 0;
@@ -630,7 +657,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     units.forEach(function (unit) {
       $("#" + type + "-" + unit).addClass("checked");
     });
-    updateCharScore();
+    updateCharFilter();
+    updateEquipFilter();
   }
 
   function getUnitList(type) {
@@ -688,6 +716,17 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     }
   }
 
+  function filterServer(){
+    if (server=='gl'){
+      $(".unit").not('.InGlobal,.spookyStuff').addClass('filtered');
+    }
+    if (server=='tw'){
+      $(".unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
+    }
+  }
+
+  
+
   function updateCharFilter() {
     if ($('.btnFilter.on').length <= 0) {
       $("#chars .char").removeClass('filtered');
@@ -704,13 +743,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
       }
 
       $("#chars .char").not('.filtered').addClass('tempFilter');
-
+      
       filterUnit('CharRarity');
       filterUnit('CharRole');
       filterUnit('CharRace');
       filterUnit('AltArt');
-
-      $('.tempFilter').removeClass('tempFilter');
+      $('.tempFilter').removeClass('tempFilter');      
 
       $(".charList").each(function () {
         if ($(this).find('.char').not('.filtered').length == 0) {
@@ -724,6 +762,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $(".charList").removeClass('flash');
     }, 100);
+    filterServer();    
     updateCharScore();
   }
 
@@ -788,6 +827,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     setTimeout(function () {
       $(".equipList").removeClass('flash');
     }, 100);
+    filterServer(); 
     updateEquipScore();
   }
 

@@ -46,6 +46,13 @@ strong {
   width: 100%;
   z-index: 20;
 }
+.localebar{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  width: 200px;
+}
 .sitetitle {
   font-size: 36px;
   padding: 10px;
@@ -103,9 +110,8 @@ strong {
   border: 1px solid #d20000;
 }
 #listLang {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  vertical-align: text-top;
+  display: inline-block;
   margin: 5px;
   padding: 0;
   font-size: 12px;
@@ -127,7 +133,7 @@ strong {
   pointer-events: none;
   text-decoration: none;
   color: #000;
-  background-image: url("../img/globe.svg");
+  background-image: url("../img/lang.svg");
   background-size: 20px;
   background-position: 6px 5px;
   background-repeat: no-repeat;
@@ -135,6 +141,42 @@ strong {
 #listLang.on li a {
   display: block;
 }
+
+#listServer {
+  vertical-align: text-top;
+  margin: 5px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: left;
+  box-shadow: 0 0 1px 1px #aaa;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  display: inline-block;
+}
+#listServer li span {
+  padding: 10px 10px 10px 0;
+  display: none;
+  color: #999;
+  padding-left: 30px;
+  cursor: pointer;
+}
+#listServer li.active span {
+  display: block;
+  pointer-events: none;
+  text-decoration: none;
+  color: #000;
+  background-image: url("../img/globe.svg");
+  background-size: 20px;
+  background-position: 6px 5px;
+  background-repeat: no-repeat;
+}
+#listServer.on li span {
+  display: block;
+}
+
+
 #btnGetShareURL {
   width: 140px;
 }
@@ -1191,6 +1233,14 @@ strong {
         width: 120px;
     }
 }
+@media all and (max-width: 390px) {
+  #listServer li span{
+    padding-left: 10px;
+  }
+  #listServer li.active span{
+    background:none;
+  }
+}
 .darktheme{
     background: #121212;
     color: #eee;
@@ -1201,7 +1251,12 @@ strong {
 .darktheme .filterList li:first-child{
     border-left: none;
 }
-.darktheme #listLang li.active a{
+.darktheme #listLang,
+.darktheme #listServer{
+    background: #333;   
+} 
+.darktheme #listLang li.active a,
+.darktheme #listServer li.active span{
     filter: invert(92%); 
 }
 .darktheme .button{
@@ -1218,9 +1273,6 @@ strong {
 .darktheme a{
     color: #fff;
 }
-.darktheme #listLang{
-    background: #333;   
-}
 .darktheme #info{
     background: #333;   
 }
@@ -1232,7 +1284,7 @@ strong {
     border: 3px solid #6a6acf;
 }
 
-
+.darktheme .button.on,
 .darktheme .filterList li.on,
 .darktheme #switchUnits li.on{
     background: #6a6aef;

@@ -61,7 +61,8 @@ const client = new Client({
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
     title: 'Eliya',
-    data: {}
+    data: {},
+    server: req.query.sv?req.query.sv:"jp"
   });
 });
 app.get('/:id(\\d+)/', function (req, res) {
@@ -69,7 +70,8 @@ app.get('/:id(\\d+)/', function (req, res) {
     title: 'Eliya',
     data: {
       listid: req.params.id
-    }
+    },
+    server: req.query.sv?req.query.sv:"jp"
   });
 });
 app.get('/list', function (req, res) {
@@ -77,7 +79,8 @@ app.get('/list', function (req, res) {
     title: 'Eliya',
     data: {
       listview: true
-    }
+    },
+    server: req.query.sv?req.query.sv:"jp"
   });
 });
 app.get('/:id(\\d+)/', function (req, res) {
@@ -85,13 +88,15 @@ app.get('/:id(\\d+)/', function (req, res) {
     title: 'Eliya',
     data: {
       listid: req.params.id
-    }
+    },
+    server: req.query.sv?req.query.sv:"jp"
   });
 });
-app.get('/titles', function (req, res) {
+/*app.get('/titles', function (req, res) {
   res.render(viewFolder + 'titles.ejs', {
     title: 'Eliya',
-    data: {}
+    data: {},
+    query: req.query
   });
 });
 app.get('/titles/list', function (req, res) {
@@ -99,9 +104,10 @@ app.get('/titles/list', function (req, res) {
     title: 'Eliya',
     data: {
       listview: true
-    }
+    },
+    query: req.query
   });
-});
+});*/
 app.get('/data/en/chars.json', function (req, res) {
   res.json({
     "chars": data.chars

@@ -14,8 +14,7 @@ var range_names = [
   "'1*/2* Characters'!A1:Z30",
   "'Boss/Event Weapons'!C1:Q300",
   "'Gacha/Story Weapons'!B1:Q300",
-  "'Events'!A1:G300",
-  "'Titles'!B1:G600"
+  "'Events'!A1:G500"
 ];
 var range_rarity = [
   5,
@@ -160,7 +159,7 @@ module.exports = {
               return temp;
             });
             Array.prototype.push.apply(events, rows)
-          }
+          }/*
           for (r = 7; r < 8; r++) {
             var range = res.data.valueRanges[r];
             var columnNames = range.values[0];
@@ -174,11 +173,11 @@ module.exports = {
               return temp;
             });
             Array.prototype.push.apply(titles, rows)
-          }
+          }*/
           results.chars = chars;
           results.equips = equips;
           results.events = events;
-          results.titles = titles;
+         /* results.titles = titles;*/
         });
     });
     console.log('Complete')
