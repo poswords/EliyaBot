@@ -20,10 +20,11 @@ const getInfoEmbed = (unit, flag) => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + unit.DevNicknames
+  footer += '           ' + unit.DevNicknames + '       JP' + (unit.InGlobal?' GL':'') + (unit.InTaiwan?' TW':'')
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setDescription('**Attribute: **' + unit.Attribute
+    .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+
+      '**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
       + '\n**Leader Buff: **' + unit.LeaderBuff
       + '\n**Skill: **' + unit.Skill
@@ -72,7 +73,7 @@ const getThumbnailEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setDescription('**Attribute: **' + unit.Attribute
+    .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
     .setThumbnail(assetPath + 'chars/' + unit.DevNicknames + '/square_0.png')
     .setFooter(unit.DevNicknames);
