@@ -12,8 +12,8 @@ var range_names = [
   "'4* Characters'!A1:Z300",
   "'3* Characters'!A1:Z300",
   "'1*/2* Characters'!A1:Z30",
-  "'Boss/Event Weapons'!C1:Q300",
-  "'Gacha/Story Weapons'!B1:Q300",
+  "'Boss/Event Weapons'!C1:Z300",
+  "'Gacha/Story Weapons'!B1:Z300",
   "'Events'!A1:G500"
 ];
 var range_rarity = [
