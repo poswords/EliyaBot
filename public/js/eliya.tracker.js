@@ -718,10 +718,10 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 
   function filterServer(){
     if (server=='gl'){
-      $(".unit").not('.InGlobal,.spookyStuff').addClass('filtered');
+      $(".unitList .unit").not('.InGlobal,.spookyStuff').addClass('filtered');
     }
     if (server=='tw'){
-      $(".unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
+      $(".unitList .unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
     }
   }
 
