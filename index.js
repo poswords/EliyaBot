@@ -268,8 +268,8 @@ io.on('connection', function (socket) {
 
 
   socket.on('add url', function (list) {
-    const sql = "INSERT INTO short_urls (url) VALUES ($1) RETURNING id";
-    const values = [list.chars];
+    const sql = "INSERT INTO short_urls (url, equips) VALUES ($1, $2) RETURNING id";
+    const values = [list.chars,list.equips];
 
     client.query(sql,values).then(res=> {
       var id;
