@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const version = '0.1';
-const listenport = process.env.PORT || 8888;
+const listenport = process.env.PORT;
 const http = require('http');
 const server = http.Server(app);
 const io = require('socket.io')(server);
@@ -236,10 +236,6 @@ app.post('/update', async (req, res) => {
   res.send("webapp updated!");
 });
 
-var mysql = require('mysql');
-var connection = mysql.createConnection(process.env.JAWSDB_URL);
-
-connection.connect();
 client.connect();
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
@@ -272,10 +268,12 @@ io.on('connection', function (socket) {
 
 
   socket.on('add url', function (list) {
-    client.query("INSERT INTO short_urls (url,equips) VALUES ('" + list.chars + "', '" + list.equips + "') RETURNING id", function (err, res) {
-      if (err) throw err;
+    const sql = "INSERT INTO short_urls (url) VALUES ($1) RETURNING id";
+    const values = [list.chars];
+
+    client.query(sql,values).then(res=> {
       var id;
-		id = res.rows[0].id;
+		  id = res.rows[0].id;
       io.to(socket.id).emit('url added', {
         id: res.rows[0].id,
         url: list
@@ -293,29 +291,12 @@ io.on('connection', function (socket) {
     })
   });
   socket.on('get url', function (id) {
-    connection.query('SELECT * FROM short_urls WHERE id=' + id, function (err, rows, fields) {
-      //if(err) throw err
-      if (err) {
-        console.log(err);
-      } else {
-        if (rows.length == 0) {
-          client.query('SELECT * FROM short_urls WHERE id=' + id, function (err, res) {
-            if (err) throw err;
-            res.rows.forEach(function (row) {
-              delete row.created_date;
-            });
-            io.to(socket.id).emit('url', res.rows[0]);
-          })
-        } else {
-          rows.forEach(function (row) {
-            delete row.created_date;
-          });
-          io.to(socket.id).emit('url', rows[0]);
-        }
+      const sql = "SELECT * FROM short_urls WHERE id=$1";
+      const values = [id];
 
-      }
-    });
-
+      client.query(sql,values).then(res => {
+        io.to(socket.id).emit('url', res.rows[0]);
+      })
   });
 
 });
