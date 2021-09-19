@@ -203,12 +203,11 @@ const sendMessage = async (unit, message) => {
   await msg.react(awakenReaction);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
-    console.log("here");
     if (r.emoji.name === normalReaction) {
-      msg.edit(getInfoEmbed(unit, 'normal'));
+      msg.edit({embeds:[getInfoEmbed(unit, 'normal')]});
     }
     if (r.emoji.name === awakenReaction) {
-      msg.edit(getInfoEmbed(unit, 'awaken'));
+      msg.edit({embeds:[getInfoEmbed(unit, 'awaken')]});
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
@@ -224,10 +223,10 @@ const sendEquip = async (unit, message) => {
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === weaponReaction) {
-      msg.edit(getEquipEmbed(unit, 'icon'));
+      msg.edit({embeds:[getEquipEmbed(unit, 'icon')]});
     }
     if (r.emoji.name === soulReaction) {
-      msg.edit(getEquipEmbed(unit, 'soul'));
+      msg.edit({embeds:[getEquipEmbed(unit, 'soul')]});
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
@@ -243,10 +242,10 @@ const sendThumbnail = async (unit, message) => {
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
-      msg.edit(getThumbnailEmbed(unit, 'normal'));
+      msg.edit({embeds:[getThumbnailEmbed(unit, 'normal')]});
     }
     if (r.emoji.name === awakenReaction) {
-      msg.edit(getThumbnailEmbed(unit, 'awaken'));
+      msg.edit({embeds:[getThumbnailEmbed(unit, 'awaken')]});
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
@@ -262,10 +261,10 @@ const sendArt = async (unit, message) => {
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
-      msg.edit(getArtEmbed(unit, 'normal'));
+      msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
     }
     if (r.emoji.name === awakenReaction) {
-      msg.edit(getArtEmbed(unit, 'awaken'));
+      msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
@@ -281,10 +280,10 @@ const sendAlt = async (unit, message) => {
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
-      msg.edit(getArtEmbed(unit, 'normal'));
+      msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
     }
     if (r.emoji.name === awakenReaction) {
-      msg.edit(getArtEmbed(unit, 'awaken'));
+      msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
     }
   });
   collector.on('end', collected => msg.reactions.removeAll());
