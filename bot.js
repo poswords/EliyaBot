@@ -4,7 +4,8 @@ const fs = require('fs');
 
 const Discord = require('discord.js');
 
-const client = new Discord.Client();
+
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const prefix = process.env.PREFIX || '!!';
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
