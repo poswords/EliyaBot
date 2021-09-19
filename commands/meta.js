@@ -50,7 +50,7 @@ const help = {
     // .addField('!bosses', 'Lists all bosses and their weapons', true)
     // .addField('!weapon [Weapon Name]', 'Lists information about the given weapon(Only has boss weapons atm).', true)
 
-    return message.channel.send(embed);
+    return message.channel.send({embeds:[embed]});
   },
 };
 
