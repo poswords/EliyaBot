@@ -1,6 +1,9 @@
 {
   "name": "eliya-bot",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.9.1"
+  },
   "description": "World Flipper Bot",
   "main": "bot.js",
   "author": "Araetha",
