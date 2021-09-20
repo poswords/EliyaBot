@@ -174,60 +174,65 @@ app.get('/comp/:w', function (req, res) {
         imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
       } else if (i < 12) {
         if (i%2==0){
-        	imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
+          imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
         }else{
-        	imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
+          imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
         }
       }
-      loadImage(imageUrl).then((image) => {
-        var width = 82;
-        var x, y;
-        switch (count) {
-          case 0:
-          case 2:
-          case 4:
-            x = 10 + (count / 2) * 160;
-            y = 10;
-            break;
-          case 1:
-          case 3:
-          case 5:
-            x = 81 + ((count - 1) / 2) * 160;
-            y = 110;
-            width = 69;
-            break;
-          case 6:
-          case 8:
-          case 10:
-            x = 96 + ((count - 6) / 2) * 160;
-            y = 26;
-            width = 54;
-            break;
-          case 7:
-          case 9:
-          case 11:
-            x = 13 + ((count - 7) / 2) * 160;
-            y = 135;
-            width = 44;
-            break;
-          default:
-            break;
-        }
-        ctx.drawImage(image, x, y, width, width);
+      if (fs.existsSync(imageUrl)){  
+        loadImage(imageUrl).then((image) => {
+          var width = 82;
+          var x, y;
+          switch (count) {
+            case 0:
+            case 2:
+            case 4:
+              x = 10 + (count / 2) * 160;
+              y = 10;
+              break;
+            case 1:
+            case 3:
+            case 5:
+              x = 81 + ((count - 1) / 2) * 160;
+              y = 110;
+              width = 69;
+              break;
+            case 6:
+            case 8:
+            case 10:
+              x = 96 + ((count - 6) / 2) * 160;
+              y = 26;
+              width = 54;
+              break;
+            case 7:
+            case 9:
+            case 11:
+              x = 13 + ((count - 7) / 2) * 160;
+              y = 135;
+              width = 44;
+              break;
+            default:
+              break;
+          }
+          ctx.drawImage(image, x, y, width, width);
+          count++;
+          if (count >= units.length) {
+            var data = canvas.toDataURL();
+            data = data.replace(/^data:image\/png;base64,/, '');
+            var img = new Buffer.from(data, 'base64');
+            res.writeHead(200, {
+              'Content-Type': 'image/png',
+              'Content-Length': img.length
+            });
+            res.end(img);
+          }
+        })
+      }else{
         count++;
-        if (count >= units.length) {
-          var data = canvas.toDataURL();
-          data = data.replace(/^data:image\/png;base64,/, '');
-          var img = new Buffer.from(data, 'base64');
-          res.writeHead(200, {
-            'Content-Type': 'image/png',
-            'Content-Length': img.length
-          });
-          res.end(img);
-        }
-      })
+      }
     }
   });
+  
 });
 app.post('/update', async (req, res) => {
   data = DB.getData('en');
