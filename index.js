@@ -1,6 +1,7 @@
 // Run dotenv
 require('dotenv').config();
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const version = '0.1';
 const listenport = process.env.PORT;
