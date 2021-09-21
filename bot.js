@@ -46,7 +46,7 @@ client.on('message', async (message) => {
   if (input.length > 0) {
     args.push(...input.trim().split(/ +/));
   }
-  if(!message.guild.me.permissions.has([Discord.Permissions.FLAGS.MANAGE_MESSAGES,Discord.Permissions.FLAGS.SEND_MESSAGES])){
+  if(!message.guild.me.permissions.has([Discord.Permissions.FLAGS.MANAGE_MESSAGES,Discord.Permissions.FLAGS.SEND_MESSAGES,Discord.Permissions.FLAGS.READ_MESSAGE_HISTORY,Discord.Permissions.FLAGS.ADD_REACTIONS,Discord.Permissions.FLAGS.SEND_MESSAGES_IN_THREADS])){
     message.channel.send('Missing Permissions');
     return
   }
