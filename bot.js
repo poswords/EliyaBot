@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const Discord = require('discord.js');
 
-
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const prefix = process.env.PREFIX || '!!';
 client.commands = new Discord.Collection();
@@ -46,7 +45,10 @@ client.on('message', async (message) => {
   if (input.length > 0) {
     args.push(...input.trim().split(/ +/));
   }
-  if(!message.guild.me.permissions.has([Discord.Permissions.FLAGS.MANAGE_MESSAGES,Discord.Permissions.FLAGS.SEND_MESSAGES])){
+  if(!message.guild.me.permissions.has([
+    Discord.Permissions.FLAGS.MANAGE_MESSAGES,
+    Discord.Permissions.FLAGS.SEND_MESSAGES,
+    Discord.Permissions.FLAGS.ADD_REACTIONS])){
     message.channel.send('Missing Permissions');
     return
   }
