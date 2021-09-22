@@ -45,13 +45,19 @@ client.on('message', async (message) => {
   if (input.length > 0) {
     args.push(...input.trim().split(/ +/));
   }
-  if(!message.guild.me.permissions.has([
-    Discord.Permissions.FLAGS.MANAGE_MESSAGES,
-    Discord.Permissions.FLAGS.SEND_MESSAGES,
-    Discord.Permissions.FLAGS.ADD_REACTIONS])){
+  if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)){
     message.channel.send('Missing Permissions');
     return
   }
+  if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES)){
+    message.channel.send('Missing Permissions');
+    return
+  }  
+  if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.ADD_REACTIONS)){
+    message.channel.send('Missing Permissions');
+    return
+  }
+
     
   if (args.length>0){  
     const commandName = args.shift().toLowerCase();
