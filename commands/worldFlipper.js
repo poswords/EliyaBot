@@ -14,6 +14,10 @@ const soulReaction = '📀';
 const numberReactions = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 const prefix = process.env.PREFIX || '!!';
 
+const catchErr = err => {
+  console.log(err)
+}
+
 const getInfoEmbed = (unit, flag) => {
   var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
@@ -161,7 +165,7 @@ const appendReacts = async (units, message, type, msg, max=10) => {
   let num = units.length;
   if (units.length > max) num = max;
   for (let i = 0; i < num; i++) {
-    await msg.react(numberReactions[i]);
+    await msg.react(numberReactions[i]).catch(catchErr);
   }
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
@@ -187,11 +191,11 @@ const appendReacts = async (units, message, type, msg, max=10) => {
             sendTitle(units[i], message);
             break;
         }
-        msg.reactions.removeAll();
+        msg.reactions.removeAll().catch(catchErr);
       }
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 }
 
 const sendMessage = async (unit, message) => {
@@ -199,8 +203,8 @@ const sendMessage = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]});
-  await msg.react(normalReaction);
-  await msg.react(awakenReaction);
+  await msg.react(normalReaction).catch(catchErr);
+  await msg.react(awakenReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
@@ -210,7 +214,7 @@ const sendMessage = async (unit, message) => {
       msg.edit({embeds:[getInfoEmbed(unit, 'awaken')]});
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 };
 
 const sendEquip = async (unit, message) => {
@@ -218,8 +222,8 @@ const sendEquip = async (unit, message) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]});
-  await msg.react(weaponReaction);
-  await msg.react(soulReaction);
+  await msg.react(weaponReaction).catch(catchErr);
+  await msg.react(soulReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === weaponReaction) {
@@ -229,7 +233,7 @@ const sendEquip = async (unit, message) => {
       msg.edit({embeds:[getEquipEmbed(unit, 'soul')]});
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 };
 
 const sendThumbnail = async (unit, message) => {
@@ -237,8 +241,8 @@ const sendThumbnail = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]});
-  await msg.react(normalReaction);
-  await msg.react(awakenReaction);
+  await msg.react(normalReaction).catch(catchErr);
+  await msg.react(awakenReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
@@ -248,7 +252,7 @@ const sendThumbnail = async (unit, message) => {
       msg.edit({embeds:[getThumbnailEmbed(unit, 'awaken')]});
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 };
 
 const sendArt = async (unit, message) => {
@@ -256,8 +260,8 @@ const sendArt = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]});
-  await msg.react(normalReaction);
-  await msg.react(awakenReaction);
+  await msg.react(normalReaction).catch(catchErr);
+  await msg.react(awakenReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
@@ -267,7 +271,7 @@ const sendArt = async (unit, message) => {
       msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 };
 
 const sendAlt = async (unit, message) => {
@@ -275,8 +279,8 @@ const sendAlt = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]});
-  await msg.react(normalReaction);
-  await msg.react(awakenReaction);
+  await msg.react(normalReaction).catch(catchErr);
+  await msg.react(awakenReaction).catch(catchErr);
   const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
   collector.on('collect', r => {
     if (r.emoji.name === normalReaction) {
@@ -286,7 +290,7 @@ const sendAlt = async (unit, message) => {
       msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
     }
   });
-  collector.on('end', collected => msg.reactions.removeAll());
+  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
 };
 
 const sendTitle = async (unit, message) => {
