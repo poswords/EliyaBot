@@ -4,6 +4,9 @@ const moment = require('moment-timezone');
 
 const group = path.parse(__filename).name;
 
+const catchErr = err => {
+  console.log(err)
+}
 const help = {
   name: 'help',
   group,
@@ -50,7 +53,7 @@ const help = {
     // .addField('!bosses', 'Lists all bosses and their weapons', true)
     // .addField('!weapon [Weapon Name]', 'Lists information about the given weapon(Only has boss weapons atm).', true)
 
-    return message.channel.send({embeds:[embed]});
+    return message.channel.send({embeds:[embed]}).catch(catchErr);
   },
 };
 
