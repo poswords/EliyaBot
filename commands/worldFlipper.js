@@ -1286,4 +1286,4 @@ const EditTeamList = async (datum, message, current, msg) => {
 };
 
 module.exports = [guide, tls, tracker, event, gacha, character, equipment,
-  race, whois, art, alt, title, update, filterCharacter, submit, team];
+  race, whois, art, alt, update, filterCharacter, submit, team];
