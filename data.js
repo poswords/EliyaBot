@@ -160,7 +160,7 @@ module.exports = {
             });
             for (i = 0; i < rows.length; i++) {
               if (rows[i].End == ''){
-                rows[i].End = '2099-10-20'
+                rows[i].End = '2099-12-31'
                 rows[i].EndsIn = '1400d 10h 14m'
               }
             }                    

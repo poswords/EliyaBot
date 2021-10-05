@@ -630,14 +630,18 @@ function getTimeUntil(diff) {
   const hours = Math.floor(diff / 1000 / 60 / 60 - (days * 24));
   const minutes = Math.floor(diff / 1000 / 60 % 60);
   var timeUntil = '';
-  if (days > 0) {
-    timeUntil += days + 'd';
-  }
-  if (hours > 0 || days > 0) {
-    timeUntil += hours + 'h';
-  }
-  if (minutes > 0 || hours > 0 || days > 0) {
-    timeUntil += minutes + 'm';
+  if (days > 100){
+    timeUntil = 'Unspecified'
+  }else{
+    if (days > 0) {
+      timeUntil += days + 'd';
+    }
+    if (hours > 0 || days > 0) {
+      timeUntil += hours + 'h';
+    }
+    if (minutes > 0 || hours > 0 || days > 0) {
+      timeUntil += minutes + 'm';
+    }
   }
   return timeUntil;
 }
@@ -662,11 +666,11 @@ const event = {
         if (aLength < 0) {
           aLength = 0
         }
-        ;
+        
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           if (event.Type != "Banner") {
-            ongoingList += event.ENName + '\n+ End : ' + event.End + ' (' + timeUntil + ")\n";
+            ongoingList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End:'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
@@ -712,11 +716,11 @@ const gacha = {
         if (aLength < 0) {
           aLength = 0
         }
-        ;
+        
         if (start.isBefore(now)) {
           timeUntil = getTimeUntil(end.format("x") - now.format("x"));
           if (event.Type == "Banner") {
-            ongoingBannerList += event.ENName + '\n+ End : ' + event.End + ' (' + timeUntil + ")\n";
+            ongoingBannerList += event.ENName + '\n+ End : ' + ((event.End!=='2099-12-31')?event.End:'') + ' (' + timeUntil + ")\n";
           }
         } else {
           timeUntil = getTimeUntil(start.format("x") - now.format("x"));
