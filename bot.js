@@ -26,7 +26,7 @@ client.on('message', async (message) => {
     return;
   }
   // Extract double quoted strings first
-  let input = message.content.slice(prefix.length).replace(/'/g, '"');
+  let input = message.content.slice(prefix.length);
   const args = [];
   let quote = input.indexOf('"');
   while (quote >= 0) {
