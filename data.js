@@ -158,6 +158,12 @@ module.exports = {
               })
               return temp;
             });
+            for (i = 0; i < rows.length; i++) {
+              if (rows[i].End == ''){
+                rows[i].End = '2099-10-20'
+                rows[i].EndsIn = '1400d 10h 14m'
+              }
+            }                    
             Array.prototype.push.apply(events, rows)
           }/*
           for (r = 7; r < 8; r++) {
