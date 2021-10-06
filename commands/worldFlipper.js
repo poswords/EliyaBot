@@ -217,95 +217,115 @@ const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]});
-  await msg.react(normalReaction).catch(catchErr);
-  await msg.react(awakenReaction).catch(catchErr);
-  const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-  collector.on('collect', r => {
-    if (r.emoji.name === normalReaction) {
-      msg.edit({embeds:[getInfoEmbed(unit, 'normal')]});
-    }
-    if (r.emoji.name === awakenReaction) {
-      msg.edit({embeds:[getInfoEmbed(unit, 'awaken')]});
-    }
-  });
-  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  try {      
+    const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]});
+    await msg.react(normalReaction).catch(catchErr);
+    await msg.react(awakenReaction).catch(catchErr);
+    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+    collector.on('collect', r => {
+      if (r.emoji.name === normalReaction) {
+        msg.edit({embeds:[getInfoEmbed(unit, 'normal')]});
+      }
+      if (r.emoji.name === awakenReaction) {
+        msg.edit({embeds:[getInfoEmbed(unit, 'awaken')]});
+      }
+    });
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  } catch (error) {
+    console.log(error)
+  }       
 };
 
 const sendEquip = async (unit, message) => {
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]});
-  await msg.react(weaponReaction).catch(catchErr);
-  await msg.react(soulReaction).catch(catchErr);
-  const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-  collector.on('collect', r => {
-    if (r.emoji.name === weaponReaction) {
-      msg.edit({embeds:[getEquipEmbed(unit, 'icon')]});
-    }
-    if (r.emoji.name === soulReaction) {
-      msg.edit({embeds:[getEquipEmbed(unit, 'soul')]});
-    }
-  });
-  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  try {        
+    const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]});
+    await msg.react(weaponReaction).catch(catchErr);
+    await msg.react(soulReaction).catch(catchErr);
+    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+    collector.on('collect', r => {
+      if (r.emoji.name === weaponReaction) {
+        msg.edit({embeds:[getEquipEmbed(unit, 'icon')]});
+      }
+      if (r.emoji.name === soulReaction) {
+        msg.edit({embeds:[getEquipEmbed(unit, 'soul')]});
+      }
+    });
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  } catch (error) {
+    console.log(error)
+  }       
 };
 
 const sendThumbnail = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]});
-  await msg.react(normalReaction).catch(catchErr);
-  await msg.react(awakenReaction).catch(catchErr);
-  const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-  collector.on('collect', r => {
-    if (r.emoji.name === normalReaction) {
-      msg.edit({embeds:[getThumbnailEmbed(unit, 'normal')]});
-    }
-    if (r.emoji.name === awakenReaction) {
-      msg.edit({embeds:[getThumbnailEmbed(unit, 'awaken')]});
-    }
-  });
-  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  try {       
+    const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]});
+    await msg.react(normalReaction).catch(catchErr);
+    await msg.react(awakenReaction).catch(catchErr);
+    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+    collector.on('collect', r => {
+      if (r.emoji.name === normalReaction) {
+        msg.edit({embeds:[getThumbnailEmbed(unit, 'normal')]});
+      }
+      if (r.emoji.name === awakenReaction) {
+        msg.edit({embeds:[getThumbnailEmbed(unit, 'awaken')]});
+      }
+    });
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  } catch (error) {
+    console.log(error)
+  }     
 };
 
 const sendArt = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]});
-  await msg.react(normalReaction).catch(catchErr);
-  await msg.react(awakenReaction).catch(catchErr);
-  const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-  collector.on('collect', r => {
-    if (r.emoji.name === normalReaction) {
-      msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
-    }
-    if (r.emoji.name === awakenReaction) {
-      msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
-    }
-  });
-  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  try {       
+    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]});
+    await msg.react(normalReaction).catch(catchErr);
+    await msg.react(awakenReaction).catch(catchErr);
+    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+    collector.on('collect', r => {
+      if (r.emoji.name === normalReaction) {
+        msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
+      }
+      if (r.emoji.name === awakenReaction) {
+        msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
+      }
+    });
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  } catch (error) {
+    console.log(error)
+  }     
 };
 
 const sendAlt = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]});
-  await msg.react(normalReaction).catch(catchErr);
-  await msg.react(awakenReaction).catch(catchErr);
-  const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-  collector.on('collect', r => {
-    if (r.emoji.name === normalReaction) {
-      msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
-    }
-    if (r.emoji.name === awakenReaction) {
-      msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
-    }
-  });
-  collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  try {       
+    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]});
+    await msg.react(normalReaction).catch(catchErr);
+    await msg.react(awakenReaction).catch(catchErr);
+    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+    collector.on('collect', r => {
+      if (r.emoji.name === normalReaction) {
+        msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
+      }
+      if (r.emoji.name === awakenReaction) {
+        msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
+      }
+    });
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+  } catch (error) {
+    console.log(error)
+  }     
 };
 
 const sendTitle = async (unit, message) => {
