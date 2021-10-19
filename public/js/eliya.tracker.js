@@ -357,14 +357,16 @@ $(document).ready(function () {
   $("#chars .btnFilter").on("click", function () {
     if ($(this).is(".btnLimitedToggle")) {
       if ($(this).is(".off")){
-        $(this).removeClass("off").addClass("no");
-        $("#chars .btnNoLimited").addClass("on");
-      }else if ($(this).is(".no")){
-        $(this).removeClass("no").addClass("show");
+        $(this).removeClass("off").addClass("show");
         $("#chars .btnNoLimited").removeClass("on");
         $("#chars .btnShowLimited").addClass("on");
       }else if ($(this).is(".show")){
-        $(this).removeClass("show").addClass("off");
+        $(this).removeClass("show").addClass("no");
+        $("#chars .btnNoLimited").addClass("on");
+        $("#chars .btnShowLimited").removeClass("on");
+      }else if ($(this).is(".no")){
+        $(this).removeClass("no").addClass("off");
+        $("#chars .btnNoLimited").removeClass("on");
         $("#chars .btnShowLimited").removeClass("on");
       }
     }else{
@@ -377,26 +379,30 @@ $(document).ready(function () {
   $("#equips .btnFilter").on("click", function () {
     if ($(this).is(".btnGachaToggle")) {
       if ($(this).is(".off")){
-        $(this).removeClass("off").addClass("no");
-        $("#equips .btnNoGacha").addClass("on");
-      }else if ($(this).is(".no")){
-        $(this).removeClass("no").addClass("show");
+        $(this).removeClass("off").addClass("show");
         $("#equips .btnNoGacha").removeClass("on");
         $("#equips .btnShowGacha").addClass("on");
       }else if ($(this).is(".show")){
-        $(this).removeClass("show").addClass("off");
+        $(this).removeClass("show").addClass("no");
+        $("#equips .btnNoGacha").addClass("on");
+        $("#equips .btnShowGacha").removeClass("on");
+      }else if ($(this).is(".no")){
+        $(this).removeClass("no").addClass("off");
+        $("#equips .btnNoGacha").removeClass("on");
         $("#equips .btnShowGacha").removeClass("on");
       }
     }else if ($(this).is(".btnLimitedToggle")) {
       if ($(this).is(".off")){
-        $(this).removeClass("off").addClass("no");
-        $("#equips .btnNoLimited").addClass("on");
-      }else if ($(this).is(".no")){
-        $(this).removeClass("no").addClass("show");
+        $(this).removeClass("off").addClass("show");
         $("#equips .btnNoLimited").removeClass("on");
         $("#equips .btnShowLimited").addClass("on");
       }else if ($(this).is(".show")){
-        $(this).removeClass("show").addClass("off");
+        $(this).removeClass("show").addClass("no");
+        $("#equips .btnNoLimited").addClass("on");
+        $("#equips .btnShowLimited").removeClass("on");
+      }else if ($(this).is(".no")){
+        $(this).removeClass("no").addClass("off");
+        $("#equips .btnNoLimited").removeClass("on");
         $("#equips .btnShowLimited").removeClass("on");
       }
     }else{      
