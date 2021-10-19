@@ -540,7 +540,9 @@ strong {
   max-height: 12px;
   margin: 0 auto;
 }
-.filterList li.on {
+.filterList li.on,
+.filterList li.no,
+.filterList li.show{
   background: #dde;
 }
 .filterList li:first-child {
@@ -562,7 +564,7 @@ strong {
   pointer-events: none;
   width: 612px;
 }
-.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt , .showRole #filterCharAvailability{
+.showRole #filterCharAttribute, .showRole #filterCharRarity, .showRole #filterAltArt, .showRole #filterCharAvailability{
   margin: -10px 4px 20px;
 }
 .showRole #filterCharRole, .showRole #filterCharRace {
@@ -578,6 +580,17 @@ strong {
   background-color: inherit;
   filter: none;
   opacity: 1;
+}
+.btnNoGacha,.btnShowGacha,.btnNoLimited,.btnShowLimited{
+  display: none;
+}
+.btnToggle span{
+  display: none;
+}
+.btnToggle.off .off,
+.btnToggle.no .no,
+.btnToggle.show .show{
+  display: block;
 }
 .unit.filtered {
   display: none;
@@ -1213,6 +1226,7 @@ strong {
     margin-right: -1px;
     margin-bottom: -1px;
   }
+
   .showRole #filterCharRole, .showRole #filterCharRace {
     margin-top: 0;
     margin-bottom: 10px;
@@ -1286,6 +1300,8 @@ strong {
 
 .darktheme .button.on,
 .darktheme .filterList li.on,
+.darktheme .filterList li.no,
+.darktheme .filterList li.show,
 .darktheme #switchUnits li.on{
     background: #6a6aef;
 }
