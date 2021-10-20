@@ -47,9 +47,44 @@ i18next
 app.use(i18nextMiddleware.handle(i18next));
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data');
-var data = DB.getData('en');
-var dataja = DB.getData('ja');
-var datazhtw = DB.getData('zh-TW');
+var data,dataja,datazhtw;
+function until(conditionFunction) {
+
+  const poll = resolve => {
+    if(conditionFunction()) resolve();
+    else setTimeout(_ => poll(resolve), 400);
+  }
+
+  return new Promise(poll);
+}
+async function updateDB() {
+
+  data = DB.getData('en');
+  dataja = DB.getData('ja');
+  datazhtw = DB.getData('zh-TW');
+
+  await until(_ => data.chars && dataja.chars && datazhtw.chars);
+  function getInTaiwan(i){
+
+  }
+  data.chars.forEach(function (i) {
+    var itw = datazhtw.chars.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){i.InTaiwan = itw.InTaiwan;}
+  });
+  data.equips.forEach(function (i) {
+    var itw = datazhtw.equips.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){i.InTaiwan = itw.InTaiwan;}
+  });  
+  dataja.chars.forEach(function (i) {
+    var itw = datazhtw.chars.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){i.InTaiwan = itw.InTaiwan;}
+  }); 
+  dataja.equips.forEach(function (i) {
+    var itw = datazhtw.equips.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){i.InTaiwan = itw.InTaiwan;}
+  }); 
+}
+updateDB();
 const {
   Client
 } = require('pg');
