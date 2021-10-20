@@ -864,16 +864,16 @@ $(document).ready(function () {
       $('.tempFilter').removeClass('tempFilter');
 
       if ($('#filterEquipObtain .btnFilter.on').length > 0) {
-        if ($('.btnNoGacha').is('.on')) {
+        if ($('#equips .btnNoGacha').is('.on')) {
           $("#equips .equip").not('.NoGacha').addClass('filtered');
         }
-        if ($('.btnShowGacha').is('.on')) {
+        if ($('#equips .btnShowGacha').is('.on')) {
           $("#equips .equip").not('.Gacha').addClass('filtered');
         }
-        if ($('.btnNoLimited').is('.on')) {
+        if ($('#equips .btnNoLimited').is('.on')) {
           $("#equips .equip").not('.NoLimited').addClass('filtered');
         }
-        if ($('.btnShowLimited').is('.on')) {
+        if ($('#equips .btnShowLimited').is('.on')) {
           $("#equips .equip").not('.Limited').addClass('filtered');
         }        
       }
