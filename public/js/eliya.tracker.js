@@ -67,8 +67,7 @@ $(document).ready(function () {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' Role' + unit.Role + ' char unit"></li>')
-          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="mainArt">'))
-          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_1.png" class="altArt">'));
+          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="mainArt">'));
         var races = unit.Race.split(' / ');
         for (i = 0; i < races.length; i++) {
           elem.addClass('Race' + races[i]);
@@ -193,8 +192,7 @@ $(document).ready(function () {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' equip unit"></li>')
-          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'))
-          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '_soul.png" class="soulArt">'));
+          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'));
         if (unit.Obtain != tls.WeaponGacha) {
           elem.addClass('NoGacha')
         } else {
@@ -566,11 +564,23 @@ $(document).ready(function () {
   });
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
+    $(".char").each(function () {
+      if ($(this).find('.altArt').length==0){
+        const path = $(this).find('.mainArt').attr('src').replace('square_0','square_1');
+        $(this).append($('<img src="' + path + '" class="altArt">'));
+      }
+    });
     $(this).toggleClass("on");
   });
 
   $("#btnViewSoul").on("click", function () {
     $("body").toggleClass("viewSoul");
+    $(".equip").each(function () {
+      if ($(this).find('.soulArt').length==0){
+        const path = $(this).find('.weaponArt').attr('src').replace('.png','_soul.png');
+        $(this).append($('<img src="' + path + '" class="soulArt">'));
+      }
+    });    
     $(this).toggleClass("on");
   });
 
