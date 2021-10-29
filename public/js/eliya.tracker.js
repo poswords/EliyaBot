@@ -84,21 +84,18 @@ $(document).ready(function () {
         if (unit.Ability4) {
           elem.addClass("ManaBoard2")
         }
-        if (unit.InGlobal == 'Y') {
-          elem.addClass("InGlobal")
-        }
-        if (unit.InTaiwan == 'Y') {
+        if (unit.InTaiwan) {
           elem.addClass("InTaiwan")
         }
         if (unit.Obtain) {
-          if (unit.Obtain.includes(getTls("Limited"))){
+          if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
-          }else{
+          } else {
             elem.addClass("NoLimited")
           }
-        }else{
+        } else {
           elem.addClass("NoLimited")
-        } 
+        }
 
         elem.data("SkillWait", skillWait);
         unit.SkillWait = skillWait;
@@ -203,10 +200,7 @@ $(document).ready(function () {
         } else {
           elem.addClass('Gacha')
         }
-        if (unit.InGlobal == 'Y') {
-          elem.addClass("InGlobal")
-        }
-        if (unit.InTaiwan == 'Y') {
+        if (unit.InTaiwan) {
           elem.addClass("InTaiwan")
         }
         if (unit.AwakenLv3) {
@@ -216,14 +210,14 @@ $(document).ready(function () {
           elem.addClass("HasAwakenLv5")
         }
         if (unit.Obtain) {
-          if (unit.Obtain.includes(getTls("Limited"))){
+          if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
-          }else{
+          } else {
             elem.addClass("NoLimited")
           }
-        }else{
+        } else {
           elem.addClass("NoLimited")
-        } 
+        }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
         var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -356,56 +350,56 @@ $(document).ready(function () {
   });
   $("#chars .btnFilter").on("click", function () {
     if ($(this).is(".btnLimitedToggle")) {
-      if ($(this).is(".off")){
+      if ($(this).is(".off")) {
         $(this).removeClass("off").addClass("show");
         $("#chars .btnNoLimited").removeClass("on");
         $("#chars .btnShowLimited").addClass("on");
-      }else if ($(this).is(".show")){
+      } else if ($(this).is(".show")) {
         $(this).removeClass("show").addClass("no");
         $("#chars .btnNoLimited").addClass("on");
         $("#chars .btnShowLimited").removeClass("on");
-      }else if ($(this).is(".no")){
+      } else if ($(this).is(".no")) {
         $(this).removeClass("no").addClass("off");
         $("#chars .btnNoLimited").removeClass("on");
         $("#chars .btnShowLimited").removeClass("on");
       }
-    }else{
+    } else {
       $(this).toggleClass('on');
     }
-    
-    
+
+
     updateCharFilter();
   });
   $("#equips .btnFilter").on("click", function () {
     if ($(this).is(".btnGachaToggle")) {
-      if ($(this).is(".off")){
+      if ($(this).is(".off")) {
         $(this).removeClass("off").addClass("show");
         $("#equips .btnNoGacha").removeClass("on");
         $("#equips .btnShowGacha").addClass("on");
-      }else if ($(this).is(".show")){
+      } else if ($(this).is(".show")) {
         $(this).removeClass("show").addClass("no");
         $("#equips .btnNoGacha").addClass("on");
         $("#equips .btnShowGacha").removeClass("on");
-      }else if ($(this).is(".no")){
+      } else if ($(this).is(".no")) {
         $(this).removeClass("no").addClass("off");
         $("#equips .btnNoGacha").removeClass("on");
         $("#equips .btnShowGacha").removeClass("on");
       }
-    }else if ($(this).is(".btnLimitedToggle")) {
-      if ($(this).is(".off")){
+    } else if ($(this).is(".btnLimitedToggle")) {
+      if ($(this).is(".off")) {
         $(this).removeClass("off").addClass("show");
         $("#equips .btnNoLimited").removeClass("on");
         $("#equips .btnShowLimited").addClass("on");
-      }else if ($(this).is(".show")){
+      } else if ($(this).is(".show")) {
         $(this).removeClass("show").addClass("no");
         $("#equips .btnNoLimited").addClass("on");
         $("#equips .btnShowLimited").removeClass("on");
-      }else if ($(this).is(".no")){
+      } else if ($(this).is(".no")) {
         $(this).removeClass("no").addClass("off");
         $("#equips .btnNoLimited").removeClass("on");
         $("#equips .btnShowLimited").removeClass("on");
       }
-    }else{      
+    } else {
       $(this).toggleClass('on');
     }
 
@@ -776,9 +770,6 @@ $(document).ready(function () {
   }
 
   function filterServer() {
-    if (server == 'gl') {
-      $(".unitList .unit").not('.InGlobal,.spookyStuff').addClass('filtered');
-    }
     if (server == 'tw') {
       $(".unitList .unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
     }
@@ -875,7 +866,7 @@ $(document).ready(function () {
         }
         if ($('#equips .btnShowLimited').is('.on')) {
           $("#equips .equip").not('.Limited').addClass('filtered');
-        }        
+        }
       }
 
       $(".equipList").each(function () {
