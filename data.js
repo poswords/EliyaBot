@@ -103,6 +103,15 @@ module.exports = {
                     break;
                 }
               }
+              if (rows[i]){
+                if ("InTaiwan" in rows[i]){
+                  if (rows[i].InTaiwan=='Y') {
+                    rows[i].InTaiwan = true;
+                  }else{
+                    rows[i].InTaiwan = false;
+                  }
+                }
+              }
             }
             Array.prototype.push.apply(chars, rows)
           }
