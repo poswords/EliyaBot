@@ -103,7 +103,7 @@ const getThumbnailEmbed = (unit, flag) => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + devNicknames + '       JP' + (unit.InGlobal?' GL':'') + (unit.InTaiwan?' TW':'')
+  footer += '           ' + devNicknames + (unit.InTaiwan?' TW':'')
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
