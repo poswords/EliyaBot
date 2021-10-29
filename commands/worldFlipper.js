@@ -95,16 +95,21 @@ const getEquipEmbed = (unit, flag) => {
 
 const getThumbnailEmbed = (unit, flag) => {
   var devNicknames = "";
+  var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
   if (unit.DevNicknames){
     devNicknames=unit.DevNicknames;
   }    
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
+  if (unit.Obtain) {
+    footer = footer + ' - ' + unit.Obtain;
+  }
+  footer += '           ' + devNicknames + (unit.InTaiwan?' TW':'')
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
     .setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
-    .setFooter(devNicknames);
+    .setFooter(footer);
   if (unit.DevNicknames){    
     if (flag == 'awaken') {
       msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_1.png')
