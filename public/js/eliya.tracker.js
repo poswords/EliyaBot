@@ -10,7 +10,7 @@ $(document).ready(function () {
   var charLoaded = false;
   var equipLoaded = false;
   var waitingForUrl = false;
-  var blank_elem = $('<li class="unit"><img src="img/assets/chars/blank/square_0.png"></li>');
+  var blank_elem = $('<li class="unit blank"><img src="img/assets/chars/blank/square_0.png"></li>');
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     $("body").addClass("darktheme");
   }
@@ -565,7 +565,7 @@ $(document).ready(function () {
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
     $(".char").each(function () {
-      if ($(this).find('.altArt').length==0){
+      if (!$(this).is('.blank') && ($(this).find('.altArt').length==0)){
         const path = $(this).find('.mainArt').attr('src').replace('square_0','square_1');
         $(this).append($('<img src="' + path + '" class="altArt">'));
       }
@@ -576,7 +576,7 @@ $(document).ready(function () {
   $("#btnViewSoul").on("click", function () {
     $("body").toggleClass("viewSoul");
     $(".equip").each(function () {
-      if ($(this).find('.soulArt').length==0){
+      if (!$(this).is('.blank') && ($(this).find('.soulArt').length==0)){
         const path = $(this).find('.weaponArt').attr('src').replace('.png','_soul.png');
         $(this).append($('<img src="' + path + '" class="soulArt">'));
       }
@@ -699,6 +699,8 @@ $(document).ready(function () {
       slot.removeClass('soul filtered')
     } else {
       slot.addClass('unit soul equip');
+      const path = unit.find('.weaponArt').attr('src');
+      slot.html('<img src="' + path + '" class="weaponArt"><img src="' + path.replace('.png','_soul.png') + '" class="soulArt">');
       slot.removeClass('weapon filtered');
     }
     $(".selected").removeClass("selected");
