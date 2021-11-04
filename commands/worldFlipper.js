@@ -33,7 +33,7 @@ const getInfoEmbed = (unit, flag) => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + devNicknames + '       JP' + (unit.InGlobal?' GL':'') + (unit.InTaiwan?' TW':'')
+  footer += '           ' + devNicknames;
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+
@@ -103,7 +103,7 @@ const getThumbnailEmbed = (unit, flag) => {
   if (unit.Obtain) {
     footer = footer + ' - ' + unit.Obtain;
   }
-  footer += '           ' + devNicknames + (unit.InTaiwan?' TW':'')
+  footer += '           ' + devNicknames;
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
@@ -168,7 +168,7 @@ const sendList = async (units, message, type) => {
 };
 
 const sendFastList = async (units, message, type) => {
-  let list = `${units.length} characters found:\`\`\`python\n`;
+  let list = `${units.length} units found:\`\`\`python\n`;
   list += units.map((char, index) => {
     let enName = getShortENName(char['ENName']);
     return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
@@ -1194,7 +1194,7 @@ const filterEquipment = {
     }
 
     if (filtered.length === 0) {
-      return message.channel.send('No character found!');
+      return message.channel.send('No equipment found!');
     }
     if (filtered.length > 30) {
       return message.channel.send(filtered.length + ' found! Please narrow your search');
@@ -1202,7 +1202,7 @@ const filterEquipment = {
     if (filtered.length === 1) {
       await sendMessage(filtered[0], message);
     } else {
-      await sendFastList(filtered, message, 'c');
+      await sendFastList(filtered, message, 'e');
     }
   },
 };
