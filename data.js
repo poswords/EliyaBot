@@ -115,7 +115,8 @@ module.exports = {
             }
             Array.prototype.push.apply(chars, rows)
           }
-          for (r = 4; r < 6; r++) {
+          var equipTypes = ["main_story_orb", "practice_trophy", "sword", "axe", "spear", "bow", "book", "staff", "fist", "shield", "acce", "gun"];
+          for (r = 5; r > 3; r--) {
             var range = res.data.valueRanges[r];
             var columnNames = range.values[0];
             var dataRows = range.values.splice(1);
@@ -152,9 +153,26 @@ module.exports = {
                   rows[i].Attribute = "All";
                   break;
               }
+              for (t = 0; t < equipTypes.length; t++) {
+                if (rows[i].DevNicknames){
+                  if (rows[i].DevNicknames.includes(equipTypes[t])){
+                    rows[i].EquipType = equipTypes[t]
+                  }
+                }else{
+                  rows[i].EquipType == "Unknown"
+                }
+              }
             }
+            
             Array.prototype.push.apply(equips, rows)
           }
+        
+          equips.sort(function(a, b){  
+            return ('' + a.DevNicknames).localeCompare(b.DevNicknames);
+          });          
+          equips.sort(function(a, b){  
+            return equipTypes.indexOf(a.EquipType) - equipTypes.indexOf(b.EquipType);
+          });                    
           for (r = 6; r < 7; r++) {
             var range = res.data.valueRanges[r];
             var columnNames = range.values[0];
