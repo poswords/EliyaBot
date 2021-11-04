@@ -115,8 +115,8 @@ module.exports = {
             }
             Array.prototype.push.apply(chars, rows)
           }
-          var equipTypes = ["main_story_orb", "practice_trophy", "sword", "axe", "spear", "bow", "book", "staff", "fist", "shield", "acce", "gun"];
-          for (r = 5; r > 3; r--) {
+          var equipTypes = ["main_story_orb", "practice_trophy", "sword", "axe", "spear", "bow", "book", "staff", "fist", "shield", "acce", "gun", "unknown"];
+          for (r = 4; r < 6; r++) {
             var range = res.data.valueRanges[r];
             var columnNames = range.values[0];
             var dataRows = range.values.splice(1);
@@ -159,11 +159,10 @@ module.exports = {
                     rows[i].EquipType = equipTypes[t]
                   }
                 }else{
-                  rows[i].EquipType == "Unknown"
+                  rows[i].EquipType == "unknown"
                 }
               }
             }
-            
             Array.prototype.push.apply(equips, rows)
           }
         
