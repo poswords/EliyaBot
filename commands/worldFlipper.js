@@ -580,6 +580,95 @@ const filterCharByText = (origin, text, options) => {
   });
 };
 
+
+const filterEquip = (origin, cond) => {
+  let lambda = null;
+  switch (cond) {
+    // Elements, most used so make one/two alphabets shortcut
+    case 'f':
+    case 'fi':
+    case 'fire':
+      lambda = char => char.Attribute === 'Fire'
+      break;
+    case 'w':
+    case 'wa':
+    case 'water':
+      lambda = char => char.Attribute === 'Water'
+      break;
+    case 'i':
+    case 'wi':
+    case 'wind':
+      lambda = char => char.Attribute === 'Wind'
+      break;
+    case 't':
+    case 'th':
+    case 'thunder':
+      lambda = char => char.Attribute === 'Thunder'
+      break;
+    case 'l':
+    case 'li':
+    case 'light':
+      lambda = char => char.Attribute === 'Light'
+      break;
+    case 'd':
+    case 'da':
+    case 'dark':
+      lambda = char => char.Attribute === 'Dark'
+      break;
+  }
+  // Rarity
+  const r = cond.match(/^(\d+)\*$/);
+  if (r != null) {
+    lambda = char => {
+      for (let i = 0; i < r[1].length; i++) {
+        if (parseInt(char['Rarity']) === parseInt(r[1].charAt(i))) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  if (lambda == null) {
+    return null;
+  }
+
+  return origin.filter(function (char) {
+    return lambda(char);
+  });
+};
+
+const filterEquipByText = (origin, text, options) => {
+  return origin.filter(function (char) {
+    const exclude = !!options['exclude'];
+    const fields = options['fields'];
+    if (fields.length === 0) {
+      fields.push(...['WeaponSkill', 'AwakenLv3', 'AwakenLv5']);
+    }
+    if (options.regexp) {
+      for (let f in fields) {
+        const field = char[fields[f]];
+        try {
+          if (new RegExp(text).test(field.toLowerCase())) {
+            return !exclude;
+          }
+        } catch (err) {
+          console.log(err.stack)
+          return null;
+        }
+      }
+    } else {
+      for (let f in fields) {
+        const field = char[fields[f]];
+        if (field.toLowerCase().indexOf(text) >= 0) {
+          return !exclude;
+        }
+      }
+    }
+    return exclude;
+  });
+};
+
 const extractTextFilterOption = (options, arg) => {
   switch (arg) {
     case 'leader':
@@ -632,6 +721,8 @@ const extractTextFilterOption = (options, arg) => {
   }
   return false;
 };
+
+
 
 const guide = {
   name: 'guide',
@@ -1065,6 +1156,57 @@ const filterCharacter = {
   },
 };
 
+const filterEquipment = {
+  name: 'filter-equipment',
+  group,
+  args: true,
+  usage: '<efilter conditions>',
+  aliases: ['ef', 'fe'],
+  description: 'Filter equipments by conditions',
+  async execute(message, args) {
+    let filtered = data.equips;
+    let textFilterOptions = {
+      fields: []
+    };
+    for (let i = 0; i < args.length; i++) {
+      const arg = args[i];
+      if (extractTextFilterOption(textFilterOptions, arg)) {
+        continue;
+      }
+      switch (arg) {
+        case '-t':
+        case '--text':
+          if (i === args.length - 1) {
+            return message.channel.send("Not enough argument for -t text search!");
+          }
+          i++;
+          filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
+          break;
+        default:
+          const result = filterEquip(filtered, args[i].toLowerCase());
+          if (result == null) {
+            filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
+          } else {
+            filtered = result;
+          }
+          break;
+      }
+    }
+
+    if (filtered.length === 0) {
+      return message.channel.send('No character found!');
+    }
+    if (filtered.length > 30) {
+      return message.channel.send(filtered.length + ' found! Please narrow your search');
+    }
+    if (filtered.length === 1) {
+      await sendMessage(filtered[0], message);
+    } else {
+      await sendFastList(filtered, message, 'c');
+    }
+  },
+};
+
 async function DBOperation(operation) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -1320,4 +1462,4 @@ const EditTeamList = async (datum, message, current, msg) => {
 };
 
 module.exports = [guide, tls, tracker, event, gacha, character, equipment,
-  race, whois, art, alt, update, filterCharacter, submit, team];
+  race, whois, art, alt, update, filterCharacter, filterEquipment, submit, team];
