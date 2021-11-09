@@ -641,7 +641,7 @@ const filterEquip = (origin, cond) => {
 const filterEquipByText = (origin, text, options) => {
   return origin.filter(function (char) {
     const exclude = !!options['exclude'];
-    const fields = options['fields'];
+    const fields = []; /*options['fields'];*/
     if (fields.length === 0) {
       fields.push(...['WeaponSkill', 'AwakenLv3', 'AwakenLv5']);
     }
