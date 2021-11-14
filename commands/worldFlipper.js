@@ -874,7 +874,7 @@ const tracker = {
   description: 'Links Collection Tracker.',
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/';
-    return message.channel.send(`The collection tracker can be found below. Fill up both your units and weapons here for teambuiding advices: \n${tlDocLink}`);
+    return message.channel.send(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`);
   },
 };
 const character = {
