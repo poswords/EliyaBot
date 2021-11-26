@@ -41,7 +41,7 @@
 	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
 	<link rel="stylesheet" href="/css/reset.css" type="text/css">
 	<link rel="stylesheet" href="/css/common.css" type="text/css">
-	<link rel="stylesheet" href="/css/client.css?2110191748" type="text/css">
+	<link rel="stylesheet" href="/css/client.css?2111261807" type="text/css">
 	<style>
 		#unisons .main:after {
 			content: "<%=t('Main')%>";
@@ -121,6 +121,9 @@
 			</li>
 			<li id="btnListView" class="<% if (data.listview) { %>on<% } %>">
 				<%=t('ListView')%>
+			</li>
+			<li id="btnChoiceView" class="<% if (data.choiceview) { %>on<% } %>">
+				<%=t('Choice')%>
 			</li>
 		</ul>
 		<article id="chars">
@@ -229,6 +232,30 @@
 				</li>
 
 			</ul>
+			<section id="charChoiceSetA">
+				<h2>Set A</h2>
+				<span class="score"></span>
+				<div id="btnSelectAllSetA" class="btnSelectAll button">
+					<%=t('SelectAll')%>
+				</div>
+				<ul class="choiceSetA choiceSetList charList unitList"></ul>
+			</section>		
+			<section id="charChoiceSetB">
+				<h2>Set B</h2>
+				<span class="score"></span>
+				<div id="btnSelectAllSetB" class="btnSelectAll button">
+					<%=t('SelectAll')%>
+				</div>
+				<ul class="choiceSetB choiceSetList charList unitList"></ul>
+			</section>	
+			<section id="charChoiceSetC">
+				<h2>Set C</h2>
+				<span class="score"></span>
+				<div id="btnSelectAllSetC" class="btnSelectAll button">
+					<%=t('SelectAll')%>
+				</div>
+				<ul class="choiceSetC choiceSetList charList unitList"></ul>
+			</section>							
 			<section id="charRarity5">
 				<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
@@ -236,7 +263,7 @@
 					<%=t('SelectAll')%>
 				</div>
 				<ul class="rarity5 charList unitList"></ul>
-			</section>
+			</section>			
 			<section id="charRarity4">
 				<h2><img src="/img/assets/sprites/rarity/star4.png"></h2>
 				<span class="score"></span>
@@ -566,7 +593,7 @@
 	<script src="/js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="/js/copy.js"></script>
-	<script src="/js/eliya.tracker.js?2110291807"></script>
+	<script src="/js/eliya.tracker.js?2111261807"></script>
 	<script
 		src="https://www.paypal.com/sdk/js?client-id=AeaJ3pFrnWM7aveHFyKX_H2vGuqwkY5UezcRhPFMVhDiIIsQZfzvg6Ymw2KUYPPYal_LgtA3E2YWOM92&currency=JPY"
 		data-sdk-integration-source="button-factory"></script>

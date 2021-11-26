@@ -1255,6 +1255,8 @@ strong {
     background:none;
   }
 }
+
+
 .darktheme{
     background: #121212;
     color: #eee;
@@ -1337,4 +1339,29 @@ strong {
 }
 .darktheme .showSkillWait #planner .SkillWait{
     color: #000;
+}
+
+.choiceView .charList .unit:not(.SetA):not(.SetB):not(.SetC):not(.spookyStuff) {
+  display:none;
+}
+#charChoiceSetA,
+#charChoiceSetB,
+#charChoiceSetC,
+.choiceView #charRarity5,
+.choiceView #charRarity4,
+.choiceView #charRarity3,
+.choiceView #charRarity2,
+.choiceView #charRarity1{
+ display: none;
+}
+.choiceView #charChoiceSetA,
+.choiceView #charChoiceSetB,
+.choiceView #charChoiceSetC{
+  display: block;
+}
+#charChoiceSetA h2,
+#charChoiceSetB h2,
+#charChoiceSetC h2{
+  font-weight: bold;
+  font-size:14px;
 }

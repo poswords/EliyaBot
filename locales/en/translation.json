@@ -1,6 +1,7 @@
 {
 "title": "World Flipper Collection Tracker",
 "ListView": "List View",
+"Choice": "Choice", 
 "Save": "Save",
 "URLExpired": "URL Expired",
 "GenerateShareURL":"Generate Share URL",

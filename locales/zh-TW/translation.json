@@ -1,6 +1,7 @@
 {
 "title":"彈射世界角色收藏庫",
 "ListView":"列表模式",
+"Choice": "Choice", 
 "Save":"保存",
 "URLExpired":"鏈接過期啦！",
 "GenerateShareURL":"生成分享鏈接",

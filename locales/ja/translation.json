@@ -1,6 +1,7 @@
 {
 "title": "ワーフリ所有率チェッカー",
 "ListView": "一覧表示",
+"Choice": "チョイス", 
 "Save": "保存",
 "URLExpired": "リンクが期限切れました。",
 "GenerateShareURL":"共有リンクを取得",

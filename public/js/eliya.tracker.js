@@ -86,6 +86,9 @@ $(document).ready(function () {
         if (unit.InTaiwan) {
           elem.addClass("InTaiwan")
         }
+        if (unit.ChoiceSet) {
+          elem.addClass("Set"+unit.ChoiceSet);
+        }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
@@ -505,6 +508,19 @@ $(document).ready(function () {
   $("#btnListView").on("click", function () {
     $(this).toggleClass('on');
     $('body').toggleClass('listView');
+  });
+
+  $("#btnChoiceView").on("click", function () {
+    $(this).toggleClass('on');
+    $('body').toggleClass('choiceView');
+    if ($(this).is('.on')){
+      $(".SetA").prependTo(".choiceSetA" );
+      $(".SetB").prependTo(".choiceSetB" );
+      $(".SetC").prependTo(".choiceSetC" );
+    }else{
+      $(".choiceSetList .char").prependTo("#charRarity5 .charList" );
+    }
+    updateCharScore();
   });
 
   $("#btnSave").on("click", function () {
