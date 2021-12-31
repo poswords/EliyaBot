@@ -9,7 +9,7 @@
   "author": "Araetha",
   "dependencies": {
     "axios": "^0.21.4",
-    "canvas": "^2.8.0",
+    "canvas": "^2.9.0",
     "cookie-parser": "^1.4.5",
     "discord.io": "^2.5.3",
     "discord.js": "^13.1.0",
