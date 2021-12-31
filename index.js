@@ -202,17 +202,18 @@ app.get('/comp/:w', function (req, res) {
   }
   const units = url.split("-");
   var count = 0;
-  loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
+  if (lang==='_') lang='';
+  loadImage('/public/img/party_full' + lang + '.png').then((bg) => {
     ctx.drawImage(bg, 0, 0, 480, 205);
     for (i = 0; i < units.length; i++) {
       var imageUrl = '';
       if (i < 6) {
-        imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
+        imageUrl = '/public/img/assets/chars/' + units[i] + '/square_0.png'
       } else if (i < 12) {
         if (i%2==0){
-          imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
+          imageUrl = '/public/img/assets/item/equipment/' + units[i] + '.png'	
         }else{
-          imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
+          imageUrl = '/public/img/assets/item/equipment/' + units[i] + '_soul.png'
         }
       }
       if (fs.existsSync(imageUrl)){  
