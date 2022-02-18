@@ -52,7 +52,7 @@ function until(conditionFunction) {
 
   const poll = resolve => {
     if(conditionFunction()) resolve();
-    else setTimeout(_ => poll(resolve), 400);
+    else setTimeout(_ => poll(resolve), 2000);
   }
 
   return new Promise(poll);
@@ -60,29 +60,120 @@ function until(conditionFunction) {
 async function updateDB() {
 
   data = DB.getData('en');
-  dataja = DB.getData('ja');
-  datazhtw = DB.getData('zh-TW');
+  var datajatemp = DB.getData('ja');
+  var datazhtwtemp = DB.getData('zh-TW');
 
-  await until(_ => data.chars && dataja.chars && datazhtw.chars);
-  function getInTaiwan(i){
+  await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);
 
-  }
   data.chars.forEach(function (i) {
-    var itw = datazhtw.chars.find(e => e.DevNicknames == i.DevNicknames)
+    var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
   });
   data.equips.forEach(function (i) {
-    var itw = datazhtw.equips.find(e => e.DevNicknames == i.DevNicknames)
+    var itw = datazhtwtemp.equips.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
   });  
+
+  dataja = data;
+  datazhtw = data;
+
   dataja.chars.forEach(function (i) {
-    var itw = datazhtw.chars.find(e => e.DevNicknames == i.DevNicknames)
-    if (itw){i.InTaiwan = itw.InTaiwan;}
+    var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
+    if (ijp){
+      i.LeaderBuff = ijp.LeaderBuff;
+      i.Skill = ijp.Skill;
+      i.Ability1 = ijp.Ability1;
+      i.Ability2 = ijp.Ability2;
+      i.Ability3 = ijp.Ability3;
+      i.Ability4 = ijp.Ability4;
+      i.Ability5 = ijp.Ability5;
+      i.Ability6 = ijp.Ability6;    
+      i.SubName = ijp.SubName;
+      i.Obtain = ijp.Obtain;
+    }else{
+      i.LeaderBuff = "";
+      i.Skill = "";
+      i.Ability1 = "";
+      i.Ability2 = "";
+      i.Ability3 = "";
+      i.Ability4 = "";
+      i.Ability5 = "";
+      i.Ability6 = "";
+      i.SubName = "";
+      if (i.Obtain){
+        i.Obtain = i.Obtain.replace('Limited','限定');
+      }      
+    }
+
   }); 
   dataja.equips.forEach(function (i) {
-    var itw = datazhtw.equips.find(e => e.DevNicknames == i.DevNicknames)
-    if (itw){i.InTaiwan = itw.InTaiwan;}
+    var ijp = datajatemp.equips.find(e => e.DevNicknames == i.DevNicknames)
+    if (ijp){
+      i.WeaponSkill = ijp.WeaponSkill;
+      i.AwakenLv3 = ijp.AwakenLv3;
+      i.AwakenLv5 = ijp.AwakenLv5;
+      i.AbilitySoul = ijp.AbilitySoul;
+      i.Obtain = ijp.Obtain;
+    }else{
+      i.WeaponSkill = "";
+      i.AwakenLv3 = "";
+      i.AwakenLv5 = "";
+      i.AbilitySoul = "";
+      if (i.Obtain){
+        i.Obtain = i.Obtain.replace('Limited','限定');
+      }    
+    }
   }); 
+
+  datazhtw.chars.forEach(function (i) {
+    var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){
+      i.LeaderBuff = itw.LeaderBuff;
+      i.ZHName = itw.ZHName;
+      i.Skill = itw.Skill;
+      i.Ability1 = itw.Ability1;
+      i.Ability2 = itw.Ability2;
+      i.Ability3 = itw.Ability3;
+      i.Ability4 = itw.Ability4;
+      i.Ability5 = itw.Ability5;
+      i.Ability6 = itw.Ability6;    
+      i.SubName = itw.SubName;
+      i.Obtain = itw.Obtain;
+    }else{
+      i.LeaderBuff = "";
+      i.ZHName = "";
+      i.Skill = "";
+      i.Ability1 = "";
+      i.Ability2 = "";
+      i.Ability3 = "";
+      i.Ability4 = "";
+      i.Ability5 = "";
+      i.Ability6 = "";
+      i.SubName = "";
+      if (i.Obtain){
+        i.Obtain = i.Obtain.replace('Limited','限定');
+      }      
+    }
+
+  }); 
+  datazhtw.equips.forEach(function (i) {
+    var itw = datazhtwtemp.equips.find(e => e.DevNicknames == i.DevNicknames)
+    if (itw){
+      i.WeaponSkill = itw.WeaponSkill;
+      i.AwakenLv3 = itw.AwakenLv3;
+      i.AwakenLv5 = itw.AwakenLv5;
+      i.AbilitySoul = itw.AbilitySoul;
+      i.Obtain = itw.Obtain;
+    }else{
+      i.WeaponSkill = "";
+      i.AwakenLv3 = "";
+      i.AwakenLv5 = "";
+      i.AbilitySoul = "";
+      if (i.Obtain){
+        i.Obtain = i.Obtain.replace('Limited','限定');
+      }    
+    }
+  });  
 }
 updateDB();
 const {
