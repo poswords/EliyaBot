@@ -76,7 +76,7 @@ async function updateDB() {
 
   dataja = data;
   datazhtw = data;
-
+/*
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
@@ -175,7 +175,7 @@ async function updateDB() {
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
     }
-  });  
+  });  */
 }
 updateDB();
 const {
