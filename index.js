@@ -128,8 +128,9 @@ async function updateDB() {
   datazhtw.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){
-      i.LeaderBuff = itw.LeaderBuff;
+      i.SubName = itw.SubName;      
       i.ZHName = itw.ZHName;
+      i.LeaderBuff = itw.LeaderBuff;      
       i.Skill = itw.Skill;
       i.Ability1 = itw.Ability1;
       i.Ability2 = itw.Ability2;
@@ -137,7 +138,6 @@ async function updateDB() {
       i.Ability4 = itw.Ability4;
       i.Ability5 = itw.Ability5;
       i.Ability6 = itw.Ability6;    
-      i.SubName = itw.SubName;
       i.Obtain = itw.Obtain;
     }else{
       i.LeaderBuff = "";
@@ -159,12 +159,14 @@ async function updateDB() {
   datazhtw.equips.forEach(function (i) {
     var itw = datazhtwtemp.equips.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){
+      i.ZHName = itw.ZHName;
       i.WeaponSkill = itw.WeaponSkill;
       i.AwakenLv3 = itw.AwakenLv3;
       i.AwakenLv5 = itw.AwakenLv5;
       i.AbilitySoul = itw.AbilitySoul;
       i.Obtain = itw.Obtain;
     }else{
+      i.ZHName = "";
       i.WeaponSkill = "";
       i.AwakenLv3 = "";
       i.AwakenLv5 = "";
