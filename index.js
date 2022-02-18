@@ -60,6 +60,8 @@ function until(conditionFunction) {
 async function updateDB() {
 
   data = DB.getData('en');
+  dataja = DB.getData('en');
+  datazhtw = DB.getData('en');
   var datajatemp = DB.getData('ja');
   var datazhtwtemp = DB.getData('zh-TW');
 
@@ -74,9 +76,6 @@ async function updateDB() {
     if (itw){i.InTaiwan = itw.InTaiwan;}
   });  
 
-  dataja = data;
-  datazhtw = data;
-/*
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
@@ -175,7 +174,7 @@ async function updateDB() {
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
     }
-  });  */
+  });  
 }
 updateDB();
 const {
@@ -365,9 +364,7 @@ app.get('/comp/:w', function (req, res) {
   
 });
 app.post('/update', async (req, res) => {
-  data = DB.getData('en');
-  dataja = DB.getData('ja');
-  datazhtw = DB.getData('zh-TW');
+  updateDB();
   res.send("webapp updated!");
 });
 
