@@ -332,7 +332,8 @@ $(document).ready(function () {
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'));
+      .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
+      .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
 
   $(".btnSwitchUnit").on("click", function () {
@@ -737,8 +738,14 @@ $(document).ready(function () {
       slot.removeClass('soul filtered')
     } else {
       slot.addClass('unit soul equip');
-      const path = unit.find('.weaponArt').attr('src');
-      slot.html('<img src="' + path + '" class="weaponArt"><img src="' + path.replace('.png','_soul.png') + '" class="soulArt">');
+      if (DevNickname!=="blank"){
+        const path = unit.find('.weaponArt').attr('src');
+        slot.html('<img src="' + path + '" class="weaponArt"><img src="' + path.replace('.png','_soul.png') + '" class="soulArt">');
+      }else{
+        const path = unit.find('img').attr('src');
+        slot.html('<img src="' + path + '" class="weaponArt"><img src="' + path + '" class="soulArt">');
+      }
+      
       slot.removeClass('weapon filtered');
     }
     $(".selected").removeClass("selected");
@@ -939,48 +946,12 @@ $(document).ready(function () {
 
   function setSkillWait() {
     $(".unison").data("TotalGauge",0);
-    $(".unison").data("TotalMaxGauge",0);
-    var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
-    $(".unison").each(function () {
-      var unison = $(this);
-      var maingauges = getCharGauges($(this).find('.main').data('DevNicknames'));
-      var subgauges = getCharGauges($(this).find('.sub').data('DevNicknames'));
-      var weapongauges = getEquipGauges($(this).find('.weapon').data('DevNicknames'));
-      var soulgauges = getEquipGauges($(this).find('.soul').data('DevNicknames'));
-      
-      if (maingauges){
-        for (const [key, gauge] of Object.entries(maingauges)) {        
-          console.log(gauge)          
-          if (key == 'LeaderBuff' && !unison.is('#unison1')) continue;
-          switch (gauge.Target){
-            case "own":
-              if ((gauge.Condition=='') || checkCondition(unison.find('.main').data('DevNicknames'),gauge.Condition)){
-                unison.data("TotalGauge",unison.data("TotalGauge")+parseInt(gauge.Amount));
-              }
-              break;
-            case "leader": 
-              if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
-                $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount));
-              }
-              break;              
-            case "party":
-              for (i=1;i<4;i++){
-                if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
-                  $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
-                }
-              }
-              break;
-            case "other":
-              for (i=1;i<4;i++){
-                if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!unison.is("#unison")+i)){
-                  $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
-                }
-              }
-              break;
-          }
-        }
-      }
-      
+    $(".unison").data("TotalMaxGauge",100);
+    $(".unison").each(function (i) {
+      calcGauge($(this).find('.main').data('DevNicknames'),'main', i+1);
+      calcGauge($(this).find('.sub').data('DevNicknames'),'sub', i+1);
+      calcGauge($(this).find('.weapon').data('DevNicknames'),'weapon', i+1);
+      calcGauge($(this).find('.soul').data('DevNicknames'),'soul', i+1);
     });
     $(".unison").each(function () {
       var main = parseInt($(this).find('.main .SkillWait').text()) || 0;
@@ -991,12 +962,54 @@ $(document).ready(function () {
       } else {
         wait = (main + sub) / 2
       }      
-      console.log($(this).prop("id"),$(this).data("TotalGauge"));
-      $(this).find(".totalSkillWait span").text(wait);      
+      $(this).find(".totalSkillWait span").text(wait)
+      $(this).find(".totalSkillGauge span").text($(this).data("TotalGauge")+'%/'+$(this).data("TotalMaxGauge")+'%'); 
 
     });
   }
+  function calcGauge(DevNickname,slot,index){
+    if (slot=='main'||slot=='sub'){
+      var gauges = getCharGauges(DevNickname);
+    }else{
+      var gauges = getEquipGauges(DevNickname);
+    }
+    console.log(gauges);
+    var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
+    if (gauges){
+      
+      for (const [key, gauge] of Object.entries(gauges)) {
+        if (key == 'LeaderBuff' && index!==1) continue;
+        if (gauge.IsMain && slot=='sub') continue;
+        switch (gauge.Target){
+          case "own":
+            if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
+              $('#unison'+index).data("TotalGauge",$('#unison'+index).data("TotalGauge")+parseInt(gauge.Amount));
+            }
+            break;
+          case "leader": 
+            if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
+              $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount));
+            }
+            break;              
+          case "party":
+            for (i=1;i<4;i++){
+              if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+              }
+            }
+            break;
+          case "other":
+            for (i=1;i<4;i++){
+              if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+              }
+            }
+            break;
+        }
+      }
+    }
 
+  }
   function checkCondition(DevNickname,c){
     if (DevNickname){
       console.log(DevNickname);

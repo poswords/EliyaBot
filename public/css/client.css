@@ -658,7 +658,16 @@ strong {
   bottom: -15px;
   left: 0;
   font-size: 10px;
-  width: 100%;
+  width: 50%;
+  opacity: 0;
+  transition: 0.5s all;
+}
+.totalSkillGauge {
+  position: absolute;
+  bottom: -15px;
+  right: 0;
+  font-size: 10px;
+  width: 50%;
   opacity: 0;
   transition: 0.5s all;
 }
@@ -668,7 +677,7 @@ strong {
 .showSkillWait #unisons .main:after, .showSkillWait #unisons .sub:after {
   display: none;
 }
-.showSkillWait #planner .mainSkillWait, .showSkillWait #planner .subSkillWait, .showSkillWait #planner .totalSkillWait {
+.showSkillWait #planner .mainSkillWait, .showSkillWait #planner .subSkillWait, .showSkillWait #planner .totalSkillWait, .showSkillWait #planner .totalSkillGauge {
   opacity: 1;
 }
 #unisons .char:after, #unisons .equip:after {

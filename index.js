@@ -55,10 +55,10 @@ function until(conditionFunction) {
     else setTimeout(_ => poll(resolve), 2000);
   }
 
-  return new Promise(poll);
+  return new Promise(poll).catch((error) => {});
 }
 function calcGauge(text){
-  var match = text.match(/hen battle begins, (.*) skill gauge \+(\d+)+%/);
+  var match = text.match(/hen battle begins, (own|party members\'|leader \'|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
     if (target){
@@ -158,7 +158,6 @@ async function updateDB() {
   /*await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);*/
 
   await until(_ => data.chars && datazhtwtemp.chars);
-
   data.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
@@ -304,6 +303,7 @@ const client = new Client({
     rejectUnauthorized: false
   }
 })
+/*client.connect();*/
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
     title: 'Eliya',
@@ -486,7 +486,6 @@ app.post('/update', async (req, res) => {
   res.send("webapp updated!");
 });
 
-client.connect();
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
     switch (lang) {
