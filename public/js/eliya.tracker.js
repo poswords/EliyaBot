@@ -63,6 +63,7 @@ $(document).ready(function () {
   });
 
   socket.on('chars', function (data) {
+    console.log(data);
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
@@ -100,6 +101,8 @@ $(document).ready(function () {
         }
 
         elem.data("SkillWait", skillWait);
+        elem.data("Gauges", unit.Gauges);
+        elem.data("MaxGauges", unit.MaxGauges);
         unit.SkillWait = skillWait;
 
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
@@ -191,6 +194,7 @@ $(document).ready(function () {
     }
   });
   socket.on('equips', function (data) {
+    console.log(data);
     if (!equipLoaded) {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
@@ -221,6 +225,8 @@ $(document).ready(function () {
         }
         elem.appendTo($("#equipRarity" + unit.Rarity + " .equipList"));
         elem.data("DevNicknames", unit.DevNicknames);
+        elem.data("Gauges", unit.Gauges);
+        elem.data("MaxGauges", unit.MaxGauges);        
         var info = $("#equipInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);
@@ -654,6 +660,22 @@ $(document).ready(function () {
     }
   }
 
+  function getCharGauges(DevNickname) {
+    if (DevNickname == "blank") {
+      return 0;
+    } else {
+      return $("#char-" + DevNickname).data("Gauges");
+    }
+  }
+
+  function getEquipGauges(DevNickname) {
+    if (DevNickname == "blank") {
+      return 0;
+    } else {
+      return $("#equip-" + DevNickname).data("Gauges");
+    }
+  }
+
   function getDevNicknames(unit) {
     if ($(unit).data("DevNicknames")) {
       return $(unit).data("DevNicknames");
@@ -916,6 +938,50 @@ $(document).ready(function () {
   }
 
   function setSkillWait() {
+    $(".unison").data("TotalGauge",0);
+    $(".unison").data("TotalMaxGauge",0);
+    var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
+    $(".unison").each(function () {
+      var unison = $(this);
+      var maingauges = getCharGauges($(this).find('.main').data('DevNicknames'));
+      var subgauges = getCharGauges($(this).find('.sub').data('DevNicknames'));
+      var weapongauges = getEquipGauges($(this).find('.weapon').data('DevNicknames'));
+      var soulgauges = getEquipGauges($(this).find('.soul').data('DevNicknames'));
+      
+      if (maingauges){
+        for (const [key, gauge] of Object.entries(maingauges)) {        
+          console.log(gauge)          
+          if (key == 'LeaderBuff' && !unison.is('#unison1')) continue;
+          switch (gauge.Target){
+            case "own":
+              if ((gauge.Condition=='') || checkCondition(unison.find('.main').data('DevNicknames'),gauge.Condition)){
+                unison.data("TotalGauge",unison.data("TotalGauge")+parseInt(gauge.Amount));
+              }
+              break;
+            case "leader": 
+              if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
+                $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount));
+              }
+              break;              
+            case "party":
+              for (i=1;i<4;i++){
+                if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
+                  $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+                }
+              }
+              break;
+            case "other":
+              for (i=1;i<4;i++){
+                if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!unison.is("#unison")+i)){
+                  $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+                }
+              }
+              break;
+          }
+        }
+      }
+      
+    });
     $(".unison").each(function () {
       var main = parseInt($(this).find('.main .SkillWait').text()) || 0;
       var sub = parseInt($(this).find('.sub .SkillWait').text()) || 0;
@@ -924,9 +990,23 @@ $(document).ready(function () {
         wait = (main * 2 + sub * 2) / 2
       } else {
         wait = (main + sub) / 2
-      }
-      $(this).find(".totalSkillWait span").text(wait);
-    });
+      }      
+      console.log($(this).prop("id"),$(this).data("TotalGauge"));
+      $(this).find(".totalSkillWait span").text(wait);      
 
+    });
+  }
+
+  function checkCondition(DevNickname,c){
+    if (DevNickname){
+      console.log(DevNickname);
+      if (DevNickname == "blank") {
+        return false;
+      } else {
+        if ($("#char-" + DevNickname).is('.Attribute'+c)||$("#char-" + DevNickname).is('.Race'+c)){
+          return true
+        }
+      }
+    }
   }
 });

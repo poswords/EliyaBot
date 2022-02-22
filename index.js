@@ -57,25 +57,143 @@ function until(conditionFunction) {
 
   return new Promise(poll);
 }
+function calcGauge(text){
+  var match = text.match(/hen battle begins, (.*) skill gauge \+(\d+)+%/);
+  if (match){
+    var target = match[1].match(/(own|party|leader|other)/);
+    if (target){
+      target = target[1];
+    }
+    var condition = "";
+    var count = 0;
+    var gauge = match[2];
+    if (target == "own" || target == "leader"){
+      var selfis = text.match(/f .* is .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character, when battle begins, .* skill gauge \+/);
+      if (selfis){
+        condition = selfis[1];
+      }
+    }else if (target == "other"){
+      var otheris = text.match(/hen battle begins, .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character.* skill gauge \+/);
+      if (otheris){
+        condition = otheris[1];
+      }      
+    }else{
+      target = "party"      
+      var targetis = match[1].match(/(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic)/);
+      if (targetis){
+        condition = targetis[1];
+      }
+    }
+    if (condition !==""){
+      condition = condition.charAt(0).toUpperCase() + condition.slice(1);
+    }    
+    if (text.includes('or every 3')){
+      count = 3;
+    }
+    if (text.includes('f there are 6')){
+      count = 6;
+    }
+    return {
+      Target: target,
+      Condition: condition,
+      Every: count,      
+      IsMain: text.includes('[Main]'),
+      Amount: gauge
+    }
+  }
+}
+function calcMaxGauge(text){
+  var match = text.match(/(.*) max skill gauge \+(\d+)+%/);
+  if (match){
+    var target = match[1].match(/(own|party|leader|other)/);
+    if (target){
+      target = target[1];
+    }
+    var condition = "";
+    var count = 0;
+    var gauge = match[2];
+    if (target == "own" || target == "leader"){
+      var selfis = text.match(/f .* is .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character, .* max skill gauge \+/);
+      if (selfis){
+        condition = selfis[1];
+      }
+    }else if (target == "other"){
+      var otheris = text.match(/.*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character.* max skill gauge \+/);
+      if (otheris){
+        condition = otheris[1];
+      }      
+    }else{
+      target = "party"
+      var targetis = match[1].match(/(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic)/);
+      if (targetis){
+        condition = targetis[1];
+      }
+    }
+    if (condition !==""){
+      condition.charAt(0).toUpperCase() + condition.slice(1);
+    }
+    if (text.includes('or every 3')){
+      count = 3;
+    }
+    if (text.includes('f there are 6')){
+      count = 6;
+    }
+    return {
+      Target: target,
+      Condition: condition,
+      Every: count,
+      IsMain: text.includes('[Main]'),
+      Amount: gauge
+    }
+  }
+}
 async function updateDB() {
 
   data = DB.getData('en');
-  dataja = DB.getData('en');
+/*  dataja = DB.getData('en');
   datazhtw = DB.getData('en');
-  var datajatemp = DB.getData('ja');
+  var datajatemp = DB.getData('ja');*/
   var datazhtwtemp = DB.getData('zh-TW');
 
-  await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);
+  /*await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);*/
+
+  await until(_ => data.chars && datazhtwtemp.chars);
 
   data.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
+    i.Gauges = {
+      LeaderBuff:calcGauge(i.LeaderBuff),
+      Ability1:calcGauge(i.Ability1),
+      Ability2:calcGauge(i.Ability2),
+      Ability3:calcGauge(i.Ability3),
+      Ability4:calcGauge(i.Ability4),
+      Ability5:calcGauge(i.Ability5),
+      Ability6:calcGauge(i.Ability6)
+    }
+    i.MaxGauges={
+      LeaderBuff:calcMaxGauge(i.LeaderBuff),
+      Ability1:calcMaxGauge(i.Ability1),
+      Ability2:calcMaxGauge(i.Ability2),
+      Ability3:calcMaxGauge(i.Ability3),
+      Ability4:calcMaxGauge(i.Ability4),
+      Ability5:calcMaxGauge(i.Ability5),
+      Ability6:calcMaxGauge(i.Ability6)
+    }
+    
   });
   data.equips.forEach(function (i) {
     var itw = datazhtwtemp.equips.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
+    
+    i.Gauges = {
+      WeaponSkill:calcGauge(i.WeaponSkill),
+      AwakenLv3:calcGauge(i.AwakenLv3),
+      AwakenLv5:calcGauge(i.AwakenLv5),
+      AbilitySoul:calcGauge(i.AbilitySoul)
+    }    
   });  
-
+/*
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
@@ -174,7 +292,7 @@ async function updateDB() {
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
     }
-  });  
+  });  */
 }
 updateDB();
 const {
