@@ -662,6 +662,9 @@ strong {
   position: absolute;
   right: 0;
   bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s all;
 }
 .mainExs{
   top:-70px;
@@ -684,6 +687,7 @@ strong {
   left: 0;
   pointer-events: none;
   text-align: left;
+  transition: 0.5s all;
 }
 .mainSliders{
   top:-72px;
@@ -755,7 +759,7 @@ strong {
 .totalSkillWait,
 .totalSkillGauge {
   position: absolute;
-  bottom: -90px;
+  bottom: -92px;
   left: 0;
   font-size: 10px;
   width: 50%;
@@ -777,8 +781,10 @@ strong {
 .advanced #unisons .main:after, .advanced #unisons .sub:after {
   display: none;
 }
-.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders {
+.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders,  .advanced #planner .exboosts {
   opacity: 1;
+  pointer-events: all;
+  transition: 0.5s 0.3s all;
 }
 .advanced #unisons{
   margin-bottom: 90px;
