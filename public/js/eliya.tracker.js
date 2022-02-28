@@ -330,12 +330,12 @@ $(document).ready(function () {
     const skillwait = '<div class="SkillWait">0</div><div class="mb2s">5/5/5</div>';
     const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="6"><input type="range" class="abi5" min="0" max="6" value="6"><input type="range" class="abi6" min="0" max="6" value="6"></div>';
     $('#unison' + i)
-      .append(sliders)
+      .append($(sliders).addClass('mainSliders'))
       .append(blank_elem.clone().append(skillwait).addClass('char main'))
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append(sliders)
+      .append($(sliders).addClass('subSliders'))
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
       .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
@@ -707,6 +707,7 @@ $(document).ready(function () {
       slot.removeClass('main filtered');
     }
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
+    slot.append($('<div class="mb2s">5/5/5</div>'));
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");

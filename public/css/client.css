@@ -654,6 +654,21 @@ strong {
   padding-top: 3px;
   display: none;
 }
+.sliders{
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+}
+.mainSliders{
+  top:-50px;
+}
+.subSliders{
+  bottom:-50px;
+}
+.advanced .sliders{
+  pointer-events:all; 
+}
 .sliders input {
   width: 100px;
   -webkit-appearance: none;
@@ -667,15 +682,17 @@ strong {
   margin: 0px;
   transform: translate(0,-4px);
 }
+
 .totalSkillWait,
 .totalSkillGauge {
   position: absolute;
-  bottom: -35px;
+  bottom: -55px;
   left: 0;
   font-size: 10px;
   width: 50%;
   opacity: 0;
   transition: 0.5s all;
+  pointer-events: none;
 }
 .totalSkillGauge{
   left:auto;
@@ -687,7 +704,7 @@ strong {
 .advanced #unisons .main:after, .advanced #unisons .sub:after {
   display: none;
 }
-.advanced #planner .mainSkillWait, .advanced #planner .subSkillWait, .advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge {
+.advanced #planner .mainSkillWait, .advanced #planner .subSkillWait, .advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders {
   opacity: 1;
 }
 .advanced #unisons{
@@ -987,7 +1004,8 @@ strong {
   text-align: center;
   line-height: 16px;
 }
-.unitList .details div.SkillWait {
+.unitList .details div.SkillWait,
+.unitList .details .mb2s {
   flex: 1 1 8%;
 }
 .unitList .details div.SkillWait span {
