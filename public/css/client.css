@@ -612,6 +612,7 @@ strong {
 #unisons {
   display: flex;
   margin-bottom: 10px;
+  transition: 0.5s all;
 }
 #unisons .unit {
   min-width: inherit;
@@ -653,32 +654,45 @@ strong {
   padding-top: 3px;
   display: none;
 }
-.totalSkillWait {
+.sliders input {
+  width: 100px;
+  -webkit-appearance: none;
+  height: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  border-radius: 1px;
+  margin: 0px;
+  transform: translate(0,-4px);
+}
+.totalSkillWait,
+.totalSkillGauge {
   position: absolute;
-  bottom: -15px;
+  bottom: -35px;
   left: 0;
   font-size: 10px;
   width: 50%;
   opacity: 0;
   transition: 0.5s all;
 }
-.totalSkillGauge {
-  position: absolute;
-  bottom: -15px;
+.totalSkillGauge{
+  left:auto;
   right: 0;
-  font-size: 10px;
-  width: 50%;
-  opacity: 0;
-  transition: 0.5s all;
 }
-.showSkillWait #planner .SkillWait {
+.advanced #planner .SkillWait {
   display: block;
 }
-.showSkillWait #unisons .main:after, .showSkillWait #unisons .sub:after {
+.advanced #unisons .main:after, .advanced #unisons .sub:after {
   display: none;
 }
-.showSkillWait #planner .mainSkillWait, .showSkillWait #planner .subSkillWait, .showSkillWait #planner .totalSkillWait, .showSkillWait #planner .totalSkillGauge {
+.advanced #planner .mainSkillWait, .advanced #planner .subSkillWait, .advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge {
   opacity: 1;
+}
+.advanced #unisons{
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 #unisons .char:after, #unisons .equip:after {
   font-size: 10px;
@@ -722,6 +736,10 @@ strong {
 }
 #info.planner {
   height: 280px;
+}
+#info.planner.advanced{
+  height: 360px;
+
 }
 #info .expandBlock {
   opacity: 0;
@@ -973,7 +991,7 @@ strong {
   flex: 1 1 8%;
 }
 .unitList .details div.SkillWait span {
-  text-align: center;
+  text-align: left;
 }
 .equipList .details div.WeaponSkill, .equipList .details div.AbilitySoul {
   flex: 1 1 60%;
@@ -1346,7 +1364,7 @@ strong {
     filter:none;
     background-color: rgba(0,0,0,0);
 }
-.darktheme .showSkillWait #planner .SkillWait{
+.darktheme .advanced #planner .SkillWait{
     color: #000;
 }
 

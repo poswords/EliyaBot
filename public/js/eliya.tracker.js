@@ -327,11 +327,15 @@ $(document).ready(function () {
   }
 
   for (i = 1; i < 4; i++) {
-    const skillwait = '<div class="SkillWait">0</div>';
-    $('#unison' + i).append(blank_elem.clone().append(skillwait).addClass('char main'))
+    const skillwait = '<div class="SkillWait">0</div><div class="mb2s">5/5/5</div>';
+    const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="6"><input type="range" class="abi5" min="0" max="6" value="6"><input type="range" class="abi6" min="0" max="6" value="6"></div>';
+    $('#unison' + i)
+      .append(sliders)
+      .append(blank_elem.clone().append(skillwait).addClass('char main'))
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
+      .append(sliders)
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
       .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
@@ -581,10 +585,10 @@ $(document).ready(function () {
       }, 100);
     }
   });
-  $("#btnShowSkillWait").on("click", function () {
+  $("#btnAdvanced").on("click", function () {
     $(this).toggleClass('on');
-    $('#info').toggleClass('showSkillWait');
-  });
+    $('#info').toggleClass('advanced');
+  });  
   $("#btnAltArt").on("click", function () {
     $("body").toggleClass("viewAlt");
     $(".char").each(function () {
@@ -660,22 +664,14 @@ $(document).ready(function () {
       return $("#char-" + DevNickname).data("SkillWait");
     }
   }
-
-  function getCharGauges(DevNickname) {
+  function getGauges(DevNickname,type,max){
     if (DevNickname == "blank") {
       return 0;
     } else {
-      return $("#char-" + DevNickname).data("Gauges");
+      return $("#"+type+"-" + DevNickname).data((max?"Max":"")+"Gauges");
     }
   }
-
-  function getEquipGauges(DevNickname) {
-    if (DevNickname == "blank") {
-      return 0;
-    } else {
-      return $("#equip-" + DevNickname).data("Gauges");
-    }
-  }
+  
 
   function getDevNicknames(unit) {
     if ($(unit).data("DevNicknames")) {
@@ -749,6 +745,7 @@ $(document).ready(function () {
       slot.removeClass('weapon filtered');
     }
     $(".selected").removeClass("selected");
+    setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
     $('body').removeClass("showCompURL");
   }
@@ -962,23 +959,27 @@ $(document).ready(function () {
       } else {
         wait = (main + sub) / 2
       }      
-      $(this).find(".totalSkillWait span").text(wait)
-      $(this).find(".totalSkillGauge span").text($(this).data("TotalGauge")+'%/'+$(this).data("TotalMaxGauge")+'%'); 
+      $(this).find(".totalSkillWait span").text(wait);
+      var maxgauge = $(this).data("TotalMaxGauge");
+      if (maxgauge > 200) maxgauge=200;
+      $(this).find(".totalSkillGauge span").text($(this).data("TotalGauge")+'%/'+maxgauge+'%'); 
 
     });
   }
   function calcGauge(DevNickname,slot,index){
     if (slot=='main'||slot=='sub'){
-      var gauges = getCharGauges(DevNickname);
+      var gauges = getGauges(DevNickname,"char");
+      var maxgauges = getGauges(DevNickname,"char",true);
     }else{
-      var gauges = getEquipGauges(DevNickname);
+      var gauges = getGauges(DevNickname,"equip");
+      var maxgauges = getGauges(DevNickname,"equip",true);
     }
-    console.log(gauges);
+    
     var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
     if (gauges){
-      
       for (const [key, gauge] of Object.entries(gauges)) {
         if (key == 'LeaderBuff' && index!==1) continue;
+        if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;
         if (gauge.IsMain && slot=='sub') continue;
         switch (gauge.Target){
           case "own":
@@ -1008,11 +1009,42 @@ $(document).ready(function () {
         }
       }
     }
-
+    if (maxgauges){
+      for (const [key, gauge] of Object.entries(maxgauges)) {
+        if (key == 'LeaderBuff' && index!==1) continue;
+        if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;        
+        if (gauge.IsMain && slot=='sub') continue;
+        switch (gauge.Target){
+          case "own":
+            if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
+              $('#unison'+index).data("TotalMaxGauge",$('#unison'+index).data("TotalMaxGauge")+parseInt(gauge.Amount));
+            }
+            break;
+          case "leader": 
+            if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
+              $('#unison1').data("TotalMaxGauge",$('#unison1').data("TotalMaxGauge")+parseInt(gauge.Amount));
+            }
+            break;              
+          case "party":
+            for (i=1;i<4;i++){
+              if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount));
+              }
+            }
+            break;
+          case "other":
+            for (i=1;i<4;i++){
+              if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount));
+              }
+            }
+            break;
+        }
+      }
+    }
   }
   function checkCondition(DevNickname,c){
     if (DevNickname){
-      console.log(DevNickname);
       if (DevNickname == "blank") {
         return false;
       } else {

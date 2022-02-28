@@ -58,7 +58,7 @@ function until(conditionFunction) {
   return new Promise(poll).catch((error) => {});
 }
 function calcGauge(text){
-  var match = text.match(/hen battle begins, (own|party members\'|leader \'|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+)+%/);
+  var match = text.toLowerCase().match(/hen battle begins, (own|party members\'|leader \'|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
     if (target){
@@ -103,7 +103,7 @@ function calcGauge(text){
   }
 }
 function calcMaxGauge(text){
-  var match = text.match(/(.*) max skill gauge \+(\d+)+%/);
+  var match = text.toLowerCase().match(/(.*) max skill gauge \+(\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
     if (target){
@@ -130,7 +130,7 @@ function calcMaxGauge(text){
       }
     }
     if (condition !==""){
-      condition.charAt(0).toUpperCase() + condition.slice(1);
+      condition = condition.charAt(0).toUpperCase() + condition.slice(1);
     }
     if (text.includes('or every 3')){
       count = 3;
@@ -191,6 +191,12 @@ async function updateDB() {
       AwakenLv5:calcGauge(i.AwakenLv5),
       AbilitySoul:calcGauge(i.AbilitySoul)
     }    
+    i.MaxGauges = {
+      WeaponSkill:calcMaxGauge(i.WeaponSkill),
+      AwakenLv3:calcMaxGauge(i.AwakenLv3),
+      AwakenLv5:calcMaxGauge(i.AwakenLv5),
+      AbilitySoul:calcMaxGauge(i.AbilitySoul)
+    }        
   });  
 /*
   dataja.chars.forEach(function (i) {
