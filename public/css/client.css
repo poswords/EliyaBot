@@ -648,23 +648,48 @@ strong {
   margin: 10px 0 3px;
   box-shadow: none;
 }
-#planner .SkillWait {
+#planner .SkillWait{
+  display: none;
+}
+#planner .mb2s {
   font-size: 10px;
   line-height: 12px;
   padding-top: 3px;
   display: none;
+  text-align: center;
+}
+.exboosts{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.mainExs{
+  top:-70px;
+}
+.subExs{
+  bottom:-82px;
+}
+.ex{
+  display: block;
+  height: 24px;
+  width:24px;
+  padding: 6px 3px;
+  background: url(../img/assets/sprites/ex/ex_none.png);
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
 }
 .sliders{
   opacity: 0;
   position: absolute;
   left: 0;
   pointer-events: none;
+  text-align: left;
 }
 .mainSliders{
-  top:-50px;
+  top:-72px;
 }
 .subSliders{
-  bottom:-50px;
+  bottom:-80px;
 }
 .advanced .sliders{
   pointer-events:all; 
@@ -672,21 +697,65 @@ strong {
 .sliders input {
   width: 100px;
   -webkit-appearance: none;
-  height: 5px;
-  background: #d3d3d3;
+  height: 3px;
+  background: #2EC4B6;
   outline: none;
-  opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
   border-radius: 1px;
-  margin: 0px;
+  margin: 10px 0px 10px 13px;
   transform: translate(0,-4px);
+  border-radius: 5px;
+}
+.sliders input:before{
+  position: absolute;
+  left: -10px;
+  top: -5px;
+  background-color: #2EC4B6;
+  border-radius: 20px;
+  font-size: 10px;
+  width: 14px;
+  height: 14px;
+  color: #fff;
+  line-height: 14px;
+  text-align: center;
+  font-weight: normal;
+  content:"4"
+}
+.sliders input.abi5:before{
+  content:"5"
+}
+.sliders input.abi6:before{
+  content:"6"
+}
+.sliders input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border:3px #333 solid; 
+  box-sizing: border-box;
+	border-radius: 20px;
+  cursor: pointer;
 }
 
+
+.sliders input::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border:3px #333 solid; 
+  box-sizing: border-box;
+	border-radius: 20px;
+  cursor: pointer;
+}
 .totalSkillWait,
 .totalSkillGauge {
   position: absolute;
-  bottom: -55px;
+  bottom: -90px;
   left: 0;
   font-size: 10px;
   width: 50%;
@@ -698,18 +767,22 @@ strong {
   left:auto;
   right: 0;
 }
-.advanced #planner .SkillWait {
-  display: block;
+#info.planner.advanced{
+  height: 430px;
+
+}
+.advanced #planner .mb2s {
+  display: inline-block;
 }
 .advanced #unisons .main:after, .advanced #unisons .sub:after {
   display: none;
 }
-.advanced #planner .mainSkillWait, .advanced #planner .subSkillWait, .advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders {
+.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders {
   opacity: 1;
 }
 .advanced #unisons{
-  margin-bottom: 50px;
-  margin-top: 50px;
+  margin-bottom: 90px;
+  margin-top: 80px;
 }
 #unisons .char:after, #unisons .equip:after {
   font-size: 10px;
@@ -754,10 +827,7 @@ strong {
 #info.planner {
   height: 280px;
 }
-#info.planner.advanced{
-  height: 360px;
 
-}
 #info .expandBlock {
   opacity: 0;
   height: 0;
@@ -1004,12 +1074,11 @@ strong {
   text-align: center;
   line-height: 16px;
 }
-.unitList .details div.SkillWait,
-.unitList .details .mb2s {
+.unitList .details div.SkillWait {
   flex: 1 1 8%;
 }
 .unitList .details div.SkillWait span {
-  text-align: left;
+  text-align: center;
 }
 .equipList .details div.WeaponSkill, .equipList .details div.AbilitySoul {
   flex: 1 1 60%;
@@ -1382,7 +1451,8 @@ strong {
     filter:none;
     background-color: rgba(0,0,0,0);
 }
-.darktheme .advanced #planner .SkillWait{
+.darktheme .advanced #planner .SkillWait,
+.darktheme .advanced #planner .mb2s{
     color: #000;
 }
 

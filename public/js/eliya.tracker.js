@@ -328,14 +328,15 @@ $(document).ready(function () {
 
   for (i = 1; i < 4; i++) {
     const skillwait = '<div class="SkillWait">0</div><div class="mb2s">5/5/5</div>';
-    const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="6"><input type="range" class="abi5" min="0" max="6" value="6"><input type="range" class="abi6" min="0" max="6" value="6"></div>';
+    const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="7" value="7"><input type="range" class="abi5" min="0" max="7" value="7"><input type="range" class="abi7" min="0" max="7" value="7"></div>';
+    const exs = '<div class="exboosts"><span class="exboost1 ex0 ex"></span><span class="exboost2 ex0 ex"></span></div>';
     $('#unison' + i)
-      .append($(sliders).addClass('mainSliders'))
+      .append($(sliders).addClass('mainSliders')).append($(exs).addClass('mainExs'))
       .append(blank_elem.clone().append(skillwait).addClass('char main'))
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub'))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($(sliders).addClass('subSliders'))
+      .append($(sliders).addClass('subSliders')).append($(exs).addClass('subExs'))
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
       .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
@@ -684,6 +685,8 @@ $(document).ready(function () {
   function setCharSlot(slot, DevNickname) {
     $("#btnUnset").appendTo($("#planner"));
     var unit;
+    var mb2s = slot.find(".mb2s");
+    var exs = slot.find(".exboosts");
     if (DevNickname == "blank") {
       unit = blank_elem.clone();
       slot.data("DevNicknames", "blank");
@@ -707,7 +710,7 @@ $(document).ready(function () {
       slot.removeClass('main filtered');
     }
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
-    slot.append($('<div class="mb2s">5/5/5</div>'));
+    slot.append(mb2s).append(exs);
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
