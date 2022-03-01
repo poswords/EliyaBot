@@ -1350,6 +1350,9 @@ strong {
   .showRole #filterCharRace {
     max-width: 100%;
   }
+  .sliders input{
+    width: 55%;
+  }
 }
 @media all and (max-width: 599px) {
   #info .Art {

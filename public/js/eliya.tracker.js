@@ -63,7 +63,6 @@ $(document).ready(function () {
   });
 
   socket.on('chars', function (data) {
-    console.log(data);
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
@@ -193,7 +192,6 @@ $(document).ready(function () {
     }
   });
   socket.on('equips', function (data) {
-    console.log(data);
     if (!equipLoaded) {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
