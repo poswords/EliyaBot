@@ -74,15 +74,24 @@
 	<div class="wrapper">
 		<div class="localebar">
 			<ul id="listLang">
-				<li class="<%=(i18n.language=="en"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
-				<li class="<%=(i18n.language=="ja"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>
-				<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
+				<li class="<%=((i18n.language!="ja")&&(i18n.language!="zh-TW")?"active":"")%>"><a
+						href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
+				<li class="<%=(i18n.language=="ja"?"active":"")%>"><a
+						href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>
+				<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a
+						href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
 				<!--<li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-cn">简体中文</a></li>-->
 			</ul>
 			<ul id="listServer">
-				<li class="btnInJapan <%=(server=="jp"?"active":"")%>" data-server="jp"><span><%=t('JP')%></span></li>
-				<li class=""><a href="https://veliya-bot.herokuapp.com/"><span><%=t('GL')%></span></a></li>
-				<li class="btnInTaiwan <%=(server=="tw"?"active":"")%>" data-server="tw"><span><%=t('TW')%></span></li>
+				<li class="btnInJapan <%=(server!="tw"?"active":"")%>" data-server="jp"><span>
+						<%=t('JP')%>
+					</span></li>
+				<li class=""><a href="https://veliya-bot.herokuapp.com/"><span>
+							<%=t('GL')%>
+						</span></a></li>
+				<li class="btnInTaiwan <%=(server=="tw"?"active":"")%>" data-server="tw"><span>
+						<%=t('TW')%>
+					</span></li>
 			</ul>
 		</div>
 		<div class="toolbar">
@@ -239,7 +248,7 @@
 					<%=t('SelectAll')%>
 				</div>
 				<ul class="choiceSetA choiceSetList charList unitList"></ul>
-			</section>		
+			</section>
 			<section id="charChoiceSetB">
 				<h2>Set B</h2>
 				<span class="score"></span>
@@ -247,7 +256,7 @@
 					<%=t('SelectAll')%>
 				</div>
 				<ul class="choiceSetB choiceSetList charList unitList"></ul>
-			</section>	
+			</section>
 			<section id="charChoiceSetC">
 				<h2>Set C</h2>
 				<span class="score"></span>
@@ -255,7 +264,7 @@
 					<%=t('SelectAll')%>
 				</div>
 				<ul class="choiceSetC choiceSetList charList unitList"></ul>
-			</section>							
+			</section>
 			<section id="charRarity5">
 				<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
@@ -263,7 +272,7 @@
 					<%=t('SelectAll')%>
 				</div>
 				<ul class="rarity5 charList unitList"></ul>
-			</section>			
+			</section>
 			<section id="charRarity4">
 				<h2><img src="/img/assets/sprites/rarity/star4.png"></h2>
 				<span class="score"></span>
@@ -334,12 +343,12 @@
 			</ul>
 			<ul id="filterEquipObtain" class="filterList">
 				<li class="btnFilter btnGachaToggle btnToggle off"><span class="off">
-					<%=t('Gacha')%>?
-				</span><span class="no">
-					<%=t('NoGacha')%>
-				</span><span class="show">
-					<%=t('ShowGacha')%>
-				</span></li>
+						<%=t('Gacha')%>?
+					</span><span class="no">
+						<%=t('NoGacha')%>
+					</span><span class="show">
+						<%=t('ShowGacha')%>
+					</span></li>
 				<li class="btnFilter btnNoGacha" data-filter="NoGacha">
 					<%=t('NoGacha')%>
 				</li>
@@ -347,12 +356,12 @@
 					<%=t('ShowGacha')%>
 				</li>
 				<li class="btnFilter btnLimitedToggle btnToggle off"><span class="off">
-					<%=t('Limited')%>?
-				</span><span class="no">
-					<%=t('NoLimited')%>
-				</span><span class="show">
-					<%=t('ShowLimited')%>
-				</span></li>
+						<%=t('Limited')%>?
+					</span><span class="no">
+						<%=t('NoLimited')%>
+					</span><span class="show">
+						<%=t('ShowLimited')%>
+					</span></li>
 				<li class="btnFilter btnNoLimited" data-filter="NoLimited" data-type="char">
 					<%=t('NoLimited')%>
 				</li>
@@ -443,8 +452,8 @@
 				</div>
 				<div id="btnUnset" class="button">X</div>
 				<ul id="plannerButtons" class="btnList">
-					<li id="btnShowSkillWait" class="button">
-						<%=t('ShowSkillWait')%>
+					<li id="btnAdvanced" class="button">
+						<%=t('Advanced')%>
 					</li>
 					<li id="btnGetCompURL" class="button">
 						<%=t('GenerateImageURL')%>
@@ -459,9 +468,86 @@
 									d="M9 6.563h6c0.621-0.001 1.124-0.504 1.125-1.125v-4.688h-8.25v4.688c0.001 0.621 0.504 1.124 1.125 1.125h0zM9.375 2.25h5.25v2.813h-5.25z" />
 							</svg>
 						</div>
-						<!--<div id="btnAdvanced"><%=t('Advanced')%></div>-->
 					</li>
 				</ul>
+				<div id="exBoostList1" class="exBoostList hidden">
+					<ul>
+						<li class="ex ex0"><span>
+								<%=t('None')%>
+							</span></li>
+						<li class="ex ex10"><span>
+								<%=t('ex10')%>
+							</span></li>
+						<li class="ex ex11"><span>
+								<%=t('ex11')%>
+							</span></li>
+						<li class="ex ex12"><span>
+								<%=t('ex12')%>
+							</span></li>
+						<li class="ex ex13"><span>
+								<%=t('ex13')%>
+							</span></li>
+						<li class="ex ex14"><span>
+								<%=t('ex14')%>
+							</span></li>
+						<li class="ex ex15"><span>
+								<%=t('ex15')%>
+							</span></li>
+						<li class="ex ex16"><span>
+								<%=t('ex16')%>
+							</span></li>
+						<li class="ex ex17"><span>
+								<%=t('ex17')%>
+							</span></li>
+						<li class="ex ex18"><span>
+								<%=t('ex18')%>
+							</span></li>
+						<li class="ex ex19"><span>
+								<%=t('ex19')%>
+							</span></li>
+					</ul>
+				</div>
+		
+				<div id="exBoostList2" class="exBoostList hidden">
+					<ul>
+						<li class="ex ex0"><span>
+								<%=t('None')%>
+							</span></li>
+						<li class="ex ex20"><span>
+								<%=t('ex20')%>
+							</span></li>
+						<li class="ex ex21"><span>
+								<%=t('ex21')%>
+							</span></li>
+						<li class="ex ex22"><span>
+								<%=t('ex22')%>
+							</span></li>
+						<li class="ex ex23"><span>
+								<%=t('ex23')%>
+							</span></li>
+						<li class="ex ex24"><span>
+								<%=t('ex24')%>
+							</span></li>
+						<li class="ex ex25"><span>
+								<%=t('ex25')%>
+							</span></li>
+						<li class="ex ex26"><span>
+								<%=t('ex26')%>
+							</span></li>
+						<li class="ex ex27"><span>
+								<%=t('ex27')%>
+							</span></li>
+						<li class="ex ex28"><span>
+								<%=t('ex28')%>
+							</span></li>
+						<li class="ex ex29"><span>
+								<%=t('ex29')%>
+							</span></li>
+						<li class="ex ex2a"><span>
+								<%=t('ex2a')%>
+							</span></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 
@@ -475,6 +561,8 @@
 							<div class="JPName"><span></span></div>
 							<div class="Obtain"><span></span></div>
 		</div>
+
+		
 		<div id="charInfoTemplate" class="hidden charInfoBlock">
 			<% if (i18n.language=="en" ){%>
 				<div class="ENName"><span></span></div>

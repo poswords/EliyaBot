@@ -502,8 +502,8 @@ strong {
   height: 10px;
   padding: 2px;
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 0px;
+  right: 0px;
   background-color: #fff;
   background-size: 10px;
   background-repeat: no-repeat;
@@ -612,6 +612,7 @@ strong {
 #unisons {
   display: flex;
   margin-bottom: 10px;
+  transition: 0.5s all;
 }
 #unisons .unit {
   min-width: inherit;
@@ -647,29 +648,225 @@ strong {
   margin: 10px 0 3px;
   box-shadow: none;
 }
-#planner .SkillWait {
+#planner .SkillWait{
+  display: none;
+}
+#planner .mb2s {
   font-size: 10px;
   line-height: 12px;
   padding-top: 3px;
   display: none;
+  text-align: center;
 }
-.totalSkillWait {
+.exboosts{
   position: absolute;
-  bottom: -15px;
-  left: 0;
-  font-size: 10px;
-  width: 100%;
+  right: 0;
+  bottom: 0;
   opacity: 0;
+  pointer-events: none;
   transition: 0.5s all;
 }
-.showSkillWait #planner .SkillWait {
-  display: block;
+.mainExs{
+  top:-80px;
 }
-.showSkillWait #unisons .main:after, .showSkillWait #unisons .sub:after {
+.subExs{
+  bottom:-80px;
+}
+.exBoostList{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  background:rgba(48,48,48,0.9);
+  border:1px solid #999;
+  color:#fff;
+  width: 100%;
+  max-width: 480px;
+  padding: 3px 2%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  z-index: 20;
+}
+.exBoostList ul{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.exBoostList.top1{
+  top: 54px; 
+}
+.exBoostList.top2{
+  top: 84px; 
+}
+.exBoostList.bottom1{
+  bottom: 144px; 
+}
+.exBoostList.bottom2{
+  bottom: 114px; 
+}
+.exBoostList li{
+  flex: 1 1 50%;
+}
+.unison .ex{
+  margin:10px 0;
+}
+.unison .ex span{
   display: none;
 }
-.showSkillWait #planner .mainSkillWait, .showSkillWait #planner .subSkillWait, .showSkillWait #planner .totalSkillWait {
+.ex{
+  display: block;
+  height: 24px;
+  width:24px;
+  margin: 6px 0px;
+  background-image: url(../img/assets/sprites/ex/ex0.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor:pointer;
+}
+.ex span{
+  position: absolute;
+  line-height: 14px;
+  left: 30px;
+  top: 0px;
+  text-align: left;
+  font-size: 11px;
+  padding-right:5px;
+}
+.ex10{background-image: url(../img/assets/sprites/ex/ex10.png);}
+.ex11{background-image: url(../img/assets/sprites/ex/ex11.png);}
+.ex12{background-image: url(../img/assets/sprites/ex/ex12.png);}
+.ex13{background-image: url(../img/assets/sprites/ex/ex13.png);}
+.ex14{background-image: url(../img/assets/sprites/ex/ex14.png);}
+.ex15{background-image: url(../img/assets/sprites/ex/ex15.png);}
+.ex16{background-image: url(../img/assets/sprites/ex/ex16.png);}
+.ex17{background-image: url(../img/assets/sprites/ex/ex17.png);}
+.ex18{background-image: url(../img/assets/sprites/ex/ex18.png);}
+.ex19{background-image: url(../img/assets/sprites/ex/ex19.png);}
+.ex20{background-image: url(../img/assets/sprites/ex/ex20.png);}
+.ex21{background-image: url(../img/assets/sprites/ex/ex21.png);}
+.ex22{background-image: url(../img/assets/sprites/ex/ex22.png);}
+.ex23{background-image: url(../img/assets/sprites/ex/ex23.png);}
+.ex24{background-image: url(../img/assets/sprites/ex/ex24.png);}
+.ex25{background-image: url(../img/assets/sprites/ex/ex25.png);}
+.ex26{background-image: url(../img/assets/sprites/ex/ex26.png);}
+.ex27{background-image: url(../img/assets/sprites/ex/ex27.png);}
+.ex28{background-image: url(../img/assets/sprites/ex/ex28.png);}
+.ex29{background-image: url(../img/assets/sprites/ex/ex29.png);}
+.ex2a{background-image: url(../img/assets/sprites/ex/ex2a.png);}
+.sliders{
   opacity: 1;
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+  text-align: left;
+  transition: 0.3s all;
+}
+.mainSliders{
+  top:-72px;
+}
+.subSliders{
+  bottom:-80px;
+}
+.advanced #planner .sliders.disabled{
+  opacity:0.5;
+  pointer-events:none;
+}
+.advanced .sliders{
+  pointer-events:all; 
+}
+.sliders input {
+  width: 100px;
+  -webkit-appearance: none;
+  height: 3px;
+  background: #2EC4B6;
+  outline: none;
+  border-radius: 1px;
+  margin: 10px 0px 10px 13px;
+  transform: translate(0,-4px);
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.5s all;
+  pointer-events:none;   
+}
+.sliders input:before{
+  position: absolute;
+  left: -10px;
+  top: -5px;
+  background-color: #2EC4B6;
+  border-radius: 20px;
+  font-size: 10px;
+  width: 14px;
+  height: 14px;
+  color: #fff;
+  line-height: 14px;
+  text-align: center;
+  font-weight: normal;
+  content:"4"
+}
+.sliders input.abi5:before{
+  content:"5"
+}
+.sliders input.abi6:before{
+  content:"6"
+}
+.sliders input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border:3px #333 solid; 
+  box-sizing: border-box;
+	border-radius: 20px;
+  cursor: pointer;
+}
+
+
+.sliders input::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border:3px #333 solid; 
+  box-sizing: border-box;
+	border-radius: 20px;
+  cursor: pointer;
+}
+.totalSkillWait,
+.totalSkillGauge {
+  position: absolute;
+  bottom: -92px;
+  left: 0;
+  font-size: 10px;
+  width: 50%;
+  opacity: 0;
+  transition: 0.5s all;
+  pointer-events: none;
+  line-height: 10px;
+}
+.totalSkillGauge{
+  left:auto;
+  right: 0;
+}
+#info.planner.advanced{
+  height: 430px;
+
+}
+.advanced #planner .mb2s {
+  display: inline-block;
+}
+.advanced #unisons .main:after, .advanced #unisons .sub:after {
+  display: none;
+}
+.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders input,  .advanced #planner .exboosts {
+  opacity: 1;
+  pointer-events: all;
+  transition: 0.5s 0.3s all;
+}
+.advanced #unisons{
+  margin-bottom: 90px;
+  margin-top: 80px;
 }
 #unisons .char:after, #unisons .equip:after {
   font-size: 10px;
@@ -714,6 +911,7 @@ strong {
 #info.planner {
   height: 280px;
 }
+
 #info .expandBlock {
   opacity: 0;
   height: 0;
@@ -1337,7 +1535,8 @@ strong {
     filter:none;
     background-color: rgba(0,0,0,0);
 }
-.darktheme .showSkillWait #planner .SkillWait{
+.darktheme .advanced #planner .SkillWait,
+.darktheme .advanced #planner .mb2s{
     color: #000;
 }
 
