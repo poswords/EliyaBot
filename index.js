@@ -413,14 +413,12 @@ app.get('/comp/:w', function (req, res) {
     lang = '_' + url.split('.')[1];
     url = url.split('.')[0];
   }
+  var height = 205;   
   if (url.indexOf('@') > 0) {
     advanced = url.split('@')[1]; 
     url = url.split('@')[0];
+    height+=24;    
   } 
-  var height = 205; 
-  if (advanced.indexOf('!') > 0) {  
-    height+=24;
-  }
   const canvas = createCanvas(480, height);
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = "white";
@@ -478,7 +476,7 @@ app.get('/comp/:w', function (req, res) {
           }
           ctx.drawImage(image, x, y, width, width);
           count++;
-          if (count >= units.length && advanced.indexOf('!') <= 0) {
+          if (count >= units.length && !advanced) {
             sendimage(canvas,res);
           }
         })
@@ -486,7 +484,7 @@ app.get('/comp/:w', function (req, res) {
         count++;
       }
     }
-    if (advanced.indexOf('!') > 0) {
+    if (advanced) {
       const mb2sraw = advanced.split('!')[0];
       const exsraw = advanced.split('!')[1];
       var mbcount = 0;      
