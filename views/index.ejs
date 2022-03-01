@@ -74,22 +74,22 @@
 	<div class="wrapper">
 		<div class="localebar">
 			<ul id="listLang">
-				<li class="<%=(i18n.language==" en"?"active":"")%>"><a
+				<li class="<%=((i18n.language!="ja")&&(i18n.language!="zh-TW")?"active":"")%>"><a
 						href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
-				<li class="<%=(i18n.language==" ja"?"active":"")%>"><a
+				<li class="<%=(i18n.language=="ja"?"active":"")%>"><a
 						href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>
-				<li class="<%=(i18n.language==" zh-TW"?"active":"")%>"><a
+				<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a
 						href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
 				<!--<li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-cn">简体中文</a></li>-->
 			</ul>
 			<ul id="listServer">
-				<li class="btnInJapan <%=(server==" jp"?"active":"")%>" data-server="jp"><span>
+				<li class="btnInJapan <%=(server!="tw"?"active":"")%>" data-server="jp"><span>
 						<%=t('JP')%>
 					</span></li>
 				<li class=""><a href="https://veliya-bot.herokuapp.com/"><span>
 							<%=t('GL')%>
 						</span></a></li>
-				<li class="btnInTaiwan <%=(server==" tw"?"active":"")%>" data-server="tw"><span>
+				<li class="btnInTaiwan <%=(server=="tw"?"active":"")%>" data-server="tw"><span>
 						<%=t('TW')%>
 					</span></li>
 			</ul>

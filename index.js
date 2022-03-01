@@ -66,6 +66,7 @@ function calcGauge(text){
     }
     var condition = "";
     var count = 0;
+    var counttarget = '';    
     var gauge = match[2];
     if (target == "own" || target == "leader"){
       var selfis = text.match(/f .* is .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character, when battle begins, .* skill gauge \+/);
@@ -87,16 +88,30 @@ function calcGauge(text){
     if (condition !==""){
       condition = condition.charAt(0).toUpperCase() + condition.slice(1);
     }    
-    if (text.includes('or every 3')){
-      count = 3;
+    var counttargets;
+    if (text.includes('or every')){
+      counttargets = text.match(/or every (\d) (fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* characters in the party, when battle begins, .* skill gauge \+/)
+      if (counttargets){
+        count = counttargets[1];                   
+        counttarget = counttargets[2];
+      }      
     }
-    if (text.includes('f there are 6')){
-      count = 6;
+    if (text.includes('f there are')){
+      counttarget = "";
+      counttargets = text.match(/f there are (\d) .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* characters in the party, when battle begins, .* skill gauge \+/)
+      if (counttargets){
+        count = counttargets[1];                   
+        counttarget = counttargets[2];
+      }
     }
+    if (counttarget !==""){
+      counttarget = counttarget.charAt(0).toUpperCase() + counttarget.slice(1);
+    }    
     return {
       Target: target,
       Condition: condition,
       Every: count,      
+      EveryCond: counttarget,      
       IsMain: text.includes('[Main]'),
       Amount: gauge
     }
@@ -111,6 +126,7 @@ function calcMaxGauge(text){
     }
     var condition = "";
     var count = 0;
+    var counttarget = '';
     var gauge = match[2];
     if (target == "own" || target == "leader"){
       var selfis = text.match(/f .* is .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* character, .* max skill gauge \+/);
@@ -132,16 +148,30 @@ function calcMaxGauge(text){
     if (condition !==""){
       condition = condition.charAt(0).toUpperCase() + condition.slice(1);
     }
-    if (text.includes('or every 3')){
-      count = 3;
+    var counttargets;
+    if (text.includes('or every')){
+      counttargets = text.match(/or every (\d) (fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* characters in the party, .* max skill gauge \+/);
+      if (counttargets){
+        count = counttargets[1];                   
+        counttarget = counttargets[2];           
+      }      
     }
-    if (text.includes('f there are 6')){
-      count = 6;
+    if (text.includes('f there are')){
+      counttarget = "";
+      counttargets = text.match(/f there are (\d) .*(fire|water|wind|thunder|light|dark|human|sprite|beast|mecha|dragon|undead|youkai|plant|demon|aquatic).* characters in the party, .* max skill gauge \+/);
+      if (counttargets){
+        count = counttargets[1];                   
+        counttarget = counttargets[2];       
+      }
     }
+    if (counttarget !==""){
+      counttarget = counttarget.charAt(0).toUpperCase() + counttarget.slice(1);
+    }        
     return {
       Target: target,
       Condition: condition,
       Every: count,
+      EveryCond: counttarget,
       IsMain: text.includes('[Main]'),
       Amount: gauge
     }
@@ -150,14 +180,13 @@ function calcMaxGauge(text){
 async function updateDB() {
 
   data = DB.getData('en');
-/*  dataja = DB.getData('en');
+  dataja = DB.getData('en');
   datazhtw = DB.getData('en');
-  var datajatemp = DB.getData('ja');*/
+  var datajatemp = DB.getData('ja');
   var datazhtwtemp = DB.getData('zh-TW');
 
-  /*await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);*/
+  await until(_ => data.chars && datajatemp.chars && datazhtwtemp.chars);
 
-  await until(_ => data.chars && datazhtwtemp.chars);
   data.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){i.InTaiwan = itw.InTaiwan;}
@@ -198,7 +227,7 @@ async function updateDB() {
       AbilitySoul:calcMaxGauge(i.AbilitySoul)
     }        
   });  
-/*
+
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
@@ -297,7 +326,7 @@ async function updateDB() {
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
     }
-  });  */
+  });  
 }
 updateDB();
 const {
@@ -409,15 +438,21 @@ app.get('/comp/:w', function (req, res) {
   var url = req.params.w.replace('.png', '');
   var lang = '';
   var advanced;
+  var exsraw;
   if (url.indexOf('.') > 0) {
     lang = '_' + url.split('.')[1];
     url = url.split('.')[0];
   }
   var height = 205;   
+  var top = 0;
+  if (url.indexOf('!') > 0) {  
+    exsraw = url.split('!')[1];
+    height+=10;
+    top+=10;    
+  }   
   if (url.indexOf('@') > 0) {
     advanced = url.split('@')[1]; 
     url = url.split('@')[0];
-    height+=24;    
   } 
   const canvas = createCanvas(480, height);
   const ctx = canvas.getContext('2d');
@@ -427,7 +462,7 @@ app.get('/comp/:w', function (req, res) {
   var count = 0;
   if (lang==='_') lang='';
   loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
-    ctx.drawImage(bg, 0, 0, 480, 205);
+    ctx.drawImage(bg, 0, top, 480, 205);
     for (i = 0; i < units.length; i++) {
       var imageUrl = '';
       if (i < 6) {
@@ -467,16 +502,16 @@ app.get('/comp/:w', function (req, res) {
             case 7:
             case 9:
             case 11:
-              x = 13 + ((count - 7) / 2) * 160;
-              y = 135;
+              x = 23 + ((count - 7) / 2) * 160;
+              y = 122;
               width = 44;
               break;
             default:
               break;
           }
-          ctx.drawImage(image, x, y, width, width);
+          ctx.drawImage(image, x, y+top, width, width);
           count++;
-          if (count >= units.length && !advanced) {
+          if (count >= units.length && !exsraw) {
             sendimage(canvas,res);
           }
         })
@@ -486,7 +521,6 @@ app.get('/comp/:w', function (req, res) {
     }
     if (advanced) {
       const mb2sraw = advanced.split('!')[0];
-      const exsraw = advanced.split('!')[1];
       var mbcount = 0;      
       ctx.font = '11px Arial';
       if (mb2sraw){
@@ -508,9 +542,9 @@ app.get('/comp/:w', function (req, res) {
                y = 191;break;
             }
             ctx.fillStyle = '#fff';            
-            ctx.fillRect(x-20, y-10, 60, 12);
+            ctx.fillRect(x-20, y+top-10, 60, 12);
             ctx.fillStyle = '#333';
-            ctx.fillText(txt,x,y);
+            ctx.fillText(txt,x,y+top);
           }
           
         }
@@ -523,29 +557,26 @@ app.get('/comp/:w', function (req, res) {
             loadImage(imageUrl).then((image) => {
               var x, y;
               var width = 24;
-              x = 24 + (Math.floor(mbcount / 4)) * 160;
-              y = 201;
+              x = 102 + (Math.floor(mbcount / 4)) * 160 + (mbcount%2)*30;
+              y = 4;
+              ctx.fillStyle = '#fff';
               switch (mbcount) {
                 case 2: 
-                case 6: 
-                case 10:                 
-                x += 30;
-                break;
-                case 1: 
-                case 5: 
-                case 9:                 
-                x += 60;
-                break;
                 case 3: 
+                case 6: 
                 case 7: 
+                case 10: 
                 case 11:                 
-                x += 90;
+                x -= 86;
+                y += 180;
                 break;
-
+              }
+              if (mbcount%4==2){
+                ctx.fillRect(x-10, y-10, 60, 30);              
               }
               ctx.drawImage(image, x, y, width, width);
               mbcount++;
-              if (count+mbcount >= units.length+exs.length) {
+              if (mbcount >= exs.length) {
                 sendimage(canvas,res);
               }              
             });

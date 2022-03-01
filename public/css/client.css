@@ -676,7 +676,7 @@ strong {
   position: absolute;
   left: 50%;
   transform: translate(-50%,0);
-  background:rgba(48,48,48,0.8);
+  background:rgba(48,48,48,0.9);
   border:1px solid #999;
   color:#fff;
   width: 100%;
@@ -721,12 +721,16 @@ strong {
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
+  cursor:pointer;
 }
 .ex span{
   position: absolute;
-  line-height: 24px;
+  line-height: 14px;
   left: 30px;
   top: 0px;
+  text-align: left;
+  font-size: 11px;
+  padding-right:5px;
 }
 .ex10{background-image: url(../img/assets/sprites/ex/ex10.png);}
 .ex11{background-image: url(../img/assets/sprites/ex/ex11.png);}
@@ -839,6 +843,7 @@ strong {
   opacity: 0;
   transition: 0.5s all;
   pointer-events: none;
+  line-height: 10px;
 }
 .totalSkillGauge{
   left:auto;

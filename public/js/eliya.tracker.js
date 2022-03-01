@@ -63,6 +63,7 @@ $(document).ready(function () {
   });
 
   socket.on('chars', function (data) {
+    console.log(data);
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
@@ -1043,7 +1044,7 @@ $(document).ready(function () {
       var gauge = $(this).data("TotalGauge")+$(this).find(".ex29").length*25;
       var maxgauge = $(this).data("TotalMaxGauge")+$(this).find(".ex2a").length*7.5;
       if (maxgauge > 200) maxgauge=200;
-      $(this).find(".totalSkillGauge span").text(gauge+'%/'+maxgauge+'%'); 
+      $(this).find(".totalSkillGauge span").text(Math.floor(gauge)+'%/'+Math.floor(maxgauge)+'%'); 
 
     });
   }
@@ -1058,7 +1059,7 @@ $(document).ready(function () {
     var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
     if (gauges){
       for (const [key, gauge] of Object.entries(gauges)) {
-        if (key == 'LeaderBuff' && index!==1) continue;
+        if (key == 'LeaderBuff' && (index!==1 || slot!=='main')) continue;
         if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;
         if (gauge.IsMain && slot=='sub') continue;
         var mult = 1;        
@@ -1066,7 +1067,11 @@ $(document).ready(function () {
           var abilv = $("#unison"+index).find("."+slot).data("mb2s")[parseInt(key.replace('Ability',''))-4];
           if (abilv == 0) continue;
           mult = 1 - (0.5 * (6-abilv)/5);
-        } 
+        }
+        if (gauge.Every > 0){
+          var targetNum = $(".unison .char.Attribute"+gauge.EveryCond).length+$(".unison .char.Race"+gauge.EveryCond).length;
+          mult = 0 + Math.floor(targetNum/gauge.Every);
+        }
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
@@ -1097,7 +1102,7 @@ $(document).ready(function () {
     }
     if (maxgauges){
       for (const [key, gauge] of Object.entries(maxgauges)) {
-        if (key == 'LeaderBuff' && index!==1) continue;
+        if (key == 'LeaderBuff' && (index!==1 || slot!=='main')) continue;
         if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;        
         if (gauge.IsMain && slot=='sub') continue;
         var mult = 1;        
@@ -1106,6 +1111,10 @@ $(document).ready(function () {
           if (abilv == 0) continue;
           mult = 1 - (0.5 * (6-abilv)/5);
         } 
+        if (gauge.Every > 0){
+          var targetNum = $(".unison .char.Attribute"+gauge.EveryCond).length+$(".unison .char.Race"+gauge.EveryCond).length;
+          mult = 0 + Math.floor(targetNum/gauge.Every);
+        }        
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
