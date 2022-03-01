@@ -461,134 +461,135 @@ app.get('/comp/:w', function (req, res) {
   const units = url.split("-");
   var count = 0;
   if (lang==='_') lang='';
-  loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
-    ctx.drawImage(bg, 0, top, 480, 205);
-    for (i = 0; i < units.length; i++) {
-      var imageUrl = '';
-      if (i < 6) {
-        imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
-      } else if (i < 12) {
-        if (i%2==0){
-          imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
-        }else{
-          imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
-        }
-      }
-      if (fs.existsSync(imageUrl)){  
-        loadImage(imageUrl).then((image) => {
-          var width = 82;
-          var x, y;
-          switch (count) {
-            case 0:
-            case 2:
-            case 4:
-              x = 10 + (count / 2) * 160;
-              y = 10;
-              break;
-            case 1:
-            case 3:
-            case 5:
-              x = 81 + ((count - 1) / 2) * 160;
-              y = 110;
-              width = 69;
-              break;
-            case 6:
-            case 8:
-            case 10:
-              x = 96 + ((count - 6) / 2) * 160;
-              y = 26;
-              width = 54;
-              break;
-            case 7:
-            case 9:
-            case 11:
-              x = 23 + ((count - 7) / 2) * 160;
-              y = 122;
-              width = 44;
-              break;
-            default:
-              break;
-          }
-          ctx.drawImage(image, x, y+top, width, width);
-          count++;
-          if (count >= units.length && !exsraw) {
-            sendimage(canvas,res);
-          }
-        })
-      }else{
-        count++;
-      }
-    }
-    if (advanced) {
-      const mb2sraw = advanced.split('!')[0];
-      var mbcount = 0;      
-      ctx.font = '11px Arial';
-      if (mb2sraw){
-        const mb2s = mb2sraw.split(':');
-        for (i = 0; i < mb2s.length; i++) {
-          if (mb2s[i].length>=3){
-            const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
-            var x, y;
-            switch (i) {
-               case 0: 
-               case 2: 
-               case 4: 
-               x = 36 + (i / 2) * 160;;
-               y = 104;break;
-               case 1: 
-               case 3: 
-               case 5: 
-               x = 100 + ((i-1) / 2) * 160;
-               y = 191;break;
-            }
-            ctx.fillStyle = '#fff';            
-            ctx.fillRect(x-20, y+top-10, 60, 12);
-            ctx.fillStyle = '#333';
-            ctx.fillText(txt,x,y+top);
-          }
-          
-        }
-      }
-      if (exsraw){
-        var exs = exsraw.split(':');
-        for (i = 0; i < exs.length; i++) {
-          var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
-          if (fs.existsSync(imageUrl)){  
-            loadImage(imageUrl).then((image) => {
-              var x, y;
-              var width = 24;
-              x = 102 + (Math.floor(mbcount / 4)) * 160 + (mbcount%2)*30;
-              y = 4;
-              ctx.fillStyle = '#fff';
-              switch (mbcount) {
-                case 2: 
-                case 3: 
-                case 6: 
-                case 7: 
-                case 10: 
-                case 11:                 
-                x -= 86;
-                y += 180;
-                break;
-              }
-              if (mbcount%4==2){
-                ctx.fillRect(x-10, y-10, 60, 30);              
-              }
-              ctx.drawImage(image, x, y, width, width);
-              mbcount++;
-              if (mbcount >= exs.length) {
-                sendimage(canvas,res);
-              }              
-            });
+  if (fs.existsSync('./public/img/party_full' + lang + '.png')){  
+    loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
+      ctx.drawImage(bg, 0, top, 480, 205);
+      for (i = 0; i < units.length; i++) {
+        var imageUrl = '';
+        if (i < 6) {
+          imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
+        } else if (i < 12) {
+          if (i%2==0){
+            imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
           }else{
-            mbcount++;
+            imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
           }
-        }        
+        }
+        if (fs.existsSync(imageUrl)){  
+          loadImage(imageUrl).then((image) => {
+            var width = 82;
+            var x, y;
+            switch (count) {
+              case 0:
+              case 2:
+              case 4:
+                x = 10 + (count / 2) * 160;
+                y = 10;
+                break;
+              case 1:
+              case 3:
+              case 5:
+                x = 81 + ((count - 1) / 2) * 160;
+                y = 110;
+                width = 69;
+                break;
+              case 6:
+              case 8:
+              case 10:
+                x = 96 + ((count - 6) / 2) * 160;
+                y = 26;
+                width = 54;
+                break;
+              case 7:
+              case 9:
+              case 11:
+                x = 23 + ((count - 7) / 2) * 160;
+                y = 122;
+                width = 44;
+                break;
+              default:
+                break;
+            }
+            ctx.drawImage(image, x, y+top, width, width);
+            count++;
+            if (count >= units.length && !exsraw) {
+              sendimage(canvas,res);
+            }
+          })
+        }else{
+          count++;
+        }
       }
-    }
+      if (advanced) {
+        const mb2sraw = advanced.split('!')[0];
+        var mbcount = 0;      
+        ctx.font = '11px Arial';
+        if (mb2sraw){
+          const mb2s = mb2sraw.split(':');
+          for (i = 0; i < mb2s.length; i++) {
+            if (mb2s[i].length>=3){
+              const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
+              var x, y;
+              switch (i) {
+                case 0: 
+                case 2: 
+                case 4: 
+                x = 36 + (i / 2) * 160;;
+                y = 104;break;
+                case 1: 
+                case 3: 
+                case 5: 
+                x = 100 + ((i-1) / 2) * 160;
+                y = 191;break;
+              }
+              ctx.fillStyle = '#fff';            
+              ctx.fillRect(x-20, y+top-10, 60, 12);
+              ctx.fillStyle = '#333';
+              ctx.fillText(txt,x,y+top);
+            }
+            
+          }
+        }
+        if (exsraw){
+          var exs = exsraw.split(':');
+          for (i = 0; i < exs.length; i++) {
+            var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
+            if (fs.existsSync(imageUrl)){  
+              loadImage(imageUrl).then((image) => {
+                var x, y;
+                var width = 24;
+                x = 102 + (Math.floor(mbcount / 4)) * 160 + (mbcount%2)*30;
+                y = 4;
+                ctx.fillStyle = '#fff';
+                switch (mbcount) {
+                  case 2: 
+                  case 3: 
+                  case 6: 
+                  case 7: 
+                  case 10: 
+                  case 11:                 
+                  x -= 86;
+                  y += 180;
+                  break;
+                }
+                if (mbcount%4==2){
+                  ctx.fillRect(x-10, y-10, 60, 30);              
+                }
+                ctx.drawImage(image, x, y, width, width);
+                mbcount++;
+                if (mbcount >= exs.length) {
+                  sendimage(canvas,res);
+                }              
+              });
+            }else{
+              mbcount++;
+            }
+          }        
+        }
+      }
 
-  });
-  
+    });
+  }
 });
 function sendimage(canvas,res){
   var data = canvas.toDataURL();
