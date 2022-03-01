@@ -502,8 +502,8 @@ strong {
   height: 10px;
   padding: 2px;
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 0px;
+  right: 0px;
   background-color: #fff;
   background-size: 10px;
   background-repeat: no-repeat;

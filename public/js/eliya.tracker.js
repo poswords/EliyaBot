@@ -647,7 +647,7 @@ $(document).ready(function () {
     $(".char").each(function () {
       if (!$(this).is('.blank') && ($(this).find('.altArt').length==0)){
         const path = $(this).find('.mainArt').attr('src').replace('square_0','square_1');
-        $(this).append($('<img src="' + path + '" class="altArt">'));
+        $('<img src="' + path + '" class="altArt">').insertAfter($(this).find('.mainArt'));
       }
     });
     $(this).toggleClass("on");
@@ -658,7 +658,7 @@ $(document).ready(function () {
     $(".equip").each(function () {
       if (!$(this).is('.blank') && ($(this).find('.soulArt').length==0)){
         const path = $(this).find('.weaponArt').attr('src').replace('.png','_soul.png');
-        $(this).append($('<img src="' + path + '" class="soulArt">'));
+        $('<img src="' + path + '" class="soulArt">').insertAfter($(this).find('.weaponArt'));
       }
     });    
     $(this).toggleClass("on");
