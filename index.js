@@ -412,10 +412,15 @@ app.get('/comp/:w', function (req, res) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   var url = req.params.w.replace('.png', '');
   var lang = '';
+  var advanced;
   if (url.indexOf('.') > 0) {
     lang = '_' + url.split('.')[1];
     url = url.split('.')[0];
   }
+  if (url.indexOf('@') > 0) {
+    advanced = url.split('@')[1]; 
+    url = url.split('@')[0];
+  }  
   const units = url.split("-");
   var count = 0;
   if (lang==='_') lang='';
@@ -469,24 +474,99 @@ app.get('/comp/:w', function (req, res) {
           }
           ctx.drawImage(image, x, y, width, width);
           count++;
-          if (count >= units.length) {
-            var data = canvas.toDataURL();
-            data = data.replace(/^data:image\/png;base64,/, '');
-            var img = new Buffer.from(data, 'base64');
-            res.writeHead(200, {
-              'Content-Type': 'image/png',
-              'Content-Length': img.length
-            });
-            res.end(img);
+          if (count >= units.length && advanced.indexOf('!') <= 0) {
+            sendimage(canvas,res);
           }
         })
       }else{
         count++;
       }
     }
+    if (advanced.indexOf('!') > 0) {
+      const mb2sraw = advanced.split('!')[0];
+      const exsraw = advanced.split('!')[1];
+      var mbcount = 0;      
+      ctx.font = '11px Arial';
+      if (mb2sraw){
+        const mb2s = mb2sraw.split(':');
+        for (i = 0; i < mb2s.length; i++) {
+          if (mb2s[i].length>=3){
+            const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
+            var x, y;
+            switch (i) {
+               case 0: 
+               case 2: 
+               case 4: 
+               x = 36 + (i / 2) * 160;;
+               y = 104;break;
+               case 1: 
+               case 3: 
+               case 5: 
+               x = 100 + ((i-1) / 2) * 160;
+               y = 191;break;
+            }
+            ctx.fillStyle = '#fff';            
+            ctx.fillRect(x-20, y-10, 60, 12);
+            ctx.fillStyle = '#333';
+            ctx.fillText(txt,x,y);
+          }
+          
+        }
+      }
+      if (exsraw){
+        var exs = exsraw.split(':');
+        for (i = 0; i < exs.length; i++) {
+          var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
+          if (fs.existsSync(imageUrl)){  
+            loadImage(imageUrl).then((image) => {
+              var x, y;
+              var width = 20;
+              x = 56 + (Math.floor(mbcount / 4)) * 160;
+              y = 112;
+              switch (mbcount) {
+                case 2: 
+                case 6: 
+                case 10:                 
+                y += 22;
+                break;
+                case 1: 
+                case 5: 
+                case 9:                 
+                y += 44;
+                break;
+                case 3: 
+                case 7: 
+                case 11:                 
+                y += 66;
+                break;
+
+              }
+              ctx.drawImage(image, x, y, width, width);
+              mbcount++;
+              if (count+mbcount >= units.length+exs.length) {
+                sendimage(canvas,res);
+              }              
+            });
+          }else{
+            mbcount++;
+          }
+        }        
+      }
+    }
+
   });
   
 });
+function sendimage(canvas,res){
+  var data = canvas.toDataURL();
+  data = data.replace(/^data:image\/png;base64,/, '');
+  var img = new Buffer.from(data, 'base64');
+  res.writeHead(200, {
+    'Content-Type': 'image/png',
+    'Content-Length': img.length
+  });
+  res.end(img);  
+}
 app.post('/update', async (req, res) => {
   updateDB();
   res.send("webapp updated!");

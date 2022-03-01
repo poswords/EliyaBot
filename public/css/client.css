@@ -667,33 +667,105 @@ strong {
   transition: 0.5s all;
 }
 .mainExs{
-  top:-70px;
+  top:-80px;
 }
 .subExs{
-  bottom:-82px;
+  bottom:-80px;
+}
+.exBoostList{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  background:rgba(48,48,48,0.8);
+  border:1px solid #999;
+  color:#fff;
+  width: 100%;
+  max-width: 480px;
+  padding: 3px 2%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  z-index: 20;
+}
+.exBoostList ul{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.exBoostList.top1{
+  top: 54px; 
+}
+.exBoostList.top2{
+  top: 84px; 
+}
+.exBoostList.bottom1{
+  bottom: 144px; 
+}
+.exBoostList.bottom2{
+  bottom: 114px; 
+}
+.exBoostList li{
+  flex: 1 1 50%;
+}
+.unison .ex{
+  margin:10px 0;
+}
+.unison .ex span{
+  display: none;
 }
 .ex{
   display: block;
   height: 24px;
   width:24px;
-  padding: 6px 3px;
-  background: url(../img/assets/sprites/ex/ex_none.png);
-  background-size: 24px 24px;
+  margin: 6px 0px;
+  background-image: url(../img/assets/sprites/ex/ex0.png);
+  background-size: contain;
   background-repeat: no-repeat;
+  position: relative;
 }
+.ex span{
+  position: absolute;
+  line-height: 24px;
+  left: 30px;
+  top: 0px;
+}
+.ex10{background-image: url(../img/assets/sprites/ex/ex10.png);}
+.ex11{background-image: url(../img/assets/sprites/ex/ex11.png);}
+.ex12{background-image: url(../img/assets/sprites/ex/ex12.png);}
+.ex13{background-image: url(../img/assets/sprites/ex/ex13.png);}
+.ex14{background-image: url(../img/assets/sprites/ex/ex14.png);}
+.ex15{background-image: url(../img/assets/sprites/ex/ex15.png);}
+.ex16{background-image: url(../img/assets/sprites/ex/ex16.png);}
+.ex17{background-image: url(../img/assets/sprites/ex/ex17.png);}
+.ex18{background-image: url(../img/assets/sprites/ex/ex18.png);}
+.ex19{background-image: url(../img/assets/sprites/ex/ex19.png);}
+.ex20{background-image: url(../img/assets/sprites/ex/ex20.png);}
+.ex21{background-image: url(../img/assets/sprites/ex/ex21.png);}
+.ex22{background-image: url(../img/assets/sprites/ex/ex22.png);}
+.ex23{background-image: url(../img/assets/sprites/ex/ex23.png);}
+.ex24{background-image: url(../img/assets/sprites/ex/ex24.png);}
+.ex25{background-image: url(../img/assets/sprites/ex/ex25.png);}
+.ex26{background-image: url(../img/assets/sprites/ex/ex26.png);}
+.ex27{background-image: url(../img/assets/sprites/ex/ex27.png);}
+.ex28{background-image: url(../img/assets/sprites/ex/ex28.png);}
+.ex29{background-image: url(../img/assets/sprites/ex/ex29.png);}
+.ex2a{background-image: url(../img/assets/sprites/ex/ex2a.png);}
 .sliders{
-  opacity: 0;
+  opacity: 1;
   position: absolute;
   left: 0;
   pointer-events: none;
   text-align: left;
-  transition: 0.5s all;
+  transition: 0.3s all;
 }
 .mainSliders{
   top:-72px;
 }
 .subSliders{
   bottom:-80px;
+}
+.advanced #planner .sliders.disabled{
+  opacity:0.5;
+  pointer-events:none;
 }
 .advanced .sliders{
   pointer-events:all; 
@@ -704,12 +776,13 @@ strong {
   height: 3px;
   background: #2EC4B6;
   outline: none;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
   border-radius: 1px;
   margin: 10px 0px 10px 13px;
   transform: translate(0,-4px);
   border-radius: 5px;
+  opacity: 0;
+  transition: 0.5s all;
+  pointer-events:none;   
 }
 .sliders input:before{
   position: absolute;
@@ -781,7 +854,7 @@ strong {
 .advanced #unisons .main:after, .advanced #unisons .sub:after {
   display: none;
 }
-.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders,  .advanced #planner .exboosts {
+.advanced #planner .totalSkillWait, .advanced #planner .totalSkillGauge, .advanced #planner .sliders input,  .advanced #planner .exboosts {
   opacity: 1;
   pointer-events: all;
   transition: 0.5s 0.3s all;

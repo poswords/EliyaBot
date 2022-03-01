@@ -63,7 +63,6 @@ $(document).ready(function () {
   });
 
   socket.on('chars', function (data) {
-    console.log(data);
     if (!charLoaded) {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
@@ -99,12 +98,10 @@ $(document).ready(function () {
         } else {
           elem.addClass("NoLimited")
         }
-
         elem.data("SkillWait", skillWait);
         elem.data("Gauges", unit.Gauges);
         elem.data("MaxGauges", unit.MaxGauges);
         unit.SkillWait = skillWait;
-
         var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
         Object.keys(unit).forEach(function (key) {
           info.find('.' + key + ' span').text(unit[key]);
@@ -191,6 +188,7 @@ $(document).ready(function () {
       }
       charLoaded = true;
       updateCharFilter();
+      setSkillWait();      
     }
   });
   socket.on('equips', function (data) {
@@ -327,14 +325,14 @@ $(document).ready(function () {
   }
 
   for (i = 1; i < 4; i++) {
-    const skillwait = '<div class="SkillWait">0</div><div class="mb2s">5/5/5</div>';
-    const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="7" value="7"><input type="range" class="abi5" min="0" max="7" value="7"><input type="range" class="abi7" min="0" max="7" value="7"></div>';
-    const exs = '<div class="exboosts"><span class="exboost1 ex0 ex"></span><span class="exboost2 ex0 ex"></span></div>';
+    const skillwait = '<div class="SkillWait">0</div><div class="mb2s">- / - / -</div>';
+    const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="0"><input type="range" class="abi5" min="0" max="6" value="0"><input type="range" class="abi6" min="0" max="6" value="0"></div>';
+    const exs = '<div class="exboosts"><ul class="exboost1 exboost"><li class="ex ex0"></li></ul><ul class="exboost2 exboost"><li class="ex ex0"></li></ul></div>';
     $('#unison' + i)
       .append($(sliders).addClass('mainSliders')).append($(exs).addClass('mainExs'))
-      .append(blank_elem.clone().append(skillwait).addClass('char main'))
+      .append(blank_elem.clone().append(skillwait).addClass('char main').data("mb2s",[0,0,0]))
       .append(blank_elem.clone().addClass('equip weapon'))
-      .append(blank_elem.clone().append(skillwait).addClass('char sub'))
+      .append(blank_elem.clone().append(skillwait).addClass('char sub').data("mb2s",[0,0,0]))
       .append(blank_elem.clone().addClass('equip soul'))
       .append($(sliders).addClass('subSliders')).append($(exs).addClass('subExs'))
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
@@ -475,6 +473,46 @@ $(document).ready(function () {
       }
     }
   });
+
+  $(".sliders input").on("input", function() {
+    setSkillWait();
+  });
+
+  $(".unison .exboost").on("click", function (e) {
+    e.stopPropagation();
+    if ($(this).is(".exboost1")){
+      var list = $("#exBoostList1");
+      var boost = 1;
+    }else{
+      var list = $("#exBoostList2");
+      var boost = 2;
+    }
+    if(list.is(".hidden")){
+      resetExBoostList();
+      list.removeClass("hidden top1 top2 bottom1 bottom2");
+      $(this).addClass("selecting");
+      if($(this).parents(".exboosts").is(".mainExs")){
+        list.addClass("top"+boost);
+      }else{
+        list.addClass("bottom"+boost);
+      }
+    }else{
+      resetExBoostList();
+    }
+  });  
+  $(".exBoostList .ex").on("click",function(e){
+    e.stopPropagation();
+    $(".exboost.selecting").html($(this).clone());
+    setSkillWait();
+    resetExBoostList();
+  });
+  $(document).on("click",function(e){
+    resetExBoostList();
+  });
+  function resetExBoostList(){
+    $(".exboost.selecting").removeClass("selecting");
+    $(".exBoostList").addClass("hidden");
+  }
   $("#btnUnset").on("click", function (e) {
     e.stopPropagation();
     $("#btnUnset").appendTo($("#planner"));
@@ -564,10 +602,13 @@ $(document).ready(function () {
   $("#btnGetCompURL").on("click", function () {
     $(this).removeClass("on");
     var units = [];
+    var mb2s = [];
+    var exboosts = [];
     $(".planner .char").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
       if (!DevNicknames) DevNicknames = "blank";
       units.push(DevNicknames);
+      mb2s.push($(this).find(".mb2s").text().replaceAll(' / ',''));
     })
     $(".planner .equip").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
@@ -576,7 +617,17 @@ $(document).ready(function () {
     })
     var lngcode = '';
     if (lang != "en") lngcode += '.' + lang;
-    const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') + lngcode + ".png";
+    var advanced = '';
+    if ($("#info").is(".advanced")){
+      advanced = '@'+mb2s.join(':');
+      var exs = []
+      $(".unison .ex").each(function(){
+        exs.push($(this).attr('class').replace("ex ex",""));
+      });
+      advanced += '!'+exs.join(':')
+    }
+
+    const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') + advanced +lngcode + ".png";
     $("#txtCompURL").val(imageUrl);
     if (!copyToClipboard(imageUrl)) {
       $('.body').addClass("showCompURL");
@@ -686,7 +737,6 @@ $(document).ready(function () {
     $("#btnUnset").appendTo($("#planner"));
     var unit;
     var mb2s = slot.find(".mb2s");
-    var exs = slot.find(".exboosts");
     if (DevNickname == "blank") {
       unit = blank_elem.clone();
       slot.data("DevNicknames", "blank");
@@ -710,7 +760,8 @@ $(document).ready(function () {
       slot.removeClass('main filtered');
     }
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
-    slot.append(mb2s).append(exs);
+    slot.append(mb2s);    
+
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
@@ -753,6 +804,7 @@ $(document).ready(function () {
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
     $('body').removeClass("showCompURL");
   }
+
   function unitChanged() {
     $("#btnSave").removeClass("on");
     $("#btnGetShareURL").text(tls.GenerateShareURL).removeClass("on");
@@ -949,6 +1001,30 @@ $(document).ready(function () {
     $(".unison").data("TotalGauge",0);
     $(".unison").data("TotalMaxGauge",100);
     $(".unison").each(function (i) {
+      if ($("#char-"+$(this).find('.main').data('DevNicknames')).is(".ManaBoard2")){
+        $(this).find(".mainSliders").removeClass("disabled");
+        var mainabis = [$(this).find(".mainSliders .abi4").val(),$(this).find(".mainSliders .abi5").val(),$(this).find(".mainSliders .abi6").val()];        
+      }else{
+        $(this).find(".mainSliders .abi4").val(0);
+        $(this).find(".mainSliders .abi5").val(0);
+        $(this).find(".mainSliders .abi6").val(0);
+        $(this).find(".mainSliders").addClass("disabled");        
+        var mainabis = [0,0,0];
+      }
+      if ($("#char-"+$(this).find('.sub').data('DevNicknames')).is(".ManaBoard2")){
+        $(this).find(".subSliders").removeClass("disabled");        
+        var subabis = [$(this).find(".subSliders .abi4").val(),$(this).find(".subSliders .abi5").val(),$(this).find(".subSliders .abi6").val()];        
+      }else{
+        $(this).find(".subSliders .abi4").val(0);
+        $(this).find(".subSliders .abi5").val(0);
+        $(this).find(".subSliders .abi6").val(0);
+        $(this).find(".subSliders").addClass("disabled"); 
+        var subabis = [0,0,0];
+      }      
+      $(this).find('.main').data("mb2s", mainabis);
+      $(this).find('.sub').data("mb2s", subabis);      
+      $(this).find('.main .mb2s').html(((mainabis[0]!=0)?mainabis[0]-1:'-') + ' / ' + ((mainabis[1]!=0)?mainabis[1]-1:'-')+ ' / ' + ((mainabis[2]!=0)?mainabis[2]-1:'-'));
+      $(this).find('.sub .mb2s').html(((subabis[0]!=0)?subabis[0]-1:'-') + ' / ' + ((subabis[1]!=0)?subabis[1]-1:'-')+ ' / ' + ((subabis[2]!=0)?subabis[2]-1:'-'));
       calcGauge($(this).find('.main').data('DevNicknames'),'main', i+1);
       calcGauge($(this).find('.sub').data('DevNicknames'),'sub', i+1);
       calcGauge($(this).find('.weapon').data('DevNicknames'),'weapon', i+1);
@@ -964,9 +1040,10 @@ $(document).ready(function () {
         wait = (main + sub) / 2
       }      
       $(this).find(".totalSkillWait span").text(wait);
-      var maxgauge = $(this).data("TotalMaxGauge");
+      var gauge = $(this).data("TotalGauge")+$(this).find(".ex29").length*25;
+      var maxgauge = $(this).data("TotalMaxGauge")+$(this).find(".ex2a").length*7.5;
       if (maxgauge > 200) maxgauge=200;
-      $(this).find(".totalSkillGauge span").text($(this).data("TotalGauge")+'%/'+maxgauge+'%'); 
+      $(this).find(".totalSkillGauge span").text(gauge+'%/'+maxgauge+'%'); 
 
     });
   }
@@ -978,35 +1055,40 @@ $(document).ready(function () {
       var gauges = getGauges(DevNickname,"equip");
       var maxgauges = getGauges(DevNickname,"equip",true);
     }
-    
     var mains = [$("#unison1").find('.main').data('DevNicknames'),$("#unison2").find('.main').data('DevNicknames'),$("#unison3").find('.main').data('DevNicknames')];
     if (gauges){
       for (const [key, gauge] of Object.entries(gauges)) {
         if (key == 'LeaderBuff' && index!==1) continue;
         if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;
         if (gauge.IsMain && slot=='sub') continue;
+        var mult = 1;        
+        if (key == 'Ability4' || key == 'Ability5' || key == 'Ability6'){
+          var abilv = $("#unison"+index).find("."+slot).data("mb2s")[parseInt(key.replace('Ability',''))-4];
+          if (abilv == 0) continue;
+          mult = 1 - (0.5 * (6-abilv)/5);
+        } 
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
-              $('#unison'+index).data("TotalGauge",$('#unison'+index).data("TotalGauge")+parseInt(gauge.Amount));
+              $('#unison'+index).data("TotalGauge",$('#unison'+index).data("TotalGauge")+parseInt(gauge.Amount)*mult);
             }
             break;
           case "leader": 
             if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
-              $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount));
+              $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount)*mult);
             }
             break;              
           case "party":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
-                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount)*mult);
               }
             }
             break;
           case "other":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
-                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount));
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount)*mult);
               }
             }
             break;
@@ -1018,28 +1100,34 @@ $(document).ready(function () {
         if (key == 'LeaderBuff' && index!==1) continue;
         if ((slot!='soul' && key == 'AbilitySoul') || (slot=='soul' && key != 'AbilitySoul')) continue;        
         if (gauge.IsMain && slot=='sub') continue;
+        var mult = 1;        
+        if (key == 'Ability4' || key == 'Ability5' || key == 'Ability6'){
+          var abilv = $("#unison"+index).find("."+slot).data("mb2s")[parseInt(key.replace('Ability',''))-4];
+          if (abilv == 0) continue;
+          mult = 1 - (0.5 * (6-abilv)/5);
+        } 
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
-              $('#unison'+index).data("TotalMaxGauge",$('#unison'+index).data("TotalMaxGauge")+parseInt(gauge.Amount));
+              $('#unison'+index).data("TotalMaxGauge",$('#unison'+index).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
             }
             break;
           case "leader": 
             if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
-              $('#unison1').data("TotalMaxGauge",$('#unison1').data("TotalMaxGauge")+parseInt(gauge.Amount));
+              $('#unison1').data("TotalMaxGauge",$('#unison1').data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
             }
             break;              
           case "party":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
-                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount));
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
               }
             }
             break;
           case "other":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
-                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount));
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
               }
             }
             break;
