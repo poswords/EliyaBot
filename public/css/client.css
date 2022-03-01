@@ -768,7 +768,7 @@ strong {
   bottom:-80px;
 }
 .advanced #planner .sliders.disabled{
-  opacity:0.5;
+  opacity:0.3;
   pointer-events:none;
 }
 .advanced .sliders{

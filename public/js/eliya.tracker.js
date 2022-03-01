@@ -638,6 +638,7 @@ $(document).ready(function () {
   });
   $("#btnAdvanced").on("click", function () {
     $(this).toggleClass('on');
+    $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
     $('#info').toggleClass('advanced');
   });  
   $("#btnAltArt").on("click", function () {
