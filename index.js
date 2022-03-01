@@ -406,10 +406,6 @@ app.get('/data/ja/titles.json', function (req, res) {
   });
 });
 app.get('/comp/:w', function (req, res) {
-  const canvas = createCanvas(480, 205);
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
   var url = req.params.w.replace('.png', '');
   var lang = '';
   var advanced;
@@ -420,7 +416,15 @@ app.get('/comp/:w', function (req, res) {
   if (url.indexOf('@') > 0) {
     advanced = url.split('@')[1]; 
     url = url.split('@')[0];
-  }  
+  } 
+  var height = 205; 
+  if (advanced.indexOf('!') > 0) {  
+    height+=24;
+  }
+  const canvas = createCanvas(480, height);
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);  
   const units = url.split("-");
   var count = 0;
   if (lang==='_') lang='';
@@ -520,24 +524,24 @@ app.get('/comp/:w', function (req, res) {
           if (fs.existsSync(imageUrl)){  
             loadImage(imageUrl).then((image) => {
               var x, y;
-              var width = 20;
-              x = 56 + (Math.floor(mbcount / 4)) * 160;
-              y = 112;
+              var width = 24;
+              x = 24 + (Math.floor(mbcount / 4)) * 160;
+              y = 201;
               switch (mbcount) {
                 case 2: 
                 case 6: 
                 case 10:                 
-                y += 22;
+                x += 30;
                 break;
                 case 1: 
                 case 5: 
                 case 9:                 
-                y += 44;
+                x += 60;
                 break;
                 case 3: 
                 case 7: 
                 case 11:                 
-                y += 66;
+                x += 90;
                 break;
 
               }
