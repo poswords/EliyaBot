@@ -525,7 +525,7 @@ app.get('/comp/:w', function (req, res) {
         var mbcount = 0;      
         ctx.font = '11px Arial';
         if (mb2sraw){
-          const mb2s = mb2sraw.split(':');
+          const mb2s = mb2sraw.split(',');
           for (i = 0; i < mb2s.length; i++) {
             if (mb2s[i].length>=3){
               const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
@@ -551,7 +551,7 @@ app.get('/comp/:w', function (req, res) {
           }
         }
         if (exsraw){
-          var exs = exsraw.split(':');
+          var exs = exsraw.split(',');
           for (i = 0; i < exs.length; i++) {
             var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
             if (fs.existsSync(imageUrl)){  

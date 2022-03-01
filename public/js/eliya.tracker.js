@@ -618,12 +618,12 @@ $(document).ready(function () {
     if (lang != "en") lngcode += '.' + lang;
     var advanced = '';
     if ($("#info").is(".advanced")){
-      advanced = '@'+mb2s.join(':');
+      advanced = '@'+mb2s.join(',');
       var exs = []
       $(".unison .ex").each(function(){
         exs.push($(this).attr('class').replace("ex ex",""));
       });
-      advanced += '!'+exs.join(':')
+      advanced += '!'+exs.join(',')
     }
 
     const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') + advanced +lngcode + ".png";
