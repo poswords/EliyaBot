@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser');
 const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-express-middleware');
 const Backend = require('i18next-node-fs-backend');
-
+const clone = require('clone');
 const {
   createCanvas,
   loadImage
@@ -180,8 +180,6 @@ function calcMaxGauge(text){
 async function updateDB() {
 
   data = DB.getData('en');
-  dataja = DB.getData('en');
-  datazhtw = DB.getData('en');
   var datajatemp = DB.getData('ja');
   var datazhtwtemp = DB.getData('zh-TW');
 
@@ -227,6 +225,10 @@ async function updateDB() {
       AbilitySoul:calcMaxGauge(i.AbilitySoul)
     }        
   });  
+
+
+  dataja =  clone(data);
+  datazhtw =  clone(data);
 
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
