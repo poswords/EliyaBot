@@ -227,8 +227,7 @@ async function updateDB() {
   });  
 
 
-  dataja =  clone(data);
-  datazhtw =  clone(data);
+  dataja = clone(data);
 
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
@@ -244,14 +243,6 @@ async function updateDB() {
       i.SubName = ijp.SubName;
       i.Obtain = ijp.Obtain;
     }else{
-      i.LeaderBuff = "";
-      i.Skill = "";
-      i.Ability1 = "";
-      i.Ability2 = "";
-      i.Ability3 = "";
-      i.Ability4 = "";
-      i.Ability5 = "";
-      i.Ability6 = "";
       i.SubName = "";
       if (i.Obtain){
         i.Obtain = i.Obtain.replace('Limited','限定');
@@ -268,16 +259,13 @@ async function updateDB() {
       i.AbilitySoul = ijp.AbilitySoul;
       i.Obtain = ijp.Obtain;
     }else{
-      i.WeaponSkill = "";
-      i.AwakenLv3 = "";
-      i.AwakenLv5 = "";
-      i.AbilitySoul = "";
       if (i.Obtain){
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
     }
   }); 
 
+  datazhtw = clone(data);
   datazhtw.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){
@@ -293,15 +281,7 @@ async function updateDB() {
       i.Ability6 = itw.Ability6;    
       i.Obtain = itw.Obtain;
     }else{
-      i.LeaderBuff = "";
       i.ZHName = "";
-      i.Skill = "";
-      i.Ability1 = "";
-      i.Ability2 = "";
-      i.Ability3 = "";
-      i.Ability4 = "";
-      i.Ability5 = "";
-      i.Ability6 = "";
       i.SubName = "";
       if (i.Obtain){
         i.Obtain = i.Obtain.replace('Limited','限定');
@@ -320,10 +300,6 @@ async function updateDB() {
       i.Obtain = itw.Obtain;
     }else{
       i.ZHName = "";
-      i.WeaponSkill = "";
-      i.AwakenLv3 = "";
-      i.AwakenLv5 = "";
-      i.AbilitySoul = "";
       if (i.Obtain){
         i.Obtain = i.Obtain.replace('Limited','限定');
       }    
