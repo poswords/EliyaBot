@@ -232,78 +232,76 @@ async function updateDB() {
   dataja.chars.forEach(function (i) {
     var ijp = datajatemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
-      i.LeaderBuff = ijp.LeaderBuff;
-      i.Skill = ijp.Skill;
-      i.Ability1 = ijp.Ability1;
-      i.Ability2 = ijp.Ability2;
-      i.Ability3 = ijp.Ability3;
-      i.Ability4 = ijp.Ability4;
-      i.Ability5 = ijp.Ability5;
-      i.Ability6 = ijp.Ability6;    
-      i.SubName = ijp.SubName;
-      i.Obtain = ijp.Obtain;
+      if (ijp.ZHName!==""){i.ZHName = ijp.ZHName;}
+      if (ijp.LeaderBuff!==""){i.LeaderBuff = ijp.LeaderBuff;}
+      if (ijp.Skill!==""){i.Skill = ijp.Skill;}
+      if (ijp.Ability1!==""){i.Ability1 = ijp.Ability1;}
+      if (ijp.Ability2!==""){i.Ability2 = ijp.Ability2;}
+      if (ijp.Ability3!==""){i.Ability3 = ijp.Ability3;}
+      if (ijp.Ability4!==""){i.Ability4 = ijp.Ability4;}
+      if (ijp.Ability5!==""){i.Ability5 = ijp.Ability5;}
+      if (ijp.Ability6!==""){i.Ability6 = ijp.Ability6;}
+      if (ijp.Obtain!==""){i.Obtain = ijp.Obtain;}
     }else{
       i.SubName = "";
-      if (i.Obtain){
-        i.Obtain = i.Obtain.replace('Limited','限定');
-      }      
     }
-
+    if (i.Obtain){
+      i.Obtain = i.Obtain.replace('Limited','限定');
+    }
   }); 
   dataja.equips.forEach(function (i) {
     var ijp = datajatemp.equips.find(e => e.DevNicknames == i.DevNicknames)
     if (ijp){
-      i.WeaponSkill = ijp.WeaponSkill;
-      i.AwakenLv3 = ijp.AwakenLv3;
-      i.AwakenLv5 = ijp.AwakenLv5;
-      i.AbilitySoul = ijp.AbilitySoul;
-      i.Obtain = ijp.Obtain;
-    }else{
-      if (i.Obtain){
-        i.Obtain = i.Obtain.replace('Limited','限定');
-      }    
+      if (ijp.WeaponSkill!==""){i.WeaponSkill = ijp.WeaponSkill;}
+      if (ijp.AwakenLv3!==""){i.AwakenLv3 = ijp.AwakenLv3;}
+      if (ijp.AwakenLv5!==""){i.AwakenLv5 = ijp.AwakenLv5;}
+      if (ijp.AbilitySoul!==""){i.AbilitySoul = ijp.AbilitySoul;}
+      if (ijp.Obtain!==""){i.Obtain = ijp.Obtain;}
     }
+    if (i.Obtain){
+      i.Obtain = i.Obtain.replace('Limited','限定');
+    }        
   }); 
 
   datazhtw = clone(data);
   datazhtw.chars.forEach(function (i) {
     var itw = datazhtwtemp.chars.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){
-      i.SubName = itw.SubName;      
-      i.ZHName = itw.ZHName;
-      i.LeaderBuff = itw.LeaderBuff;      
-      i.Skill = itw.Skill;
-      i.Ability1 = itw.Ability1;
-      i.Ability2 = itw.Ability2;
-      i.Ability3 = itw.Ability3;
-      i.Ability4 = itw.Ability4;
-      i.Ability5 = itw.Ability5;
-      i.Ability6 = itw.Ability6;    
-      i.Obtain = itw.Obtain;
+      if (itw.SubName!==""){i.SubName = itw.SubName;}
+      if (itw.ZHName!==""){i.ZHName = itw.ZHName;}
+      if (itw.LeaderBuff!==""){i.LeaderBuff = itw.LeaderBuff;}
+      if (itw.Skill!==""){i.Skill = itw.Skill;}
+      if (itw.Ability1!==""){i.Ability1 = itw.Ability1;}
+      if (itw.Ability2!==""){i.Ability2 = itw.Ability2;}
+      if (itw.Ability3!==""){i.Ability3 = itw.Ability3;}
+      if (itw.Ability4!==""){i.Ability4 = itw.Ability4;}
+      if (itw.Ability5!==""){i.Ability5 = itw.Ability5;}
+      if (itw.Ability6!==""){i.Ability6 = itw.Ability6;}
+      if (itw.Obtain!==""){i.Obtain = itw.Obtain;}
     }else{
       i.ZHName = "";
-      i.SubName = "";
-      if (i.Obtain){
-        i.Obtain = i.Obtain.replace('Limited','限定');
-      }      
     }
+    if (i.Obtain){
+      i.Obtain = i.Obtain.replace('Limited','限定');
+    }         
 
   }); 
   datazhtw.equips.forEach(function (i) {
     var itw = datazhtwtemp.equips.find(e => e.DevNicknames == i.DevNicknames)
     if (itw){
       i.ZHName = itw.ZHName;
-      i.WeaponSkill = itw.WeaponSkill;
-      i.AwakenLv3 = itw.AwakenLv3;
-      i.AwakenLv5 = itw.AwakenLv5;
-      i.AbilitySoul = itw.AbilitySoul;
-      i.Obtain = itw.Obtain;
+      if (itw.WeaponSkill!==""){i.WeaponSkill = itw.WeaponSkill;}
+      if (itw.AwakenLv3!==""){i.AwakenLv3 = itw.AwakenLv3;}
+      if (itw.AwakenLv5!==""){i.AwakenLv5 = itw.AwakenLv5;}
+      if (itw.AbilitySoul!==""){i.AbilitySoul = itw.AbilitySoul;}
+      if (itw.Obtain!==""){i.Obtain = itw.Obtain;
+        i.Obtain = i.Obtain.replace('Limited','限定');}
     }else{
       i.ZHName = "";
-      if (i.Obtain){
-        i.Obtain = i.Obtain.replace('Limited','限定');
-      }    
     }
+    if (i.Obtain){
+      i.Obtain = i.Obtain.replace('Limited','限定');
+    }        
   });  
 }
 updateDB();
