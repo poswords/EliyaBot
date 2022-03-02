@@ -338,7 +338,7 @@ const client = new Client({
     rejectUnauthorized: false
   }
 })
-/*client.connect();*/
+client.connect();
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
     title: 'Eliya',
