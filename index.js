@@ -428,6 +428,7 @@ app.get('/data/ja/equips.json', function (req, res) {
 app.get('/comp/:w', function (req, res) {
   var retry = setInterval(function(){
     if (data.chars){  
+      clearInterval(retry);      
       var url = req.params.w.replace('.png', '');
       var lang = '';
       var advanced;
@@ -506,7 +507,6 @@ app.get('/comp/:w', function (req, res) {
                 ctx.drawImage(image, x, y+top, width, width);
                 count++;
                 if (count >= units.length && !exsraw) {
-                  clearInterval(retry);
                   sendimage(canvas,res);
                 }
               })
@@ -572,7 +572,6 @@ app.get('/comp/:w', function (req, res) {
                     ctx.drawImage(image, x, y, width, width);
                     mbcount++;
                     if (mbcount >= exs.length) {
-                      clearInterval(retry);
                       sendimage(canvas,res);
                     }              
                   });
@@ -607,6 +606,7 @@ io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
     var retry = setInterval(function(){
       if (data.chars){
+        clearInterval(retry);        
         switch (lang) {
           case "ja":
             io.to(socket.id).emit('equips', dataja.equips);
@@ -620,7 +620,6 @@ io.on('connection', function (socket) {
             io.to(socket.id).emit('equips', data.equips);
             io.to(socket.id).emit('chars', data.chars);
         }
-        clearInterval(retry);
       }
     },10);
   });
@@ -664,13 +663,12 @@ io.on('connection', function (socket) {
   socket.on('get url', function (id) {
     var retry = setInterval(function(){
       if (data.chars){          
+        clearInterval(retry);        
         const sql = "SELECT * FROM short_urls WHERE id=$1";
         const values = [id];
-
         client.query(sql,values).then(res => {
           io.to(socket.id).emit('url', res.rows[0]);
         })
-        clearInterval(retry);
       }
     },10);
   });
