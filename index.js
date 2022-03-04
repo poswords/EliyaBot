@@ -58,7 +58,7 @@ function until(conditionFunction) {
   return new Promise(poll).catch((error) => {});
 }
 function calcGauge(text){
-  var match = text.toLowerCase().match(/hen battle begins, (own|party members\'|leader \'|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+)+%/);
+  var match = text.toLowerCase().match(/hen battle begins, (own|party members\'|leader\'|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
     if (target){
