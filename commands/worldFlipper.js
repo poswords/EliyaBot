@@ -892,6 +892,7 @@ const character = {
   async execute(message, args) {
     var retry = setInterval(function(){
       if (data.chars){
+        clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
@@ -914,9 +915,8 @@ const character = {
             sendList(arrFound, message, 'c');
           }
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -929,7 +929,8 @@ const equipment = {
   description: 'Lists information about the given equipment.',
   async execute(message, args) {
     var retry = setInterval(function(){
-      if (data.equips){    
+      if (data.equips){  
+        clearInterval(retry);  
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
@@ -948,9 +949,8 @@ const equipment = {
             sendList(arrFound, message, 'e');
           }
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -964,6 +964,7 @@ const race = {
   async execute(message, args) {
     var retry = setInterval(function(){
       if (data.chars){     
+        clearInterval(retry);        
         const race = args.length ? args.join(' ').toLowerCase() : null;
         if (race.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
@@ -984,9 +985,8 @@ const race = {
         } else {
           sendList(arrFound, message, 'c');
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -999,9 +999,9 @@ const whois = {
   description: 'Show thumbnail of the character',
   async execute(message, args) {
     var retry = setInterval(function(){
-      if (data.chars){         
+      if (data.chars){        
+        clearInterval(retry); 
         const chara = args.length ? args.join(' ').toLowerCase() : null;
-
         if (chara.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
         }
@@ -1022,9 +1022,8 @@ const whois = {
             sendList(arrFound, message, 'w');
           }
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -1038,6 +1037,7 @@ const art = {
   async execute(message, args) {
     var retry = setInterval(function(){
       if (data.chars){         
+        clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
@@ -1055,9 +1055,8 @@ const art = {
         } else {
           sendList(arrFound, message, 'art');
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 const alt = {
@@ -1070,6 +1069,7 @@ const alt = {
   async execute(message, args) {
     var retry = setInterval(function(){
       if (data.chars){            
+        clearInterval(retry);        
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
           return message.channel.send('Search too short please have a minimum of 2 letters!');
@@ -1087,9 +1087,8 @@ const alt = {
         } else {
           sendList(arrFound, message, 'alt');
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -1122,6 +1121,7 @@ const filterCharacter = {
   async execute(message, args) {
     var retry = setInterval(async function(){
       if (data.chars){            
+        clearInterval(retry);        
         let filtered = data.chars;
         let textFilterOptions = {
           fields: []
@@ -1162,9 +1162,8 @@ const filterCharacter = {
         } else {
           await sendFastList(filtered, message, 'c');
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
@@ -1178,6 +1177,7 @@ const filterEquipment = {
   async execute(message, args) {
     var retry = setInterval(async function(){
       if (data.equips){           
+        clearInterval(retry);        
         let filtered = data.equips;
         let textFilterOptions = {
           fields: []
@@ -1218,9 +1218,8 @@ const filterEquipment = {
         } else {
           await sendFastList(filtered, message, 'e');
         }
-        clearInterval(retry);
       }
-    },100);
+    },10);
   },
 };
 
