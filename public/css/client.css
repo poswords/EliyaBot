@@ -815,7 +815,7 @@ strong {
   width: 20px;
   height: 20px;
   background-color: #ccc;
-  border:3px #333 solid; 
+  border:3px #fff solid; 
   box-sizing: border-box;
 	border-radius: 20px;
   cursor: pointer;
@@ -828,7 +828,7 @@ strong {
   width: 20px;
   height: 20px;
   background-color: #ccc;
-  border:3px #333 solid; 
+  border:3px #fff solid; 
   box-sizing: border-box;
 	border-radius: 20px;
   cursor: pointer;
@@ -1541,6 +1541,10 @@ strong {
 .darktheme .advanced #planner .SkillWait,
 .darktheme .advanced #planner .mb2s{
     color: #000;
+}
+.darktheme .sliders input::-webkit-slider-thumb,
+.sliders input::-moz-range-thumb{
+  border:3px #333 solid;
 }
 
 .choiceView .charList .unit:not(.SetA):not(.SetB):not(.SetC):not(.spookyStuff) {
