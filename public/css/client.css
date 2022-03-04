@@ -1542,8 +1542,10 @@ strong {
 .darktheme .advanced #planner .mb2s{
     color: #000;
 }
-.darktheme .sliders input::-webkit-slider-thumb,
-.sliders input::-moz-range-thumb{
+.darktheme .sliders input::-webkit-slider-thumb{
+  border:3px #333 solid;
+}
+.darktheme .sliders input::-moz-range-thumb{
   border:3px #333 solid;
 }
 
