@@ -23,6 +23,11 @@ const catchErr = err => {
   console.log(err)
 }
 
+const checkData = () =>{
+  if (data.chars) return true;
+  return false;
+}
+
 const getInfoEmbed = (unit, flag) => {
   var devNicknames = "";
   var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
@@ -885,28 +890,33 @@ const character = {
   aliases: ['c', 'char'],
   description: 'Lists information about the given character.',
   async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-    if (chara == 'malte') {
-      sendEquip(searchEquipByName(chara)[0], message);
-    } else {
+    var retry = setInterval(function(){
+      if (data.chars){
+        const chara = args.length ? args.join(' ').toLowerCase() : null;
+        if (chara.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        }
+        if (chara == 'malte') {
+          sendEquip(searchEquipByName(chara)[0], message);
+        } else {
 
-      var arrFound = searchCharByName(chara);
+          var arrFound = searchCharByName(chara);
 
-      if (arrFound.length === 0) {
-        return message.channel.send('No character found!');
+          if (arrFound.length === 0) {
+            return message.channel.send('No character found!');
+          }
+          if (arrFound.length > 30) {
+            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          }
+          if (arrFound.length === 1) {
+            sendMessage(arrFound[0], message);
+          } else {
+            sendList(arrFound, message, 'c');
+          }
+        }
+        clearInterval(retry);
       }
-      if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + ' found! Please narrow your search');
-      }
-      if (arrFound.length === 1) {
-        sendMessage(arrFound[0], message);
-      } else {
-        sendList(arrFound, message, 'c');
-      }
-    }
+    },100);
   },
 };
 
@@ -918,24 +928,29 @@ const equipment = {
   aliases: ['e', 'equip'],
   description: 'Lists information about the given equipment.',
   async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    } else {
-      var arrFound = searchEquipByName(chara);
+    var retry = setInterval(function(){
+      if (data.equips){    
+        const chara = args.length ? args.join(' ').toLowerCase() : null;
+        if (chara.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        } else {
+          var arrFound = searchEquipByName(chara);
 
-      if (arrFound.length === 0) {
-        return message.channel.send('No equipment found!');
+          if (arrFound.length === 0) {
+            return message.channel.send('No equipment found!');
+          }
+          if (arrFound.length > 30) {
+            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          }
+          if (arrFound.length === 1) {
+            sendEquip(arrFound[0], message);
+          } else {
+            sendList(arrFound, message, 'e');
+          }
+        }
+        clearInterval(retry);
       }
-      if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + ' found! Please narrow your search');
-      }
-      if (arrFound.length === 1) {
-        sendEquip(arrFound[0], message);
-      } else {
-        sendList(arrFound, message, 'e');
-      }
-    }
+    },100);
   },
 };
 
@@ -947,27 +962,31 @@ const race = {
   aliases: ['r'],
   description: 'Lists characters with the given race.',
   async execute(message, args) {
-    const race = args.length ? args.join(' ').toLowerCase() : null;
-    if (race.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
+    var retry = setInterval(function(){
+      if (data.chars){     
+        const race = args.length ? args.join(' ').toLowerCase() : null;
+        if (race.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        }
 
-    var arrFound = data.chars.filter(function (item) {
-      return item.Race.toLowerCase().indexOf(race) !== -1;
-    });
+        var arrFound = data.chars.filter(function (item) {
+          return item.Race.toLowerCase().indexOf(race) !== -1;
+        });
 
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 40) {
-      return message.channel.send(arrFound.length + ' found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendMessage(arrFound[0], message);
-    } else {
-      sendList(arrFound, message, 'c');
-    }
-
+        if (arrFound.length === 0) {
+          return message.channel.send('No character found!');
+        }
+        if (arrFound.length > 40) {
+          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+        }
+        if (arrFound.length === 1) {
+          sendMessage(arrFound[0], message);
+        } else {
+          sendList(arrFound, message, 'c');
+        }
+        clearInterval(retry);
+      }
+    },100);
   },
 };
 
@@ -979,28 +998,33 @@ const whois = {
   aliases: ['w', 'tn'],
   description: 'Show thumbnail of the character',
   async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
+    var retry = setInterval(function(){
+      if (data.chars){         
+        const chara = args.length ? args.join(' ').toLowerCase() : null;
 
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-    if (chara == 'malte') {
-      sendEquip(searchEquipByName(chara)[0], message);
-    } else {
-      var arrFound = searchCharByName(chara);
+        if (chara.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        }
+        if (chara == 'malte') {
+          sendEquip(searchEquipByName(chara)[0], message);
+        } else {
+          var arrFound = searchCharByName(chara);
 
-      if (arrFound.length === 0) {
-        return message.channel.send('No character found!');
+          if (arrFound.length === 0) {
+            return message.channel.send('No character found!');
+          }
+          if (arrFound.length > 30) {
+            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          }
+          if (arrFound.length === 1) {
+            sendThumbnail(arrFound[0], message);
+          } else {
+            sendList(arrFound, message, 'w');
+          }
+        }
+        clearInterval(retry);
       }
-      if (arrFound.length > 30) {
-        return message.channel.send(arrFound.length + ' found! Please narrow your search');
-      }
-      if (arrFound.length === 1) {
-        sendThumbnail(arrFound[0], message);
-      } else {
-        sendList(arrFound, message, 'w');
-      }
-    }
+    },100);
   },
 };
 
@@ -1012,23 +1036,28 @@ const art = {
   aliases: ['a'],
   description: 'Show full art of the character',
   async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-    var arrFound = searchCharByName(chara);
+    var retry = setInterval(function(){
+      if (data.chars){         
+        const chara = args.length ? args.join(' ').toLowerCase() : null;
+        if (chara.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        }
+        var arrFound = searchCharByName(chara);
 
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + ' found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendArt(arrFound[0], message);
-    } else {
-      sendList(arrFound, message, 'art');
-    }
+        if (arrFound.length === 0) {
+          return message.channel.send('No character found!');
+        }
+        if (arrFound.length > 30) {
+          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+        }
+        if (arrFound.length === 1) {
+          sendArt(arrFound[0], message);
+        } else {
+          sendList(arrFound, message, 'art');
+        }
+        clearInterval(retry);
+      }
+    },100);
   },
 };
 const alt = {
@@ -1039,53 +1068,31 @@ const alt = {
   aliases: ['al'],
   description: 'Show alternate art of the character',
   async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-    var arrFound = searchCharByName(chara);
+    var retry = setInterval(function(){
+      if (data.chars){            
+        const chara = args.length ? args.join(' ').toLowerCase() : null;
+        if (chara.length < 2) {
+          return message.channel.send('Search too short please have a minimum of 2 letters!');
+        }
+        var arrFound = searchCharByName(chara);
 
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + ' found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendAlt(arrFound[0], message);
-    } else {
-      sendList(arrFound, message, 'alt');
-    }
+        if (arrFound.length === 0) {
+          return message.channel.send('No character found!');
+        }
+        if (arrFound.length > 30) {
+          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+        }
+        if (arrFound.length === 1) {
+          sendAlt(arrFound[0], message);
+        } else {
+          sendList(arrFound, message, 'alt');
+        }
+        clearInterval(retry);
+      }
+    },100);
   },
 };
 
-const title = {
-  name: 'title',
-  group,
-  args: true,
-  usage: '<title>',
-  aliases: ['t'],
-  description: 'Show title',
-  async execute(message, args) {
-    const chara = args.length ? args.join(' ').toLowerCase() : null;
-    if (chara.length < 2) {
-      return message.channel.send('Search too short please have a minimum of 2 letters!');
-    }
-    var arrFound = searchTitle(chara);
-
-    if (arrFound.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (arrFound.length > 30) {
-      return message.channel.send(arrFound.length + ' found! Please narrow your search');
-    }
-    if (arrFound.length === 1) {
-      sendTitle(arrFound[0], message);
-    } else {
-      sendList(arrFound, message, 't');
-    }
-  },
-};
 const update = {
   name: 'update',
   group,
@@ -1113,46 +1120,51 @@ const filterCharacter = {
   aliases: ['f', 'fc'],
   description: 'Filter characters by conditions',
   async execute(message, args) {
-    let filtered = data.chars;
-    let textFilterOptions = {
-      fields: []
-    };
-    for (let i = 0; i < args.length; i++) {
-      const arg = args[i];
-      if (extractTextFilterOption(textFilterOptions, arg)) {
-        continue;
-      }
-      switch (arg) {
-        case '-t':
-        case '--text':
-          if (i === args.length - 1) {
-            return message.channel.send("Not enough argument for -t text search!");
+    var retry = setInterval(async function(){
+      if (data.chars){            
+        let filtered = data.chars;
+        let textFilterOptions = {
+          fields: []
+        };
+        for (let i = 0; i < args.length; i++) {
+          const arg = args[i];
+          if (extractTextFilterOption(textFilterOptions, arg)) {
+            continue;
           }
-          i++;
-          filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
-          break;
-        default:
-          const result = filterChar(filtered, args[i].toLowerCase());
-          if (result == null) {
-            filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
-          } else {
-            filtered = result;
+          switch (arg) {
+            case '-t':
+            case '--text':
+              if (i === args.length - 1) {
+                return message.channel.send("Not enough argument for -t text search!");
+              }
+              i++;
+              filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
+              break;
+            default:
+              const result = filterChar(filtered, args[i].toLowerCase());
+              if (result == null) {
+                filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
+              } else {
+                filtered = result;
+              }
+              break;
           }
-          break;
-      }
-    }
+        }
 
-    if (filtered.length === 0) {
-      return message.channel.send('No character found!');
-    }
-    if (filtered.length > 30) {
-      return message.channel.send(filtered.length + ' found! Please narrow your search');
-    }
-    if (filtered.length === 1) {
-      await sendMessage(filtered[0], message);
-    } else {
-      await sendFastList(filtered, message, 'c');
-    }
+        if (filtered.length === 0) {
+          return message.channel.send('No character found!');
+        }
+        if (filtered.length > 30) {
+          return message.channel.send(filtered.length + ' found! Please narrow your search');
+        }
+        if (filtered.length === 1) {
+          await sendMessage(filtered[0], message);
+        } else {
+          await sendFastList(filtered, message, 'c');
+        }
+        clearInterval(retry);
+      }
+    },100);
   },
 };
 
@@ -1164,46 +1176,51 @@ const filterEquipment = {
   aliases: ['ef', 'fe'],
   description: 'Filter equipments by conditions',
   async execute(message, args) {
-    let filtered = data.equips;
-    let textFilterOptions = {
-      fields: []
-    };
-    for (let i = 0; i < args.length; i++) {
-      const arg = args[i];
-      if (extractTextFilterOption(textFilterOptions, arg)) {
-        continue;
-      }
-      switch (arg) {
-        case '-t':
-        case '--text':
-          if (i === args.length - 1) {
-            return message.channel.send("Not enough argument for -t text search!");
+    var retry = setInterval(async function(){
+      if (data.equips){           
+        let filtered = data.equips;
+        let textFilterOptions = {
+          fields: []
+        };
+        for (let i = 0; i < args.length; i++) {
+          const arg = args[i];
+          if (extractTextFilterOption(textFilterOptions, arg)) {
+            continue;
           }
-          i++;
-          filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
-          break;
-        default:
-          const result = filterEquip(filtered, args[i].toLowerCase());
-          if (result == null) {
-            filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
-          } else {
-            filtered = result;
+          switch (arg) {
+            case '-t':
+            case '--text':
+              if (i === args.length - 1) {
+                return message.channel.send("Not enough argument for -t text search!");
+              }
+              i++;
+              filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
+              break;
+            default:
+              const result = filterEquip(filtered, args[i].toLowerCase());
+              if (result == null) {
+                filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
+              } else {
+                filtered = result;
+              }
+              break;
           }
-          break;
-      }
-    }
+        }
 
-    if (filtered.length === 0) {
-      return message.channel.send('No equipment found!');
-    }
-    if (filtered.length > 30) {
-      return message.channel.send(filtered.length + ' found! Please narrow your search');
-    }
-    if (filtered.length === 1) {
-      await sendMessage(filtered[0], message);
-    } else {
-      await sendFastList(filtered, message, 'e');
-    }
+        if (filtered.length === 0) {
+          return message.channel.send('No equipment found!');
+        }
+        if (filtered.length > 30) {
+          return message.channel.send(filtered.length + ' found! Please narrow your search');
+        }
+        if (filtered.length === 1) {
+          await sendMessage(filtered[0], message);
+        } else {
+          await sendFastList(filtered, message, 'e');
+        }
+        clearInterval(retry);
+      }
+    },100);
   },
 };
 

@@ -366,206 +366,227 @@ app.get('/titles/list', function (req, res) {
   });
 });*/
 app.get('/data/en/chars.json', function (req, res) {
-  res.json({
-    "chars": data.chars
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": data.chars
+      });
+      clearInterval(retry);
+    }
+  },100)
 });
 app.get('/data/zh-TW/chars.json', function (req, res) {
-  res.json({
-    "chars": datazhtw.chars
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": datazhtw.chars
+      });
+      clearInterval(retry);
+    }
+  },100)  
 });
 app.get('/data/ja/chars.json', function (req, res) {
-  res.json({
-    "chars": dataja.chars
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": dataja.chars
+      });
+      clearInterval(retry);
+    }
+  },100)    
 });
 app.get('/data/en/equips.json', function (req, res) {
-  res.json({
-    "chars": data.equips
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": data.equips
+      });
+      clearInterval(retry);
+    }
+  },100)   
 });
 app.get('/data/zh-TW/equips.json', function (req, res) {
-  res.json({
-    "chars": datazhtw.equips
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": datazhtw.equips
+      });
+      clearInterval(retry);
+    }
+  },100)     
 });
 app.get('/data/ja/equips.json', function (req, res) {
-  res.json({
-    "chars": dataja.equips
-  });
-});
-app.get('/data/en/titles.json', function (req, res) {
-  res.json({
-    "chars": data.titles
-  });
-});
-app.get('/data/zh-TW/titles.json', function (req, res) {
-  res.json({
-    "chars": datazhtw.titles
-  });
-});
-app.get('/data/ja/titles.json', function (req, res) {
-  res.json({
-    "chars": dataja.titles
-  });
+  var retry = setInterval(function(){
+    if (data.chars){
+      res.json({
+        "chars": dataja.equips
+      });
+      clearInterval(retry);
+    }
+  },100)    
 });
 app.get('/comp/:w', function (req, res) {
-  var url = req.params.w.replace('.png', '');
-  var lang = '';
-  var advanced;
-  var exsraw;
-  if (url.indexOf('.') > 0) {
-    lang = '_' + url.split('.')[1];
-    url = url.split('.')[0];
-  }
-  var height = 205;   
-  var top = 0;
-  if (url.indexOf('!') > 0) {  
-    exsraw = url.split('!')[1];
-    height+=10;
-    top+=10;    
-  }   
-  if (url.indexOf('@') > 0) {
-    advanced = url.split('@')[1]; 
-    url = url.split('@')[0];
-  } 
-  const canvas = createCanvas(480, height);
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);  
-  const units = url.split("-");
-  var count = 0;
-  if (lang==='_') lang='';
-  if (fs.existsSync('./public/img/party_full' + lang + '.png')){  
-    loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
-      ctx.drawImage(bg, 0, top, 480, 205);
-      for (i = 0; i < units.length; i++) {
-        var imageUrl = '';
-        if (i < 6) {
-          imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
-        } else if (i < 12) {
-          if (i%2==0){
-            imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
-          }else{
-            imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
-          }
-        }
-        if (fs.existsSync(imageUrl)){  
-          loadImage(imageUrl).then((image) => {
-            var width = 82;
-            var x, y;
-            switch (count) {
-              case 0:
-              case 2:
-              case 4:
-                x = 10 + (count / 2) * 160;
-                y = 10;
-                break;
-              case 1:
-              case 3:
-              case 5:
-                x = 81 + ((count - 1) / 2) * 160;
-                y = 110;
-                width = 69;
-                break;
-              case 6:
-              case 8:
-              case 10:
-                x = 96 + ((count - 6) / 2) * 160;
-                y = 26;
-                width = 54;
-                break;
-              case 7:
-              case 9:
-              case 11:
-                x = 23 + ((count - 7) / 2) * 160;
-                y = 122;
-                width = 44;
-                break;
-              default:
-                break;
-            }
-            ctx.drawImage(image, x, y+top, width, width);
-            count++;
-            if (count >= units.length && !exsraw) {
-              sendimage(canvas,res);
-            }
-          })
-        }else{
-          count++;
-        }
+  var retry = setInterval(function(){
+    if (data.chars){  
+      var url = req.params.w.replace('.png', '');
+      var lang = '';
+      var advanced;
+      var exsraw;
+      if (url.indexOf('.') > 0) {
+        lang = '_' + url.split('.')[1];
+        url = url.split('.')[0];
       }
-      if (advanced) {
-        const mb2sraw = advanced.split('!')[0];
-        var mbcount = 0;      
-        ctx.font = '11px Arial';
-        if (mb2sraw){
-          const mb2s = mb2sraw.split(',');
-          for (i = 0; i < mb2s.length; i++) {
-            if (mb2s[i].length>=3){
-              const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
-              var x, y;
-              switch (i) {
-                case 0: 
-                case 2: 
-                case 4: 
-                x = 36 + (i / 2) * 160;;
-                y = 104;break;
-                case 1: 
-                case 3: 
-                case 5: 
-                x = 100 + ((i-1) / 2) * 160;
-                y = 191;break;
+      var height = 205;   
+      var top = 0;
+      if (url.indexOf('!') > 0) {  
+        exsraw = url.split('!')[1];
+        height+=10;
+        top+=10;    
+      }   
+      if (url.indexOf('@') > 0) {
+        advanced = url.split('@')[1]; 
+        url = url.split('@')[0];
+      } 
+      const canvas = createCanvas(480, height);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);  
+      const units = url.split("-");
+      var count = 0;
+      if (lang==='_') lang='';
+      if (fs.existsSync('./public/img/party_full' + lang + '.png')){  
+        loadImage('./public/img/party_full' + lang + '.png').then((bg) => {
+          ctx.drawImage(bg, 0, top, 480, 205);
+          for (i = 0; i < units.length; i++) {
+            var imageUrl = '';
+            if (i < 6) {
+              imageUrl = './public/img/assets/chars/' + units[i] + '/square_0.png'
+            } else if (i < 12) {
+              if (i%2==0){
+                imageUrl = './public/img/assets/item/equipment/' + units[i] + '.png'	
+              }else{
+                imageUrl = './public/img/assets/item/equipment/' + units[i] + '_soul.png'
               }
-              ctx.fillStyle = '#fff';            
-              ctx.fillRect(x-20, y+top-10, 60, 12);
-              ctx.fillStyle = '#333';
-              ctx.fillText(txt,x,y+top);
             }
-            
-          }
-        }
-        if (exsraw){
-          var exs = exsraw.split(',');
-          for (i = 0; i < exs.length; i++) {
-            var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
             if (fs.existsSync(imageUrl)){  
               loadImage(imageUrl).then((image) => {
+                var width = 82;
                 var x, y;
-                var width = 24;
-                x = 102 + (Math.floor(mbcount / 4)) * 160 + (mbcount%2)*30;
-                y = 4;
-                ctx.fillStyle = '#fff';
-                switch (mbcount) {
-                  case 2: 
-                  case 3: 
-                  case 6: 
-                  case 7: 
-                  case 10: 
-                  case 11:                 
-                  x -= 86;
-                  y += 180;
-                  break;
+                switch (count) {
+                  case 0:
+                  case 2:
+                  case 4:
+                    x = 10 + (count / 2) * 160;
+                    y = 10;
+                    break;
+                  case 1:
+                  case 3:
+                  case 5:
+                    x = 81 + ((count - 1) / 2) * 160;
+                    y = 110;
+                    width = 69;
+                    break;
+                  case 6:
+                  case 8:
+                  case 10:
+                    x = 96 + ((count - 6) / 2) * 160;
+                    y = 26;
+                    width = 54;
+                    break;
+                  case 7:
+                  case 9:
+                  case 11:
+                    x = 23 + ((count - 7) / 2) * 160;
+                    y = 122;
+                    width = 44;
+                    break;
+                  default:
+                    break;
                 }
-                if (mbcount%4==2){
-                  ctx.fillRect(x-10, y-10, 60, 30);              
-                }
-                ctx.drawImage(image, x, y, width, width);
-                mbcount++;
-                if (mbcount >= exs.length) {
+                ctx.drawImage(image, x, y+top, width, width);
+                count++;
+                if (count >= units.length && !exsraw) {
+                  clearInterval(retry);
                   sendimage(canvas,res);
-                }              
-              });
+                }
+              })
             }else{
-              mbcount++;
+              count++;
             }
-          }        
-        }
-      }
+          }
+          if (advanced) {
+            const mb2sraw = advanced.split('!')[0];
+            var mbcount = 0;      
+            ctx.font = '11px Arial';
+            if (mb2sraw){
+              const mb2s = mb2sraw.split(',');
+              for (i = 0; i < mb2s.length; i++) {
+                if (mb2s[i].length>=3){
+                  const txt = mb2s[i][0]+' / '+mb2s[i][1] + ' / ' +mb2s[i][2];
+                  var x, y;
+                  switch (i) {
+                    case 0: 
+                    case 2: 
+                    case 4: 
+                    x = 36 + (i / 2) * 160;;
+                    y = 104;break;
+                    case 1: 
+                    case 3: 
+                    case 5: 
+                    x = 100 + ((i-1) / 2) * 160;
+                    y = 191;break;
+                  }
+                  ctx.fillStyle = '#fff';            
+                  ctx.fillRect(x-20, y+top-10, 60, 12);
+                  ctx.fillStyle = '#333';
+                  ctx.fillText(txt,x,y+top);
+                }
+                
+              }
+            }
+            if (exsraw){
+              var exs = exsraw.split(',');
+              for (i = 0; i < exs.length; i++) {
+                var imageUrl = './public/img/assets/sprites/ex/ex' + exs[i] + '.png'
+                if (fs.existsSync(imageUrl)){  
+                  loadImage(imageUrl).then((image) => {
+                    var x, y;
+                    var width = 24;
+                    x = 102 + (Math.floor(mbcount / 4)) * 160 + (mbcount%2)*30;
+                    y = 4;
+                    ctx.fillStyle = '#fff';
+                    switch (mbcount) {
+                      case 2: 
+                      case 3: 
+                      case 6: 
+                      case 7: 
+                      case 10: 
+                      case 11:                 
+                      x -= 86;
+                      y += 180;
+                      break;
+                    }
+                    if (mbcount%4==2){
+                      ctx.fillRect(x-10, y-10, 60, 30);              
+                    }
+                    ctx.drawImage(image, x, y, width, width);
+                    mbcount++;
+                    if (mbcount >= exs.length) {
+                      clearInterval(retry);
+                      sendimage(canvas,res);
+                    }              
+                  });
+                }else{
+                  mbcount++;
+                }
+              }        
+            }
+          }
 
-    });
-  }
+        });
+      }
+    }
+  },100)       
 });
 function sendimage(canvas,res){
   var data = canvas.toDataURL();
@@ -584,21 +605,26 @@ app.post('/update', async (req, res) => {
 
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
-    switch (lang) {
-      case "ja":
-        io.to(socket.id).emit('equips', dataja.equips);
-        io.to(socket.id).emit('chars', dataja.chars);
-        break;
-      case "zh-TW":
-        io.to(socket.id).emit('equips', datazhtw.equips);
-        io.to(socket.id).emit('chars', datazhtw.chars);
-        break;
-      default:
-        io.to(socket.id).emit('equips', data.equips);
-        io.to(socket.id).emit('chars', data.chars);
-    }
+    var retry = setInterval(function(){
+      if (data.chars){      
+        switch (lang) {
+          case "ja":
+            io.to(socket.id).emit('equips', dataja.equips);
+            io.to(socket.id).emit('chars', dataja.chars);
+            break;
+          case "zh-TW":
+            io.to(socket.id).emit('equips', datazhtw.equips);
+            io.to(socket.id).emit('chars', datazhtw.chars);
+            break;
+          default:
+            io.to(socket.id).emit('equips', data.equips);
+            io.to(socket.id).emit('chars', data.chars);
+        }
+        clearInterval(retry);
+      }
+    },100);
   });
-  socket.on('connected-title', function (lang) {
+  /*socket.on('connected-title', function (lang) {
     switch (lang) {
       case "ja":
         io.to(socket.id).emit('titles', dataja.titles);
@@ -609,7 +635,7 @@ io.on('connection', function (socket) {
       default:
         io.to(socket.id).emit('titles', data.titles);
     }
-  });
+  });*/
 
 
   socket.on('add url', function (list) {
@@ -636,12 +662,17 @@ io.on('connection', function (socket) {
     })
   });
   socket.on('get url', function (id) {
-      const sql = "SELECT * FROM short_urls WHERE id=$1";
-      const values = [id];
+    var retry = setInterval(function(){
+      if (data.chars){          
+        const sql = "SELECT * FROM short_urls WHERE id=$1";
+        const values = [id];
 
-      client.query(sql,values).then(res => {
-        io.to(socket.id).emit('url', res.rows[0]);
-      })
+        client.query(sql,values).then(res => {
+          io.to(socket.id).emit('url', res.rows[0]);
+        })
+        clearInterval(retry);
+      }
+    },100);
   });
 
 });
