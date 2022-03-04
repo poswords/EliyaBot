@@ -373,7 +373,7 @@ app.get('/data/en/chars.json', function (req, res) {
       });
       clearInterval(retry);
     }
-  },100)
+  },10)
 });
 app.get('/data/zh-TW/chars.json', function (req, res) {
   var retry = setInterval(function(){
@@ -383,7 +383,7 @@ app.get('/data/zh-TW/chars.json', function (req, res) {
       });
       clearInterval(retry);
     }
-  },100)  
+  },10)  
 });
 app.get('/data/ja/chars.json', function (req, res) {
   var retry = setInterval(function(){
@@ -393,7 +393,7 @@ app.get('/data/ja/chars.json', function (req, res) {
       });
       clearInterval(retry);
     }
-  },100)    
+  },10)    
 });
 app.get('/data/en/equips.json', function (req, res) {
   var retry = setInterval(function(){
@@ -403,7 +403,7 @@ app.get('/data/en/equips.json', function (req, res) {
       });
       clearInterval(retry);
     }
-  },100)   
+  },10)   
 });
 app.get('/data/zh-TW/equips.json', function (req, res) {
   var retry = setInterval(function(){
@@ -413,7 +413,7 @@ app.get('/data/zh-TW/equips.json', function (req, res) {
       });
       clearInterval(retry);
     }
-  },100)     
+  },10)     
 });
 app.get('/data/ja/equips.json', function (req, res) {
   var retry = setInterval(function(){
@@ -586,7 +586,7 @@ app.get('/comp/:w', function (req, res) {
         });
       }
     }
-  },100)       
+  },10)       
 });
 function sendimage(canvas,res){
   var data = canvas.toDataURL();
@@ -606,7 +606,7 @@ app.post('/update', async (req, res) => {
 io.on('connection', function (socket) {
   socket.on('connected', function (lang) {
     var retry = setInterval(function(){
-      if (data.chars){      
+      if (data.chars){
         switch (lang) {
           case "ja":
             io.to(socket.id).emit('equips', dataja.equips);
@@ -622,7 +622,7 @@ io.on('connection', function (socket) {
         }
         clearInterval(retry);
       }
-    },100);
+    },10);
   });
   /*socket.on('connected-title', function (lang) {
     switch (lang) {
@@ -672,7 +672,7 @@ io.on('connection', function (socket) {
         })
         clearInterval(retry);
       }
-    },100);
+    },10);
   });
 
 });
