@@ -197,6 +197,16 @@ async function updateDB() {
       Ability5:calcGauge(i.Ability5),
       Ability6:calcGauge(i.Ability6)
     }
+    if (i.DevNicknames == 'lazy_genious'){
+      i.Gauges.Ability2 = {
+        Target: 'own',
+        Condition: '',
+        Every: '',
+        EveryCond: '',
+        IsMain: '',
+        Amount: 40
+      }
+    }
     i.MaxGauges={
       LeaderBuff:calcMaxGauge(i.LeaderBuff),
       Ability1:calcMaxGauge(i.Ability1),
