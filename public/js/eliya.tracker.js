@@ -1074,25 +1074,25 @@ $(document).ready(function () {
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
-              $('#unison'+index).data("TotalGauge",$('#unison'+index).data("TotalGauge")+parseInt(gauge.Amount)*mult);
+              $('#unison'+index).data("TotalGauge",$('#unison'+index).data("TotalGauge")+parseFloat(gauge.Amount)*mult);
             }
             break;
           case "leader": 
             if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
-              $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseInt(gauge.Amount)*mult);
+              $('#unison1').data("TotalGauge",$('#unison1').data("TotalGauge")+parseFloat(gauge.Amount)*mult);
             }
             break;              
           case "party":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
-                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount)*mult);
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseFloat(gauge.Amount)*mult);
               }
             }
             break;
           case "other":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
-                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseInt(gauge.Amount)*mult);
+                $('#unison'+i).data("TotalGauge",$('#unison'+i).data("TotalGauge")+parseFloat(gauge.Amount)*mult);
               }
             }
             break;
@@ -1117,25 +1117,25 @@ $(document).ready(function () {
         switch (gauge.Target){
           case "own":
             if ((gauge.Condition=='') || checkCondition(mains[index-1],gauge.Condition)){
-              $('#unison'+index).data("TotalMaxGauge",$('#unison'+index).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
+              $('#unison'+index).data("TotalMaxGauge",$('#unison'+index).data("TotalMaxGauge")+parseFloat(gauge.Amount)*mult);
             }
             break;
           case "leader": 
             if((gauge.Condition=='') || checkCondition(mains[0],gauge.Condition)){
-              $('#unison1').data("TotalMaxGauge",$('#unison1').data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
+              $('#unison1').data("TotalMaxGauge",$('#unison1').data("TotalMaxGauge")+parseFloat(gauge.Amount)*mult);
             }
             break;              
           case "party":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)){
-                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseFloat(gauge.Amount)*mult);
               }
             }
             break;
           case "other":
             for (i=1;i<4;i++){
               if((gauge.Condition=='') || checkCondition(mains[i-1],gauge.Condition)&&(!$('#unison'+i).is("#unison"+index))){
-                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseInt(gauge.Amount)*mult);
+                $('#unison'+i).data("TotalMaxGauge",$('#unison'+i).data("TotalMaxGauge")+parseFloat(gauge.Amount)*mult);
               }
             }
             break;
