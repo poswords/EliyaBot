@@ -252,8 +252,6 @@ async function updateDB() {
       if (ijp.Ability5!==""){i.Ability5 = ijp.Ability5;}
       if (ijp.Ability6!==""){i.Ability6 = ijp.Ability6;}
       if (ijp.Obtain!==""){i.Obtain = ijp.Obtain;}
-    }else{
-      i.SubName = "";
     }
     if (i.Obtain){
       i.Obtain = i.Obtain.replace('Limited','限定');
