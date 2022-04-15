@@ -58,6 +58,16 @@ function until(conditionFunction) {
   return new Promise(poll).catch((error) => {});
 }
 function calcGauge(text){
+  if (!text){
+    return {
+      Target: "self",
+      Condition: "",
+      Every: 0,      
+      EveryCond: "",      
+      IsMain: false,
+      Amount: 0
+    }
+  }
   var match = text.toLowerCase().match(/hen battle begins, (own|party members\'|leader\'s|.* characters\'|other .* characters\'|other party members\') skill gauge \+(\d+.?\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
@@ -118,6 +128,16 @@ function calcGauge(text){
   }
 }
 function calcMaxGauge(text){
+  if (!text){
+    return {
+      Target: "self",
+      Condition: "",
+      Every: 0,      
+      EveryCond: "",      
+      IsMain: false,
+      Amount: 0
+    }
+  }
   var match = text.toLowerCase().match(/(.*) max skill gauge \+(\d+.?\d+)+%/);
   if (match){
     var target = match[1].match(/(own|party|leader|other)/);
