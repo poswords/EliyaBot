@@ -168,7 +168,7 @@ const getShortENName = longName => {
 }
 
 const sendList = async (units, message, type) => {
-  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```');
+  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```').catch(catchErr);
   await appendReacts(units, message, type, msg);
 };
 
@@ -179,7 +179,7 @@ const sendFastList = async (units, message, type) => {
     return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
   }).join('\n');
   list += '\`\`\`';
-  const msg = await message.channel.send(list);
+  const msg = await message.channel.send(list).catch(catchErr);
   await appendReacts(units, message, type, msg, 4);
 };
 
@@ -228,7 +228,7 @@ const sendMessage = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   try {      
-    const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]});
+    const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -251,7 +251,7 @@ const sendEquip = async (unit, message) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   try {        
-    const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]});
+    const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]}).catch(catchErr);
     await msg.react(weaponReaction).catch(catchErr);
     await msg.react(soulReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -274,7 +274,7 @@ const sendThumbnail = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   try {       
-    const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]});
+    const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -297,7 +297,7 @@ const sendArt = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   try {       
-    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]});
+    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -320,7 +320,7 @@ const sendAlt = async (unit, message) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
   try {       
-    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]});
+    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
@@ -339,7 +339,7 @@ const sendAlt = async (unit, message) => {
 };
 
 const sendTitle = async (unit, message) => {
-  message.channel.send({embeds:[getTitleEmbed(unit)]});
+  message.channel.send({embeds:[getTitleEmbed(unit)]}).catch(catchErr);
 };
 
 const searchCharByName = chara => {
@@ -736,7 +736,7 @@ const guide = {
   description: 'Links LilyCat\'s Beginner Progression Guide.',
   execute(message) {
     const guideLink = 'https://docs.google.com/document/d/1gParEsz_GsETHyjunJ9mBz7tgKfkUOmueopR4UUp274';
-    return message.channel.send(`The Beginner Progression Guide can be found here:\n${guideLink}`);
+    return message.channel.send(`The Beginner Progression Guide can be found here:\n${guideLink}`).catch(catchErr);
   },
 };
 
@@ -747,7 +747,7 @@ const tls = {
   description: "Link to Eliya Bot's translation webapp",
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/list';
-    return message.channel.send(`The translation webapp can be found here:\n${tlDocLink}`);
+    return message.channel.send(`The translation webapp can be found here:\n${tlDocLink}`).catch(catchErr);
   },
 };
 
@@ -819,7 +819,7 @@ const event = {
       msg.addFields({name: "Upcoming Events", value: "```diff\nNo upcoming event```"})
     }
 
-    return message.channel.send({embeds:[msg]});
+    return message.channel.send({embeds:[msg]}).catch(catchErr);
   },
 };
 const gacha = {
@@ -869,7 +869,7 @@ const gacha = {
       msg.addFields({name: "Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
     }
 
-    return message.channel.send({embeds:[msg]});
+    return message.channel.send({embeds:[msg]}).catch(catchErr);
   },
 };
 const tracker = {
@@ -879,7 +879,7 @@ const tracker = {
   description: 'Links Collection Tracker.',
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/';
-    return message.channel.send(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`);
+    return message.channel.send(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
   },
 };
 const character = {
@@ -895,7 +895,7 @@ const character = {
         clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         if (chara == 'malte') {
           sendEquip(searchEquipByName(chara)[0], message);
@@ -904,10 +904,10 @@ const character = {
           var arrFound = searchCharByName(chara);
 
           if (arrFound.length === 0) {
-            return message.channel.send('No character found!');
+            return message.channel.send('No character found!').catch(catchErr);
           }
           if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
           }
           if (arrFound.length === 1) {
             sendMessage(arrFound[0], message);
@@ -933,7 +933,7 @@ const equipment = {
         clearInterval(retry);  
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         } else {
           var arrFound = searchEquipByName(chara);
 
@@ -941,7 +941,7 @@ const equipment = {
             return message.channel.send('No equipment found!');
           }
           if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
           }
           if (arrFound.length === 1) {
             sendEquip(arrFound[0], message);
@@ -967,7 +967,7 @@ const race = {
         clearInterval(retry);        
         const race = args.length ? args.join(' ').toLowerCase() : null;
         if (race.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
 
         var arrFound = data.chars.filter(function (item) {
@@ -975,10 +975,10 @@ const race = {
         });
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!');
+          return message.channel.send('No character found!').catch(catchErr);
         }
         if (arrFound.length > 40) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendMessage(arrFound[0], message);
@@ -1003,7 +1003,7 @@ const whois = {
         clearInterval(retry); 
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         if (chara == 'malte') {
           sendEquip(searchEquipByName(chara)[0], message);
@@ -1011,10 +1011,10 @@ const whois = {
           var arrFound = searchCharByName(chara);
 
           if (arrFound.length === 0) {
-            return message.channel.send('No character found!');
+            return message.channel.send('No character found!').catch(catchErr);
           }
           if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search');
+            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
           }
           if (arrFound.length === 1) {
             sendThumbnail(arrFound[0], message);
@@ -1040,15 +1040,15 @@ const art = {
         clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         var arrFound = searchCharByName(chara);
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!');
+          return message.channel.send('No character found!').catch(catchErr);
         }
         if (arrFound.length > 30) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendArt(arrFound[0], message);
@@ -1072,15 +1072,15 @@ const alt = {
         clearInterval(retry);        
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!');
+          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         var arrFound = searchCharByName(chara);
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!');
+          return message.channel.send('No character found!').catch(catchErr);
         }
         if (arrFound.length > 30) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search');
+          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendAlt(arrFound[0], message);
@@ -1107,7 +1107,7 @@ const update = {
       .catch((error) => {
         console.error(error)
       })
-    return message.channel.send('Database updated!');
+    return message.channel.send('Database updated!').catch(catchErr);
   },
 }
 
@@ -1135,7 +1135,7 @@ const filterCharacter = {
             case '-t':
             case '--text':
               if (i === args.length - 1) {
-                return message.channel.send("Not enough argument for -t text search!");
+                return message.channel.send("Not enough argument for -t text search!").catch(catchErr);
               }
               i++;
               filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
@@ -1152,10 +1152,10 @@ const filterCharacter = {
         }
 
         if (filtered.length === 0) {
-          return message.channel.send('No character found!');
+          return message.channel.send('No character found!').catch(catchErr);
         }
         if (filtered.length > 30) {
-          return message.channel.send(filtered.length + ' found! Please narrow your search');
+          return message.channel.send(filtered.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (filtered.length === 1) {
           await sendMessage(filtered[0], message);
@@ -1191,7 +1191,7 @@ const filterEquipment = {
             case '-t':
             case '--text':
               if (i === args.length - 1) {
-                return message.channel.send("Not enough argument for -t text search!");
+                return message.channel.send("Not enough argument for -t text search!").catch(catchErr);
               }
               i++;
               filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
@@ -1208,10 +1208,10 @@ const filterEquipment = {
         }
 
         if (filtered.length === 0) {
-          return message.channel.send('No equipment found!');
+          return message.channel.send('No equipment found!').catch(catchErr);
         }
         if (filtered.length > 30) {
-          return message.channel.send(filtered.length + ' found! Please narrow your search');
+          return message.channel.send(filtered.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (filtered.length === 1) {
           await sendMessage(filtered[0], message);
@@ -1262,16 +1262,16 @@ const submit = {
   async execute(message, args) {
 
     if (!process.env.DATABASE_URL) {
-      return message.channel.send('Missing database for team data. The schema is provided in the repo ');
+      return message.channel.send('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
     }
 
     const desc = args.length == 3 ? args[1] : "No description";
 
     if (args.length < 2) {
-      return message.channel.send('Entry too short please have a minimum of dungeon name and team link!');
+      return message.channel.send('Entry too short please have a minimum of dungeon name and team link!').catch(catchErr);
     }
     if (args.length > 3) {
-      return message.channel.send('Entry too long! Did you forget to wrap the description in quotes?');
+      return message.channel.send('Entry too long! Did you forget to wrap the description in quotes?').catch(catchErr);
     }
 
     // random url validator regex 
@@ -1279,14 +1279,14 @@ const submit = {
     const URI = args.length == 3 ? args[2] : args[1]
     const url = ValidateURI.test(URI) ? new URL(URI) : null
     if (url == null) {
-      return message.channel.send('Invalid Image URL');
+      return message.channel.send('Invalid Image URL').catch(catchErr);
     }
     if (url.host != 'eliya-bot.herokuapp.com' && url.host != 'veliya-bot.herokuapp.com') {
-      return message.channel.send('Invalid Image URL');
+      return message.channel.send('Invalid Image URL').catch(catchErr);
     }
 
     if (!validDungeon(args[0].toLowerCase())) {
-      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString() + ' case insensitive');
+      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString() + ' case insensitive').catch(catchErr);
     }
 
     const components = url.pathname.slice(6).split("-")
@@ -1294,7 +1294,7 @@ const submit = {
     for (let i = 0; i < 6; i++) {
       let character = searchCharByName(components[i])
       if (character.length == 0 && components[i] != "blank") {
-        return message.channel.send('Invalid unit: ' + components[i]);
+        return message.channel.send('Invalid unit: ' + components[i]).catch(catchErr);
       }
     }
     components[11] = components[11].split('.')[0]
@@ -1302,7 +1302,7 @@ const submit = {
     for (let i = 6; i < 12; i++) {
       let character = searchEquipByName(components[i])
       if (character.length == 0 && components[i] != "blank") {
-        return message.channel.send('Invalid equipment: ' + components[i]);
+        return message.channel.send('Invalid equipment: ' + components[i]).catch(catchErr);
       }
     }
 
@@ -1314,10 +1314,10 @@ const submit = {
     \'{${components[9]},${components[10]},${components[11]}}\',${message.author.id}, '${desc}');`
     const res = await DBOperation(queryString)
     if (!res) {
-      return message.channel.send('Team already exists for dungeon')
+      return message.channel.send('Team already exists for dungeon').catch(catchErr)
     }
 
-    return message.channel.send('Team was submitted');
+    return message.channel.send('Team was submitted').catch(catchErr);
   },
 };
 
@@ -1331,21 +1331,21 @@ const team = {
   async execute(message, args) {
 
     if (!process.env.DATABASE_URL) {
-      return message.channel.send('Missing database for team data. The schema is provided in the repo ');
+      return message.channel.send('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
     }
     // For custom filters we increase the allowed length and implement custom logic
     if (args.length != 1) {
-      return message.channel.send('Please enter just the dungeon name');
+      return message.channel.send('Please enter just the dungeon name').catch(catchErr);
     }
 
     if (!validDungeon(args[0].toLowerCase())) {
-      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString());
+      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString()).catch(catchErr);
     }
 
     const queryString = `SELECT * FROM teams WHERE dungeon = '${args[0].toLowerCase()}' ORDER BY voter_score DESC`
     const res = await DBOperation(queryString)
     if (!res) {
-      return message.channel.send("No Teams Found")
+      return message.channel.send("No Teams Found").catch(catchErr)
     }
     for (let i of res.rows) {
       mainReal = []
@@ -1362,7 +1362,7 @@ const team = {
       i.unisonReal = unisonReal
     }
 
-    const msg = await message.channel.send({ embeds: [getTeamListEmbed(res.rows, 0)] });
+    const msg = await message.channel.send({ embeds: [getTeamListEmbed(res.rows, 0)] }).catch(catchErr);
     await EditTeamList(res.rows, message.author.id, 0, msg);
   },
 };
