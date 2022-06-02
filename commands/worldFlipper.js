@@ -19,6 +19,15 @@ const DUNGEONS = process.env.DUNGEONS.split(",");
 const RIGHT = '➡️';
 const LEFT = '⬅️';
 
+process.on("uncaughtException", function (error) {
+  console.log(error);
+});
+
+process.on("unhandledRejection", function (error) {
+  console.log(error);
+});
+
+
 const catchErr = err => {
   console.log(err)
 }
@@ -121,15 +130,15 @@ const getThumbnailEmbed = (unit, flag) => {
     } else {
       msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
     }
-    return msg;
   }
+  return msg;  
 };
 
 const getArtEmbed = (unit, flag) => {
   var devNicknames = "";
   if (unit.DevNicknames){
     devNicknames=unit.DevNicknames;
-  }      
+  }
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter(devNicknames);
@@ -227,7 +236,7 @@ const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {      
+  try {
     const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
@@ -243,14 +252,14 @@ const sendMessage = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }       
+  }
 };
 
 const sendEquip = async (unit, message) => {
   const filter = (reaction, user) => {
     return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {        
+  try {
     const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]}).catch(catchErr);
     await msg.react(weaponReaction).catch(catchErr);
     await msg.react(soulReaction).catch(catchErr);
@@ -266,14 +275,14 @@ const sendEquip = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }       
+  }
 };
 
 const sendThumbnail = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {       
+  try {
     const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
@@ -1453,7 +1462,7 @@ const EditTeamList = async (datum, message, current, msg) => {
   collector.on('collect', r => {
     acted = true
     if (r.emoji.name === RIGHT) {
-      msg.reactions.removeAll();
+      msg.reactions.removeAll().catch(catchErr);;
       EditTeamList(datum, message, current + 5, msg)
     }
     if (r.emoji.name === LEFT) {
