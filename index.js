@@ -18,6 +18,15 @@ const {
   loadImage
 } = require('canvas');
 const path = require('path');
+console.log(process.env.NODE_ENV);
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  })
+}
 app.use(express.static('public', {
   maxAge: "30d"
 }));
