@@ -106,7 +106,6 @@ const getEquipEmbed = (unit, flag) => {
   return msg;
 };
 
-
 const getThumbnailEmbed = (unit, flag) => {
   var devNicknames = "";
   var footer = unit.Stance + ' - ' + unit.Role + ' - ' + unit.Gender + ' - ' + unit.Race;
@@ -131,7 +130,7 @@ const getThumbnailEmbed = (unit, flag) => {
       msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
     }
   }
-  return msg;  
+  return msg;
 };
 
 const getArtEmbed = (unit, flag) => {
@@ -142,7 +141,7 @@ const getArtEmbed = (unit, flag) => {
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
     .setFooter(devNicknames);
-  if (unit.DevNicknames){        
+  if (unit.DevNicknames){
     if (flag == 'awaken') {
       msg.setImage(assetPath + 'chars/' + devNicknames + '/full_shot_1.png')
     } else {
@@ -298,7 +297,7 @@ const sendThumbnail = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }     
+  }
 };
 
 const sendArt = async (unit, message) => {
@@ -321,14 +320,14 @@ const sendArt = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }     
+  }
 };
 
 const sendAlt = async (unit, message) => {
   const filter = (reaction, user) => {
     return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
   };
-  try {       
+  try {
     const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]}).catch(catchErr);
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
@@ -344,7 +343,7 @@ const sendAlt = async (unit, message) => {
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
-  }     
+  }
 };
 
 const sendTitle = async (unit, message) => {
@@ -735,8 +734,6 @@ const extractTextFilterOption = (options, arg) => {
   }
   return false;
 };
-
-
 
 const guide = {
   name: 'guide',
@@ -1462,17 +1459,17 @@ const EditTeamList = async (datum, message, current, msg) => {
   collector.on('collect', r => {
     acted = true
     if (r.emoji.name === RIGHT) {
-      msg.reactions.removeAll().catch(catchErr);;
+      msg.reactions.removeAll().catch(catchErr);
       EditTeamList(datum, message, current + 5, msg)
     }
     if (r.emoji.name === LEFT) {
-      msg.reactions.removeAll().catch(catchErr);;
+      msg.reactions.removeAll().catch(catchErr);
       EditTeamList(datum, message, current - 5, msg)
     }
     const num = datum.length < 5 ? datum.length : 5
     for (let i = 0; i < num; i++) {
       if (r.emoji.name === numberReactions[i]) {
-        msg.reactions.removeAll().catch(catchErr);;
+        msg.reactions.removeAll().catch(catchErr);
         sendTeam(datum[i + current], msg)
       }
     }
