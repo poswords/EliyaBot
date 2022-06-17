@@ -13,7 +13,7 @@
     "clone": "^2.1.2",
     "cookie-parser": "^1.4.5",
     "discord.io": "^2.5.3",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "dotenv": "^8.6.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
