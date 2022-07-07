@@ -80,7 +80,7 @@ $(document).ready(function () {
         } else {
           skillWait = 0;
         }
-        if (unit.Ability4) {
+        if (unit.ManaBoard2) {
           elem.addClass("ManaBoard2")
         }
         if (unit.InTaiwan) {

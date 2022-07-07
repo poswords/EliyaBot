@@ -18,7 +18,6 @@ const {
   loadImage
 } = require('canvas');
 const path = require('path');
-console.log(process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https')
@@ -235,6 +234,11 @@ async function updateDB() {
         IsMain: '',
         Amount: 40
       }
+    }
+    if (i.Ability4){
+      i.ManaBoard2 = true;
+    }else{
+      i.ManaBoard2 = false;
     }
     i.MaxGauges={
       LeaderBuff:calcMaxGauge(i.LeaderBuff),
