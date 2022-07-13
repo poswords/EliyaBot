@@ -1106,7 +1106,7 @@ const update = {
   execute(message, args) {
     data = DB.getData();
     const axios = require('axios');
-    axios.post('http://eliya-bot.herokuapp.com/update', {})
+    axios.post('https://eliya-bot.herokuapp.com/update', {})
       .then((res) => {
 
       })
