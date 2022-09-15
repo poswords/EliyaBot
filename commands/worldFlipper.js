@@ -83,7 +83,6 @@ const getEquipEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .addField('Obtain', unit.Obtain, true)
     .setFooter(devNicknames);
   if (flag == 'soul') {
     msg.setDescription('**Attribute: **' + unit.Attribute
@@ -99,6 +98,12 @@ const getEquipEmbed = (unit, flag) => {
       + '\n**Weapon Skill: **' + unit.WeaponSkill
       + '\n**Awaken Lv3: **' + unit.AwakenLv3
       + '\n**Awaken Lv5: **' + unit.AwakenLv5);
+    if (unit.EnhanceLv1) {
+      msg.addField('Enhance Lv1', unit.EnhanceLv1, true)
+        .addField('Enhance Lv70', unit.EnhanceLv70, true)
+        .addField('Enhance Lv99', unit.EnhanceLv99, true)
+    }
+    msg.addField('Obtain', unit.Obtain, true);
     if (unit.DevNicknames){
       msg.setThumbnail(assetPath + 'item/equipment/' + devNicknames + '.png')
     }

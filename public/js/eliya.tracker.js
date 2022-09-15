@@ -211,6 +211,9 @@ $(document).ready(function () {
         if (unit.AwakenLv5) {
           elem.addClass("HasAwakenLv5")
         }
+        if (unit.EnhanceLv1) {
+          elem.addClass("HasEnhance")
+        }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
