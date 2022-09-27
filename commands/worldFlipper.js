@@ -53,13 +53,28 @@ const getInfoEmbed = (unit, flag) => {
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+
       '**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
+      + '\n**HP: **' + unit.MaxHP + '　　**ATK: **' + unit.MaxATK
       + '\n**Leader Buff: **' + unit.LeaderBuff
-      + '\n**Skill: **' + unit.Skill
-      + '\n**Skill Cost: **' + unit.SkillWait)
-    .addField('Ability 1', unit.Ability1, true)
+      + '\n**Skill: **' + unit.Skill)
+    if (unit.SkillWait){
+      msg.addField('Skill Cost',unit.SkillWait,true);
+    }else{
+      msg.addField('Skill Cost',"?",true);
+    }
+    if (unit.FeverGain){
+      msg.addField('Fever Gain',unit.FeverGain,true);
+    }else{
+      msg.addField('Fever Gain',"?",true);
+    }
+    if (unit.HitCount){
+      msg.addField('Hits',unit.HitCount,true);
+    }else{
+      msg.addField('Hits',"?",true);
+    }        
+    msg.addField('Ability 1', unit.Ability1, true)
     .addField('Ability 2', unit.Ability2, true)
     .addField('Ability 3', unit.Ability3, true)
-    .setFooter(footer);
+    .setFooter({text: footer});
   if (unit.Ability4 && unit.Ability5 && unit.Ability6) {
     msg.addField('Ability 4', unit.Ability4, true)
       .addField('Ability 5', unit.Ability5, true)
@@ -83,7 +98,7 @@ const getEquipEmbed = (unit, flag) => {
   const rarity = Array(parseInt(unit.Rarity, 10)).fill(':star:').join('');
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter(devNicknames);
+    .setFooter({text: devNicknames});
   if (flag == 'soul') {
     msg.setDescription('**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity
@@ -127,7 +142,7 @@ const getThumbnailEmbed = (unit, flag) => {
     .setDescription((unit.AlsoKnownAs?'**Also Known As: **'+unit.AlsoKnownAs+'\n':'')+'**Attribute: **' + unit.Attribute
       + '\n**Rarity: **' + rarity)
     .setThumbnail(assetPath + 'chars/' + devNicknames + '/square_0.png')
-    .setFooter(footer);
+    .setFooter({text: footer});
   if (unit.DevNicknames){    
     if (flag == 'awaken') {
       msg.setThumbnail(assetPath + 'chars/' + devNicknames + '/square_1.png')
@@ -145,7 +160,7 @@ const getArtEmbed = (unit, flag) => {
   }
   var msg = new Discord.MessageEmbed()
     .setTitle(unit.ENName + ' ' + unit.JPName)
-    .setFooter(devNicknames);
+    .setFooter({text: devNicknames});
   if (unit.DevNicknames){
     if (flag == 'awaken') {
       msg.setImage(assetPath + 'chars/' + devNicknames + '/full_shot_1.png')
