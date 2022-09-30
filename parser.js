@@ -16,7 +16,7 @@ let maxLvBonus = { "1": 12*0.004, "2": 10*0.005, "3": 8*0.008, "4":6*0.015, "5":
 let awakenStats = {"1": ["30","150"],"2": ["40","200"],"3": ["50","250"],"4": ["54","270"],"5": ["60","300"]};
 
 let elements = {"0":'Fire',"1":'Water',"2":'Thunder',"3":'Wind',"4":'Light',"5":'Dark',"0,3,2,1,4,5": "All"};
-let roles = ['Sword','Fist','Bow','Special','Support'];
+let roles = ['Sword','Fist','Bow','Support','Special'];
 
 chars = [];
 equips = [];
