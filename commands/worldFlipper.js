@@ -6,6 +6,7 @@ var data = DB.getData();
 const moment = require('moment-timezone');
 const { URL } = require('url');
 const { Client } = require('pg');
+const { maxHeaderSize } = require('http');
 const assetPath = 'http://eliya-bot.herokuapp.com/img/assets/';
 const group = path.parse(__filename).name;
 const reactionExpiry = 30000;
@@ -196,7 +197,8 @@ const getShortENName = longName => {
 }
 
 const sendList = async (units, message, type) => {
-  const msg = await message.channel.send('Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```').catch(catchErr);
+  const msg = await message.reply({content: 'Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```', fetchReply: true})
+  .catch(catchErr);
   await appendReacts(units, message, type, msg);
 };
 
@@ -207,13 +209,13 @@ const sendFastList = async (units, message, type) => {
     return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
   }).join('\n');
   list += '\`\`\`';
-  const msg = await message.channel.send(list).catch(catchErr);
-  await appendReacts(units, message, type, msg, 4);
+  const msg = await message.reply({content: list, fetchReply: true}).catch(catchErr);
+  await appendReacts(units, message, type, msg);
 };
 
 const appendReacts = async (units, message, type, msg, max=10) => {
   const filter = (reaction, user) => {
-    return numberReactions.includes(reaction.emoji.name) && user.id === message.author.id;
+    return numberReactions.includes(reaction.emoji.name) && user.id === message.user.id;
   };
   let num = units.length;
   if (units.length > max) num = max;
@@ -240,9 +242,6 @@ const appendReacts = async (units, message, type, msg, max=10) => {
           case 'alt':
             sendAlt(units[i], message);
             break;
-          case 't':
-            sendTitle(units[i], message);
-            break;
         }
         msg.reactions.removeAll().catch(catchErr);
       }
@@ -253,22 +252,28 @@ const appendReacts = async (units, message, type, msg, max=10) => {
 
 const sendMessage = async (unit, message) => {
   const filter = (reaction, user) => {
-    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.user.id;
   };
   try {
-    const msg = await message.channel.send({embeds:[getInfoEmbed(unit, 'normal')]}).catch(catchErr);
+    var msg;
+    if (message.fetchReply()){
+      msg = await message.editReply({content:unit.DevNicknames, embeds:[getInfoEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);  
+    }else{
+      msg = await message.reply({embeds:[getInfoEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+    }      
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
     collector.on('collect', r => {
       if (r.emoji.name === normalReaction) {
-        msg.edit({embeds:[getInfoEmbed(unit, 'normal')]});
+        message.editReply({embeds:[getInfoEmbed(unit, 'normal')]});
       }
       if (r.emoji.name === awakenReaction) {
-        msg.edit({embeds:[getInfoEmbed(unit, 'awaken')]});
+        message.editReply({embeds:[getInfoEmbed(unit, 'awaken')]});
       }
     });
-    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));      
+
   } catch (error) {
     console.log(error)
   }
@@ -276,19 +281,24 @@ const sendMessage = async (unit, message) => {
 
 const sendEquip = async (unit, message) => {
   const filter = (reaction, user) => {
-    return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+    return [weaponReaction, soulReaction].includes(reaction.emoji.name) && user.id === message.user.id;
   };
   try {
-    const msg = await message.channel.send({embeds:[getEquipEmbed(unit, 'icon')]}).catch(catchErr);
+    var msg;
+    if (message.fetchReply()){
+      msg = await message.editReply({content:unit.DevNicknames, embeds:[getEquipEmbed(unit, 'icon')], fetchReply: true}).catch(catchErr);
+    }else{    
+      msg = await message.reply({embeds:[getEquipEmbed(unit, 'icon')], fetchReply: true}).catch(catchErr);
+    }  
     await msg.react(weaponReaction).catch(catchErr);
     await msg.react(soulReaction).catch(catchErr);
     const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
     collector.on('collect', r => {
       if (r.emoji.name === weaponReaction) {
-        msg.edit({embeds:[getEquipEmbed(unit, 'icon')]});
+        message.editReply({embeds:[getEquipEmbed(unit, 'icon')]});
       }
       if (r.emoji.name === soulReaction) {
-        msg.edit({embeds:[getEquipEmbed(unit, 'soul')]});
+        message.editReply({embeds:[getEquipEmbed(unit, 'soul')]});
       }
     });
     collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
@@ -299,22 +309,27 @@ const sendEquip = async (unit, message) => {
 
 const sendThumbnail = async (unit, message) => {
   const filter = (reaction, user) => {
-    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.user.id;
   };
   try {
-    const msg = await message.channel.send({embeds:[getThumbnailEmbed(unit, 'normal')]}).catch(catchErr);
-    await msg.react(normalReaction).catch(catchErr);
-    await msg.react(awakenReaction).catch(catchErr);
-    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-    collector.on('collect', r => {
-      if (r.emoji.name === normalReaction) {
-        msg.edit({embeds:[getThumbnailEmbed(unit, 'normal')]});
-      }
-      if (r.emoji.name === awakenReaction) {
-        msg.edit({embeds:[getThumbnailEmbed(unit, 'awaken')]});
-      }
-    });
-    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+    var msg;
+    if (message.fetchReply()){
+      msg =  await message.editReply({content:unit.DevNicknames, embeds:[getThumbnailEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+    }else{    
+      msg = await message.reply({embeds:[getThumbnailEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+    }
+      await msg.react(normalReaction).catch(catchErr);
+      await msg.react(awakenReaction).catch(catchErr);
+      const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+      collector.on('collect', r => {
+        if (r.emoji.name === normalReaction) {
+          message.editReply({embeds:[getThumbnailEmbed(unit, 'normal')]});
+        }
+        if (r.emoji.name === awakenReaction) {
+          message.editReply({embeds:[getThumbnailEmbed(unit, 'awaken')]});
+        }
+      });
+      collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
   }
@@ -322,22 +337,27 @@ const sendThumbnail = async (unit, message) => {
 
 const sendArt = async (unit, message) => {
   const filter = (reaction, user) => {
-    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.user.id;
   };
   try {       
-    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'normal')]}).catch(catchErr);
-    await msg.react(normalReaction).catch(catchErr);
-    await msg.react(awakenReaction).catch(catchErr);
-    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-    collector.on('collect', r => {
-      if (r.emoji.name === normalReaction) {
-        msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
-      }
-      if (r.emoji.name === awakenReaction) {
-        msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
-      }
-    });
-    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+    var msg;
+    if (message.fetchReply()){
+      msg =  await message.editReply({content:unit.DevNicknames, embeds:[getArtEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+    }else{    
+      msg = await message.reply({embeds:[getArtEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+    }      
+      await msg.react(normalReaction).catch(catchErr);
+      await msg.react(awakenReaction).catch(catchErr);
+      const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+      collector.on('collect', r => {
+        if (r.emoji.name === normalReaction) {
+          message.editReply({embeds:[getArtEmbed(unit, 'normal')]});
+        }
+        if (r.emoji.name === awakenReaction) {
+          message.editReply({embeds:[getArtEmbed(unit, 'awaken')]});
+        }
+      });
+      collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
   }
@@ -345,29 +365,30 @@ const sendArt = async (unit, message) => {
 
 const sendAlt = async (unit, message) => {
   const filter = (reaction, user) => {
-    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.author.id;
+    return [normalReaction, awakenReaction].includes(reaction.emoji.name) && user.id === message.user.id;
   };
   try {
-    const msg = await message.channel.send({embeds:[getArtEmbed(unit, 'awaken')]}).catch(catchErr);
-    await msg.react(normalReaction).catch(catchErr);
-    await msg.react(awakenReaction).catch(catchErr);
-    const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
-    collector.on('collect', r => {
-      if (r.emoji.name === normalReaction) {
-        msg.edit({embeds:[getArtEmbed(unit, 'normal')]});
-      }
-      if (r.emoji.name === awakenReaction) {
-        msg.edit({embeds:[getArtEmbed(unit, 'awaken')]});
-      }
-    });
-    collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
+    var msg;
+    if (message.fetchReply()){
+      msg =  await message.editReply({content:unit.DevNicknames, embeds:[getArtEmbed(unit, 'awaken')], fetchReply: true}).catch(catchErr);
+    }else{    
+      msg = await message.reply({embeds:[getArtEmbed(unit, 'awaken')], fetchReply: true}).catch(catchErr);
+    }      
+      await msg.react(normalReaction).catch(catchErr);
+      await msg.react(awakenReaction).catch(catchErr);
+      const collector = msg.createReactionCollector({ filter, time: reactionExpiry});
+      collector.on('collect', r => {
+        if (r.emoji.name === normalReaction) {
+          message.editReply({embeds:[getArtEmbed(unit, 'normal')]});
+        }
+        if (r.emoji.name === awakenReaction) {
+          message.editReply({embeds:[getArtEmbed(unit, 'awaken')]});
+        }
+      });
+      collector.on('end', collected => msg.reactions.removeAll().catch(catchErr));
   } catch (error) {
     console.log(error)
   }
-};
-
-const sendTitle = async (unit, message) => {
-  message.channel.send({embeds:[getTitleEmbed(unit)]}).catch(catchErr);
 };
 
 const searchCharByName = chara => {
@@ -762,7 +783,7 @@ const guide = {
   description: 'Links LilyCat\'s Beginner Progression Guide.',
   execute(message) {
     const guideLink = 'https://docs.google.com/document/d/1gParEsz_GsETHyjunJ9mBz7tgKfkUOmueopR4UUp274';
-    return message.channel.send(`The Beginner Progression Guide can be found here:\n${guideLink}`).catch(catchErr);
+    return message.reply(`The Beginner Progression Guide can be found here:\n${guideLink}`).catch(catchErr);
   },
 };
 
@@ -773,7 +794,7 @@ const tls = {
   description: "Link to Eliya Bot's translation webapp",
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/list';
-    return message.channel.send(`The translation webapp can be found here:\n${tlDocLink}`).catch(catchErr);
+    return message.reply(`The translation webapp can be found here:\n${tlDocLink}`).catch(catchErr);
   },
 };
 
@@ -845,11 +866,11 @@ const event = {
       msg.addFields({name: "Upcoming Events", value: "```diff\nNo upcoming event```"})
     }
 
-    return message.channel.send({embeds:[msg]}).catch(catchErr);
+    return message.reply({embeds:[msg]}).catch(catchErr);
   },
 };
 const gacha = {
-  name: 'gacha',
+  name: 'banner',
   group,
   aliases: ['b', 'bn', 'banner', 'banners'],
   description: 'Lists ongoing/upcoming pick-up banner.',
@@ -895,7 +916,7 @@ const gacha = {
       msg.addFields({name: "Upcoming Banners", value: "```diff\nNo upcoming pick-up banner```"})
     }
 
-    return message.channel.send({embeds:[msg]}).catch(catchErr);
+    return message.reply({embeds:[msg]}).catch(catchErr);
   },
 };
 const tracker = {
@@ -905,15 +926,20 @@ const tracker = {
   description: 'Links Collection Tracker.',
   execute(message) {
     const tlDocLink = 'http://eliya-bot.herokuapp.com/';
-    return message.channel.send(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
+    return message.reply(`The collection tracker can be found below. Fill in both your units and weapons here for teambuilding advice: \n${tlDocLink}`).catch(catchErr);
   },
 };
 const character = {
   name: 'character',
-  group,
-  args: true,
-  usage: '<chara name>',
-  aliases: ['c', 'char'],
+  type: 1,
+  options: [
+    {
+        name: "name",
+        description: "Character's name",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Lists information about the given character.',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -921,25 +947,20 @@ const character = {
         clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
-        if (chara == 'malte') {
-          sendEquip(searchEquipByName(chara)[0], message);
+        var arrFound = searchCharByName(chara);
+
+        if (arrFound.length === 0) {
+          return message.reply('No character found!').catch(catchErr);
+        }
+        if (arrFound.length > 30) {
+          return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+        }
+        if (arrFound.length === 1) {
+          sendMessage(arrFound[0], message);
         } else {
-
-          var arrFound = searchCharByName(chara);
-
-          if (arrFound.length === 0) {
-            return message.channel.send('No character found!').catch(catchErr);
-          }
-          if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
-          }
-          if (arrFound.length === 1) {
-            sendMessage(arrFound[0], message);
-          } else {
-            sendList(arrFound, message, 'c');
-          }
+          sendList(arrFound, message, 'c');
         }
       }
     },10);
@@ -948,10 +969,15 @@ const character = {
 
 const equipment = {
   name: 'equipment',
-  group,
-  args: true,
-  usage: '<equipment name>',
-  aliases: ['e', 'equip'],
+  type: 1,
+  options: [
+    {
+        name: "name",
+        description: "Equipment's name",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Lists information about the given equipment.',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -959,15 +985,15 @@ const equipment = {
         clearInterval(retry);  
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         } else {
           var arrFound = searchEquipByName(chara);
 
           if (arrFound.length === 0) {
-            return message.channel.send('No equipment found!');
+            return message.reply('No equipment found!');
           }
           if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+            return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
           }
           if (arrFound.length === 1) {
             sendEquip(arrFound[0], message);
@@ -982,10 +1008,15 @@ const equipment = {
 
 const race = {
   name: 'race',
-  group,
-  args: true,
-  usage: '<chara race>',
-  aliases: ['r'],
+  type: 1,
+  options: [
+    {
+        name: "race",
+        description: "Characters' race",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Lists characters with the given race.',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -993,7 +1024,7 @@ const race = {
         clearInterval(retry);        
         const race = args.length ? args.join(' ').toLowerCase() : null;
         if (race.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
 
         var arrFound = data.chars.filter(function (item) {
@@ -1001,10 +1032,10 @@ const race = {
         });
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!').catch(catchErr);
+          return message.reply('No character found!').catch(catchErr);
         }
         if (arrFound.length > 40) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+          return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendMessage(arrFound[0], message);
@@ -1018,10 +1049,15 @@ const race = {
 
 const whois = {
   name: 'whois',
-  group,
-  args: true,
-  usage: '<chara thumbnail>',
-  aliases: ['w', 'tn'],
+  type: 1,
+  options: [
+    {
+        name: "name",
+        description: "Character's name",
+        type: 3,
+        required: true
+    }
+  ],
   description: 'Show thumbnail of the character',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -1029,7 +1065,7 @@ const whois = {
         clearInterval(retry); 
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         if (chara == 'malte') {
           sendEquip(searchEquipByName(chara)[0], message);
@@ -1037,10 +1073,10 @@ const whois = {
           var arrFound = searchCharByName(chara);
 
           if (arrFound.length === 0) {
-            return message.channel.send('No character found!').catch(catchErr);
+            return message.reply('No character found!').catch(catchErr);
           }
           if (arrFound.length > 30) {
-            return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+            return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
           }
           if (arrFound.length === 1) {
             sendThumbnail(arrFound[0], message);
@@ -1055,10 +1091,15 @@ const whois = {
 
 const art = {
   name: 'art',
-  group,
-  args: true,
-  usage: '<chara art>',
-  aliases: ['a'],
+  type: 1,
+  options: [
+    {
+        name: "name",
+        description: "Equipment's name",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Show full art of the character',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -1066,15 +1107,15 @@ const art = {
         clearInterval(retry);
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         var arrFound = searchCharByName(chara);
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!').catch(catchErr);
+          return message.reply('No character found!').catch(catchErr);
         }
         if (arrFound.length > 30) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+          return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendArt(arrFound[0], message);
@@ -1087,10 +1128,15 @@ const art = {
 };
 const alt = {
   name: 'alt',
-  group,
-  args: true,
-  usage: '<chara alt>',
-  aliases: ['al'],
+  type: 1,
+  options: [
+    {
+        name: "name",
+        description: "Equipment's name",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Show alternate art of the character',
   async execute(message, args) {
     var retry = setInterval(function(){
@@ -1098,15 +1144,15 @@ const alt = {
         clearInterval(retry);        
         const chara = args.length ? args.join(' ').toLowerCase() : null;
         if (chara.length < 2) {
-          return message.channel.send('Search too short please have a minimum of 2 letters!').catch(catchErr);
+          return message.reply('Search too short please have a minimum of 2 letters!').catch(catchErr);
         }
         var arrFound = searchCharByName(chara);
 
         if (arrFound.length === 0) {
-          return message.channel.send('No character found!').catch(catchErr);
+          return message.reply('No character found!').catch(catchErr);
         }
         if (arrFound.length > 30) {
-          return message.channel.send(arrFound.length + ' found! Please narrow your search').catch(catchErr);
+          return message.reply(arrFound.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (arrFound.length === 1) {
           sendAlt(arrFound[0], message);
@@ -1133,16 +1179,21 @@ const update = {
       .catch((error) => {
         console.error(error)
       })
-    return message.channel.send('Database updated!').catch(catchErr);
+    return message.reply('Database updated!').catch(catchErr);
   },
 }
 
 const filterCharacter = {
   name: 'filter-character',
-  group,
-  args: true,
-  usage: '<filter conditions>',
-  aliases: ['f', 'fc'],
+  type: 1,
+  options: [
+    {
+        name: "condition",
+        description: "Filter condition",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Filter characters by conditions',
   async execute(message, args) {
     var retry = setInterval(async function(){
@@ -1161,7 +1212,7 @@ const filterCharacter = {
             case '-t':
             case '--text':
               if (i === args.length - 1) {
-                return message.channel.send("Not enough argument for -t text search!").catch(catchErr);
+                return message.reply("Not enough argument for -t text search!").catch(catchErr);
               }
               i++;
               filtered = filterCharByText(filtered, args[i].toLowerCase(), textFilterOptions);
@@ -1178,10 +1229,10 @@ const filterCharacter = {
         }
 
         if (filtered.length === 0) {
-          return message.channel.send('No character found!').catch(catchErr);
+          return message.reply('No character found!').catch(catchErr);
         }
         if (filtered.length > 30) {
-          return message.channel.send(filtered.length + ' found! Please narrow your search').catch(catchErr);
+          return message.reply(filtered.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (filtered.length === 1) {
           await sendMessage(filtered[0], message);
@@ -1195,10 +1246,15 @@ const filterCharacter = {
 
 const filterEquipment = {
   name: 'filter-equipment',
-  group,
-  args: true,
-  usage: '<efilter conditions>',
-  aliases: ['ef', 'fe'],
+  type: 1,
+  options: [
+    {
+        name: "condition",
+        description: "Filter condition",
+        type: 3,
+        required: true
+    }
+  ],  
   description: 'Filter equipments by conditions',
   async execute(message, args) {
     var retry = setInterval(async function(){
@@ -1217,7 +1273,7 @@ const filterEquipment = {
             case '-t':
             case '--text':
               if (i === args.length - 1) {
-                return message.channel.send("Not enough argument for -t text search!").catch(catchErr);
+                return message.reply("Not enough argument for -t text search!").catch(catchErr);
               }
               i++;
               filtered = filterEquipByText(filtered, args[i].toLowerCase(), textFilterOptions);
@@ -1234,10 +1290,10 @@ const filterEquipment = {
         }
 
         if (filtered.length === 0) {
-          return message.channel.send('No equipment found!').catch(catchErr);
+          return message.reply('No equipment found!').catch(catchErr);
         }
         if (filtered.length > 30) {
-          return message.channel.send(filtered.length + ' found! Please narrow your search').catch(catchErr);
+          return message.reply(filtered.length + ' found! Please narrow your search').catch(catchErr);
         }
         if (filtered.length === 1) {
           await sendMessage(filtered[0], message);
@@ -1288,16 +1344,16 @@ const submit = {
   async execute(message, args) {
 
     if (!process.env.DATABASE_URL) {
-      return message.channel.send('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
+      return message.reply('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
     }
 
     const desc = args.length == 3 ? args[1] : "No description";
 
     if (args.length < 2) {
-      return message.channel.send('Entry too short please have a minimum of dungeon name and team link!').catch(catchErr);
+      return message.reply('Entry too short please have a minimum of dungeon name and team link!').catch(catchErr);
     }
     if (args.length > 3) {
-      return message.channel.send('Entry too long! Did you forget to wrap the description in quotes?').catch(catchErr);
+      return message.reply('Entry too long! Did you forget to wrap the description in quotes?').catch(catchErr);
     }
 
     // random url validator regex 
@@ -1305,14 +1361,14 @@ const submit = {
     const URI = args.length == 3 ? args[2] : args[1]
     const url = ValidateURI.test(URI) ? new URL(URI) : null
     if (url == null) {
-      return message.channel.send('Invalid Image URL').catch(catchErr);
+      return message.reply('Invalid Image URL').catch(catchErr);
     }
     if (url.host != 'eliya-bot.herokuapp.com' && url.host != 'veliya-bot.herokuapp.com') {
-      return message.channel.send('Invalid Image URL').catch(catchErr);
+      return message.reply('Invalid Image URL').catch(catchErr);
     }
 
     if (!validDungeon(args[0].toLowerCase())) {
-      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString() + ' case insensitive').catch(catchErr);
+      return message.reply('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString() + ' case insensitive').catch(catchErr);
     }
 
     const components = url.pathname.slice(6).split("-")
@@ -1320,7 +1376,7 @@ const submit = {
     for (let i = 0; i < 6; i++) {
       let character = searchCharByName(components[i])
       if (character.length == 0 && components[i] != "blank") {
-        return message.channel.send('Invalid unit: ' + components[i]).catch(catchErr);
+        return message.reply('Invalid unit: ' + components[i]).catch(catchErr);
       }
     }
     components[11] = components[11].split('.')[0]
@@ -1328,7 +1384,7 @@ const submit = {
     for (let i = 6; i < 12; i++) {
       let character = searchEquipByName(components[i])
       if (character.length == 0 && components[i] != "blank") {
-        return message.channel.send('Invalid equipment: ' + components[i]).catch(catchErr);
+        return message.reply('Invalid equipment: ' + components[i]).catch(catchErr);
       }
     }
 
@@ -1337,13 +1393,13 @@ const submit = {
     \'{${components[0]},${components[2]},${components[4]}}\', 
     \'{${components[1]},${components[3]},${components[5]}}\', 
     \'{${components[6]},${components[7]},${components[8]}}\', 
-    \'{${components[9]},${components[10]},${components[11]}}\',${message.author.id}, '${desc}');`
+    \'{${components[9]},${components[10]},${components[11]}}\',${message.user.id}, '${desc}');`
     const res = await DBOperation(queryString)
     if (!res) {
-      return message.channel.send('Team already exists for dungeon').catch(catchErr)
+      return message.reply('Team already exists for dungeon').catch(catchErr)
     }
 
-    return message.channel.send('Team was submitted').catch(catchErr);
+    return message.reply('Team was submitted').catch(catchErr);
   },
 };
 
@@ -1357,21 +1413,21 @@ const team = {
   async execute(message, args) {
 
     if (!process.env.DATABASE_URL) {
-      return message.channel.send('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
+      return message.reply('Missing database for team data. The schema is provided in the repo ').catch(catchErr);
     }
     // For custom filters we increase the allowed length and implement custom logic
     if (args.length != 1) {
-      return message.channel.send('Please enter just the dungeon name').catch(catchErr);
+      return message.reply('Please enter just the dungeon name').catch(catchErr);
     }
 
     if (!validDungeon(args[0].toLowerCase())) {
-      return message.channel.send('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString()).catch(catchErr);
+      return message.reply('Invalid Dungeon. Valid options are: ' + DUNGEONS.toString()).catch(catchErr);
     }
 
     const queryString = `SELECT * FROM teams WHERE dungeon = '${args[0].toLowerCase()}' ORDER BY voter_score DESC`
     const res = await DBOperation(queryString)
     if (!res) {
-      return message.channel.send("No Teams Found").catch(catchErr)
+      return message.reply("No Teams Found").catch(catchErr)
     }
     for (let i of res.rows) {
       mainReal = []
@@ -1388,8 +1444,8 @@ const team = {
       i.unisonReal = unisonReal
     }
 
-    const msg = await message.channel.send({ embeds: [getTeamListEmbed(res.rows, 0)] }).catch(catchErr);
-    await EditTeamList(res.rows, message.author.id, 0, msg);
+    const msg = await message.reply({ embeds: [getTeamListEmbed(res.rows, 0)] }).catch(catchErr);
+    await EditTeamList(res.rows, message.user.id, 0, msg);
   },
 };
 
@@ -1401,7 +1457,7 @@ const sendTeam = async (team, msg) => {
     .setTitle(team.dungeon)
     .setFooter(`Voter score: ${team.voter_score}`);
 
-  msg.edit({ embeds: [final] })
+  message.editReply({ embeds: [final] })
   await msg.react("👍")
   await msg.react("👎")
   const voters = team.voters == null ? new Set() : new Set(team.voters)
@@ -1465,7 +1521,7 @@ const EditTeamList = async (datum, message, current, msg) => {
   const filter = (reaction, user) => {
     return validReactions.includes(reaction.emoji.name) && user.id === message;
   };
-  msg.edit({ embeds: [getTeamListEmbed(datum, current)] })
+  message.editReply({ embeds: [getTeamListEmbed(datum, current)] })
 
 
   for (let i = 0; i < validReactions.length; i++) {

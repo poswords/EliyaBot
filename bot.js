@@ -3,9 +3,10 @@ require('dotenv').config();
 const fs = require('fs');
 
 const Discord = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
-const prefix = process.env.PREFIX || '!!';
+/*const prefix = process.env.PREFIX || '!!';*/
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -20,7 +21,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
-
+/*
 client.on('messageCreate', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) {
     return;
@@ -87,7 +88,50 @@ client.on('messageCreate', async (message) => {
     }
   }
 });
+*/
+
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) return;
+
+  const command = client.commands.get(interaction.commandName);
+  var input = "";
+  if (interaction.options.getString('name')){
+    input = interaction.options.getString('name');
+  }
+  if (interaction.options.getString('race')){
+    input = interaction.options.getString('race');
+  }
+  if (interaction.options.getString('condition')){
+    input = interaction.options.getString('condition');
+  }  
+  const args = [];
+  let quote = input.indexOf('"');
+  while (quote >= 0) {
+    if (quote > 0) {
+      args.push(...input.slice(0, quote).trim().split(/ +/));
+    }
+    const closing = input.indexOf('"', quote + 1);
+    if (closing < 0) {
+      await message.channel.send("Quotes are not closed!");
+      return;
+    }
+    args.push(input.slice(quote + 1, closing));
+    input = input.slice(closing + 1).trim();
+    quote = input.indexOf('"');
+  }
+  if (input.length > 0) {
+    args.push(...input.trim().split(/ +/));
+  }
+
+  try {
+    await command.execute(interaction, args);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+  }
+});
+
 
 client.on('error', console.error);
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.TEST_DISCORD_TOKEN);
