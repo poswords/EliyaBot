@@ -31,7 +31,7 @@ for (const [charid, character] of Object.entries(characters)) {
         Rarity: parseInt(rarity),
         Attribute: elements[character[3]],
         Role: roles[character[6]],
-        Race: character[4].replace(","," / ").replace("Mystery","Youkai").replace("Element","Sprite").replace("Element","Sprite").replace("Machine","Mecha").replace("Plants","Plant"),
+        Race: character[4].replace(","," / ").replace("Mystery","Youkai").replace("Element","Sprite").replace("Element","Sprite").replace("Machine","Mecha").replace("Plants","Plant").replace("Devil","Demon"),
         Stance: character[26],
         Gender: character[7].replace("Ririi","Lily"),
         MaxHP: Math.ceil(characterStats[charid][100][0]*(1+maxLvBonus[rarity])) + parseInt(awakenStats[rarity][1]),
