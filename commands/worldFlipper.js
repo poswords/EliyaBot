@@ -199,6 +199,7 @@ const getShortENName = longName => {
 const sendList = async (units, message, type) => {
   const msg = await message.reply({content: 'Found potential matches:\n```diff\n' + units.map((char, index) => (`${parseInt(index, 10) + 1}: ${char.ENName} ${(type == 't') ? "[" + char.JPName + "]" : ""} \n!${type} ${char.DevNicknames}`)).join('\n') + '```', fetchReply: true})
   .catch(catchErr);
+  message.replied = true;
   await appendReacts(units, message, type, msg);
 };
 
@@ -209,7 +210,8 @@ const sendFastList = async (units, message, type) => {
     return `${parseInt(index, 10) + 1}: ${enName} [${char.JPName}] # ${prefix}${type} ${char.DevNicknames}`
   }).join('\n');
   list += '\`\`\`';
-  const msg = await message.reply({content: list, fetchReply: true}).catch(catchErr);
+  const msg =await message.reply({content: list, fetchReply: true}).catch(catchErr);
+  message.replied = true;  
   await appendReacts(units, message, type, msg);
 };
 
@@ -256,10 +258,11 @@ const sendMessage = async (unit, message) => {
   };
   try {
     var msg;
-    if (message.fetchReply()){
+    if (message.replied){
       msg = await message.editReply({content:unit.DevNicknames, embeds:[getInfoEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);  
     }else{
       msg = await message.reply({embeds:[getInfoEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+      message.replied = true;
     }      
     await msg.react(normalReaction).catch(catchErr);
     await msg.react(awakenReaction).catch(catchErr);
@@ -285,10 +288,11 @@ const sendEquip = async (unit, message) => {
   };
   try {
     var msg;
-    if (message.fetchReply()){
+    if (message.replied){
       msg = await message.editReply({content:unit.DevNicknames, embeds:[getEquipEmbed(unit, 'icon')], fetchReply: true}).catch(catchErr);
     }else{    
       msg = await message.reply({embeds:[getEquipEmbed(unit, 'icon')], fetchReply: true}).catch(catchErr);
+      message.replied = true;
     }  
     await msg.react(weaponReaction).catch(catchErr);
     await msg.react(soulReaction).catch(catchErr);
@@ -313,10 +317,11 @@ const sendThumbnail = async (unit, message) => {
   };
   try {
     var msg;
-    if (message.fetchReply()){
+    if (message.replied){
       msg =  await message.editReply({content:unit.DevNicknames, embeds:[getThumbnailEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
     }else{    
       msg = await message.reply({embeds:[getThumbnailEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+      message.replied = true;      
     }
       await msg.react(normalReaction).catch(catchErr);
       await msg.react(awakenReaction).catch(catchErr);
@@ -341,10 +346,11 @@ const sendArt = async (unit, message) => {
   };
   try {       
     var msg;
-    if (message.fetchReply()){
+    if (message.replied){
       msg =  await message.editReply({content:unit.DevNicknames, embeds:[getArtEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
     }else{    
       msg = await message.reply({embeds:[getArtEmbed(unit, 'normal')], fetchReply: true}).catch(catchErr);
+      message.replied = true;      
     }      
       await msg.react(normalReaction).catch(catchErr);
       await msg.react(awakenReaction).catch(catchErr);
@@ -369,10 +375,11 @@ const sendAlt = async (unit, message) => {
   };
   try {
     var msg;
-    if (message.fetchReply()){
+    if (message.replied){
       msg =  await message.editReply({content:unit.DevNicknames, embeds:[getArtEmbed(unit, 'awaken')], fetchReply: true}).catch(catchErr);
     }else{    
       msg = await message.reply({embeds:[getArtEmbed(unit, 'awaken')], fetchReply: true}).catch(catchErr);
+      message.replied = true;      
     }      
       await msg.react(normalReaction).catch(catchErr);
       await msg.react(awakenReaction).catch(catchErr);
@@ -1005,7 +1012,7 @@ const equipment = {
     },10);
   },
 };
-
+/*
 const race = {
   name: 'race',
   type: 1,
@@ -1046,7 +1053,7 @@ const race = {
     },10);
   },
 };
-
+*/
 const whois = {
   name: 'whois',
   type: 1,
@@ -1444,7 +1451,7 @@ const team = {
       i.unisonReal = unisonReal
     }
 
-    const msg = await message.reply({ embeds: [getTeamListEmbed(res.rows, 0)] }).catch(catchErr);
+    const msg =await message.reply({ embeds: [getTeamListEmbed(res.rows, 0)] }).catch(catchErr);
     await EditTeamList(res.rows, message.user.id, 0, msg);
   },
 };
@@ -1560,4 +1567,4 @@ const EditTeamList = async (datum, message, current, msg) => {
 };
 
 module.exports = [guide, tls, tracker, event, gacha, character, equipment,
-  race, whois, art, alt, update, filterCharacter, filterEquipment, submit, team];
+  whois, art, alt, update, filterCharacter, filterEquipment, submit, team];
