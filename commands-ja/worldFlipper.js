@@ -42,7 +42,7 @@ const tls={
 "AttributeAll": "全",	
 "StanceAttacker": "アタッカー",
 "StanceHealer": "ヒーラー",
-"StanceBalanced": "バランス",
+"StanceBalance": "バランス",
 "StanceJammer": "ジャマー",    
 "StanceSupporter": "サポーター",
 "StanceTank": "タンク", 
