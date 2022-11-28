@@ -130,7 +130,7 @@ module.exports = {
               }
             }
             Array.prototype.push.apply(chars, rows)
-            if (lang="gl"){
+            if (lang=="gl"){
               mergeData(chars, chardatagl , 'DevNicknames');
             }else{
               mergeData(chars, chardata , 'DevNicknames');
@@ -194,7 +194,7 @@ module.exports = {
               return equipTypes.indexOf(a.EquipType) - equipTypes.indexOf(b.EquipType);
             });           
             
-            if (lang="gl"){
+            if (lang=="gl"){
               mergeData(equips, equipdatagl , 'DevNicknames');   
             }else{
               mergeData(equips, equipdata , 'DevNicknames');   

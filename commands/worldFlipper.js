@@ -72,14 +72,14 @@ const getInfoEmbed = (unit, flag) => {
     }else{
       msg.addField('Hits',"?",true);
     }        
-    msg.addField('Ability 1', unit.Ability1, true)
-    .addField('Ability 2', unit.Ability2, true)
-    .addField('Ability 3', unit.Ability3, true)
+    msg.addField('Ability 1', unit.Ability1?unit.Ability1:"-", true)
+    .addField('Ability 2', unit.Ability2?unit.Ability2:"-", true)
+    .addField('Ability 3', unit.Ability3?unit.Ability3:"-", true)
     .setFooter({text: footer});
   if (unit.Ability4 && unit.Ability5 && unit.Ability6) {
-    msg.addField('Ability 4', unit.Ability4, true)
-      .addField('Ability 5', unit.Ability5, true)
-      .addField('Ability 6', unit.Ability6, true)
+    msg.addField('Ability 4', unit.Ability4?unit.Ability4:"-", true)
+      .addField('Ability 5', unit.Ability5?unit.Ability5:"-", true)
+      .addField('Ability 6', unit.Ability6?unit.Ability6:"-", true)
   }
   if (unit.DevNicknames){
     if (flag == 'awaken') {
@@ -115,11 +115,11 @@ const getEquipEmbed = (unit, flag) => {
       + '\n**Awaken Lv3: **' + unit.AwakenLv3
       + '\n**Awaken Lv5: **' + unit.AwakenLv5);
     if (unit.EnhanceLv1) {
-      msg.addField('Enhance Lv1', unit.EnhanceLv1, true)
-        .addField('Enhance Lv70', unit.EnhanceLv70, true)
-        .addField('Enhance Lv99', unit.EnhanceLv99, true)
+      msg.addField('Enhance Lv1', unit.EnhanceLv1?unit.EnhanceLv1:"-", true)
+        .addField('Enhance Lv70', unit.EnhanceLv70?unit.EnhanceLv70:"-", true)
+        .addField('Enhance Lv99', unit.EnhanceLv99?unit.EnhanceLv99:"-", true)
     }
-    msg.addField('Obtain', unit.Obtain, true);
+    msg.addField('Obtain', unit.Obtain?unit.Obtain:"-", true);
     if (unit.DevNicknames){
       msg.setThumbnail(assetPath + 'item/equipment/' + devNicknames + '.png')
     }
