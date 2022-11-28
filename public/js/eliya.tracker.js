@@ -35,8 +35,6 @@ $(document).ready(function () {
 
   socket.on('url added', function (url) {
     var shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
-    if (server == 'gl') shareUrl += '?sv=gl';
-    if (server == 'tw') shareUrl += '?sv=tw';
     $("#txtShareURL").val(shareUrl);
     if (!copyToClipboard(shareUrl)) {
       $('.body').addClass("showShareURL");

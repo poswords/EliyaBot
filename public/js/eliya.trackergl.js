@@ -35,8 +35,6 @@ $(document).ready(function () {
 
   socket.on('url added', function (url) {
     var shareUrl = "https://eliya-bot.herokuapp.com/gl/" + url.id
-    if (server == 'gl') shareUrl += '?sv=gl';
-    if (server == 'tw') shareUrl += '?sv=tw';
     $("#txtShareURL").val(shareUrl);
     if (!copyToClipboard(shareUrl)) {
       $('.body').addClass("showShareURL");
@@ -175,7 +173,7 @@ $(document).ready(function () {
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-        var unitList = localStorage.getItem("charList");
+        var unitList = localStorage.getItem("charListGl");
         if (unitList) {
           setUnitList(unitList, 'char');
         }
@@ -289,7 +287,7 @@ $(document).ready(function () {
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-        var unitList = localStorage.getItem("equipList");
+        var unitList = localStorage.getItem("equipListGl");
         if (unitList) {
           setUnitList(unitList, 'equip');
         }
@@ -514,9 +512,9 @@ $(document).ready(function () {
   });
 
   $("#btnSave").on("click", function () {
-    localStorage.setItem("charList", getUnitList('char'));
-    localStorage.setItem("equipList", getUnitList('equip'));
-    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com/gl");
+    localStorage.setItem("charListGl", getUnitList('char'));
+    localStorage.setItem("equipListGl", getUnitList('equip'));
+    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com/");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
