@@ -426,6 +426,7 @@ const client = new Client({
   }
 })
 client.connect();
+
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
     title: 'Eliya',
@@ -763,6 +764,7 @@ io.on('connection', function (socket) {
       }
     },10);
   });
+  
   /*socket.on('connected-title', function (lang) {
     switch (lang) {
       case "ja":
@@ -788,7 +790,7 @@ io.on('connection', function (socket) {
         id: res.rows[0].id,
         url: list
       });
-      var target = id - 9980;
+      var target = id - 9999980;
 		
       if (target > 0) {
         client.query('Delete FROM short_urls WHERE id < ' + target, function (err, rows, fields) {
