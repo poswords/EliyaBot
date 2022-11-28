@@ -9,6 +9,8 @@ const sheets = google.sheets({
 });
 let chardata = JSON.parse(fs.readFileSync('data/chars.json'));
 let equipdata = JSON.parse(fs.readFileSync('data/equips.json'));
+let chardatagl = JSON.parse(fs.readFileSync('datagl/chars.json'));
+let equipdatagl = JSON.parse(fs.readFileSync('datagl/equips.json'));
 
 var range_names = [
   "'5* Characters'!A1:Z300",
@@ -42,6 +44,9 @@ module.exports = {
       case 'zh-TW':
         SPREADSHEET_ID = '1ufgoiam83634LwZwj1ECNmyMd6cAdHz8u4YX7k62-6w';
         break;
+      case 'gl': 
+        SPREADSHEET_ID = '1zNa_FwDyy-vHzY-bmCbkjjDBFU_-2EKRcHlqRsN6TUg';
+        break;
       case 'ja':
         SPREADSHEET_ID = '1FfHbq_ZJpWh7QhMzltAdzoyCSDtYlXXvb7EnboPsitM';
         break;
@@ -54,7 +59,6 @@ module.exports = {
     var chars = [];
     var equips = [];
     var events = [];
-    var titles = [];
     sheets.spreadsheets.get({
       spreadsheetId: SPREADSHEET_ID
     }, (err, res) => {
@@ -126,7 +130,11 @@ module.exports = {
               }
             }
             Array.prototype.push.apply(chars, rows)
-            mergeData(chars, chardata , 'DevNicknames');
+            if (lang="gl"){
+              mergeData(chars, chardatagl , 'DevNicknames');
+            }else{
+              mergeData(chars, chardata , 'DevNicknames');
+            }
           }
 
 
@@ -184,8 +192,14 @@ module.exports = {
             });          
             equips.sort(function(a, b){  
               return equipTypes.indexOf(a.EquipType) - equipTypes.indexOf(b.EquipType);
-            });                       
-            mergeData(equips, equipdata , 'DevNicknames');            
+            });           
+            
+            if (lang="gl"){
+              mergeData(equips, equipdatagl , 'DevNicknames');   
+            }else{
+              mergeData(equips, equipdata , 'DevNicknames');   
+            }            
+                     
           }
           for (r = 6; r < 7; r++) {
             var range = res.data.valueRanges[r];

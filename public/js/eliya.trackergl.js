@@ -34,7 +34,7 @@ $(document).ready(function () {
   });
 
   socket.on('url added', function (url) {
-    var shareUrl = "https://eliya-bot.herokuapp.com/" + url.id
+    var shareUrl = "https://eliya-bot.herokuapp.com/gl/" + url.id
     if (server == 'gl') shareUrl += '?sv=gl';
     if (server == 'tw') shareUrl += '?sv=tw';
     $("#txtShareURL").val(shareUrl);
@@ -80,14 +80,8 @@ $(document).ready(function () {
         } else {
           skillWait = 0;
         }
-        if (unit.ManaBoard2) {
+        if (unit.Ability4) {
           elem.addClass("ManaBoard2")
-        }
-        if (unit.InTaiwan) {
-          elem.addClass("InTaiwan")
-        }
-        if (unit.ChoiceSet) {
-          elem.addClass("Set" + unit.ChoiceSet);
         }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
@@ -110,7 +104,6 @@ $(document).ready(function () {
         info.find('.Attribute').removeClass().addClass("Attribute " + unit.Attribute).html('<span></span>');
         info.find('.Rarity').removeClass().addClass("Rarity Rarity" + unit.Rarity).html('<span></span>');
         info.find('.Role').removeClass().addClass("Role " + unit.Role);
-
         elem.append(info);
         elem.on("click", function () {
           if ($("#info").is(".charinfo")) {
@@ -129,6 +122,7 @@ $(document).ready(function () {
           }
           var info = $("#charInfoTemplate").clone().removeClass('hidden').attr("id", "");
           Object.keys(unit).forEach(function (key) {
+
             if (key == "Race") {
               var races = unit.Race.split(' / ');
               var tls = [];
@@ -202,17 +196,11 @@ $(document).ready(function () {
         } else {
           elem.addClass('Gacha')
         }
-        if (unit.InTaiwan) {
-          elem.addClass("InTaiwan")
-        }
         if (unit.AwakenLv3) {
           elem.addClass("HasAwakenLv3")
         }
         if (unit.AwakenLv5) {
           elem.addClass("HasAwakenLv5")
-        }
-        if (unit.EnhanceLv1) {
-          elem.addClass("HasEnhance")
         }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
@@ -329,14 +317,13 @@ $(document).ready(function () {
   for (i = 1; i < 4; i++) {
     const skillwait = '<div class="SkillWait">0</div><div class="mb2s">- / - / -</div>';
     const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="0"><input type="range" class="abi5" min="0" max="6" value="0"><input type="range" class="abi6" min="0" max="6" value="0"></div>';
-    const exs = '<div class="exboosts"><ul class="exboost1 exboost"><li class="ex ex0"></li></ul><ul class="exboost2 exboost"><li class="ex ex0"></li></ul></div>';
     $('#unison' + i)
-      .append($(sliders).addClass('mainSliders')).append($(exs).addClass('mainExs'))
+    .append($(sliders).addClass('mainSliders'))
       .append(blank_elem.clone().append(skillwait).addClass('char main').data("mb2s", [0, 0, 0]))
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub').data("mb2s", [0, 0, 0]))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($(sliders).addClass('subSliders')).append($(exs).addClass('subExs'))
+      .append($(sliders).addClass('subSliders'))
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
       .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
@@ -475,46 +462,10 @@ $(document).ready(function () {
       }
     }
   });
-
   $(".sliders input").on("input", function () {
     setSkillWait();
   });
 
-  $(".unison .exboost").on("click", function (e) {
-    e.stopPropagation();
-    if ($(this).is(".exboost1")) {
-      var list = $("#exBoostList1");
-      var boost = 1;
-    } else {
-      var list = $("#exBoostList2");
-      var boost = 2;
-    }
-    if (list.is(".hidden")) {
-      resetExBoostList();
-      list.removeClass("hidden top1 top2 bottom1 bottom2");
-      $(this).addClass("selecting");
-      if ($(this).parents(".exboosts").is(".mainExs")) {
-        list.addClass("top" + boost);
-      } else {
-        list.addClass("bottom" + boost);
-      }
-    } else {
-      resetExBoostList();
-    }
-  });
-  $(".exBoostList .ex").on("click", function (e) {
-    e.stopPropagation();
-    $(".exboost.selecting").html($(this).clone());
-    setSkillWait();
-    resetExBoostList();
-  });
-  $(document).on("click", function (e) {
-    resetExBoostList();
-  });
-  function resetExBoostList() {
-    $(".exboost.selecting").removeClass("selecting");
-    $(".exBoostList").addClass("hidden");
-  }
   $("#btnUnset").on("click", function (e) {
     e.stopPropagation();
     $("#btnUnset").appendTo($("#planner"));
@@ -562,23 +513,10 @@ $(document).ready(function () {
     $('body').toggleClass('listView');
   });
 
-  $("#btnChoiceView").on("click", function () {
-    $(this).toggleClass('on');
-    $('body').toggleClass('choiceView');
-    if ($(this).is('.on')) {
-      $(".SetA").prependTo(".choiceSetA");
-      $(".SetB").prependTo(".choiceSetB");
-      $(".SetC").prependTo(".choiceSetC");
-    } else {
-      $(".choiceSetList .char").prependTo("#charRarity5 .charList");
-    }
-    updateCharScore();
-  });
-
   $("#btnSave").on("click", function () {
     localStorage.setItem("charList", getUnitList('char'));
     localStorage.setItem("equipList", getUnitList('equip'));
-    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com");
+    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com/gl");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
@@ -605,7 +543,6 @@ $(document).ready(function () {
     $(this).removeClass("on");
     var units = [];
     var mb2s = [];
-    var exboosts = [];
     $(".planner .char").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
       if (!DevNicknames) DevNicknames = "blank";
@@ -618,15 +555,11 @@ $(document).ready(function () {
       units.push(DevNicknames);
     })
     var lngcode = '';
-    if (lang != "en") lngcode += '.' + lang;
+    if (lang != "en" && lang != "gl") lngcode += '.' + lang;
     var advanced = '';
     if ($("#info").is(".advanced")) {
       advanced = '@' + mb2s.join(',');
       var exs = []
-      $(".unison .ex").each(function () {
-        exs.push($(this).attr('class').replace("ex ex", ""));
-      });
-      advanced += '!' + exs.join(',')
     }
 
     const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') + advanced + lngcode + ".png";
@@ -665,7 +598,6 @@ $(document).ready(function () {
     });
     $(this).toggleClass("on");
   });
-
 
   $(".btnShowOwned").on("click", function () {
     var type = $(this).data("type");
@@ -727,7 +659,6 @@ $(document).ready(function () {
     }
   }
 
-
   function getDevNicknames(unit) {
     if ($(unit).data("DevNicknames")) {
       return $(unit).data("DevNicknames");
@@ -764,7 +695,6 @@ $(document).ready(function () {
     }
     slot.append($('<div class="SkillWait">' + getSkillWait(DevNickname) + '</div>'));
     slot.append(mb2s);
-
     $(".selected").removeClass("selected");
     setSkillWait();
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
@@ -803,11 +733,10 @@ $(document).ready(function () {
       slot.removeClass('weapon filtered');
     }
     $(".selected").removeClass("selected");
-    setSkillWait();
+    setSkillWait();    
     $("#btnGetCompURL").text(tls.GenerateImageURL).removeClass("on");
     $('body').removeClass("showCompURL");
   }
-
   function unitChanged() {
     $("#btnSave").removeClass("on");
     $("#btnGetShareURL").text(tls.GenerateShareURL).removeClass("on");
@@ -883,9 +812,7 @@ $(document).ready(function () {
   }
 
   function filterServer() {
-    if (server == 'tw') {
-      $(".unitList .unit").not('.InTaiwan,.spookyStuff').addClass('filtered');
-    }
+
   }
 
 
@@ -1043,8 +970,8 @@ $(document).ready(function () {
         wait = (main + sub) / 2
       }
       $(this).find(".totalSkillWait span").text(wait);
-      var gauge = $(this).data("TotalGauge") + $(this).find(".ex29").length * 25;
-      var maxgauge = $(this).data("TotalMaxGauge") + $(this).find(".ex2a").length * 7.5;
+      var gauge = $(this).data("TotalGauge");
+      var maxgauge = $(this).data("TotalMaxGauge");
       if (maxgauge > 200) maxgauge = 200;
       $(this).find(".totalSkillGauge span").text(Math.floor(gauge) + '%/' + Math.floor(maxgauge) + '%');
 

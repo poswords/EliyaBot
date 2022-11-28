@@ -20,28 +20,28 @@
 	<meta property="og:title" content="<%=t('title')%>" />
 	<meta property="og:type" content="website">
 	<meta property="og:url"
-		content="http://eliya-bot.herokuapp.com/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
-	<meta property="og:image" content="http://eliya-bot.herokuapp.com/favicon-32x32.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/manifest.json">
+		content="http://eliya-bot.herokuapp.com/gl/<% if (data.listview) { %>list<% } %><% if (data.listid) { %><%= data.listid %><% } %>">
+	<meta property="og:image" content="http://eliya-bot.herokuapp.com/gl-favicon-32x32.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="/gl-apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/gl-apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/gl-apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/gl-apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/gl-apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/gl-apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/gl-apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/gl-apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/gl-apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/gl-android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/gl-favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/gl-favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/gl-favicon-16x16.png">
+	<link rel="manifest" href="/gl-manifest.json">
 	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="msapplication-TileImage" content="/gl-ms-icon-144x144.png">
 	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
 	<link rel="stylesheet" href="/css/reset.css" type="text/css">
 	<link rel="stylesheet" href="/css/common.css" type="text/css">
-	<link rel="stylesheet" href="/css/client.css?2203041705" type="text/css">
+	<link rel="stylesheet" href="/css/client.css?2206011200" type="text/css">
 	<style>
 		#unisons .main:after {
 			content: "<%=t('Main')%>";
@@ -73,22 +73,13 @@
 
 	<div class="wrapper">
 		<div class="localebar">
-			<ul id="listLang">
-				<li class="<%=((i18n.language!="ja")&&(i18n.language!="zh-TW")?"active":"")%>"><a
-						href="/<%=(data.listid)?data.listid:''%>?lng=en">English</a></li>
-				<li class="<%=(i18n.language=="ja"?"active":"")%>"><a
-						href="/<%=(data.listid)?data.listid:''%>?lng=ja">日本語</a></li>
-				<li class="<%=(i18n.language=="zh-TW"?"active":"")%>"><a
-						href="/<%=(data.listid)?data.listid:''%>?lng=zh-tw">繁體中文</a></li>
-				<!--<li class="<%=(i18n.language=="zh-CN"?"active":"")%>"><a href="/<%=(data.listid)?data.listid:''%>?lng=zh-cn">简体中文</a></li>-->
-			</ul>
 			<ul id="listServer">
-				<li class="btnInJapan active" data-server="jp"><span>
-						<%=t('JP')%>
+				<li class=""><a href="https://eliya-bot.herokuapp.com/"><span>
+						<%=t('JP')%></a>
 					</span></li>
-				<li class=""><a href="https://eliya-bot.herokuapp.com/gl/"><span>
+				<li class="active"><span>
 							<%=t('GL')%>
-						</span></a></li>
+						</span></li>
 			</ul>
 		</div>
 		<div class="toolbar">
@@ -127,9 +118,6 @@
 			</li>
 			<li id="btnListView" class="<% if (data.listview) { %>on<% } %>">
 				<%=t('ListView')%>
-			</li>
-			<li id="btnChoiceView" class="<% if (data.choiceview) { %>on<% } %>">
-				<%=t('Choice')%>
 			</li>
 		</ul>
 		<article id="chars">
@@ -188,7 +176,6 @@
 					<%=t('Awaken')%>
 				</li>
 			</ul>
-
 			<br>
 
 
@@ -238,30 +225,6 @@
 				</li>
 
 			</ul>
-			<section id="charChoiceSetA">
-				<h2>Choice</h2>
-				<span class="score"></span>
-				<div id="btnSelectAllSetA" class="btnSelectAll button">
-					<%=t('SelectAll')%>
-				</div>
-				<ul class="choiceSetA choiceSetList charList unitList"></ul>
-			</section>
-			<!--<section id="charChoiceSetB">
-				<h2>Set B</h2>
-				<span class="score"></span>
-				<div id="btnSelectAllSetB" class="btnSelectAll button">
-					<%=t('SelectAll')%>
-				</div>
-				<ul class="choiceSetB choiceSetList charList unitList"></ul>
-			</section>
-			<section id="charChoiceSetC">
-				<h2>Set C</h2>
-				<span class="score"></span>
-				<div id="btnSelectAllSetC" class="btnSelectAll button">
-					<%=t('SelectAll')%>
-				</div>
-				<ul class="choiceSetC choiceSetList charList unitList"></ul>
-			</section>-->
 			<section id="charRarity5">
 				<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
@@ -451,7 +414,7 @@
 				<ul id="plannerButtons" class="btnList">
 					<li id="btnAdvanced" class="button">
 						<%=t('Advanced')%>
-					</li>
+					</li>					
 					<li id="btnGetCompURL" class="button">
 						<%=t('GenerateImageURL')%>
 					</li>
@@ -467,84 +430,6 @@
 						</div>
 					</li>
 				</ul>
-				<div id="exBoostList1" class="exBoostList hidden">
-					<ul>
-						<li class="ex ex0"><span>
-								<%=t('None')%>
-							</span></li>
-						<li class="ex ex10"><span>
-								<%=t('ex10')%>
-							</span></li>
-						<li class="ex ex11"><span>
-								<%=t('ex11')%>
-							</span></li>
-						<li class="ex ex12"><span>
-								<%=t('ex12')%>
-							</span></li>
-						<li class="ex ex13"><span>
-								<%=t('ex13')%>
-							</span></li>
-						<li class="ex ex14"><span>
-								<%=t('ex14')%>
-							</span></li>
-						<li class="ex ex15"><span>
-								<%=t('ex15')%>
-							</span></li>
-						<li class="ex ex16"><span>
-								<%=t('ex16')%>
-							</span></li>
-						<li class="ex ex17"><span>
-								<%=t('ex17')%>
-							</span></li>
-						<li class="ex ex18"><span>
-								<%=t('ex18')%>
-							</span></li>
-						<li class="ex ex19"><span>
-								<%=t('ex19')%>
-							</span></li>
-					</ul>
-				</div>
-		
-				<div id="exBoostList2" class="exBoostList hidden">
-					<ul>
-						<li class="ex ex0"><span>
-								<%=t('None')%>
-							</span></li>
-						<li class="ex ex20"><span>
-								<%=t('ex20')%>
-							</span></li>
-						<li class="ex ex21"><span>
-								<%=t('ex21')%>
-							</span></li>
-						<li class="ex ex22"><span>
-								<%=t('ex22')%>
-							</span></li>
-						<li class="ex ex23"><span>
-								<%=t('ex23')%>
-							</span></li>
-						<li class="ex ex24"><span>
-								<%=t('ex24')%>
-							</span></li>
-						<li class="ex ex25"><span>
-								<%=t('ex25')%>
-							</span></li>
-						<li class="ex ex26"><span>
-								<%=t('ex26')%>
-							</span></li>
-						<li class="ex ex27"><span>
-								<%=t('ex27')%>
-							</span></li>
-						<li class="ex ex28"><span>
-								<%=t('ex28')%>
-							</span></li>
-						<li class="ex ex29"><span>
-								<%=t('ex29')%>
-							</span></li>
-						<li class="ex ex2a"><span>
-								<%=t('ex2a')%>
-							</span></li>
-					</ul>
-				</div>
 			</div>
 		</div>
 
@@ -558,8 +443,6 @@
 							<div class="JPName"><span></span></div>
 							<div class="Obtain"><span></span></div>
 		</div>
-
-		
 		<div id="charInfoTemplate" class="hidden charInfoBlock">
 			<% if (i18n.language=="en" ){%>
 				<div class="ENName"><span></span></div>
@@ -612,7 +495,7 @@
 													</label><span></span></div>
 												<div class="Ability6 charAbility"><label>
 														<%=t('Ability6')%>:
-													</label><span></span></div>
+												</label><span></span></div>													
 											</div>
 											<div class="footer">
 												<div class="Stance"><span></span></div>
@@ -656,16 +539,7 @@
 									</div>
 									<div class="AwakenLv5">
 										<%=t('AwakenLv5')%>: <span></span>
-									</div>
-									<div class="EnhanceLv1">
-										<%=t('EnhanceLv1')%>: <span></span>
-									</div>
-									<div class="EnhanceLv70">
-										<%=t('EnhanceLv70')%>: <span></span>
-									</div>
-									<div class="EnhanceLv99">
-										<%=t('EnhanceLv99')%>: <span></span>
-									</div>																		
+									</div>									
 									<div class="AbilitySoul">
 										<%=t('AbilitySoul')%>: <span></span>
 									</div>
@@ -678,17 +552,17 @@
 	</div>
 	<script>
 		var listid;
-		var lang = "<%=i18n.language%>";
+		var lang = "gl";
 		var server = "<%=server%>";
 		<% if (data.listid) { %> listid = <%= data.listid %>; <% } %>
 			window.module = { };
-		var tls = { "GenerateImageURL": "<%=t('GenerateImageURL')%>", "GenerateShareURL": "<%=t('GenerateShareURL')%>", "ImageURLCopied": "<%=t('ImageURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "SelectAll": "<%=t('SelectAll')%>", "DeselectAll": "<%=t('DeselectAll')%>", "Wait": "<%=t('Wait')%>", "URLExpired": "<%=t('URLExpired')%>", "StanceAttacker": "<%=t('StanceAttacker')%>", "StanceHealer": "<%=t('StanceHealer')%>", "StanceBalance": "<%=t('StanceBalanced')%>", "StanceJammer": "<%=t('StanceJammer')%>", "StanceSupporter": "<%=t('StanceSupporter')%>", "StanceTank": "<%=t('StanceTank')%>", "RaceAquatic": "<%=t('RaceAquatic')%>", "RaceBeast": "<%=t('RaceBeast')%>", "RaceDemon": "<%=t('RaceDemon')%>", "RaceDragon": "<%=t('RaceDragon')%>", "RaceHuman": "<%=t('RaceHuman')%>", "RaceMecha": "<%=t('RaceMecha')%>", "RacePlant": "<%=t('RacePlant')%>", "RaceSprite": "<%=t('RaceSprite')%>", "RaceUndead": "<%=t('RaceUndead')%>", "RaceYoukai": "<%=t('RaceYoukai')%>", "RoleSword": "<%=t('RoleSword')%>", "RoleFist": "<%=t('RoleFist')%>", "RoleBow": "<%=t('RoleBow')%>", "RoleSupport": "<%=t('RoleSupport')%>", "RoleSpecial": "<%=t('RoleSpecial')%>", "AttributeFire": "<%=t('AttributeFire')%>", "AttributeWater": "<%=t('AttributeWater')%>", "AttributeThunder": "<%=t('AttributeThunder')%>", "AttributeWind": "<%=t('AttributeWind')%>", "AttributeLight": "<%=t('AttributeLight')%>", "AttributeDark": "<%=t('AttributeDark')%>", "AttributeAll": "<%=t('AttributeAll')%>", "GenderMale": "<%=t('GenderMale')%>", "GenderFemale": "<%=t('GenderFemale')%>", "GenderUnknown": "<%=t('GenderUnknown')%>", "WeaponGacha": "<%=t('WeaponGacha'),%>", "Limited": "<%=t('Limited'),%>" }
+		var tls = { "GenerateImageURL": "<%=t('GenerateImageURL')%>", "GenerateShareURL": "<%=t('GenerateShareURL')%>", "ImageURLCopied": "<%=t('ImageURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "SelectAll": "<%=t('SelectAll')%>", "DeselectAll": "<%=t('DeselectAll')%>", "Wait": "<%=t('Wait')%>", "URLExpired": "<%=t('URLExpired')%>", "StanceAttacker": "<%=t('StanceAttacker')%>", "StanceHealer": "<%=t('StanceHealer')%>", "StanceBalance": "<%=t('StanceBalance')%>", "StanceJammer": "<%=t('StanceJammer')%>", "StanceSupporter": "<%=t('StanceSupporter')%>", "StanceTank": "<%=t('StanceTank')%>", "RaceAquatic": "<%=t('RaceAquatic')%>", "RaceBeast": "<%=t('RaceBeast')%>", "RaceDemon": "<%=t('RaceDemon')%>", "RaceDragon": "<%=t('RaceDragon')%>", "RaceHuman": "<%=t('RaceHuman')%>", "RaceMecha": "<%=t('RaceMecha')%>", "RacePlant": "<%=t('RacePlant')%>", "RaceSprite": "<%=t('RaceSprite')%>", "RaceUndead": "<%=t('RaceUndead')%>", "RaceYoukai": "<%=t('RaceYoukai')%>", "RoleSword": "Warrior", "RoleFist": "Bruiser", "RoleBow": "Deadeye", "RoleSupport": "<%=t('RoleSupport')%>", "RoleSpecial": "<%=t('RoleSpecial')%>", "AttributeFire": "<%=t('AttributeFire')%>", "AttributeWater": "<%=t('AttributeWater')%>", "AttributeThunder": "<%=t('AttributeThunder')%>", "AttributeWind": "<%=t('AttributeWind')%>", "AttributeLight": "<%=t('AttributeLight')%>", "AttributeDark": "<%=t('AttributeDark')%>", "AttributeAll": "<%=t('AttributeAll')%>", "GenderMale": "<%=t('GenderMale')%>", "GenderFemale": "<%=t('GenderFemale')%>", "GenderUnknown": "<%=t('GenderUnknown')%>", "WeaponGacha": "<%=t('WeaponGacha')%>", "Limited": "<%=t('Limited'),%>" }
 	</script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 	<script src="/js/copy.js"></script>
-	<script src="/js/eliya.tracker.js?2207070315"></script>
+	<script src="/js/eliya.trackergl.js?2206011200"></script>
 	<script
 		src="https://www.paypal.com/sdk/js?client-id=AeaJ3pFrnWM7aveHFyKX_H2vGuqwkY5UezcRhPFMVhDiIIsQZfzvg6Ymw2KUYPPYal_LgtA3E2YWOM92&currency=JPY"
 		data-sdk-integration-source="button-factory"></script>

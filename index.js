@@ -48,14 +48,14 @@ i18next
       order: ['querystring', 'cookie'],
       caches: ['cookie']
     },
-    preload: ['en', 'ja', 'zh-TW'],
+    preload: ['en', 'ja', 'zh-TW', 'gl'],
     fallbackLng: ['en']
 
   });
 app.use(i18nextMiddleware.handle(i18next));
 const viewFolder = path.join(__dirname, './views/');
 const DB = require('./data');
-var data,dataja,datazhtw;
+var data,datagl,dataja,datazhtw;
 function until(conditionFunction) {
 
   const poll = resolve => {
@@ -208,6 +208,7 @@ function calcMaxGauge(text){
 async function updateDB() {
 
   data = DB.getData('en');
+  datagl = DB.getData('gl');
   var datajatemp = DB.getData('ja');
   var datazhtwtemp = DB.getData('zh-TW');
 
@@ -353,6 +354,66 @@ async function updateDB() {
       i.Obtain = i.Obtain.replace('Limited','限定');
     }        
   });  
+
+  datagl.chars.forEach(function (i) {
+    i.Gauges = {
+      LeaderBuff:calcGauge(i.LeaderBuff),
+      Ability1:calcGauge(i.Ability1),
+      Ability2:calcGauge(i.Ability2),
+      Ability3:calcGauge(i.Ability3),
+      Ability4:calcGauge(i.Ability4),
+      Ability5:calcGauge(i.Ability5),
+      Ability6:calcGauge(i.Ability6)
+    }
+    if (i.DevNicknames == 'lazy_genious'){
+      i.Gauges.Ability2 = {
+        Target: 'own',
+        Condition: '',
+        Every: '',
+        EveryCond: '',
+        IsMain: '',
+        Amount: 40
+      }
+    }
+    if (i.Ability4){
+      i.ManaBoard2 = true;
+    }else{
+      i.ManaBoard2 = false;
+    }
+    i.MaxGauges={
+      LeaderBuff:calcMaxGauge(i.LeaderBuff),
+      Ability1:calcMaxGauge(i.Ability1),
+      Ability2:calcMaxGauge(i.Ability2),
+      Ability3:calcMaxGauge(i.Ability3),
+      Ability4:calcMaxGauge(i.Ability4),
+      Ability5:calcMaxGauge(i.Ability5),
+      Ability6:calcMaxGauge(i.Ability6)
+    }
+  });
+  datagl.equips.forEach(function (i) {
+    i.Gauges = {
+      WeaponSkill:calcGauge(i.WeaponSkill),
+      AwakenLv3:calcGauge(i.AwakenLv3),
+      AwakenLv5:calcGauge(i.AwakenLv5),
+      AbilitySoul:calcGauge(i.AbilitySoul)
+    }    
+    if (i.DevNicknames == 'staff_0009'){
+      i.Gauges.AwakenLv5 = {
+        Target: 'own',
+        Condition: '',
+        Every: 0,
+        EveryCond: '',
+        IsMain: false,
+        Amount: '50'
+      }
+    }       
+    i.MaxGauges = {
+      WeaponSkill:calcMaxGauge(i.WeaponSkill),
+      AwakenLv3:calcMaxGauge(i.AwakenLv3),
+      AwakenLv5:calcMaxGauge(i.AwakenLv5),
+      AbilitySoul:calcMaxGauge(i.AbilitySoul)
+    }        
+  });    
 }
 updateDB();
 const {
@@ -388,6 +449,31 @@ app.get('/list', function (req, res) {
       listview: true
     },
     server: req.query.sv?req.query.sv:"jp"
+  });
+});
+app.get('/gl/', function (req, res) {
+  res.render(viewFolder + 'indexgl.ejs', {
+    title: 'Eliya',
+    data: {},
+    server: req.query.sv?req.query.sv:"gl"
+  });
+});
+app.get('/gl/:id(\\d+)/', function (req, res) {
+  res.render(viewFolder + 'indexgl.ejs', {
+    title: 'Eliya',
+    data: {
+      listid: req.params.id
+    },
+    server: req.query.sv?req.query.sv:"gl"
+  });
+});
+app.get('/gl/list', function (req, res) {
+  res.render(viewFolder + 'indexgl.ejs', {
+    title: 'Eliya',
+    data: {
+      listview: true
+    },
+    server: req.query.sv?req.query.sv:"gl"
   });
 });
 app.get('/:id(\\d+)/', function (req, res) {
@@ -666,6 +752,10 @@ io.on('connection', function (socket) {
             io.to(socket.id).emit('equips', datazhtw.equips);
             io.to(socket.id).emit('chars', datazhtw.chars);
             break;
+          case "gl":
+              io.to(socket.id).emit('equips', datagl.equips);
+              io.to(socket.id).emit('chars', datagl.chars);
+              break;            
           default:
             io.to(socket.id).emit('equips', data.equips);
             io.to(socket.id).emit('chars', data.chars);
