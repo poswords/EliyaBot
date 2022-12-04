@@ -1580,3 +1580,6 @@ strong {
 #btnChoiceView{
   background: #fb0
 }
+#btnChoiceView.on{
+  background: #6a6aef
+}
