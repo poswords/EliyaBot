@@ -1573,3 +1573,10 @@ strong {
   font-weight: bold;
   font-size:14px;
 }
+.choiceSetList .unit.checked.SetA,
+.choiceSetList .unit.SetA{
+  border:3px solid #fa0
+}
+#btnChoiceView{
+  background: #fb0
+}
