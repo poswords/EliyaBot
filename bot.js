@@ -19,6 +19,7 @@ for (const file of commandFiles) {
   }
 }
 client.on('ready', () => {
+
     console.log(`Logged in as ${client.user.tag}!`);
 });
 /*

@@ -536,7 +536,47 @@ app.get('/data/en/equips.json', function (req, res) {
   var retry = setInterval(function(){
     if (data.chars){
       res.json({
-        "chars": data.equips
+        "equips": data.equips
+      });
+      clearInterval(retry);
+    }
+  },10)   
+});
+app.get('/data/en/events.json', function (req, res) {
+  var retry = setInterval(function(){
+    if (data.events){
+      res.json({
+        "events": data.events
+      });
+      clearInterval(retry);
+    }
+  },10)   
+});
+app.get('/data/gl/chars.json', function (req, res) {
+  var retry = setInterval(function(){
+    if (datagl.chars){
+      res.json({
+        "chars": datagl.chars
+      });
+      clearInterval(retry);
+    }
+  },10)
+});
+app.get('/data/gl/equips.json', function (req, res) {
+  var retry = setInterval(function(){
+    if (datagl.chars){
+      res.json({
+        "equips": datagl.equips
+      });
+      clearInterval(retry);
+    }
+  },10)   
+});
+app.get('/data/gl/events.json', function (req, res) {
+  var retry = setInterval(function(){
+    if (datagl.events){
+      res.json({
+        "events": datagl.events
       });
       clearInterval(retry);
     }
@@ -546,7 +586,7 @@ app.get('/data/zh-TW/equips.json', function (req, res) {
   var retry = setInterval(function(){
     if (data.chars){
       res.json({
-        "chars": datazhtw.equips
+        "equips": datazhtw.equips
       });
       clearInterval(retry);
     }
@@ -556,7 +596,7 @@ app.get('/data/ja/equips.json', function (req, res) {
   var retry = setInterval(function(){
     if (data.chars){
       res.json({
-        "chars": dataja.equips
+        "equips": dataja.equips
       });
       clearInterval(retry);
     }
