@@ -421,9 +421,6 @@ const {
 } = require('pg');
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
 })
 client.connect();
 
@@ -822,7 +819,6 @@ io.on('connection', function (socket) {
   socket.on('add url', function (list) {
     const sql = "INSERT INTO short_urls (url, equips) VALUES ($1, $2) RETURNING id";
     const values = [list.chars,list.equips];
-
     client.query(sql,values).then(res=> {
       var id;
 		  id = res.rows[0].id;
@@ -830,6 +826,7 @@ io.on('connection', function (socket) {
         id: res.rows[0].id,
         url: list
       });
+
       var target = id - 9999980;
 		
       if (target > 0) {
