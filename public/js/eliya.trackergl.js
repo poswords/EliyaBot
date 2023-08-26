@@ -315,13 +315,14 @@ $(document).ready(function () {
   for (i = 1; i < 4; i++) {
     const skillwait = '<div class="SkillWait">0</div><div class="mb2s">- / - / -</div>';
     const sliders = '<div class="sliders"><input type="range" class="abi4" min="0" max="6" value="0"><input type="range" class="abi5" min="0" max="6" value="0"><input type="range" class="abi6" min="0" max="6" value="0"></div>';
+    const exs = '<div class="exboosts"><ul class="exboost1 exboost"><li class="ex ex0"></li></ul><ul class="exboost2 exboost"><li class="ex ex0"></li></ul></div>';
     $('#unison' + i)
-    .append($(sliders).addClass('mainSliders'))
+    .append($(sliders).addClass('mainSliders')).append($(exs).addClass('mainExs'))
       .append(blank_elem.clone().append(skillwait).addClass('char main').data("mb2s", [0, 0, 0]))
       .append(blank_elem.clone().addClass('equip weapon'))
       .append(blank_elem.clone().append(skillwait).addClass('char sub').data("mb2s", [0, 0, 0]))
       .append(blank_elem.clone().addClass('equip soul'))
-      .append($(sliders).addClass('subSliders'))
+      .append($(sliders).addClass('subSliders')).append($(exs).addClass('subExs'))
       .append($('<li class="totalSkillWait">' + tls.Wait + ': <span>0</span></li>'))
       .append($('<li class="totalSkillGauge"><span>0%/100%</span></li>'));
   }
@@ -463,7 +464,41 @@ $(document).ready(function () {
   $(".sliders input").on("input", function () {
     setSkillWait();
   });
-
+  $(".unison .exboost").on("click", function (e) {
+    e.stopPropagation();
+    if ($(this).is(".exboost1")) {
+      var list = $("#exBoostList1");
+      var boost = 1;
+    } else {
+      var list = $("#exBoostList2");
+      var boost = 2;
+    }
+    if (list.is(".hidden")) {
+      resetExBoostList();
+      list.removeClass("hidden top1 top2 bottom1 bottom2");
+      $(this).addClass("selecting");
+      if ($(this).parents(".exboosts").is(".mainExs")) {
+        list.addClass("top" + boost);
+      } else {
+        list.addClass("bottom" + boost);
+      }
+    } else {
+      resetExBoostList();
+    }
+  });
+  $(".exBoostList .ex").on("click", function (e) {
+    e.stopPropagation();
+    $(".exboost.selecting").html($(this).clone());
+    setSkillWait();
+    resetExBoostList();
+  });
+  $(document).on("click", function (e) {
+    resetExBoostList();
+  });
+  function resetExBoostList() {
+    $(".exboost.selecting").removeClass("selecting");
+    $(".exBoostList").addClass("hidden");
+  }
   $("#btnUnset").on("click", function (e) {
     e.stopPropagation();
     $("#btnUnset").appendTo($("#planner"));
@@ -541,6 +576,7 @@ $(document).ready(function () {
     $(this).removeClass("on");
     var units = [];
     var mb2s = [];
+    var exboosts = [];
     $(".planner .char").each(function () {
       var DevNicknames = $(this).data("DevNicknames");
       if (!DevNicknames) DevNicknames = "blank";
@@ -558,6 +594,10 @@ $(document).ready(function () {
     if ($("#info").is(".advanced")) {
       advanced = '@' + mb2s.join(',');
       var exs = []
+      $(".unison .ex").each(function () {
+        exs.push($(this).attr('class').replace("ex ex", ""));
+      });
+      advanced += '!' + exs.join(',')
     }
 
     const imageUrl = "https://eliya-bot.herokuapp.com/comp/" + units.join('-') + advanced + lngcode + ".png";
@@ -968,8 +1008,8 @@ $(document).ready(function () {
         wait = (main + sub) / 2
       }
       $(this).find(".totalSkillWait span").text(wait);
-      var gauge = $(this).data("TotalGauge");
-      var maxgauge = $(this).data("TotalMaxGauge");
+      var gauge = $(this).data("TotalGauge") + $(this).find(".ex29").length * 25;
+      var maxgauge = $(this).data("TotalMaxGauge") + $(this).find(".ex2a").length * 7.5;
       if (maxgauge > 200) maxgauge = 200;
       $(this).find(".totalSkillGauge span").text(Math.floor(gauge) + '%/' + Math.floor(maxgauge) + '%');
 
