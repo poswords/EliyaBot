@@ -90,6 +90,9 @@ $(document).ready(function () {
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
+            if (unit.Obtain.includes(getTls("Meteor"))) {
+              elem.addClass("Meteor")
+            }
           } else {
             elem.addClass("NoLimited")
           }
@@ -366,9 +369,13 @@ $(document).ready(function () {
         $("#chars .btnNoLimited").removeClass("on");
         $("#chars .btnShowLimited").addClass("on");
       } else if ($(this).is(".show")) {
-        $(this).removeClass("show").addClass("no");
-        $("#chars .btnNoLimited").addClass("on");
+        $(this).removeClass("show").addClass("meteor");
+        $("#chars .btnShowMeteor").addClass("on");
         $("#chars .btnShowLimited").removeClass("on");
+      } else if ($(this).is(".meteor")) {
+        $(this).removeClass("meteor").addClass("no");
+        $("#chars .btnNoLimited").addClass("on");
+        $("#chars .btnShowMeteor").removeClass("on");
       } else if ($(this).is(".no")) {
         $(this).removeClass("no").addClass("off");
         $("#chars .btnNoLimited").removeClass("on");

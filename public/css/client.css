@@ -542,7 +542,8 @@ strong {
 }
 .filterList li.on,
 .filterList li.no,
-.filterList li.show{
+.filterList li.show,
+.filterList li.meteor{
   background: #dde;
 }
 .filterList li:first-child {
@@ -581,7 +582,7 @@ strong {
   filter: none;
   opacity: 1;
 }
-.btnNoGacha,.btnShowGacha,.btnNoLimited,.btnShowLimited{
+.btnNoGacha,.btnShowGacha,.btnNoLimited,.btnShowLimited,.btnShowMeteor{
   display: none;
 }
 .btnToggle span{
@@ -589,7 +590,8 @@ strong {
 }
 .btnToggle.off .off,
 .btnToggle.no .no,
-.btnToggle.show .show{
+.btnToggle.show .show,
+.btnToggle.meteor .meteor{
   display: block;
 }
 .unit.filtered {
@@ -1505,6 +1507,7 @@ strong {
 .darktheme .filterList li.on,
 .darktheme .filterList li.no,
 .darktheme .filterList li.show,
+.darktheme .filterList li.meteor,
 .darktheme #switchUnits li.on{
     background: #6a6aef;
 }

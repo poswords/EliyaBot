@@ -22,6 +22,8 @@
 "Limited":"Limited",
 "NoLimited":"No Limited",
 "ShowLimited":"Limited Only",
+"Meteor":"Meteor Festival",
+"ShowMeteor":"Meteor Only",
 "Stance": "Stance",
 "StanceAttacker": "Attacker",
 "StanceHealer": "Healer",
