@@ -298,6 +298,7 @@ async function updateDB() {
     }
     if (i.Obtain){
       i.Obtain = i.Obtain.replace('Limited','限定');
+      i.Obtain = i.Obtain.replace('Meteor Festival Gacha', '流星祭ガチャ');
     }
   }); 
   dataja.equips.forEach(function (i) {
