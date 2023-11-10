@@ -1318,6 +1318,26 @@ strong {
 	max-width: 360px;
 	margin:10px auto;
 }
+.placeholder{
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.placeholder span {
+  color: #000;
+  width: 100%;
+  font-size: 10px;
+  line-height: 12px;
+  overflow-wrap: break-word;
+}
 
 #paypal-button-container iframe{
 	z-index: 1!important;
