@@ -65,7 +65,11 @@ $(document).ready(function () {
       $('#chars .charList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="char-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' Role' + unit.Role + ' char unit"></li>')
-          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="mainArt">'));
+          .append($('<img src="' + assetPath + 'chars/' + unit.DevNicknames + '/square_0.png" class="mainArt">'))
+          .append($(
+            '<div class="placeholder"><span>'
+            + unit.ENName.replace(/\[(.+?)\]/g, '').replace(/\((.+?)\)/g, '')
+            + '</span></div>'));
         var races = unit.Race.split(' / ');
         for (i = 0; i < races.length; i++) {
           elem.addClass('Race' + races[i]);
@@ -188,7 +192,8 @@ $(document).ready(function () {
       $('#equips .equipList').html("");
       data.forEach(function (unit) {
         var elem = $('<li id="equip-' + unit.DevNicknames + '" class="Attribute' + unit.Attribute + ' Rarity' + unit.Rarity + ' equip unit"></li>')
-          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'));
+          .append($('<img src="' + assetPath + 'item/equipment/' + unit.DevNicknames + '.png" class="weaponArt">'))
+          .append($('<div class="placeholder"><span>' + unit.ENName + '</span></div>'));
         if (unit.Obtain != tls.WeaponGacha) {
           elem.addClass('NoGacha')
         } else {

@@ -71,7 +71,7 @@ $(document).ready(function () {
             + unit.ENName.replace(/\[(.+?)\]/g, '').replace(/\((.+?)\)/g, '')
             + '</span><span>'
             + unit.JPName
-            + '</span></div>')); 
+            + '</span></div>'));
         var races = unit.Race.split(' / ');
         for (i = 0; i < races.length; i++) {
           elem.addClass('Race' + races[i]);
