@@ -429,8 +429,17 @@ strong {
   padding: 0 !important;
 }
 .unit img {
+  z-index: 1;
+  position: relative;
   max-width: 100%;
   height: auto;
+  background: #fff;
+}
+.unit.checked img {
+  background: #dde;
+}
+.unit.selected img {
+  background: #6a6aea;
 }
 .altArt {
   display: none;
@@ -477,11 +486,15 @@ strong {
 .viewSoul .unit.checked {
   background: #f7f7ff;
 }
+.viewSoul .unit.checked img {
+  background: #f7f7ff;
+}
 .listView .unitList .unit.checked img.soulArt {
   background: none;
   box-shadow: none;
 }
 .char:before{
+  z-index: 2;
   content: "";
   width: 12px;
   height: 12px;
@@ -621,6 +634,9 @@ strong {
   min-height: inherit;
 }
 #unisons .unit.checked {
+  background: #fff;
+}
+#unisons .unit.checked img {
   background: #fff;
 }
 .unison {
@@ -1089,6 +1105,7 @@ strong {
   margin-right: 10px;
 }
 #charNamePlate {
+  z-index: 50;
   display: none;
   position: absolute;
   background: rgba(255, 255, 255, 0.8);
@@ -1319,7 +1336,6 @@ strong {
 	margin:10px auto;
 }
 .placeholder{
-  z-index: -1;
   position: absolute;
   top: 0;
   left: 0;
@@ -1337,6 +1353,9 @@ strong {
   font-size: 10px;
   line-height: 12px;
   overflow-wrap: break-word;
+}
+.listView .placeholder {
+  display: none;
 }
 
 #paypal-button-container iframe{
@@ -1521,6 +1540,9 @@ strong {
 .darktheme .unit.selected{
     background: #6a6acf;
     border: 3px solid #6a6acf;
+}
+.darktheme .unit.selected img{
+    background: #6a6acf;
 }
 
 .darktheme .button.on,
