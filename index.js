@@ -1,6 +1,7 @@
 // Run dotenv
 require('dotenv').config();
 const express = require('express');
+const compression = require('compression');
 const fs = require('fs');
 const app = express();
 const version = '0.1';
@@ -18,6 +19,7 @@ const {
   loadImage
 } = require('canvas');
 const path = require('path');
+app.use(compression());
 if(process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https')

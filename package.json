@@ -12,6 +12,7 @@
     "axios": "^0.21.4",
     "canvas": "^2.8.0",
     "clone": "^2.1.2",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "discord-api-types": "^0.37.11",
     "discord.io": "^2.5.3",
