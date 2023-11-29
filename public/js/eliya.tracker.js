@@ -90,6 +90,9 @@ $(document).ready(function () {
         if (unit.InTaiwan) {
           elem.addClass("InTaiwan")
         }
+        if (unit.Choice) {
+          elem.addClass("Set" + unit.Choice);
+        }
         if (unit.ChoiceSet) {
           elem.addClass("Set" + unit.ChoiceSet);
         }
