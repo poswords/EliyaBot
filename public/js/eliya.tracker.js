@@ -80,15 +80,15 @@ $(document).ready(function () {
         elem.data("DevNicknames", unit.DevNicknames);
         var skillWait;
         if (unit.SkillWait) {
-          skillWait = unit.SkillWait
+          skillWait = unit.SkillWait;
         } else {
           skillWait = 0;
         }
         if (unit.ManaBoard2) {
-          elem.addClass("ManaBoard2")
+          elem.addClass("ManaBoard2");
         }
         if (unit.InTaiwan) {
-          elem.addClass("InTaiwan")
+          elem.addClass("InTaiwan");
         }
         if (unit.Choice) {
           elem.addClass("Set" + unit.Choice);
@@ -98,15 +98,21 @@ $(document).ready(function () {
         }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
-            elem.addClass("Limited")
+            elem.addClass("Limited");
             if (unit.Obtain.includes(getTls("Meteor"))) {
-              elem.addClass("Meteor")
+              elem.addClass("Meteor");
             }
           } else {
-            elem.addClass("NoLimited")
+            if (unit.Rarity && unit.Rarity == 5) {
+              elem.addClass("SetA");
+            }
+            elem.addClass("NoLimited");
           }
         } else {
-          elem.addClass("NoLimited")
+          if (unit.Rarity && unit.Rarity == 5) {
+            elem.addClass("SetA");
+          }
+          elem.addClass("NoLimited");
         }
         elem.data("SkillWait", skillWait);
         elem.data("Gauges", unit.Gauges);
