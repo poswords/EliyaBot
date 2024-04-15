@@ -177,7 +177,12 @@ $(document).ready(function () {
         waitingForUrl = true;
         socket.emit('get url', id);
       } else {
-        var unitList = localStorage.getItem("charListGl");
+        var unitList = localStorage.getItem('charListGl');
+        // hotfix for typo in sheet poisoning some users' localStorage
+        if (unitList.includes('/')) {
+          unitList = unitList.replaceAll('/', '');
+          localStorage.setItem('charListGl', unitList);
+        }
         if (unitList) {
           setUnitList(unitList, 'char');
         }
@@ -554,7 +559,7 @@ $(document).ready(function () {
   $("#btnSave").on("click", function () {
     localStorage.setItem("charListGl", getUnitList('char'));
     localStorage.setItem("equipListGl", getUnitList('equip'));
-    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com/");
+    window.history.pushState("saved", "", "https://eliya-bot.herokuapp.com/gl");
     $(this).removeClass("on");
     setTimeout(function () {
       $("#btnSave").addClass("on")
