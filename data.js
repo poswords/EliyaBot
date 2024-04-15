@@ -238,7 +238,12 @@ module.exports = {
           }*/
 
           // hotfix for typo in sheet
-          const fixDevNicknames = (data) => data.map(char => Object.assign(char, { DevNicknames: char['DevNicknames'].replaceAll('/', '') }));
+          const fixDevNicknames = (data) => data.map(char => {
+            if (char['DevNicknames'] && char['DevNicknames'].includes('/')) {
+              return Object.assign({}, char, { DevNicknames: char['DevNicknames'].replaceAll('/', '') });
+            }
+            return char;
+          });
 
           results.chars = fixDevNicknames(chars);
           results.equips = equips;
