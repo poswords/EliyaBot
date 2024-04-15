@@ -9,7 +9,7 @@ const sheets = google.sheets({
 });
 let chardata = JSON.parse(fs.readFileSync('data/chars.json'));
 let equipdata = JSON.parse(fs.readFileSync('data/equips.json'));
-let chardatagl = JSON.parse(fs.readFileSync('datagl/chars.json'));
+let chardatagl = fixDevNicknames(JSON.parse(fs.readFileSync('datagl/chars.json')));
 let equipdatagl = JSON.parse(fs.readFileSync('datagl/equips.json'));
 
 var range_names = [
@@ -27,6 +27,10 @@ var range_rarity = [
   3,
   2,
 ]
+
+// hotfix for typo in sheet
+const fixDevNicknames = (data) => data.map(char => Object.assign(char, { DevNicknames: char['DevNicknames'].replaceAll('/', '') }));
+
 const mergeData = (target, source) => {
   source.forEach(sourceElement => {
     let targetElement = target.find(targetElement => {
