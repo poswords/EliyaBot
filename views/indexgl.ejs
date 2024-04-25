@@ -119,9 +119,9 @@
 			<li id="btnListView" class="<% if (data.listview) { %>on<% } %>">
 				<%=t('ListView')%>
 			</li>
-			<!--<li id="btnChoiceView" class="<% if (data.choiceview) { %>on<% } %>">
+			<li id="btnChoiceView" class="<% if (data.choiceview) { %>on<% } %>">
                 <%=t('Choice')%>
-            </li>-->
+            </li>
 		</ul>
 		<article id="chars">
 			<ul id="filterCharAttribute" class="filterList">
@@ -168,6 +168,8 @@
 						<%=t('NoLimited')%>
 					</span><span class="show">
 						<%=t('ShowLimited')%>
+					<!-- </span><span class="meteor">
+						<%=t('ShowMeteor')%> -->
 					</span></li>
 				<li class="btnFilter btnNoLimited" data-filter="NoLimited" data-type="char">
 					<%=t('NoLimited')%>
@@ -175,6 +177,9 @@
 				<li class="btnFilter btnShowLimited" data-filter="Limited" data-type="char">
 					<%=t('ShowLimited')%>
 				</li>
+				<!-- <li class="btnFilter btnShowMeteor" data-filter="Meteor" data-type="char">
+					<%=t('ShowMeteor')%>
+				</li> -->
 				<li id="btnAltArt">
 					<%=t('Awaken')%>
 				</li>
@@ -228,6 +233,14 @@
 				</li>
 
 			</ul>
+			<section id="charChoiceSetA">
+				<h2>Choice</h2>
+				<span class="score"></span>
+				<div id="btnSelectAllSetA" class="btnSelectAll button">
+					<%=t('SelectAll')%>
+				</div>
+				<ul class="choiceSetA choiceSetList charList unitList"></ul>
+			</section>
 			<section id="charRarity5">
 				<h2><img src="/img/assets/sprites/rarity/star5.png"></h2>
 				<span class="score"></span>
@@ -620,7 +633,22 @@
 									</div>
 									<div class="AwakenLv5">
 										<%=t('AwakenLv5')%>: <span></span>
-									</div>									
+									</div>
+									<!-- <div class="EnhanceLv1">
+										<%=t('EnhanceLv1')%>: <span></span>
+									</div>
+									<div class="EnhanceLv70">
+										<%=t('EnhanceLv70')%>: <span></span>
+									</div>
+									<div class="EnhanceLv99">
+										<%=t('EnhanceLv99')%>: <span></span>
+									</div>	
+									<div class="EnhanceLv100">
+										<%=t('EnhanceLv100')%>: <span></span>
+									</div>													
+									<div class="EnhanceLv120">
+										<%=t('EnhanceLv120')%>: <span></span>
+									</div> -->
 									<div class="AbilitySoul">
 										<%=t('AbilitySoul')%>: <span></span>
 									</div>
@@ -637,7 +665,7 @@
 		var server = "<%=server%>";
 		<% if (data.listid) { %> listid = <%= data.listid %>; <% } %>
 			window.module = { };
-		var tls = { "GenerateImageURL": "<%=t('GenerateImageURL')%>", "GenerateShareURL": "<%=t('GenerateShareURL')%>", "ImageURLCopied": "<%=t('ImageURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "SelectAll": "<%=t('SelectAll')%>", "DeselectAll": "<%=t('DeselectAll')%>", "Wait": "<%=t('Wait')%>", "URLExpired": "<%=t('URLExpired')%>", "StanceAttacker": "<%=t('StanceAttacker')%>", "StanceHealer": "<%=t('StanceHealer')%>", "StanceBalance": "<%=t('StanceBalance')%>", "StanceJammer": "<%=t('StanceJammer')%>", "StanceSupporter": "<%=t('StanceSupporter')%>", "StanceTank": "<%=t('StanceTank')%>", "RaceAquatic": "<%=t('RaceAquatic')%>", "RaceBeast": "<%=t('RaceBeast')%>", "RaceDemon": "<%=t('RaceDemon')%>", "RaceDragon": "<%=t('RaceDragon')%>", "RaceHuman": "<%=t('RaceHuman')%>", "RaceMecha": "<%=t('RaceMecha')%>", "RacePlant": "<%=t('RacePlant')%>", "RaceSprite": "<%=t('RaceSprite')%>", "RaceUndead": "<%=t('RaceUndead')%>", "RaceYoukai": "<%=t('RaceYoukai')%>", "RoleSword": "Warrior", "RoleFist": "Bruiser", "RoleBow": "Deadeye", "RoleSupport": "<%=t('RoleSupport')%>", "RoleSpecial": "<%=t('RoleSpecial')%>", "AttributeFire": "<%=t('AttributeFire')%>", "AttributeWater": "<%=t('AttributeWater')%>", "AttributeThunder": "<%=t('AttributeThunder')%>", "AttributeWind": "<%=t('AttributeWind')%>", "AttributeLight": "<%=t('AttributeLight')%>", "AttributeDark": "<%=t('AttributeDark')%>", "AttributeAll": "<%=t('AttributeAll')%>", "GenderMale": "<%=t('GenderMale')%>", "GenderFemale": "<%=t('GenderFemale')%>", "GenderUnknown": "<%=t('GenderUnknown')%>", "WeaponGacha": "<%=t('WeaponGacha')%>", "Limited": "<%=t('Limited'),%>" }
+		var tls = { "GenerateImageURL": "<%=t('GenerateImageURL')%>", "GenerateShareURL": "<%=t('GenerateShareURL')%>", "ImageURLCopied": "<%=t('ImageURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "ShareURLCopied": "<%=t('ShareURLCopied')%>", "SelectAll": "<%=t('SelectAll')%>", "DeselectAll": "<%=t('DeselectAll')%>", "Wait": "<%=t('Wait')%>", "URLExpired": "<%=t('URLExpired')%>", "Meteor": "<%=t('Meteor')%>", "StanceAttacker": "<%=t('StanceAttacker')%>", "StanceHealer": "<%=t('StanceHealer')%>", "StanceBalance": "<%=t('StanceBalance')%>", "StanceJammer": "<%=t('StanceJammer')%>", "StanceSupporter": "<%=t('StanceSupporter')%>", "StanceTank": "<%=t('StanceTank')%>", "RaceAquatic": "<%=t('RaceAquatic')%>", "RaceBeast": "<%=t('RaceBeast')%>", "RaceDemon": "<%=t('RaceDemon')%>", "RaceDragon": "<%=t('RaceDragon')%>", "RaceHuman": "<%=t('RaceHuman')%>", "RaceMecha": "<%=t('RaceMecha')%>", "RacePlant": "<%=t('RacePlant')%>", "RaceSprite": "<%=t('RaceSprite')%>", "RaceUndead": "<%=t('RaceUndead')%>", "RaceYoukai": "<%=t('RaceYoukai')%>", "RoleSword": "Warrior", "RoleFist": "Bruiser", "RoleBow": "Deadeye", "RoleSupport": "<%=t('RoleSupport')%>", "RoleSpecial": "<%=t('RoleSpecial')%>", "AttributeFire": "<%=t('AttributeFire')%>", "AttributeWater": "<%=t('AttributeWater')%>", "AttributeThunder": "<%=t('AttributeThunder')%>", "AttributeWind": "<%=t('AttributeWind')%>", "AttributeLight": "<%=t('AttributeLight')%>", "AttributeDark": "<%=t('AttributeDark')%>", "AttributeAll": "<%=t('AttributeAll')%>", "GenderMale": "<%=t('GenderMale')%>", "GenderFemale": "<%=t('GenderFemale')%>", "GenderUnknown": "<%=t('GenderUnknown')%>", "WeaponGacha": "<%=t('WeaponGacha')%>", "Limited": "<%=t('Limited'),%>" }
 	</script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/jquery-3.4.1.min.js"></script>

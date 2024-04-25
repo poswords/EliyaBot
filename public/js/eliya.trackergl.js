@@ -85,9 +85,15 @@ $(document).ready(function () {
         if (unit.Ability4) {
           elem.addClass("ManaBoard2")
         }
+        if (unit.ChoiceSet) {
+          elem.addClass("Set" + unit.ChoiceSet);
+        }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
             elem.addClass("Limited")
+            if (unit.Obtain.includes(getTls("Meteor"))) {
+              elem.addClass("Meteor");
+            }
           } else {
             elem.addClass("NoLimited")
           }
@@ -209,6 +215,9 @@ $(document).ready(function () {
         }
         if (unit.AwakenLv5) {
           elem.addClass("HasAwakenLv5")
+        }
+        if (unit.EnhanceLv1) {
+          elem.addClass("HasEnhance")
         }
         if (unit.Obtain) {
           if (unit.Obtain.includes(getTls("Limited"))) {
@@ -366,7 +375,13 @@ $(document).ready(function () {
       } else if ($(this).is(".show")) {
         $(this).removeClass("show").addClass("no");
         $("#chars .btnNoLimited").addClass("on");
+        // $(this).removeClass("show").addClass("meteor");
+        // $("#chars .btnShowMeteor").addClass("on");
         $("#chars .btnShowLimited").removeClass("on");
+      // } else if ($(this).is(".meteor")) {
+      //   $(this).removeClass("meteor").addClass("no");
+      //   $("#chars .btnNoLimited").addClass("on");
+      //   $("#chars .btnShowMeteor").removeClass("on");
       } else if ($(this).is(".no")) {
         $(this).removeClass("no").addClass("off");
         $("#chars .btnNoLimited").removeClass("on");
@@ -554,6 +569,17 @@ $(document).ready(function () {
   $("#btnListView").on("click", function () {
     $(this).toggleClass('on');
     $('body').toggleClass('listView');
+  });
+  
+  $("#btnChoiceView").on("click", function () {
+    $(this).toggleClass('on');
+    $('body').toggleClass('choiceView');
+    if ($(this).is('.on')) {
+      $(".SetA").prependTo(".choiceSetA");
+    } else {
+      $(".choiceSetList .char").prependTo("#charRarity5 .charList");
+    }
+    updateCharScore();
   });
 
   $("#btnSave").on("click", function () {
