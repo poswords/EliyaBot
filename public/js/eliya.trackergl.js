@@ -184,11 +184,6 @@ $(document).ready(function () {
         socket.emit('get url', id);
       } else {
         var unitList = localStorage.getItem('charListGl');
-        // hotfix for typo in sheet poisoning some users' localStorage
-        if (unitList.includes('/')) {
-          unitList = unitList.replaceAll('/', '');
-          localStorage.setItem('charListGl', unitList);
-        }
         if (unitList) {
           setUnitList(unitList, 'char');
         }
