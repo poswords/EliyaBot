@@ -211,7 +211,7 @@ $(document).ready(function () {
         if (unit.AwakenLv5) {
           elem.addClass("HasAwakenLv5")
         }
-        if (unit.EnhanceLv1) {
+        if (unit.EnhanceLv99) {
           elem.addClass("HasEnhance")
         }
         if (unit.Obtain) {
