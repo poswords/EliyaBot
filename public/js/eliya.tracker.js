@@ -616,6 +616,9 @@ $(document).ready(function () {
 
 
   $("#btnGetShareURL").on("click", function () {
+
+    $("#errMsg").removeClass('hidden');
+    $("#errMsg").html("Database has been disabled.");
     $(this).removeClass("on");
     socket.emit('add url', {
       chars: getUnitList('char'),

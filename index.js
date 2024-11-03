@@ -425,7 +425,7 @@ const {
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
 })
-client.connect();
+/*client.connect();*/
 
 app.get('/', function (req, res) {
   res.render(viewFolder + 'index.ejs', {
